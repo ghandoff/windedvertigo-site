@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>winded.vertigo</title>
+  <meta name="description" content="A learning design collective dedicated to fostering human development through experiences with the interconnectedness of everything.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
+  <header class="header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span class="logo-text">winded.vertigo</span>
+      </a>
+      
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+      
+      <nav class="nav" id="main-nav">
+        <a href="/what/">what.</a>
+        <a href="/we/">we.</a>
+        <a href="/do/">do.</a>
+      </nav>
+    </div>
+  </header>
+  
+  <main id="main-content">
+    <div class="container">
+      <section class="hero">
+        <!-- Replace with your actual logo -->
+        <img src="/images/logo.png" alt="winded.vertigo" class="hero-logo" onerror="this.style.display='none'">
+        <h1 class="visually-hidden">winded.vertigo</h1>
+      </section>
+    </div>
+  </main>
+  
+  <footer class="footer">
+    <div class="container">
+      <p>© copyright winded.vertigo, 2024-2026. all rights reserved.</p>
+    </div>
+  </footer>
+  
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const nav = document.querySelector('.nav');
+    navToggle?.addEventListener('click', () => {
+      const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', !expanded);
+      nav.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>

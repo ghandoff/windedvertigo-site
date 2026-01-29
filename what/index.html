@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>what. – winded.vertigo</title>
+  <meta name="description" content="Learning is change. The winded.vertigo collective is dedicated to fostering human development through experiences with the interconnectedness of everything.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
+  <header class="header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span class="logo-text">winded.vertigo</span>
+      </a>
+      
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+      
+      <nav class="nav" id="main-nav">
+        <a href="/what/" class="active">what.</a>
+        <a href="/we/">we.</a>
+        <a href="/do/">do.</a>
+      </nav>
+    </div>
+  </header>
+  
+  <main id="main-content">
+    <div class="container content-narrow">
+      <header class="page-header">
+        <h1>what.</h1>
+      </header>
+      
+      <section class="content-section">
+        <h3>learning is change</h3>
+        <p>change can shake our foundations, and even make us feel dizzy from instability. we love that feeling of vertigo, as it is a signal of growth through change and a call for exploration. we seek this dizzy with vigor and want to support others who do as well by dodging obstacles and conventions that get in our way. we approach the precipice of uncertainty without pause but with breathless excitement: winded.vertigo</p>
+      </section>
+      
+      <section class="content-section">
+        <p>the winded.vertigo collective is dedicated to fostering human development through experiences with the interconnectedness of everything. we believe that learning through play is a transformative experience that unites individuals and communities. our mission is to support those committed to this holistic approach through the co-creation of playful, innovative, and impactful learning designs.</p>
+        
+        <p>we create learning ecosystems that thrive through diversity, as every interaction seeds opportunity for growth, connections, and lifelong learning. we are leaders of an educational transformation from conventional tests to the monitoring of playful learning processes, as it enhances the learning experience through feedback and design.</p>
+        
+        <p>we craft compelling stories, design refreshing research, and visualize insights from evidence. everything we do prepares our partners to gain support from their stakeholders—making a <em>yes</em> easier for administrators and policymakers.</p>
+        
+        <p>at winded.vertigo, we redefine learning, ensuring time is spent on engaging, exploring, and evolving together, transforming the educational landscape one playful leap at a time.</p>
+      </section>
+    </div>
+  </main>
+  
+  <footer class="footer">
+    <div class="container">
+      <p>© copyright winded.vertigo, 2024-2026. all rights reserved.</p>
+    </div>
+  </footer>
+  
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const nav = document.querySelector('.nav');
+    navToggle?.addEventListener('click', () => {
+      const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', !expanded);
+      nav.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>
