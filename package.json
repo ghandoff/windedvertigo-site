@@ -1,0 +1,11 @@
+{
+  "name": "windedvertigo-site",
+  "version": "1.0.0",
+  "description": "Static site for windedvertigo.com with Notion integration",
+  "scripts": {
+    "sync": "node scripts/sync-notion-services.js"
+  },
+  "dependencies": {
+    "@notionhq/client": "^2.2.0"
+  }
+}

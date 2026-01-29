@@ -1,25 +1,35 @@
 /* winded.vertigo - Static Site Styles */
+/* Based on Brand Guidelines - 18 February 2025 */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap');
 
 :root {
-  /* Dark, sophisticated palette matching original */
-  --bg-dark: #0a0a0a;
-  --bg-card: #111111;
-  --text-primary: #ffffff;
-  --text-secondary: #a0a0a0;
-  --accent: #e8e8e8;
-  --border: #222222;
-  
-  /* Typography */
-  --font-heading: 'Space Grotesk', system-ui, sans-serif;
-  --font-body: 'Inter', system-ui, sans-serif;
-  
+  /* Brand Colours */
+  --cadet-blue: #273248;
+  --redwood: #b15043;
+  --burnt-sienna: #cb7858;
+  --champagne: #ffebd2;
+  --white: #ffffff;
+
+  /* Semantic Colours */
+  --bg-primary: var(--cadet-blue);
+  --bg-card: #1e2738;
+  --text-primary: var(--white);
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --accent: var(--redwood);
+  --accent-secondary: var(--burnt-sienna);
+  --border: rgba(255, 255, 255, 0.1);
+
+  /* Typography - Inter */
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
   /* Spacing */
   --space-xs: 0.5rem;
   --space-sm: 1rem;
   --space-md: 2rem;
   --space-lg: 4rem;
   --space-xl: 6rem;
-  
+
   /* Layout */
   --max-width: 1200px;
   --content-width: 800px;
@@ -37,31 +47,34 @@ html {
 }
 
 body {
-  font-family: var(--font-body);
-  background: var(--bg-dark);
+  font-family: var(--font-primary);
+  background: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.7;
   font-size: 16px;
+  font-weight: 400;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* Typography */
+/* Typography - all lowercase per brand guidelines */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-  font-weight: 500;
-  line-height: 1.3;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  line-height: 1.2;
   margin-bottom: var(--space-sm);
+  text-transform: lowercase;
 }
 
-h1 { font-size: 2.5rem; }
+h1 { font-size: 3rem; }
 h2 { font-size: 2rem; }
-h3 { font-size: 1.5rem; }
+h3 { font-size: 1.25rem; }
 
 p {
   margin-bottom: var(--space-sm);
   color: var(--text-secondary);
+  font-weight: 400;
 }
 
 a {
@@ -91,9 +104,8 @@ a:hover {
   padding: var(--space-md) 0;
   position: sticky;
   top: 0;
-  background: var(--bg-dark);
+  background: var(--bg-primary);
   z-index: 100;
-  border-bottom: 1px solid var(--border);
 }
 
 .header-inner {
@@ -103,15 +115,15 @@ a:hover {
 }
 
 .logo img {
-  height: 50px;
+  height: 60px;
   width: auto;
 }
 
 .logo-text {
-  font-family: var(--font-heading);
-  font-size: 1.25rem;
+  font-family: var(--font-primary);
+  font-size: 1.1rem;
   font-weight: 500;
-  letter-spacing: 0.02em;
+  letter-spacing: -0.01em;
 }
 
 /* Navigation */
@@ -121,10 +133,12 @@ a:hover {
 }
 
 .nav a {
-  font-family: var(--font-heading);
+  font-family: var(--font-primary);
   font-size: 1rem;
+  font-weight: 700;
   padding: var(--space-xs) 0;
   position: relative;
+  text-transform: lowercase;
 }
 
 .nav a::after {
@@ -133,7 +147,7 @@ a:hover {
   bottom: 0;
   left: 0;
   width: 0;
-  height: 1px;
+  height: 2px;
   background: var(--text-primary);
   transition: width 0.3s ease;
 }
@@ -165,13 +179,26 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 60vh;
+  min-height: 70vh;
   text-align: center;
 }
 
 .hero-logo {
-  max-width: 300px;
+  max-width: 350px;
   margin-bottom: var(--space-md);
+}
+
+/* Home Navigation Links */
+.hero-nav {
+  display: flex;
+  gap: var(--space-lg);
+  margin-top: var(--space-md);
+}
+
+.hero-nav a {
+  font-size: 3rem;
+  font-weight: 700;
+  text-transform: lowercase;
 }
 
 /* Page Header */
@@ -182,9 +209,9 @@ main {
 }
 
 .page-header h1 {
-  font-size: 1.25rem;
-  text-transform: lowercase;
-  letter-spacing: 0.1em;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
   color: var(--text-secondary);
 }
 
@@ -200,6 +227,7 @@ main {
 
 .content-section p {
   font-size: 1.05rem;
+  line-height: 1.8;
 }
 
 /* Team Grid (We page) */
@@ -218,20 +246,26 @@ main {
 }
 
 .team-member h2 {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   margin-bottom: var(--space-xs);
+  text-transform: lowercase;
 }
 
 .team-member .role {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--text-secondary);
   text-transform: lowercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.02em;
   margin-bottom: var(--space-md);
+  font-weight: 400;
 }
 
 .team-member .bio {
   margin-bottom: var(--space-md);
+}
+
+.team-member .bio p {
+  line-height: 1.8;
 }
 
 .team-member .links {
@@ -240,7 +274,7 @@ main {
 
 .team-member .links a {
   font-size: 0.9rem;
-  color: var(--accent);
+  color: var(--accent-secondary);
   margin-right: var(--space-md);
 }
 
@@ -253,52 +287,63 @@ main {
 .tag {
   font-size: 0.75rem;
   padding: 0.25rem 0.75rem;
-  background: var(--bg-card);
+  background: transparent;
   border: 1px solid var(--border);
   border-radius: 2rem;
   color: var(--text-secondary);
+  font-weight: 400;
 }
 
 /* Services Grid (Do page) */
 .services-intro {
   margin-bottom: var(--space-lg);
-  font-size: 1.1rem;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--text-primary);
+  font-weight: 700;
 }
 
 .services-grid {
   display: grid;
-  gap: var(--space-md);
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-lg);
   margin-bottom: var(--space-xl);
 }
 
 .service {
-  padding: var(--space-md);
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  transition: border-color 0.3s ease;
+  text-align: center;
 }
 
-.service:hover {
-  border-color: var(--text-secondary);
+.service-image {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  margin-bottom: var(--space-sm);
 }
 
 .service h3 {
   font-size: 1.1rem;
+  font-weight: 700;
   margin-bottom: var(--space-sm);
+  color: var(--accent);
+  text-transform: lowercase;
 }
 
 .service p {
   font-size: 0.95rem;
+  line-height: 1.7;
+  text-align: center;
 }
 
 /* Projects Section */
 .projects-section h2 {
-  font-size: 1.25rem;
-  text-transform: lowercase;
+  font-size: 1rem;
+  font-weight: 400;
   letter-spacing: 0.05em;
   margin-bottom: var(--space-md);
   padding-bottom: var(--space-sm);
   border-bottom: 1px solid var(--border);
+  color: var(--text-secondary);
 }
 
 .projects-grid {
@@ -309,13 +354,12 @@ main {
 
 .project-card {
   background: var(--bg-card);
-  border: 1px solid var(--border);
   overflow: hidden;
-  transition: border-color 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .project-card:hover {
-  border-color: var(--text-secondary);
+  transform: translateY(-4px);
 }
 
 .project-card-image {
@@ -341,6 +385,7 @@ main {
 .project-card h3 {
   font-size: 1.1rem;
   margin-bottom: var(--space-xs);
+  text-transform: lowercase;
 }
 
 .project-card p {
@@ -350,7 +395,7 @@ main {
 
 .read-more {
   font-size: 0.85rem;
-  color: var(--accent);
+  color: var(--accent-secondary);
 }
 
 /* Project Detail Page */
@@ -365,9 +410,14 @@ main {
 }
 
 .project-detail h2 {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   margin-top: var(--space-lg);
   margin-bottom: var(--space-sm);
+  color: var(--accent);
+}
+
+.project-detail p {
+  line-height: 1.8;
 }
 
 .project-detail img {
@@ -383,10 +433,29 @@ main {
   margin-top: auto;
 }
 
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .footer p {
   font-size: 0.85rem;
   color: var(--text-secondary);
-  text-align: center;
+}
+
+.social-links {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.social-links a {
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
+}
+
+.social-links a:hover {
+  color: var(--text-primary);
 }
 
 /* Responsive */
@@ -395,36 +464,49 @@ main {
     --space-lg: 3rem;
     --space-xl: 4rem;
   }
-  
+
   h1 { font-size: 2rem; }
   h2 { font-size: 1.5rem; }
-  
+
   .nav {
     display: none;
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
-    background: var(--bg-dark);
+    background: var(--bg-primary);
     flex-direction: column;
     padding: var(--space-md);
     border-bottom: 1px solid var(--border);
   }
-  
+
   .nav.active {
     display: flex;
   }
-  
+
   .nav-toggle {
     display: block;
   }
-  
+
   .hero {
-    min-height: 50vh;
+    min-height: 60vh;
   }
-  
+
   .hero-logo {
-    max-width: 200px;
+    max-width: 250px;
+  }
+
+  .hero-nav {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .hero-nav a {
+    font-size: 2rem;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -434,7 +516,7 @@ main {
   top: -40px;
   left: 0;
   background: var(--text-primary);
-  color: var(--bg-dark);
+  color: var(--bg-primary);
   padding: var(--space-xs) var(--space-sm);
   z-index: 1000;
   transition: top 0.3s;
