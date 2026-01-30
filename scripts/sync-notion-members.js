@@ -133,12 +133,14 @@ function generateMemberHTML(member) {
         <!-- ${member.name} -->
         <article class="team-member">
           ${headshotHTML}
+                    <div class="member-content">
           <h2>${nameWithPronouns}${pronounsText ? '' : ''}</h2>
           <p class="role">${member.role.toLowerCase()}</p>
           <div class="bio">
             ${bioParagraphs || '<p></p>'}
           </div>
           ${tagsHTML}
+                    </div>
         </article>`;
 }
 
