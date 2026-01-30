@@ -53,7 +53,7 @@ async function updateDoPage(servicesHTML) {
 
   // Find and replace the services grid content
   const startMarker = '<div class="services-grid">';
-  const endMarker = '</div>\n      \n      <section class="projects-section">';
+  const endMarker = '<section class="projects-section">';
 
   const startIndex = html.indexOf(startMarker);
   const endIndex = html.indexOf(endMarker);
@@ -64,7 +64,7 @@ async function updateDoPage(servicesHTML) {
   }
 
   const newHTML = html.substring(0, startIndex + startMarker.length) +
-    '\n' + servicesHTML + '\n      ' +
+    '\n' + servicesHTML + '\n      </div>\n\n      ' +
     html.substring(endIndex);
 
   fs.writeFileSync(doPagePath, newHTML);
