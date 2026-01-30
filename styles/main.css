@@ -285,8 +285,8 @@ body.home main {
 }
 
 .member-headshot {
-  width: 250px;
-  height: 250px;
+  width: 280px;
+  height: 280px;
   border-radius: 50%;
   object-fit: cover;
 }
