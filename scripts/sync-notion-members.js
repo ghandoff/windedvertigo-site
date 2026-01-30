@@ -11,7 +11,7 @@ const MEMBERS_DATABASE_ID = '9d0e6ae1d7574503b611a5c289e44f5b';
 // Define the order of members (by name)
 const MEMBER_ORDER = [
   'garrett jaeger',
-  'maría altamirano',
+  'maria altamirano',
   'jamie galpin',
   'lamis sabra',
   'aaron fruit',
