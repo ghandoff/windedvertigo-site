@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles/main.css?v=6">
+  <link rel="stylesheet" href="../styles/main.css?v=7">
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -210,45 +210,54 @@
       nav.classList.toggle('active');
     });
 
-    // See more/less toggle for bios - only when bio is taller than headshot
+    // See more/less toggle for bios - only when total content exceeds headshot height
     document.querySelectorAll('.team-member').forEach(member => {
       const headshot = member.querySelector('.member-headshot');
       const bio = member.querySelector('.bio');
       const content = member.querySelector('.member-content');
 
-      if (!headshot || !bio) return;
+      if (!headshot || !bio || !content) return;
 
       // Wait for images to load to get accurate height
       const checkHeight = () => {
         const headshotHeight = headshot.offsetHeight;
-        // Calculate available height for bio (headshot height minus name, role, and spacing)
-        const name = member.querySelector('h2');
-        const role = member.querySelector('.role');
-        const nameHeight = name ? name.offsetHeight : 0;
-        const roleHeight = role ? role.offsetHeight : 0;
-        const spacing = 60; // Approximate spacing/margins
-        const availableHeight = headshotHeight - nameHeight - roleHeight - spacing;
+        const contentHeight = content.scrollHeight;
 
-        // Get bio's natural height
-        const bioNaturalHeight = bio.scrollHeight;
+        // Only add toggle if content column is taller than headshot
+        if (contentHeight > headshotHeight + 50) {
+          // Calculate how much we need to trim from the bio
+          const name = member.querySelector('h2');
+          const role = member.querySelector('.role');
+          const links = member.querySelector('.links');
+          const tags = member.querySelector('.tags');
 
-        // Only truncate if bio is taller than available space
-        if (bioNaturalHeight > availableHeight && availableHeight > 100) {
-          bio.classList.add('truncated');
-          bio.style.maxHeight = availableHeight + 'px';
+          const nameHeight = name ? name.offsetHeight : 0;
+          const roleHeight = role ? role.offsetHeight : 0;
+          const linksHeight = links ? links.offsetHeight : 0;
+          const tagsHeight = tags ? tags.offsetHeight : 0;
+          const buttonHeight = 40; // Space for see more button
+          const spacing = 40; // Margins between elements
 
-          const btn = document.createElement('button');
-          btn.className = 'see-more-btn';
-          btn.textContent = 'see more...';
-          btn.setAttribute('aria-expanded', 'false');
+          // Bio should fill remaining space up to headshot height
+          const maxBioHeight = headshotHeight - nameHeight - roleHeight - linksHeight - tagsHeight - buttonHeight - spacing;
 
-          btn.addEventListener('click', () => {
-            const isExpanded = bio.classList.toggle('expanded');
-            btn.textContent = isExpanded ? 'see less' : 'see more...';
-            btn.setAttribute('aria-expanded', isExpanded);
-          });
+          if (maxBioHeight > 100) {
+            bio.classList.add('truncated');
+            bio.style.maxHeight = maxBioHeight + 'px';
 
-          bio.parentNode.insertBefore(btn, bio.nextSibling);
+            const btn = document.createElement('button');
+            btn.className = 'see-more-btn';
+            btn.textContent = 'see more...';
+            btn.setAttribute('aria-expanded', 'false');
+
+            btn.addEventListener('click', () => {
+              const isExpanded = bio.classList.toggle('expanded');
+              btn.textContent = isExpanded ? 'see less' : 'see more...';
+              btn.setAttribute('aria-expanded', isExpanded);
+            });
+
+            bio.parentNode.insertBefore(btn, bio.nextSibling);
+          }
         }
       };
 
