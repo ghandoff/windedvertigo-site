@@ -59,7 +59,7 @@ async function fetchMembers() {
     const role = props['company role']?.rich_text?.[0]?.plain_text || '';
 
     // Get bio
-    const bio = props['bio']?.rich_text?.[0]?.plain_text || '';
+    const bio = props['bio']?.rich_text?.map(t => t.plain_text).join('') || '';
 
     // Get pronouns
     const pronouns = props['pronouns']?.select?.name || '';
