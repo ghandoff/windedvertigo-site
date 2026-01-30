@@ -248,11 +248,41 @@ body.home main {
 
 .team-member .bio {
   margin-bottom: var(--space-md);
+  position: relative;
+  max-height: 6.8em;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.team-member .bio.expanded {
+  max-height: 1000px;
 }
 
 .team-member .bio p {
   line-height: 1.7;
   color: var(--text-primary);
+}
+
+.team-member .bio p:last-child {
+  margin-bottom: 0;
+}
+
+/* See more button */
+.see-more-btn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: var(--space-sm);
+  text-transform: lowercase;
+  transition: color 0.2s ease;
+}
+
+.see-more-btn:hover {
+  color: var(--champagne);
 }
 
 .team-member .links {
@@ -266,7 +296,7 @@ body.home main {
 }
 
 .team-member .links a::before {
-  content: 'â ';
+  content: '◉ ';
 }
 
 /* Member Photos */
@@ -303,7 +333,7 @@ body.home main {
 }
 
 .tag::before {
-  content: 'â ';
+  content: '✔ ';
   color: var(--text-secondary);
   margin-right: 0.25rem;
 }
@@ -493,6 +523,11 @@ body.home main {
 
   .tags {
     justify-content: center;
+  }
+
+  .see-more-btn {
+    display: block;
+    margin: 0 auto var(--space-sm);
   }
 
   .services-grid {
