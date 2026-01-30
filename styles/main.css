@@ -30,9 +30,9 @@
   --space-lg: 50px;
   --space-xl: 100px;
 
-  /* Layout - wider to match original site */
+  /* Layout - narrower for we page to match original site */
   --max-width: 1600px;
-  --content-width: 1400px;
+  --content-width: 1000px;
   --edge-padding: 30px;
 }
 
@@ -249,13 +249,17 @@ body.home main {
 .team-member .bio {
   margin-bottom: var(--space-md);
   position: relative;
-  max-height: 6.8em;
+}
+
+/* Truncated bio - height set dynamically via JS to match headshot */
+.team-member .bio.truncated {
   overflow: hidden;
   transition: max-height 0.3s ease;
 }
 
 .team-member .bio.expanded {
-  max-height: 1000px;
+  max-height: none !important;
+  overflow: visible;
 }
 
 .team-member .bio p {
@@ -296,7 +300,7 @@ body.home main {
 }
 
 .team-member .links a::before {
-  content: '◉ ';
+  content: 'â ';
 }
 
 /* Member Photos */
@@ -333,7 +337,7 @@ body.home main {
 }
 
 .tag::before {
-  content: '✔ ';
+  content: 'â ';
   color: var(--text-secondary);
   margin-right: 0.25rem;
 }
