@@ -22,7 +22,7 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install @notionhq/client
+        run: npm install @notionhq/client node-fetch
 
       - name: Sync services from Notion
         env:

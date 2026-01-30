@@ -52,7 +52,7 @@ body {
   line-height: 1.7;
   font-size: 16px;
   font-weight: 400;
-  min-height: 100vh;
+  min-height: calc(100vh - 180px);
   display: flex;
   flex-direction: column;
 }
@@ -71,7 +71,7 @@ h3 { font-size: 1.25rem; }
 
 p {
   margin-bottom: var(--space-sm);
-  color: var(--text-secondary);
+  color: var(--accent);
   font-weight: 400;
 }
 
@@ -116,7 +116,7 @@ a:hover {
 }
 
 .logo-img {
-  height: 70px;
+  height: 100px;
   width: auto;
 }
 
@@ -200,7 +200,7 @@ body.home main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: calc(100vh - 180px);
   text-align: center;
 }
 
@@ -215,7 +215,7 @@ body.home main {
 }
 
 .hero-nav a {
-  font-size: 5rem;
+  font-size: 7rem;
   font-weight: 700;
   text-transform: lowercase;
   transition: color 0.2s ease;
@@ -261,11 +261,12 @@ body.home main {
 
 .team-member .role {
   font-size: 0.85rem;
-  color: var(--text-secondary);
+  color: var(--accent);
   text-transform: lowercase;
   letter-spacing: 0.02em;
   margin-bottom: var(--space-md);
   font-weight: 400;
+  font-style: italic;
 }
 
 .team-member .bio {
@@ -309,7 +310,7 @@ body.home main {
   background: transparent;
   border: 1px solid var(--border);
   border-radius: 2rem;
-  color: var(--text-secondary);
+  color: var(--accent);
   font-weight: 400;
 }
 
@@ -360,7 +361,7 @@ body.home main {
   margin-bottom: var(--space-md);
   padding-bottom: var(--space-sm);
   border-bottom: 1px solid var(--border);
-  color: var(--text-secondary);
+  color: var(--accent);
 }
 
 .projects-grid {
@@ -386,7 +387,7 @@ body.home main {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-secondary);
+  color: var(--accent);
   font-size: 0.8rem;
 }
 
@@ -430,7 +431,7 @@ body.home main {
 
 .footer p {
   font-size: 0.85rem;
-  color: var(--text-secondary);
+  color: var(--accent);
 }
 
 .social-links {
@@ -439,7 +440,7 @@ body.home main {
 }
 
 .social-links a {
-  color: var(--text-secondary);
+  color: var(--accent);
   transition: color 0.2s ease;
 }
 
@@ -481,7 +482,7 @@ body.home main {
   }
 
   .hero {
-    min-height: 100vh;
+    min-height: calc(100vh - 180px);
   }
 
   .hero-logo {
