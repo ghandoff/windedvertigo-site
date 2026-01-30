@@ -4,7 +4,7 @@ const path = require('path');
 const https = require('https');
 
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
-const MEMBERS_DATABASE_ID = 'cc118d3a-960e-4cb6-b78e-f2709f3c64b7';
+const MEMBERS_DATABASE_ID = '9d0e6ae1d7574503b611a5c289e44f5b';
 
 const MEMBER_ORDER = [
   'garrett jaeger',
