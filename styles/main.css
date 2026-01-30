@@ -2,6 +2,7 @@
 /* Based on Brand Guidelines - 18 February 2025 */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css');
 
 :root {
   /* Brand Colours */
@@ -275,18 +276,19 @@ body.home main {
 .see-more-btn {
   background: none;
   border: none;
-  color: var(--accent);
+  color: var(--text-secondary);
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 400;
   cursor: pointer;
   padding: 0;
   margin-bottom: var(--space-sm);
   text-transform: lowercase;
   transition: color 0.2s ease;
+  font-style: italic;
 }
 
 .see-more-btn:hover {
-  color: var(--champagne);
+  color: var(--text-primary);
 }
 
 .team-member .links {
@@ -300,7 +302,9 @@ body.home main {
 }
 
 .team-member .links a::before {
-  content: 'â ';
+  font-family: "Ionicons";
+  content: "\f41a";
+  margin-right: 0.4rem;
 }
 
 /* Member Photos */
@@ -337,9 +341,11 @@ body.home main {
 }
 
 .tag::before {
-  content: 'â ';
-  color: var(--text-secondary);
-  margin-right: 0.25rem;
+  font-family: "Ionicons";
+  content: "\f35c";
+  color: #6b8e6b;
+  margin-right: 0.4rem;
+  font-size: 0.9em;
 }
 
 /* Services Grid (Do page) */
