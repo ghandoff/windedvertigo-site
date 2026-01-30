@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
-const databaseId = '1760a580de0b800bab35d7eb81e70102';
+const databaseId = '28fe4ee74ba480869709d4d364d388e5';
 
 async function getServices() {
   const response = await notion.databases.query({
