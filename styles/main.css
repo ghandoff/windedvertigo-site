@@ -26,9 +26,9 @@
   /* Spacing */
   --space-xs: 0.5rem;
   --space-sm: 1rem;
-  --space-md: 2rem;
-  --space-lg: 4rem;
-  --space-xl: 6rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
 
   /* Layout */
   --max-width: 1200px;
@@ -50,7 +50,7 @@ body {
   font-family: var(--font-primary);
   background: var(--bg-primary);
   color: var(--text-primary);
-  line-height: 1.7;
+  line-height: 1.5;
   font-size: 16px;
   font-weight: 400;
   min-height: 100vh;
@@ -136,27 +136,17 @@ a:hover {
   font-size: 1.5rem;
   font-weight: 700;
   padding: var(--space-xs) 0;
-  position: relative;
   text-transform: lowercase;
-}
-
-.nav a::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--text-primary);
-  transition: width 0.3s ease;
+  color: var(--white);
+  transition: color 0.2s ease;
 }
 
 .nav a:hover {
   color: var(--champagne);
 }
 
-.nav a.active::after {
-  width: 100%;
+.nav a.active {
+  color: var(--redwood);
 }
 
 /* Mobile nav toggle */
@@ -231,11 +221,6 @@ body.home main {
   grid-template-columns: 280px 1fr;
   gap: var(--space-lg);
   padding-bottom: var(--space-xl);
-  border-bottom: 1px solid var(--border);
-}
-
-.team-member:last-child {
-  border-bottom: none;
 }
 
 .team-member h2 {
@@ -259,7 +244,7 @@ body.home main {
 }
 
 .team-member .bio p {
-  line-height: 1.8;
+  line-height: 1.5;
   color: var(--text-secondary);
 }
 
@@ -285,8 +270,8 @@ body.home main {
 }
 
 .member-headshot {
-  width: 280px;
-  height: 280px;
+  width: 250px;
+  height: 250px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -320,7 +305,7 @@ body.home main {
 .services-intro {
   margin-bottom: var(--space-lg);
   font-size: 1.15rem;
-  line-height: 1.8;
+  line-height: 1.5;
   color: var(--text-primary);
   font-weight: 700;
 }
@@ -346,7 +331,7 @@ body.home main {
 
 .service p {
   font-size: 0.95rem;
-  line-height: 1.7;
+  line-height: 1.5;
   text-align: center;
   color: var(--text-secondary);
 }
@@ -356,8 +341,6 @@ body.home main {
   font-size: 1rem;
   font-weight: 400;
   margin-bottom: var(--space-md);
-  padding-bottom: var(--space-sm);
-  border-bottom: 1px solid var(--border);
   color: var(--text-secondary);
 }
 
