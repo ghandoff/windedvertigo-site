@@ -1,12 +1,12 @@
-name: Sync Notion Services
+name: Sync Notion Content
 
 on:
   schedule:
     - cron: '0 6 * * *'
   workflow_dispatch:
 
-  permissions:
-    contents: write
+permissions:
+  contents: write
 
 jobs:
   sync:
@@ -27,12 +27,16 @@ jobs:
       - name: Sync services from Notion
         env:
           NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
-          NOTION_DATABASE_ID: 28fe4ee74ba480869709d4d364d388e5
         run: node scripts/sync-notion-services.js
+
+      - name: Sync members from Notion
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+        run: node scripts/sync-notion-members.js
 
       - name: Commit and push changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add -A
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-sync services from Notion" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-sync from Notion" && git push)
