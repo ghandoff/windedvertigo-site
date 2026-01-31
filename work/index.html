@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>work. – winded.vertigo</title>
+  <meta name="description" content="Selected work from winded.vertigo – learning design, research, and evaluation projects.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/main.css?v=12">
+
+  <style>
+    .work-hero {
+      padding: 60px 0 40px;
+      text-align: center;
+    }
+
+    .work-title {
+      font-size: 48px;
+      font-weight: 700;
+      text-transform: lowercase;
+      margin-bottom: 16px;
+    }
+
+    .work-subtitle {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      padding: 40px 0 80px;
+    }
+
+    .work-card {
+      background: #1e2738;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      scroll-margin-top: 100px;
+    }
+
+    .work-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .work-card-media {
+      height: 180px;
+      background: #3a4459;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .work-card-media::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(177, 80, 67, 0.1), rgba(203, 120, 88, 0.2));
+    }
+
+    .work-card-body {
+      padding: 24px;
+    }
+
+    .work-card-quadrant {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #cb7858;
+      margin-bottom: 8px;
+    }
+
+    .work-card-title {
+      font-size: 20px;
+      font-weight: 600;
+      text-transform: lowercase;
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .work-card-type {
+      font-size: 12px;
+      color: var(--accent, #b15043);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    .work-card-desc {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .work-card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: var(--accent, #b15043);
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: lowercase;
+      border-radius: 4px;
+      transition: background 0.2s ease;
+    }
+
+    .work-card-cta:hover {
+      background: #cb7858;
+    }
+
+    .work-card-cta.coming-soon {
+      background: #3a4459;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .work-section-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffebd2;
+      text-transform: lowercase;
+      letter-spacing: 0.5px;
+      padding-top: 40px;
+      margin-bottom: -8px;
+    }
+
+    .work-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 40px 0 0;
+    }
+
+    .work-cta-section {
+      text-align: center;
+      padding: 60px 0 80px;
+    }
+
+    .work-cta-text {
+      font-size: 20px;
+      margin-bottom: 24px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .work-cta-btn {
+      display: inline-block;
+      padding: 14px 32px;
+      background: var(--accent, #b15043);
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      text-transform: lowercase;
+      border-radius: 4px;
+      transition: background 0.2s ease;
+    }
+
+    .work-cta-btn:hover {
+      background: #cb7858;
+    }
+
+    @media (max-width: 600px) {
+      .work-hero {
+        padding: 40px 0 24px;
+      }
+      .work-title {
+        font-size: 36px;
+      }
+      .work-subtitle {
+        font-size: 16px;
+      }
+      .work-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 32px 0 60px;
+      }
+      .work-card-media {
+        height: 140px;
+        font-size: 48px;
+      }
+      .work-card-body {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="../" class="logo">
+        <img src="../images/logo.png" alt="winded.vertigo" class="logo-img">
+      </a>
+
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+
+      <nav class="nav" id="main-nav">
+        <a href="../what/">what.</a>
+        <a href="../we/">we.</a>
+        <a href="../do/">do.</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="container">
+      <section class="work-hero">
+        <h1 class="work-title">selected work.</h1>
+        <p class="work-subtitle">a glimpse into how we design learning experiences, evaluate impact, and build products that teach through doing.</p>
+      </section>
+
+      <div class="work-grid">
+        <!-- PRME Workshop -->
+        <article class="work-card" id="prme-workshop">
+          <div class="work-card-media">📄</div>
+          <div class="work-card-body">
+            <span class="work-card-quadrant">people × design</span>
+            <h2 class="work-card-title">PRME active learning workshop</h2>
+            <p class="work-card-type">facilitation kit • PDF</p>
+            <p class="work-card-desc">A 3-hour workshop designed for business school faculty to integrate sustainability principles into their teaching practice. Co-designed with educators across 12 institutions.</p>
+            <a href="#" class="work-card-cta coming-soon">coming soon</a>
+          </div>
+        </article>
+
+        <!-- Play-based Learning Session -->
+        <article class="work-card" id="play-based-session">
+          <div class="work-card-media">🎬</div>
+          <div class="work-card-body">
+            <span class="work-card-quadrant">people × design</span>
+            <h2 class="work-card-title">play-based learning session</h2>
+            <p class="work-card-type">video walkthrough</p>
+            <p class="work-card-desc">Watch how we facilitated a playful learning experience for 40 educators, using game mechanics to explore complex systems thinking.</p>
+            <a href="#" class="work-card-cta coming-soon">coming soon</a>
+          </div>
+        </article>
+
+        <!-- Programme Impact Report -->
+        <article class="work-card" id="impact-report">
+          <div class="work-card-media">📊</div>
+          <div class="work-card-body">
+            <span class="work-card-quadrant">people × research</span>
+            <h2 class="work-card-title">programme impact report</h2>
+            <p class="work-card-type">findings deck • PDF</p>
+            <p class="work-card-desc">A comprehensive evaluation of a 6-month leadership programme, showing 34% improvement in systems thinking and 28% increase in collaborative problem-solving.</p>
+            <a href="#" class="work-card-cta coming-soon">coming soon</a>
+          </div>
+        </article>
+
+        <!-- MEL Dashboard -->
+        <article class="work-card" id="mel-dashboard">
+          <div class="work-card-media">📈</div>
+          <div class="work-card-body">
+            <span class="work-card-quadrant">people × research</span>
+            <h2 class="work-card-title">MEL dashboard</h2>
+            <p class="work-card-type">live data • dashboard</p>
+            <p class="work-card-desc">An interactive monitoring dashboard that tracks participant engagement, learning outcomes, and satisfaction in real-time across multiple cohorts.</p>
+            <a href="#" class="work-card-cta coming-soon">coming soon</a>
+          </div>
+        </article>
+
+        <!-- Learning Game Prototype -->
+        <article class="work-card" id="learning-game">
+          <div class="work-card-media">🎮</div>
+          <div class="work-card-body">
+            <span class="work-card-quadrant">product × design</span>
+            <h2 class="work-card-title">learning game prototype</h2>
+            <p class="work-card-type">interactive demo</p>
+            <p class="work-card-desc">A playable prototype of a card game that teaches climate systems thinking, tested with 200+ players across 5 iteration cycles.</p>
+            <a href="#" class="work-card-cta coming-soon">coming soon</a>
+          </div>
+        </article>
+
+        <!-- Design Handoff Spec -->
+        <article class="work-card" id="design-handoff">
+          <div class="work-card-media">🎨</div>
+          <div class="work-card-body">
+            <span class="work-card-quadrant">product × design</span>
+            <h2 class="work-card-title">design handoff spec</h2>
+            <p class="work-card-type">figma file</p>
+            <p class="work-card-desc">A comprehensive design system and implementation guide for an educational app, including component library, interaction patterns, and accessibility annotations.</p>
+            <a href="#" class="work-card-cta coming-soon">coming soon</a>
+          </div>
+        </article>
+
+        <!-- UDL Audit Report -->
+        <article class="work-card" id="udl-audit">
+          <div class="work-card-media">✅</div>
+          <div class="work-card-body">
+            <span class="work-card-quadrant">product × research</span>
+            <h2 class="work-card-title">UDL audit report</h2>
+            <p class="work-card-type">assessment • PDF</p>
+            <p class="work-card-desc">A comprehensive accessibility audit of a museum's interactive exhibits, with specific recommendations that improved UDL scores from 62% to 89%.</p>
+            <a href="#" class="work-card-cta coming-soon">coming soon</a>
+          </div>
+        </article>
+
+        <!-- Usability Findings Video -->
+        <article class="work-card" id="usability-video">
+          <div class="work-card-media">🎬</div>
+          <div class="work-card-body">
+            <span class="work-card-quadrant">product × research</span>
+            <h2 class="work-card-title">usability findings video</h2>
+            <p class="work-card-type">user testing clips</p>
+            <p class="work-card-desc">A highlight reel of user testing sessions showing key friction points, with timestamps linked to specific recommendations.</p>
+            <a href="#" class="work-card-cta coming-soon">coming soon</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="work-divider"></div>
+
+      <section class="work-cta-section">
+        <p class="work-cta-text">want to see how we can help with your project?</p>
+        <a href="../do/" class="work-cta-btn">build your package →</a>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© copyright winded.vertigo, 2024-2026. all rights reserved. <a href="../work/" style="color: rgba(255,255,255,0.5); text-decoration: none; margin-left: 8px;">work.</a></p>
+      <div class="social-links">
+        <a href="https://www.instagram.com/winded.vertigo/" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a href="https://www.facebook.com/windedvertigo" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-3 7h-1.924c-.615 0-1.076.252-1.076.889v1.111h3l-.238 3h-2.762v8h-3v-8h-2v-3h2v-1.923c0-2.022 1.064-3.077 3.461-3.077h2.539v3z"/></svg></a>
+        <a href="https://www.linkedin.com/company/winded-vertigo/" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+        <a href="https://windedvertigo.substack.com/" aria-label="Substack"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const nav = document.querySelector('.nav');
+    navToggle?.addEventListener('click', () => {
+      const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', !expanded);
+      nav.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>
