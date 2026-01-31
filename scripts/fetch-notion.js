@@ -13,9 +13,9 @@ const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
 // YOUR NOTION DATABASE IDs
 const DATABASE_IDS = {
-  quadrants: 'cd46b216-0aa1-4bc9-bd95-85af0abe5245',
-  outcomes: 'e7ca178b-986a-4436-a869-554db20196f5',
-  examples: 'fd9ce109-2b4b-4a85-b0a5-04d21e04a51e',
+  quadrants: '283a8f2d-4604-4edc-aea0-979ade733c6f',
+  outcomes: 'a4f00dbc-6164-48ad-ae10-493f583e2639',
+  examples: '3be4b6f2-8747-4644-9c15-4a10be5e759b',
 };
 
 // FETCH FUNCTIONS
