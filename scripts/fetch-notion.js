@@ -11,11 +11,11 @@ const path = require('path');
 
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
-// YOUR NOTION DATABASE IDs
+// YOUR NOTION DATABASE IDs (from Notion page URLs)
 const DATABASE_IDS = {
-  quadrants: '283a8f2d-4604-4edc-aea0-979ade733c6f',
-  outcomes: 'a4f00dbc-6164-48ad-ae10-493f583e2639',
-  examples: '3be4b6f2-8747-4644-9c15-4a10be5e759b',
+  quadrants: '1c171d25825b418caf94805dc1568352',
+  outcomes: 'b8ff41d2d4ef41559e01c2d952a3a1da',
+  examples: 'de0bc6fe83d54d71a91b31d8f1eb73bd',
 };
 
 // FETCH FUNCTIONS
