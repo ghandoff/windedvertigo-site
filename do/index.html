@@ -123,7 +123,15 @@
       justify-content: center;
     }
 
-    .choice-btn:hover {
+    /* Only apply hover on devices that support it (not touch) */
+    @media (hover: hover) {
+      .choice-btn:hover {
+        background: var(--accent, #b15043);
+        border-color: var(--accent, #b15043);
+      }
+    }
+
+    .choice-btn:active {
       background: var(--accent, #b15043);
       border-color: var(--accent, #b15043);
     }
@@ -547,6 +555,36 @@
       }
       .cta-btn {
         width: 100%;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .step-container {
+        min-height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        padding-bottom: 40px;
+      }
+      .question-area {
+        position: static;
+        padding-top: 20px;
+      }
+      .matrix-area {
+        position: static;
+      }
+      .question {
+        font-size: 20px;
+      }
+      .choice-btn {
+        font-size: 13px;
+        padding: 10px 12px;
+      }
+      .choice-btn.large {
+        height: 48px;
+      }
+      .choice-btn.small {
+        height: 42px;
       }
     }
   </style>
@@ -974,9 +1012,11 @@
 
           if (state.step === 1) {
             state.audience = value;
+            btn.classList.add('selected');
             setTimeout(() => { state.step = 2; render(); }, 350);
           } else if (state.step === 2) {
             state.mode = value;
+            btn.classList.add('selected');
             setTimeout(() => { state.step = 3; render(); }, 350);
           } else if (state.step === 3) {
             toggleArray(state.focus, value);
