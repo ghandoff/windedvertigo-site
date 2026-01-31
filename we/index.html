@@ -216,6 +216,32 @@
       navToggle.setAttribute('aria-expanded', !expanded);
       nav.classList.toggle('active');
     });
+
+    // Bio truncation with "see more" functionality
+    const MAX_BIO_HEIGHT = 150;
+    document.querySelectorAll('.team-member .bio').forEach(bio => {
+      const fullHeight = bio.scrollHeight;
+      if (fullHeight > MAX_BIO_HEIGHT) {
+        bio.classList.add('truncated');
+        bio.style.maxHeight = MAX_BIO_HEIGHT + 'px';
+
+        const btn = document.createElement('button');
+        btn.className = 'see-more-btn';
+        btn.textContent = 'see more';
+        btn.addEventListener('click', () => {
+          if (bio.classList.contains('expanded')) {
+            bio.classList.remove('expanded');
+            bio.style.maxHeight = MAX_BIO_HEIGHT + 'px';
+            btn.textContent = 'see more';
+          } else {
+            bio.classList.add('expanded');
+            bio.style.maxHeight = fullHeight + 'px';
+            btn.textContent = 'see less';
+          }
+        });
+        bio.parentNode.insertBefore(btn, bio.nextSibling);
+      }
+    });
   </script>
 </body>
 </html>
