@@ -582,3 +582,48 @@ body.home main {
   white-space: nowrap;
   border: 0;
 }
+
+/* Hero title for what page - large prominent heading */
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 600;
+    line-height: 1.1;
+    margin-bottom: var(--space-md);
+    text-transform: lowercase;
+}
+
+/* Content sections - tighter paragraph spacing */
+.content-section p {
+    margin-bottom: 0.75rem;
+    line-height: 1.65;
+}
+
+.content-section p:last-child {
+    margin-bottom: 0;
+}
+
+.content-section + .content-section {
+    margin-top: var(--space-md);
+}
+
+/* Social icons using Ionicons */
+.social-links a.instagram::before {
+    font-family: "Ionicons";
+    content: "\f350";
+}
+
+.social-links a.facebook::before {
+    font-family: "Ionicons";
+    content: "\f231";
+}
+
+.social-links a.linkedin::before {
+    font-family: "Ionicons";
+    content: "\f239";
+}
+
+.social-links a.threads::before {
+    font-family: "Ionicons";
+    content: "\f359";
+}
+
