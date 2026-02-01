@@ -1,12 +1,12 @@
 {
-  "lastUpdated": "2026-02-01T01:35:03.563Z",
+  "lastUpdated": "2026-02-01T05:18:49.456Z",
   "packs": {
     "product-design": {
       "title": "product × design",
       "promise": "build learning products people actually use.",
       "quadrantStory": "we design digital learning experiences that are intuitive, engaging, and effective.",
       "story": "From concept to prototype to handoff, we create learning products grounded in UX best practices and learning science.",
-      "crossover": "want to validate your product with real users? add research.",
+      "crossover": "want to [TEST]  your product with real users? add research.",
       "outcomes": [
         {
           "title": "UX design",
