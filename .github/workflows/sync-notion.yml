@@ -1,1 +1,54 @@
-# ============================================# NOTION SYNC WORKFLOW# ============================================# This workflow fetches content from Notion databases# and generates a JSON file for the Package Builder.## Triggers:# - Manual: Click "Run workflow" in GitHub Actions# - Push: Automatically on push to main branch# - Schedule: Daily at midnight UTC (optional, uncomment below)## Required Secrets:# - NOTION_API_KEY: Your Notion integration token# ============================================name: Sync Notion Contenton:  # Manual trigger - click "Run workflow" in GitHub  workflow_dispatch:  # Auto-trigger on push to this branch  push:    branches:      - main  # Optional: Run daily at midnight UTC  schedule:      - cron: '0 6 * * *'→ Runs at 06:00permissions:  contents: write  jobs:  sync:    runs-on: ubuntu-latest    steps:      - name: Checkout repository        uses: actions/checkout@v4        with:          ref: main      - name: Setup Node.js        uses: actions/setup-node@v4        with:          node-version: '20'      - name: Install dependencies        run: npm install @notionhq/client      - name: Fetch Notion content        env:          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}        run: node scripts/fetch-notion.js      - name: Commit and push if changed        run: |          git config --local user.email "github-actions[bot]@users.noreply.github.com"          git config --local user.name "github-actions[bot]"          git add data/package-builder-content.json          git diff --staged --quiet || git commit -m "chore: sync content from Notion"          git push
+# ================================================
+# NOTION SYNC WORKFLOW
+# ================================================
+# This workflow fetches content from Notion databases
+# and generates a JSON file for the Package Builder.
+#
+# Triggers:
+# - Manual: Click "Run workflow" in GitHub Actions
+# - Push: Any push to main branch
+# - Schedule: Daily at 6 AM UTC
+#
+# Required secret:
+# - NOTION_API_KEY: Your Notion integration token
+# ================================================
+
+name: Sync Notion Content
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 6 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install @notionhq/client
+
+      - name: Fetch Notion content
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+        run: node scripts/fetch-notion.js
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          git add data/
+          git diff --staged --quiet || git commit -m "chore: sync Package Builder content from Notion"
+          git push
