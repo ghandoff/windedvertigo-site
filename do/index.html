@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>do. – winded.vertigo</title>
+  <title>do. â winded.vertigo</title>
   <meta name="description" content="Build your custom learning experience package with our interactive Package Builder.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,7 +15,7 @@
     /* Package Builder Scoped Styles */
     .package-builder {
       width: 100%;
-      min-height: calc(100vh - 200px)
+      min-height: calc(100vh - 200px);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -649,7 +649,7 @@
 
   <footer class="footer">
     <div class="container">
-      <p>© copyright winded.vertigo, 2024-2026. all rights reserved.</p>
+      <p>Â© copyright winded.vertigo, 2024-2026. all rights reserved.</p>
       <div class="social-links">
         <a href="../portfolio/" aria-label="Portfolio" style="color: #ffebd2;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="1" y="1" width="10" height="10" rx="1"/><rect x="13" y="1" width="10" height="10" rx="1"/><rect x="1" y="13" width="10" height="10" rx="1"/><rect x="13" y="13" width="10" height="10" rx="1"/></svg></a>
         <a href="https://www.instagram.com/winded.vertigo/" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
@@ -673,6 +673,7 @@
     // ========================================
     // PACKAGE BUILDER - CONTENT
     // ========================================
+    // UI choices (kept in HTML - these don't change often)
     const CONTENT = {
       insights: {
         people: "training, behaviour change, system adoption",
@@ -714,71 +715,48 @@
         { label: "concept sprint", value: "concept", desc: "rapid idea exploration" },
         { label: "prototype", value: "prototype", desc: "build a testable version" }
       ],
-      packs: {
-        people_design: {
-          title: "design & deploy",
-          promise: "build learning experiences your team actually wants to use.",
-          quadrantStory: "you're in the people × design quadrant—where behaviour change meets creative craft. this is where we build the tools that shift mindsets, not just transfer information.",
-          outcomes: [
-            { title: "co-designed session kit", detail: "we work alongside your team to build a facilitation toolkit that reflects your culture, your language, and your goals—not an off-the-shelf template." },
-            { title: "live pilot with real feedback", detail: "we run the first session with you, capturing participant responses in real-time to see what lands and what needs refinement." },
-            { title: "production-ready handoff", detail: "you get a polished kit with facilitator notes, participant materials, and a train-the-trainer guide so your team can run it independently." }
-          ],
-          story: "we start with a discovery session to understand your learning goals and audience. then we move into rapid prototyping—sketching session flows, testing activities, and iterating based on what we learn. we pilot the experience with a real cohort, gather structured feedback, and refine the design. by the end, you have a learning experience that's been tested in the field and is ready to scale.",
-          crossover: "our design work is always informed by research—we build in feedback loops and measurement from day one, so you're not just launching something that feels good, but something you can prove works.",
-          examples: [
-            { title: "PRME active learning workshop", type: "facilitation kit • PDF", icon: "📄", url: "../portfolio/#prme-workshop", detail: "a 3-hour workshop designed for business school faculty to integrate sustainability principles into their teaching practice." },
-            { title: "play-based learning session", type: "video walkthrough", icon: "🎬", url: "../portfolio/#play-based-session", detail: "watch how we facilitated a playful learning experience for 40 educators, using game mechanics to explore complex systems thinking." }
-          ]
-        },
-        people_research: {
-          title: "pinpoint & prove",
-          promise: "show exactly where your approach moves the needle—with evidence that stands up to scrutiny.",
-          quadrantStory: "you're in the people × research quadrant—where rigorous measurement meets human complexity. this is where we prove that your interventions actually change how people think, feel, and act.",
-          outcomes: [
-            { title: "pinpoint what's working", detail: "we identify the specific mechanisms driving change—not just whether something worked, but why and for whom." },
-            { title: "credible evidence of change", detail: "you get pre-post data, effect sizes, and confidence intervals that satisfy funders, boards, and skeptics." },
-            { title: "actionable insights for scale", detail: "we don't just measure—we tell you what to amplify, what to adjust, and what to drop as you grow." }
-          ],
-          story: "we begin by mapping your theory of change to measurable outcomes. then we design a lightweight evaluation approach—selecting validated instruments or creating custom measures that fit your context. we collect baseline data, observe your intervention in action, and gather post-programme responses. the analysis goes beyond simple comparisons to explore moderators and mechanisms. you receive a findings deck that tells the story of your impact in language your stakeholders understand.",
-          crossover: "research without design is just measurement. we bring a designer's eye to how we collect data—making surveys engaging, interviews conversational, and dashboards actionable. the best evidence comes from participants who actually want to engage with your evaluation.",
-          examples: [
-            { title: "programme impact report", type: "findings deck • PDF", icon: "📊", url: "../portfolio/#impact-report", detail: "a comprehensive evaluation of a 6-month leadership programme, showing 34% improvement in systems thinking and 28% increase in collaborative problem-solving." },
-            { title: "MEL dashboard", type: "live data • dashboard", icon: "📈", url: "../portfolio/#mel-dashboard", detail: "an interactive monitoring dashboard that tracks participant engagement, learning outcomes, and satisfaction in real-time across multiple cohorts." }
-          ]
-        },
-        product_design: {
-          title: "build & iterate",
-          promise: "launch a polished, tested product in two sprints—not two years.",
-          quadrantStory: "you're in the product × design quadrant—where learning science meets rapid prototyping. this is where we build the tools, games, and experiences that teach through doing.",
-          outcomes: [
-            { title: "working prototype in 2 sprints", detail: "not wireframes or mockups—a functional prototype you can put in front of real users and learn from immediately." },
-            { title: "playtest insights", detail: "we run structured playtests with your target users, capturing what delights, what confuses, and what needs to change." },
-            { title: "implementation specification", detail: "a detailed handoff document that lets your dev team build with confidence—including edge cases, accessibility requirements, and content guidelines." }
-          ],
-          story: "we kick off with a concept sprint—exploring the problem space, sketching multiple approaches, and converging on the strongest direction. then we prototype rapidly, building just enough to test our core assumptions. playtests happen early and often, with real users in realistic contexts. we synthesise findings after each round and iterate. by the end of sprint two, you have a validated concept and a clear path to production.",
-          crossover: "great products don't just emerge from intuition—they're shaped by evidence. we bake research into every sprint, testing assumptions with users and measuring learning outcomes. design and research aren't separate phases; they're intertwined throughout.",
-          examples: [
-            { title: "learning game prototype", type: "interactive demo", icon: "🎮", url: "../portfolio/#learning-game", detail: "a playable prototype of a card game that teaches climate systems thinking, tested with 200+ players across 5 iteration cycles." },
-            { title: "design handoff spec", type: "figma file", icon: "🎨", url: "../portfolio/#design-handoff", detail: "a comprehensive design system and implementation guide for an educational app, including component library, interaction patterns, and accessibility annotations." }
-          ]
-        },
-        product_research: {
-          title: "test & validate",
-          promise: "prove your product meets accessibility and learning standards—before you ship.",
-          quadrantStory: "you're in the product × research quadrant—where user experience meets rigorous validation. this is where we make sure your product actually works for the people it's meant to serve.",
-          outcomes: [
-            { title: "UDL compliance score", detail: "a structured assessment against Universal Design for Learning guidelines, with specific ratings across engagement, representation, and action/expression." },
-            { title: "usability issues mapped", detail: "a prioritised list of friction points, dead ends, and confusion—categorised by severity and linked to specific user sessions." },
-            { title: "stakeholder-ready brief", detail: "a clear, visual summary that communicates findings to leadership, with recommended fixes and estimated impact." }
-          ],
-          story: "we start with a heuristic review—our team evaluates your product against established UDL principles and usability heuristics. then we recruit representative users for moderated testing sessions, observing how they navigate real tasks. we capture video, quantitative metrics, and qualitative feedback. the analysis identifies patterns across users and prioritises issues by impact. you receive a findings report with specific, actionable recommendations and clips that bring the user voice to life.",
-          crossover: "validation isn't the end of the story—it's the beginning of better design. our research always points toward solutions, not just problems. we work closely with your design and dev teams to translate findings into improvements that ship.",
-          examples: [
-            { title: "UDL audit report", type: "assessment • PDF", icon: "✅", url: "../portfolio/#udl-audit", detail: "a comprehensive accessibility audit of a museum's interactive exhibits, with specific recommendations that improved UDL scores from 62% to 89%." },
-            { title: "usability findings video", type: "user testing clips", icon: "🎬", url: "../portfolio/#usability-video", detail: "a highlight reel of user testing sessions showing key friction points, with timestamps linked to specific recommendations." }
-          ]
-        }
+      // Pack content loaded from Notion via JSON (see loadContentAndInit)
+      // Minimal fallback only shown if JSON fails to load
+      packs: null
+    };
+
+    // Minimal fallback content (only used if Notion JSON fails to load)
+    const FALLBACK_PACKS = {
+      people_design: {
+        title: "design & deploy",
+        promise: "build learning experiences your team actually wants to use.",
+        quadrantStory: "you're in the people Ã design quadrantâwhere behaviour change meets creative craft.",
+        story: "we'll work together to design and deploy effective learning experiences.",
+        crossover: "our design work is always informed by research.",
+        outcomes: [{ title: "custom learning experience", detail: "tailored to your needs and context." }],
+        examples: []
+      },
+      people_research: {
+        title: "pinpoint & prove",
+        promise: "show exactly where your approach moves the needle.",
+        quadrantStory: "you're in the people Ã research quadrantâwhere rigorous measurement meets human complexity.",
+        story: "we'll help you measure and prove your impact.",
+        crossover: "research without design is just measurement.",
+        outcomes: [{ title: "evidence of impact", detail: "credible data that satisfies stakeholders." }],
+        examples: []
+      },
+      product_design: {
+        title: "build & iterate",
+        promise: "launch a polished, tested product in two sprints.",
+        quadrantStory: "you're in the product Ã design quadrantâwhere learning science meets rapid prototyping.",
+        story: "we'll prototype and test your product with real users.",
+        crossover: "great products are shaped by evidence.",
+        outcomes: [{ title: "working prototype", detail: "functional and tested with users." }],
+        examples: []
+      },
+      product_research: {
+        title: "test & validate",
+        promise: "prove your product meets accessibility and learning standards.",
+        quadrantStory: "you're in the product Ã research quadrantâwhere user experience meets rigorous validation.",
+        story: "we'll validate your product against UDL and usability standards.",
+        crossover: "validation is the beginning of better design.",
+        outcomes: [{ title: "validation report", detail: "actionable findings and recommendations." }],
+        examples: []
       }
     };
 
@@ -918,13 +896,13 @@
       }
 
       if (state.step > 1) {
-        navHTML += `<button class="nav-btn" id="back-btn">← back</button>`;
+        navHTML += `<button class="nav-btn" id="back-btn">â back</button>`;
       }
       if (state.step === 3 && state.focus.length > 0) {
-        navHTML += `<button class="nav-btn primary" id="next-btn">next →</button>`;
+        navHTML += `<button class="nav-btn primary" id="next-btn">next â</button>`;
       }
       if (state.step === 4 && state.goals.length > 0) {
-        navHTML += `<button class="nav-btn primary" id="next-btn">see your pack →</button>`;
+        navHTML += `<button class="nav-btn primary" id="next-btn">see your pack â</button>`;
       }
 
       buttonGrid.innerHTML = buttonsHTML;
@@ -941,7 +919,7 @@
 
       const container = document.getElementById('result-container');
       const emailBody = encodeURIComponent(
-        `I'm interested in the "${pack.title}" package from winded.vertigo.\n\nQuadrant: ${state.audience} × ${state.mode}\nServices: ${state.focus.join(', ')}\nGoals: ${state.goals.join(', ')}\n\n${pack.promise}\n\nLearn more at windedvertigo.com`
+        `I'm interested in the "${pack.title}" package from winded.vertigo.\n\nQuadrant: ${state.audience} Ã ${state.mode}\nServices: ${state.focus.join(', ')}\nGoals: ${state.goals.join(', ')}\n\n${pack.promise}\n\nLearn more at windedvertigo.com`
       );
 
       container.innerHTML = `
@@ -989,7 +967,7 @@
                   <div class="example-type">${ex.type}</div>
                   <div class="example-detail">${ex.detail}</div>
                 </div>
-                <span class="example-arrow">→</span>
+                <span class="example-arrow">â</span>
               </div>
             </a>
           `).join('')}
@@ -1000,7 +978,7 @@
           <a href="mailto:?subject=My winded.vertigo package: ${encodeURIComponent(pack.title)}&body=${emailBody}" class="cta-btn secondary">email package</a>
           <button class="cta-btn outline" id="start-over-btn">start over</button>
         </div>
-      `;
+      </div>
 
       document.getElementById('start-over-btn').addEventListener('click', startOver);
     }
@@ -1068,31 +1046,37 @@
         renderResult();
       }
     }
-// ========================================
-      // LOAD CONTENT FROM NOTION (via JSON)
-      // ========================================
-      // This JSON file is generated by scripts/fetch-notion.js
-      // and synced daily via GitHub Actions from Notion.
-  
-      async function loadContentAndInit() {
-              try {
-                        const response = await fetch('../data/package-builder-content.json');
-                        const data = await response.json();
-                
-                // Merge Notion content into CONTENT.packs
-                if (data.packs) {
-                            CONTENT.packs = data.packs;
-                }
-                
-                console.log('Loaded content from Notion (last updated:', data.lastUpdated, ')');
-                        render();
-              } catch (error) {
-                        console.warn('Could not load Notion content, using fallback:', error);
-                        render(); // Use hardcoded fallback
-              }
+
+    // ========================================
+    // LOAD CONTENT FROM NOTION (via JSON)
+    // ========================================
+    // JSON is generated by scripts/fetch-notion.js
+    // and synced daily at 6 AM UTC via GitHub Actions.
+
+    async function loadContentAndInit() {
+      try {
+        const response = await fetch('../data/package-builder-content.json');
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const data = await response.json();
+
+        // Validate the loaded data
+        if (!data.packs || Object.keys(data.packs).length === 0) {
+          throw new Error('No packs in JSON');
+        }
+
+        CONTENT.packs = data.packs;
+        console.log('â Loaded from Notion:', Object.keys(data.packs).length, 'packs (updated:', data.lastUpdated, ')');
+
+      } catch (error) {
+        console.warn('â  Using fallback content:', error.message);
+        CONTENT.packs = FALLBACK_PACKS;
       }
-  
-      // Initialize with loaded content
-      loadContentAndInit();</script>
+
+      render();
+    }
+
+    loadContentAndInit();
+  </script>
 </body>
 </html>
