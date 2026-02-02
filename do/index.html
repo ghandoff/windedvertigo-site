@@ -722,7 +722,7 @@
 
     // Minimal fallback content (only used if Notion JSON fails to load)
     const FALLBACK_PACKS = {
-      people_design: {
+      'people-design': {
         title: "design & deploy",
         promise: "build learning experiences your team actually wants to use.",
         quadrantStory: "you're in the people Ã design quadrantâwhere behaviour change meets creative craft.",
@@ -731,7 +731,7 @@
         outcomes: [{ title: "custom learning experience", detail: "tailored to your needs and context." }],
         examples: []
       },
-      people_research: {
+      'people-research': {
         title: "pinpoint & prove",
         promise: "show exactly where your approach moves the needle.",
         quadrantStory: "you're in the people Ã research quadrantâwhere rigorous measurement meets human complexity.",
@@ -740,7 +740,7 @@
         outcomes: [{ title: "evidence of impact", detail: "credible data that satisfies stakeholders." }],
         examples: []
       },
-      product_design: {
+      'product-design': {
         title: "build & iterate",
         promise: "launch a polished, tested product in two sprints.",
         quadrantStory: "you're in the product Ã design quadrantâwhere learning science meets rapid prototyping.",
@@ -749,7 +749,7 @@
         outcomes: [{ title: "working prototype", detail: "functional and tested with users." }],
         examples: []
       },
-      product_research: {
+      'product-research': {
         title: "test & validate",
         promise: "prove your product meets accessibility and learning standards.",
         quadrantStory: "you're in the product Ã research quadrantâwhere user experience meets rigorous validation.",
@@ -774,7 +774,7 @@
     // ========================================
     // HELPERS
     // ========================================
-    const getQuadrant = () => state.audience && state.mode ? `${state.audience}_${state.mode}` : null;
+    const getQuadrant = () => state.audience && state.mode ? `${state.audience}-${state.mode}` : null;
 
     const questions = {
       1: "what are you trying to change?",
