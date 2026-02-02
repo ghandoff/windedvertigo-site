@@ -12,19 +12,23 @@
   <link rel="stylesheet" href="../styles/main.css?v=12">
 
   <style>
-    .work-hero {
+    /* ========================================
+       PORTFOLIO PAGE STYLES
+       ======================================== */
+
+    .portfolio-hero {
       padding: 60px 0 40px;
       text-align: center;
     }
 
-    .work-title {
+    .portfolio-title {
       font-size: 48px;
       font-weight: 700;
       text-transform: lowercase;
       margin-bottom: 16px;
     }
 
-    .work-subtitle {
+    .portfolio-subtitle {
       font-size: 18px;
       color: rgba(255, 255, 255, 0.7);
       max-width: 560px;
@@ -32,134 +36,498 @@
       line-height: 1.6;
     }
 
-    .work-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 24px;
-      padding: 40px 0 80px;
+    /* Filter Bar */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      padding: 20px 0 40px;
     }
 
-    .work-card {
-      background: #1e2738;
-      border-radius: 12px;
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      scroll-margin-top: 100px;
+    .filter-btn {
+      padding: 8px 16px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 13px;
+      font-family: inherit;
+      text-transform: lowercase;
+      cursor: pointer;
+      border-radius: 20px;
+      transition: all 0.2s ease;
     }
 
-    .work-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    .filter-btn:hover {
+      border-color: rgba(255, 255, 255, 0.6);
+      color: #ffffff;
     }
 
-    .work-card-media {
-      height: 180px;
-      background: #3a4459;
+    .filter-btn.active {
+      background: var(--accent, #b15043);
+      border-color: var(--accent, #b15043);
+      color: #ffffff;
+    }
+
+    /* Featured Gallery (Masonry-style) */
+    .featured-section {
+      margin-bottom: 60px;
+    }
+
+    .section-header {
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-size: 64px;
-      position: relative;
-      overflow: hidden;
+      gap: 12px;
+      margin-bottom: 24px;
     }
 
-    .work-card-media::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(177, 80, 67, 0.1), rgba(203, 120, 88, 0.2));
-    }
-
-    .work-card-body {
-      padding: 24px;
-    }
-
-    .work-card-quadrant {
-      display: inline-block;
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #cb7858;
-      margin-bottom: 8px;
-    }
-
-    .work-card-title {
-      font-size: 20px;
-      font-weight: 600;
-      text-transform: lowercase;
-      margin-bottom: 6px;
-      line-height: 1.3;
-    }
-
-    .work-card-type {
-      font-size: 12px;
-      color: var(--accent, #b15043);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 12px;
-    }
-
-    .work-card-desc {
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.7);
-      line-height: 1.7;
-      margin-bottom: 20px;
-    }
-
-    .work-card-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 20px;
-      background: var(--accent, #b15043);
-      color: #ffffff;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 600;
-      text-transform: lowercase;
-      border-radius: 4px;
-      transition: background 0.2s ease;
-    }
-
-    .work-card-cta:hover {
-      background: #cb7858;
-    }
-
-    .work-card-cta.coming-soon {
-      background: #3a4459;
-      cursor: default;
-      pointer-events: none;
-    }
-
-    .work-section-label {
+    .section-label {
       font-size: 13px;
       font-weight: 700;
       color: #ffebd2;
       text-transform: lowercase;
       letter-spacing: 0.5px;
-      padding-top: 40px;
-      margin-bottom: -8px;
     }
 
-    .work-divider {
+    .section-line {
+      flex: 1;
       height: 1px;
       background: rgba(255, 255, 255, 0.1);
-      margin: 40px 0 0;
     }
 
-    .work-cta-section {
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    /* Shelf (Horizontal Scroll) */
+    .shelf-section {
+      margin-bottom: 48px;
+    }
+
+    .shelf-container {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 16px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .shelf-container::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .shelf-container::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 3px;
+    }
+
+    .shelf-container::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 3px;
+    }
+
+    .shelf-container::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Asset Card */
+    .asset-card {
+      background: #1e2738;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      scroll-snap-align: start;
+    }
+
+    .asset-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .shelf-container .asset-card {
+      flex: 0 0 280px;
+    }
+
+    .asset-card-media {
+      height: 160px;
+      background: #3a4459;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .asset-card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .asset-card-media::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(177, 80, 67, 0.05), rgba(203, 120, 88, 0.1));
+      pointer-events: none;
+    }
+
+    .asset-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 4px 10px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-radius: 4px;
+      z-index: 1;
+    }
+
+    .asset-badge.protected {
+      background: rgba(177, 80, 67, 0.8);
+    }
+
+    .asset-card-body {
+      padding: 20px;
+    }
+
+    .asset-quadrants {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .asset-quadrant {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #cb7858;
+    }
+
+    .asset-card-title {
+      font-size: 16px;
+      font-weight: 600;
+      text-transform: lowercase;
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+
+    .asset-type {
+      font-size: 11px;
+      color: var(--accent, #b15043);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .asset-desc {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: #1e2738;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 900px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 50%;
+      color: #ffffff;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .modal-media {
+      height: 300px;
+      background: #3a4459;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+    }
+
+    .modal-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-media iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .modal-body {
+      padding: 32px;
+    }
+
+    .modal-quadrants {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .modal-quadrant {
+      padding: 4px 12px;
+      background: rgba(203, 120, 88, 0.2);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: lowercase;
+      color: #cb7858;
+      border-radius: 4px;
+    }
+
+    .modal-title {
+      font-size: 28px;
+      font-weight: 700;
+      text-transform: lowercase;
+      margin-bottom: 8px;
+    }
+
+    .modal-type {
+      font-size: 13px;
+      color: var(--accent, #b15043);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+
+    .modal-desc {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .modal-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .modal-tag {
+      padding: 4px 10px;
+      background: #3a4459;
+      font-size: 11px;
+      text-transform: lowercase;
+      border-radius: 4px;
+    }
+
+    .modal-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: var(--accent, #b15043);
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: lowercase;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .modal-cta:hover {
+      background: #cb7858;
+    }
+
+    /* Related Assets */
+    .related-section {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .related-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #ffebd2;
+      text-transform: lowercase;
+      margin-bottom: 16px;
+    }
+
+    .related-grid {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+    }
+
+    .related-card {
+      flex: 0 0 180px;
+      background: #3a4459;
+      border-radius: 8px;
+      padding: 12px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .related-card:hover {
+      background: #4a5469;
+    }
+
+    .related-card-title {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: lowercase;
+      margin-bottom: 4px;
+    }
+
+    .related-card-type {
+      font-size: 10px;
+      color: var(--accent, #b15043);
+      text-transform: uppercase;
+    }
+
+    /* Password Prompt */
+    .password-prompt {
+      padding: 40px;
+      text-align: center;
+    }
+
+    .password-prompt h3 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .password-prompt p {
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 20px;
+    }
+
+    .password-input-group {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    .password-input {
+      flex: 1;
+      padding: 12px 16px;
+      background: #3a4459;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      color: #ffffff;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    .password-input:focus {
+      outline: none;
+      border-color: var(--accent, #b15043);
+    }
+
+    .password-submit {
+      padding: 12px 20px;
+      background: var(--accent, #b15043);
+      border: none;
+      border-radius: 6px;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .password-error {
+      color: #ff6b6b;
+      font-size: 13px;
+      margin-top: 12px;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .empty-state-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    /* CTA Section */
+    .portfolio-cta-section {
       text-align: center;
       padding: 60px 0 80px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 40px;
     }
 
-    .work-cta-text {
+    .portfolio-cta-text {
       font-size: 20px;
       margin-bottom: 24px;
       color: rgba(255, 255, 255, 0.9);
     }
 
-    .work-cta-btn {
+    .portfolio-cta-btn {
       display: inline-block;
       padding: 14px 32px;
       background: var(--accent, #b15043);
@@ -172,31 +540,40 @@
       transition: background 0.2s ease;
     }
 
-    .work-cta-btn:hover {
+    .portfolio-cta-btn:hover {
       background: #cb7858;
     }
 
+    /* Loading */
+    .loading {
+      text-align: center;
+      padding: 60px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Responsive */
     @media (max-width: 600px) {
-      .work-hero {
+      .portfolio-hero {
         padding: 40px 0 24px;
       }
-      .work-title {
+      .portfolio-title {
         font-size: 36px;
       }
-      .work-subtitle {
+      .portfolio-subtitle {
         font-size: 16px;
       }
-      .work-grid {
+      .gallery-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 32px 0 60px;
       }
-      .work-card-media {
-        height: 140px;
-        font-size: 48px;
+      .modal-content {
+        width: 95%;
+        max-height: 95vh;
       }
-      .work-card-body {
-        padding: 20px;
+      .modal-body {
+        padding: 24px;
+      }
+      .modal-title {
+        font-size: 22px;
       }
     }
   </style>
@@ -228,117 +605,31 @@
 
   <main id="main-content">
     <div class="container">
-      <section class="work-hero">
-        <h1 class="work-title">selected work.</h1>
-        <p class="work-subtitle">a glimpse into how we design learning experiences, evaluate impact, and build products that teach through doing.</p>
+      <section class="portfolio-hero">
+        <h1 class="portfolio-title">portfolio.</h1>
+        <p class="portfolio-subtitle">a glimpse into how we design learning experiences, evaluate impact, and build products that teach through doing.</p>
       </section>
 
-      <div class="work-grid">
-        <!-- PRME Workshop -->
-        <article class="work-card" id="prme-workshop">
-          <div class="work-card-media">📄</div>
-          <div class="work-card-body">
-            <span class="work-card-quadrant">people × design</span>
-            <h2 class="work-card-title">PRME active learning workshop</h2>
-            <p class="work-card-type">facilitation kit • PDF</p>
-            <p class="work-card-desc">A 3-hour workshop designed for business school faculty to integrate sustainability principles into their teaching practice. Co-designed with educators across 12 institutions.</p>
-            <a href="#" class="work-card-cta coming-soon">coming soon</a>
-          </div>
-        </article>
+      <!-- Filter Bar -->
+      <div class="filter-bar" id="filter-bar"></div>
 
-        <!-- Play-based Learning Session -->
-        <article class="work-card" id="play-based-session">
-          <div class="work-card-media">🎬</div>
-          <div class="work-card-body">
-            <span class="work-card-quadrant">people × design</span>
-            <h2 class="work-card-title">play-based learning session</h2>
-            <p class="work-card-type">video walkthrough</p>
-            <p class="work-card-desc">Watch how we facilitated a playful learning experience for 40 educators, using game mechanics to explore complex systems thinking.</p>
-            <a href="#" class="work-card-cta coming-soon">coming soon</a>
-          </div>
-        </article>
-
-        <!-- Programme Impact Report -->
-        <article class="work-card" id="impact-report">
-          <div class="work-card-media">📊</div>
-          <div class="work-card-body">
-            <span class="work-card-quadrant">people × research</span>
-            <h2 class="work-card-title">programme impact report</h2>
-            <p class="work-card-type">findings deck • PDF</p>
-            <p class="work-card-desc">A comprehensive evaluation of a 6-month leadership programme, showing 34% improvement in systems thinking and 28% increase in collaborative problem-solving.</p>
-            <a href="#" class="work-card-cta coming-soon">coming soon</a>
-          </div>
-        </article>
-
-        <!-- MEL Dashboard -->
-        <article class="work-card" id="mel-dashboard">
-          <div class="work-card-media">📈</div>
-          <div class="work-card-body">
-            <span class="work-card-quadrant">people × research</span>
-            <h2 class="work-card-title">MEL dashboard</h2>
-            <p class="work-card-type">live data • dashboard</p>
-            <p class="work-card-desc">An interactive monitoring dashboard that tracks participant engagement, learning outcomes, and satisfaction in real-time across multiple cohorts.</p>
-            <a href="#" class="work-card-cta coming-soon">coming soon</a>
-          </div>
-        </article>
-
-        <!-- Learning Game Prototype -->
-        <article class="work-card" id="learning-game">
-          <div class="work-card-media">🎮</div>
-          <div class="work-card-body">
-            <span class="work-card-quadrant">product × design</span>
-            <h2 class="work-card-title">learning game prototype</h2>
-            <p class="work-card-type">interactive demo</p>
-            <p class="work-card-desc">A playable prototype of a card game that teaches climate systems thinking, tested with 200+ players across 5 iteration cycles.</p>
-            <a href="#" class="work-card-cta coming-soon">coming soon</a>
-          </div>
-        </article>
-
-        <!-- Design Handoff Spec -->
-        <article class="work-card" id="design-handoff">
-          <div class="work-card-media">🎨</div>
-          <div class="work-card-body">
-            <span class="work-card-quadrant">product × design</span>
-            <h2 class="work-card-title">design handoff spec</h2>
-            <p class="work-card-type">figma file</p>
-            <p class="work-card-desc">A comprehensive design system and implementation guide for an educational app, including component library, interaction patterns, and accessibility annotations.</p>
-            <a href="#" class="work-card-cta coming-soon">coming soon</a>
-          </div>
-        </article>
-
-        <!-- UDL Audit Report -->
-        <article class="work-card" id="udl-audit">
-          <div class="work-card-media">✅</div>
-          <div class="work-card-body">
-            <span class="work-card-quadrant">product × research</span>
-            <h2 class="work-card-title">UDL audit report</h2>
-            <p class="work-card-type">assessment • PDF</p>
-            <p class="work-card-desc">A comprehensive accessibility audit of a museum's interactive exhibits, with specific recommendations that improved UDL scores from 62% to 89%.</p>
-            <a href="#" class="work-card-cta coming-soon">coming soon</a>
-          </div>
-        </article>
-
-        <!-- Usability Findings Video -->
-        <article class="work-card" id="usability-video">
-          <div class="work-card-media">🎬</div>
-          <div class="work-card-body">
-            <span class="work-card-quadrant">product × research</span>
-            <h2 class="work-card-title">usability findings video</h2>
-            <p class="work-card-type">user testing clips</p>
-            <p class="work-card-desc">A highlight reel of user testing sessions showing key friction points, with timestamps linked to specific recommendations.</p>
-            <a href="#" class="work-card-cta coming-soon">coming soon</a>
-          </div>
-        </article>
+      <!-- Portfolio Content -->
+      <div id="portfolio-content">
+        <div class="loading">Loading portfolio...</div>
       </div>
 
-      <div class="work-divider"></div>
-
-      <section class="work-cta-section">
-        <p class="work-cta-text">want to see how we can help with your project?</p>
-        <a href="../do/" class="work-cta-btn">build your package →</a>
+      <!-- CTA Section -->
+      <section class="portfolio-cta-section">
+        <p class="portfolio-cta-text">want to see how we can help with your project?</p>
+        <a href="../do/" class="portfolio-cta-btn">build your package</a>
       </section>
     </div>
   </main>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal-content" id="modal-content"></div>
+  </div>
 
   <footer class="footer">
     <div class="container">
@@ -354,6 +645,334 @@
   </footer>
 
   <script>
+    // ========================================
+    // PORTFOLIO - STATE & DATA
+    // ========================================
+    let ASSETS = [];
+    let currentFilter = 'all';
+    let unlockedAssets = new Set();
+
+    const TYPE_ICONS = {
+      pdf: '📄',
+      video: '🎬',
+      slides: '📊',
+      'web-app': '🌐',
+      'notion-db': '📋',
+      figma: '🎨',
+      dashboard: '📈',
+      other: '📁'
+    };
+
+    const TYPE_LABELS = {
+      pdf: 'PDF Document',
+      video: 'Video',
+      slides: 'Slide Deck',
+      'web-app': 'Web Application',
+      'notion-db': 'Notion Database',
+      figma: 'Figma File',
+      dashboard: 'Dashboard',
+      other: 'Other'
+    };
+
+    // ========================================
+    // LOAD DATA
+    // ========================================
+    async function loadPortfolioData() {
+      try {
+        const response = await fetch('../data/portfolio-assets.json');
+        if (!response.ok) throw new Error('Failed to load');
+        const data = await response.json();
+        ASSETS = data.assets || [];
+        console.log('Loaded', ASSETS.length, 'portfolio assets');
+        renderFilters();
+        renderPortfolio();
+        handleDeepLink();
+      } catch (err) {
+        console.error('Error loading portfolio:', err);
+        document.getElementById('portfolio-content').innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">📭</div>
+            <p>Portfolio content coming soon...</p>
+          </div>
+        `;
+      }
+    }
+
+    // ========================================
+    // RENDER FILTERS
+    // ========================================
+    function renderFilters() {
+      const types = [...new Set(ASSETS.map(a => a.assetType))].filter(Boolean);
+      const filterBar = document.getElementById('filter-bar');
+
+      filterBar.innerHTML = `
+        <button class="filter-btn ${currentFilter === 'all' ? 'active' : ''}" data-filter="all">all</button>
+        ${types.map(type => `
+          <button class="filter-btn ${currentFilter === type ? 'active' : ''}" data-filter="${type}">
+            ${TYPE_ICONS[type] || '📁'} ${type.replace('-', ' ')}
+          </button>
+        `).join('')}
+      `;
+
+      filterBar.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentFilter = btn.dataset.filter;
+          renderFilters();
+          renderPortfolio();
+        });
+      });
+    }
+
+    // ========================================
+    // RENDER PORTFOLIO
+    // ========================================
+    function renderPortfolio() {
+      const container = document.getElementById('portfolio-content');
+      const filtered = currentFilter === 'all'
+        ? ASSETS
+        : ASSETS.filter(a => a.assetType === currentFilter);
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">🔍</div>
+            <p>No assets found for this filter.</p>
+          </div>
+        `;
+        return;
+      }
+
+      // Get featured assets
+      const featured = filtered.filter(a => a.featured);
+
+      // Group remaining by type for shelves
+      const byType = {};
+      filtered.filter(a => !a.featured).forEach(asset => {
+        const type = asset.assetType || 'other';
+        if (!byType[type]) byType[type] = [];
+        byType[type].push(asset);
+      });
+
+      let html = '';
+
+      // Featured Gallery
+      if (featured.length > 0) {
+        html += `
+          <section class="featured-section">
+            <div class="section-header">
+              <span class="section-label">featured work</span>
+              <div class="section-line"></div>
+            </div>
+            <div class="gallery-grid">
+              ${featured.map(asset => renderAssetCard(asset)).join('')}
+            </div>
+          </section>
+        `;
+      }
+
+      // Shelves by type
+      Object.entries(byType).forEach(([type, assets]) => {
+        if (assets.length > 0) {
+          html += `
+            <section class="shelf-section">
+              <div class="section-header">
+                <span class="section-label">${TYPE_ICONS[type] || '📁'} ${type.replace('-', ' ')}</span>
+                <div class="section-line"></div>
+              </div>
+              <div class="shelf-container">
+                ${assets.map(asset => renderAssetCard(asset)).join('')}
+              </div>
+            </section>
+          `;
+        }
+      });
+
+      container.innerHTML = html;
+
+      // Attach click handlers
+      container.querySelectorAll('.asset-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const asset = ASSETS.find(a => a.id === card.dataset.id);
+          if (asset) openModal(asset);
+        });
+      });
+    }
+
+    function renderAssetCard(asset) {
+      const icon = asset.icon || TYPE_ICONS[asset.assetType] || '📁';
+      const thumbnail = asset.thumbnailUrl
+        ? `<img src="${asset.thumbnailUrl}" alt="${asset.name}" loading="lazy">`
+        : icon;
+
+      return `
+        <article class="asset-card" data-id="${asset.id}">
+          <div class="asset-card-media">
+            ${typeof thumbnail === 'string' && thumbnail.startsWith('<') ? thumbnail : `<span>${thumbnail}</span>`}
+            ${asset.passwordProtected ? '<span class="asset-badge protected">🔒 protected</span>' : ''}
+            ${asset.assetType ? `<span class="asset-badge">${asset.assetType}</span>` : ''}
+          </div>
+          <div class="asset-card-body">
+            ${asset.quadrants?.length ? `
+              <div class="asset-quadrants">
+                ${asset.quadrants.map(q => `<span class="asset-quadrant">${q.replace('_', ' × ')}</span>`).join('')}
+              </div>
+            ` : ''}
+            <h3 class="asset-card-title">${asset.name}</h3>
+            <p class="asset-type">${TYPE_LABELS[asset.assetType] || asset.assetType}</p>
+            ${asset.description ? `<p class="asset-desc">${asset.description}</p>` : ''}
+          </div>
+        </article>
+      `;
+    }
+
+    // ========================================
+    // MODAL
+    // ========================================
+    function openModal(asset) {
+      // Check password protection
+      if (asset.passwordProtected && !unlockedAssets.has(asset.id)) {
+        showPasswordPrompt(asset);
+        return;
+      }
+
+      const modal = document.getElementById('modal');
+      const content = document.getElementById('modal-content');
+      const icon = asset.icon || TYPE_ICONS[asset.assetType] || '📁';
+
+      // Find related assets (same quadrants or tags)
+      const related = ASSETS.filter(a =>
+        a.id !== asset.id && (
+          asset.quadrants?.some(q => a.quadrants?.includes(q)) ||
+          asset.tags?.some(t => a.tags?.includes(t))
+        )
+      ).slice(0, 4);
+
+      content.innerHTML = `
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <div class="modal-media">
+          ${asset.thumbnailUrl
+            ? `<img src="${asset.thumbnailUrl}" alt="${asset.name}">`
+            : `<span>${icon}</span>`
+          }
+        </div>
+        <div class="modal-body">
+          ${asset.quadrants?.length ? `
+            <div class="modal-quadrants">
+              ${asset.quadrants.map(q => `<span class="modal-quadrant">${q.replace('_', ' × ')}</span>`).join('')}
+            </div>
+          ` : ''}
+          <h2 class="modal-title">${asset.name}</h2>
+          <p class="modal-type">${TYPE_LABELS[asset.assetType] || asset.assetType}${asset.client ? ` • ${asset.client}` : ''}</p>
+          ${asset.description ? `<p class="modal-desc">${asset.description}</p>` : ''}
+          ${asset.tags?.length ? `
+            <div class="modal-tags">
+              ${asset.tags.map(t => `<span class="modal-tag">${t}</span>`).join('')}
+            </div>
+          ` : ''}
+          ${asset.url ? `
+            <a href="${asset.url}" target="_blank" rel="noopener noreferrer" class="modal-cta">
+              view ${asset.assetType || 'asset'} →
+            </a>
+          ` : ''}
+          ${related.length > 0 ? `
+            <div class="related-section">
+              <p class="related-label">related work</p>
+              <div class="related-grid">
+                ${related.map(r => `
+                  <div class="related-card" onclick="openModal(ASSETS.find(a => a.id === '${r.id}'))">
+                    <p class="related-card-title">${r.name}</p>
+                    <p class="related-card-type">${r.assetType}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          ` : ''}
+        </div>
+      `;
+
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+
+      // Update URL
+      history.pushState({}, '', `?asset=${asset.id}`);
+    }
+
+    function showPasswordPrompt(asset) {
+      const modal = document.getElementById('modal');
+      const content = document.getElementById('modal-content');
+
+      content.innerHTML = `
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <div class="password-prompt">
+          <h3>🔒 protected content</h3>
+          <p>This asset requires a password to view.</p>
+          <div class="password-input-group">
+            <input type="password" class="password-input" id="password-input" placeholder="Enter password">
+            <button class="password-submit" onclick="checkPassword('${asset.id}')">unlock</button>
+          </div>
+          <p class="password-error" id="password-error" style="display: none;">Incorrect password</p>
+        </div>
+      `;
+
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+
+      // Focus input
+      setTimeout(() => document.getElementById('password-input')?.focus(), 100);
+
+      // Enter key handler
+      document.getElementById('password-input')?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') checkPassword(asset.id);
+      });
+    }
+
+    function checkPassword(assetId) {
+      const asset = ASSETS.find(a => a.id === assetId);
+      const input = document.getElementById('password-input');
+      const error = document.getElementById('password-error');
+
+      if (asset && input.value === asset.password) {
+        unlockedAssets.add(assetId);
+        openModal(asset);
+      } else {
+        error.style.display = 'block';
+        input.value = '';
+        input.focus();
+      }
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('modal');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+      history.pushState({}, '', window.location.pathname);
+    }
+
+    // Close on overlay click
+    document.getElementById('modal').addEventListener('click', (e) => {
+      if (e.target.id === 'modal') closeModal();
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // ========================================
+    // DEEP LINKING
+    // ========================================
+    function handleDeepLink() {
+      const params = new URLSearchParams(window.location.search);
+      const assetId = params.get('asset');
+      if (assetId) {
+        const asset = ASSETS.find(a => a.id === assetId);
+        if (asset) openModal(asset);
+      }
+    }
+
+    // ========================================
+    // INIT
+    // ========================================
     // Mobile nav toggle
     const navToggle = document.querySelector('.nav-toggle');
     const nav = document.querySelector('.nav');
@@ -362,6 +981,9 @@
       navToggle.setAttribute('aria-expanded', !expanded);
       nav.classList.toggle('active');
     });
+
+    // Load data
+    loadPortfolioData();
   </script>
 </body>
 </html>

@@ -86,6 +86,24 @@ function getUrlWithFallback(props, keys) {
   return getUrlValue(props[keys]);
 }
 
+function getMultiSelectValue(prop) {
+  if (!prop) return [];
+  if (prop.type === 'multi_select') return prop.multi_select.map(s => s.name);
+  return [];
+}
+
+function getCheckboxValue(prop) {
+  if (!prop) return false;
+  if (prop.type === 'checkbox') return prop.checkbox;
+  return false;
+}
+
+function getNumberValue(prop) {
+  if (!prop) return null;
+  if (prop.type === 'number') return prop.number;
+  return null;
+}
+
 // ============================================
 // VALIDATION
 // ============================================
@@ -228,6 +246,51 @@ async function fetchExamples() {
   return byQuadrant;
 }
 
+async function fetchPortfolioAssets() {
+  const propMap = config.properties.portfolioAssets;
+  const required = config.required.portfolioAssets;
+
+  const response = await withRetry(
+    () => notion.databases.query({
+      database_id: config.databases.portfolioAssets,
+      sorts: [{ property: propMap.order, direction: 'ascending' }],
+    }),
+    'fetchPortfolioAssets'
+  );
+
+  const assets = [];
+  let skipped = 0;
+
+  for (const page of response.results) {
+    if (!validatePage(page, required, 'Portfolio Assets')) {
+      skipped++;
+      continue;
+    }
+
+    const props = page.properties;
+    assets.push({
+      id: page.id,
+      name: getTitleValue(props[propMap.name]),
+      assetType: getSelectValue(props[propMap.assetType]),
+      quadrants: getMultiSelectValue(props[propMap.quadrants]),
+      url: getUrlWithFallback(props, propMap.url),
+      thumbnailUrl: getUrlValue(props[propMap.thumbnailUrl]),
+      description: getTextValue(props[propMap.description]),
+      tags: getMultiSelectValue(props[propMap.tags]),
+      featured: getCheckboxValue(props[propMap.featured]),
+      showInPackageBuilder: getCheckboxValue(props[propMap.showInPackageBuilder]),
+      passwordProtected: getCheckboxValue(props[propMap.passwordProtected]),
+      password: getTextValue(props[propMap.password]),
+      client: getTextValue(props[propMap.client]),
+      order: getNumberValue(props[propMap.order]),
+      icon: getTextValue(props[propMap.icon]),
+    });
+  }
+
+  console.log('  OK Portfolio Assets: ' + assets.length + ' loaded, ' + skipped + ' skipped');
+  return assets;
+}
+
 // ============================================
 // MAIN
 // ============================================
@@ -235,10 +298,11 @@ async function main() {
   console.log('Fetching content from Notion...');
 
   try {
-    const [quadrants, outcomes, examples] = await Promise.all([
+    const [quadrants, outcomes, examples, portfolioAssets] = await Promise.all([
       fetchQuadrants(),
       fetchOutcomes(),
       fetchExamples(),
+      fetchPortfolioAssets(),
     ]);
 
     // Validate we got all 4 quadrants
@@ -272,12 +336,22 @@ async function main() {
       packs,
     };
 
-    // Write to file
+    // Write Package Builder content
     const outputPath = path.join(__dirname, '..', 'data', 'package-builder-content.json');
     fs.writeFileSync(outputPath, JSON.stringify(content, null, 2));
 
-    console.log('Success! Saved to ' + outputPath);
-    console.log('  ' + Object.keys(packs).length + ' packs');
+    // Write Portfolio Assets
+    const portfolioContent = {
+      lastUpdated: new Date().toISOString(),
+      note: 'Auto-generated from Notion. Do not edit directly.',
+      assets: portfolioAssets,
+    };
+    const portfolioPath = path.join(__dirname, '..', 'data', 'portfolio-assets.json');
+    fs.writeFileSync(portfolioPath, JSON.stringify(portfolioContent, null, 2));
+
+    console.log('Success!');
+    console.log('  Package Builder: ' + Object.keys(packs).length + ' packs → ' + outputPath);
+    console.log('  Portfolio: ' + portfolioAssets.length + ' assets → ' + portfolioPath);
 
   } catch (err) {
     console.error('Sync failed:', err.message);

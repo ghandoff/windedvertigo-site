@@ -11,6 +11,7 @@ module.exports = {
     quadrants: '1c171d25825b418caf94805dc1568352',
     outcomes: 'b8ff41d2d4ef41559e01c2d952a3a1da',
     examples: 'de0bc6fe83d54d71a91b31d8f1eb73bd',
+    portfolioAssets: '8c0ad5be572c480fb403906c7af1b580',
   },
 
   // Property name mappings (Notion column name → internal key)
@@ -39,6 +40,22 @@ module.exports = {
       detail: 'Detail',
       order: 'Order',
     },
+    portfolioAssets: {
+      name: 'Name',
+      assetType: 'Asset Type',
+      quadrants: 'Quadrants',
+      url: ['URL', 'userDefined:URL'],
+      thumbnailUrl: 'Thumbnail URL',
+      description: 'Description',
+      tags: 'Tags',
+      featured: 'Featured',
+      showInPackageBuilder: 'Show in Package Builder',
+      passwordProtected: 'Password Protected',
+      password: 'Password',
+      client: 'Client',
+      order: 'Order',
+      icon: 'Icon',
+    },
   },
 
   // Required properties for validation (sync fails if missing)
@@ -46,6 +63,7 @@ module.exports = {
     quadrants: ['Quadrant Key', 'Title'],
     outcomes: ['Quadrant', 'Name'],
     examples: ['Quadrant', 'Name'],
+    portfolioAssets: ['Name', 'Asset Type'],
   },
 
   // Retry configuration for API calls
