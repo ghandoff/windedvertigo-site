@@ -69,8 +69,9 @@
       color: #ffffff;
     }
 
-    /* Featured Gallery (Masonry-style) */
-    .featured-section {
+    /* Gallery Sections */
+    .featured-section,
+    .gallery-section {
       margin-bottom: 60px;
     }
 
@@ -742,21 +743,14 @@
         return;
       }
 
-      // Get featured assets
+      // Get featured and non-featured assets
       const featured = filtered.filter(a => a.featured);
-
-      // Group remaining by type for shelves
-      const byType = {};
-      filtered.filter(a => !a.featured).forEach(asset => {
-        const type = asset.assetType || 'other';
-        if (!byType[type]) byType[type] = [];
-        byType[type].push(asset);
-      });
+      const nonFeatured = filtered.filter(a => !a.featured);
 
       let html = '';
 
-      // Featured Gallery
-      if (featured.length > 0) {
+      // Featured section - only show in "all" view
+      if (currentFilter === 'all' && featured.length > 0) {
         html += `
           <section class="featured-section">
             <div class="section-header">
@@ -770,22 +764,23 @@
         `;
       }
 
-      // Shelves by type
-      Object.entries(byType).forEach(([type, assets]) => {
-        if (assets.length > 0) {
-          html += `
-            <section class="shelf-section">
+      // All other assets in a unified grid
+      const gridAssets = currentFilter === 'all' ? nonFeatured : filtered;
+      if (gridAssets.length > 0) {
+        html += `
+          <section class="gallery-section">
+            ${currentFilter === 'all' && featured.length > 0 ? `
               <div class="section-header">
-                <span class="section-label">${TYPE_ICONS[type] || '📁'} ${type.replace('-', ' ')}</span>
+                <span class="section-label">all work</span>
                 <div class="section-line"></div>
               </div>
-              <div class="shelf-container">
-                ${assets.map(asset => renderAssetCard(asset)).join('')}
-              </div>
-            </section>
-          `;
-        }
-      });
+            ` : ''}
+            <div class="gallery-grid">
+              ${gridAssets.map(asset => renderAssetCard(asset)).join('')}
+            </div>
+          </section>
+        `;
+      }
 
       container.innerHTML = html;
 
@@ -799,10 +794,14 @@
     }
 
     function renderAssetCard(asset) {
-      const icon = asset.icon || TYPE_ICONS[asset.assetType] || '📁';
+      const iconValue = asset.icon || TYPE_ICONS[asset.assetType] || '📁';
+      // Check if icon is a URL (image) or emoji/text
+      const isIconUrl = iconValue.startsWith('http');
       const thumbnail = asset.thumbnailUrl
         ? `<img src="${asset.thumbnailUrl}" alt="${asset.name}" loading="lazy">`
-        : icon;
+        : isIconUrl
+          ? `<img src="${iconValue}" alt="${asset.name}" loading="lazy">`
+          : iconValue;
 
       return `
         <article class="asset-card" data-id="${asset.id}">
@@ -837,7 +836,8 @@
 
       const modal = document.getElementById('modal');
       const content = document.getElementById('modal-content');
-      const icon = asset.icon || TYPE_ICONS[asset.assetType] || '📁';
+      const iconValue = asset.icon || TYPE_ICONS[asset.assetType] || '📁';
+      const isIconUrl = iconValue.startsWith('http');
 
       // Find related assets (same quadrants or tags)
       const related = ASSETS.filter(a =>
@@ -852,7 +852,9 @@
         <div class="modal-media">
           ${asset.thumbnailUrl
             ? `<img src="${asset.thumbnailUrl}" alt="${asset.name}">`
-            : `<span>${icon}</span>`
+            : isIconUrl
+              ? `<img src="${iconValue}" alt="${asset.name}">`
+              : `<span>${iconValue}</span>`
           }
         </div>
         <div class="modal-body">

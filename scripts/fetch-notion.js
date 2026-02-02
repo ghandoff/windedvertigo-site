@@ -104,6 +104,35 @@ function getNumberValue(prop) {
   return null;
 }
 
+// Extract first file URL from a Files & media property
+function getFilesValue(prop) {
+  if (!prop) return '';
+  if (prop.type === 'files' && prop.files.length > 0) {
+    const file = prop.files[0];
+    // Handle both Notion-hosted files and external URLs
+    if (file.type === 'file') {
+      return file.file.url;
+    } else if (file.type === 'external') {
+      return file.external.url;
+    }
+  }
+  return '';
+}
+
+// Hybrid extractor: tries files first, then falls back to text
+function getIconValue(prop) {
+  if (!prop) return '';
+  // If it's a files property, get the URL
+  if (prop.type === 'files') {
+    return getFilesValue(prop);
+  }
+  // If it's rich_text (emoji/text), get the text
+  if (prop.type === 'rich_text') {
+    return getTextValue(prop);
+  }
+  return '';
+}
+
 // ============================================
 // VALIDATION
 // ============================================
@@ -283,7 +312,7 @@ async function fetchPortfolioAssets() {
       password: getTextValue(props[propMap.password]),
       client: getTextValue(props[propMap.client]),
       order: getNumberValue(props[propMap.order]),
-      icon: getTextValue(props[propMap.icon]),
+      icon: getIconValue(props[propMap.icon]),
     });
   }
 
