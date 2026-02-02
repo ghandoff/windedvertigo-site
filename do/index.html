@@ -895,13 +895,13 @@
       }
 
       if (state.step > 1) {
-        navHTML += `<button class="nav-btn" id="back-btn">â back</button>`;
+        navHTML += `<button class="nav-btn" id="back-btn">back</button>`;
       }
       if (state.step === 3 && state.focus.length > 0) {
-        navHTML += `<button class="nav-btn primary" id="next-btn">next â</button>`;
+        navHTML += `<button class="nav-btn primary" id="next-btn">next</button>`;
       }
       if (state.step === 4 && state.goals.length > 0) {
-        navHTML += `<button class="nav-btn primary" id="next-btn">see your pack â</button>`;
+        navHTML += `<button class="nav-btn primary" id="next-btn">see your pack</button>`;
       }
 
       buttonGrid.innerHTML = buttonsHTML;
