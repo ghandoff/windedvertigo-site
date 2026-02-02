@@ -681,25 +681,25 @@
         research: "measure, prove, understand impact"
       },
       services: {
-        people_design: [
+        'people-design': [
           { label: "trainings", value: "trainings", desc: "workshops and facilitation" },
           { label: "learning experiences", value: "learning-experiences", desc: "immersive programmes" },
           { label: "programmes", value: "programmes", desc: "structured learning journeys" },
           { label: "comms assets", value: "comms-assets", desc: "materials that communicate" }
         ],
-        people_research: [
+        'people-research': [
           { label: "programme evaluation", value: "program-evaluation", desc: "measure programme impact" },
           { label: "MEL touchpoints", value: "mel-touchpoints", desc: "monitoring checkpoints" },
           { label: "psychometrics", value: "psychometrics", desc: "validated assessments" },
           { label: "evidence for funders", value: "evidence-for-funders", desc: "proof for stakeholders" }
         ],
-        product_design: [
+        'product-design': [
           { label: "learning tools", value: "learning-tools", desc: "educational products" },
           { label: "toys/games", value: "toys-games", desc: "play-based products" },
           { label: "comms assets", value: "comms", desc: "brand materials" },
           { label: "UDL improvements", value: "udl-improvements", desc: "accessibility upgrades" }
         ],
-        product_research: [
+        'product-research': [
           { label: "exhibit efficacy", value: "efficacy", desc: "does the exhibit work?" },
           { label: "toy impacts", value: "toy-impacts", desc: "play value research" },
           { label: "UDL validation", value: "udl-validation", desc: "accessibility testing" },
@@ -806,10 +806,10 @@
       };
 
       const cellLabels = {
-        people_design: expanded ? 'design &<br>deploy' : '',
-        people_research: expanded ? 'pinpoint &<br>prove' : '',
-        product_design: expanded ? 'build &<br>iterate' : '',
-        product_research: expanded ? 'test &<br>validate' : ''
+        'people-design': expanded ? 'design &<br>deploy' : '',
+        'people-research': expanded ? 'pinpoint &<br>prove' : '',
+        'product-design': expanded ? 'build &<br>iterate' : '',
+        'product-research': expanded ? 'test &<br>validate' : ''
       };
 
       return `
@@ -824,17 +824,17 @@
               <div class="matrix-row-label">product</div>
             </div>
             <div class="matrix-grid">
-              <div class="matrix-cell ${getHighlightClass('people_design')}">
-                <div class="matrix-cell-label">${cellLabels.people_design}</div>
+              <div class="matrix-cell ${getHighlightClass('people-design')}">
+                <div class="matrix-cell-label">${cellLabels['people-design']}</div>
               </div>
-              <div class="matrix-cell ${getHighlightClass('people_research')}">
-                <div class="matrix-cell-label">${cellLabels.people_research}</div>
+              <div class="matrix-cell ${getHighlightClass('people-research')}">
+                <div class="matrix-cell-label">${cellLabels['people-research']}</div>
               </div>
-              <div class="matrix-cell ${getHighlightClass('product_design')}">
-                <div class="matrix-cell-label">${cellLabels.product_design}</div>
+              <div class="matrix-cell ${getHighlightClass('product-design')}">
+                <div class="matrix-cell-label">${cellLabels['product-design']}</div>
               </div>
-              <div class="matrix-cell ${getHighlightClass('product_research')}">
-                <div class="matrix-cell-label">${cellLabels.product_research}</div>
+              <div class="matrix-cell ${getHighlightClass('product-research')}">
+                <div class="matrix-cell-label">${cellLabels['product-research']}</div>
               </div>
             </div>
           </div>
