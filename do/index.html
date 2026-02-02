@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>do. â winded.vertigo</title>
+  <title>do. winded.vertigo</title>
   <meta name="description" content="Build your custom learning experience package with our interactive Package Builder.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles/main.css?v=12">
-
   <style>
     /* Package Builder Scoped Styles */
     .package-builder {
@@ -896,13 +895,13 @@
       }
 
       if (state.step > 1) {
-        navHTML += `<button class="nav-btn" id="back-btn">â back</button>`;
+        navHTML += `<button class="nav-btn" id="back-btn">back</button>`;
       }
       if (state.step === 3 && state.focus.length > 0) {
-        navHTML += `<button class="nav-btn primary" id="next-btn">next â</button>`;
+        navHTML += `<button class="nav-btn primary" id="next-btn">next</button>`;
       }
       if (state.step === 4 && state.goals.length > 0) {
-        navHTML += `<button class="nav-btn primary" id="next-btn">see your pack â</button>`;
+        navHTML += `<button class="nav-btn primary" id="next-btn">see your pack</button>`;
       }
 
       buttonGrid.innerHTML = buttonsHTML;
