@@ -102,38 +102,6 @@
       gap: 20px;
     }
 
-    /* Shelf (Horizontal Scroll) */
-    .shelf-section {
-      margin-bottom: 48px;
-    }
-
-    .shelf-container {
-      display: flex;
-      gap: 16px;
-      overflow-x: auto;
-      padding-bottom: 16px;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .shelf-container::-webkit-scrollbar {
-      height: 6px;
-    }
-
-    .shelf-container::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 3px;
-    }
-
-    .shelf-container::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 3px;
-    }
-
-    .shelf-container::-webkit-scrollbar-thumb:hover {
-      background: rgba(255, 255, 255, 0.3);
-    }
-
     /* Asset Card */
     .asset-card {
       background: #1e2738;
@@ -141,16 +109,11 @@
       overflow: hidden;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
-      scroll-snap-align: start;
     }
 
     .asset-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-    }
-
-    .shelf-container .asset-card {
-      flex: 0 0 280px;
     }
 
     .asset-card-media {
@@ -178,10 +141,18 @@
       pointer-events: none;
     }
 
-    .asset-badge {
+    .asset-card-badges {
       position: absolute;
       top: 12px;
       right: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+      z-index: 1;
+    }
+
+    .asset-badge {
       padding: 4px 10px;
       background: rgba(0, 0, 0, 0.6);
       backdrop-filter: blur(4px);
@@ -190,7 +161,7 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
       border-radius: 4px;
-      z-index: 1;
+      white-space: nowrap;
     }
 
     .asset-badge.protected {
@@ -807,8 +778,10 @@
         <article class="asset-card" data-id="${asset.id}">
           <div class="asset-card-media">
             ${typeof thumbnail === 'string' && thumbnail.startsWith('<') ? thumbnail : `<span>${thumbnail}</span>`}
-            ${asset.passwordProtected ? '<span class="asset-badge protected">🔒 protected</span>' : ''}
-            ${asset.assetType ? `<span class="asset-badge">${asset.assetType}</span>` : ''}
+            <div class="asset-card-badges">
+              ${asset.passwordProtected ? '<span class="asset-badge protected">🔒</span>' : ''}
+              ${asset.assetType ? `<span class="asset-badge">${asset.assetType}</span>` : ''}
+            </div>
           </div>
           <div class="asset-card-body">
             ${asset.quadrants?.length ? `
