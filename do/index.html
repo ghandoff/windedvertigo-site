@@ -1056,7 +1056,7 @@
     async function loadContentAndInit() {
       try {
         const response = await fetch('../data/package-builder-content.json');
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        if (!response.ok) throw new Error('HTTP ' + response.status);
 
         const data = await response.json();
 
