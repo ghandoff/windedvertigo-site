@@ -720,8 +720,9 @@
 
       let html = '';
 
-      // Featured section - only show in "all" view
-      if (currentFilter === 'all' && featured.length > 0) {
+      // Featured section - only show in "all" view (max 3 items)
+      const featuredDisplay = featured.slice(0, 3);
+      if (currentFilter === 'all' && featuredDisplay.length > 0) {
         html += `
           <section class="featured-section">
             <div class="section-header">
@@ -729,7 +730,7 @@
               <div class="section-line"></div>
             </div>
             <div class="gallery-grid">
-              ${featured.map(asset => renderAssetCard(asset)).join('')}
+              ${featuredDisplay.map(asset => renderAssetCard(asset)).join('')}
             </div>
           </section>
         `;
