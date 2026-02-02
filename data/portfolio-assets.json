@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-02T05:38:00.146Z",
+  "lastUpdated": "2026-02-02T06:11:53.421Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "assets": [
     {
@@ -93,17 +93,16 @@
     },
     {
       "id": "2fbe4ee7-4ba4-8109-b29b-f97a2bb13182",
-      "name": "Usability Testing Session",
+      "name": "designing cross-cultural business education",
       "assetType": "video",
       "quadrants": [
-        "product-research"
+        "people-design"
       ],
-      "url": "https://vimeo.com/example",
-      "thumbnailUrl": "",
-      "description": "Recorded usability session with think-aloud protocol",
+      "url": "https://www.youtube.com/watch?v=f2PZ-95I59Q",
+      "thumbnailUrl": "https://drive.google.com/open?id=1pVl8wnZd1Boqs9ssrBkXlx8pjNiJdVA2&usp=drive_fs",
+      "description": "Recorded faculty development webinar",
       "tags": [
-        "research",
-        "case-study"
+        "workshop"
       ],
       "featured": true,
       "showInPackageBuilder": true,
