@@ -1,0 +1,139 @@
+{
+  "lastUpdated": "2026-02-02T05:22:57.378Z",
+  "note": "Auto-generated from Notion. Do not edit directly.",
+  "assets": [
+    {
+      "id": "2fbe4ee7-4ba4-814e-9045-d32b96983810",
+      "name": "Learning Game Prototype",
+      "assetType": "web-app",
+      "quadrants": [
+        "product-design"
+      ],
+      "url": "https://windedvertigo.com/projects/learning-game",
+      "thumbnailUrl": "",
+      "description": "Interactive prototype demonstrating gamified learning mechanics",
+      "tags": [
+        "prototype",
+        "case-study"
+      ],
+      "featured": true,
+      "showInPackageBuilder": true,
+      "passwordProtected": false,
+      "password": "",
+      "client": "",
+      "order": 1,
+      "icon": "🎮"
+    },
+    {
+      "id": "2fbe4ee7-4ba4-81c9-a3c0-d4b51b1aa5d9",
+      "name": "PRME Workshop Slides",
+      "assetType": "slides",
+      "quadrants": [
+        "people-design"
+      ],
+      "url": "https://docs.google.com/presentation/d/example",
+      "thumbnailUrl": "",
+      "description": "Slide deck from our play-based learning workshop for PRME",
+      "tags": [
+        "workshop",
+        "case-study"
+      ],
+      "featured": true,
+      "showInPackageBuilder": true,
+      "passwordProtected": false,
+      "password": "",
+      "client": "",
+      "order": 2,
+      "icon": "📊"
+    },
+    {
+      "id": "2fbe4ee7-4ba4-81e6-930b-ceaf30b3cae2",
+      "name": "Impact Measurement Dashboard",
+      "assetType": "dashboard",
+      "quadrants": [
+        "people-research",
+        "product-research"
+      ],
+      "url": "https://windedvertigo.com/projects/impact-dashboard",
+      "thumbnailUrl": "",
+      "description": "Live dashboard tracking learning outcomes and engagement metrics",
+      "tags": [
+        "tool",
+        "report"
+      ],
+      "featured": true,
+      "showInPackageBuilder": false,
+      "passwordProtected": false,
+      "password": "",
+      "client": "",
+      "order": 3,
+      "icon": "📈"
+    },
+    {
+      "id": "2fbe4ee7-4ba4-81ea-9b5a-d7a6e2d3a886",
+      "name": "UDL Compliance Audit Template",
+      "assetType": "pdf",
+      "quadrants": [
+        "product-research"
+      ],
+      "url": "https://drive.google.com/file/d/example",
+      "thumbnailUrl": "",
+      "description": "PDF template for conducting Universal Design for Learning audits",
+      "tags": [
+        "template",
+        "research"
+      ],
+      "featured": false,
+      "showInPackageBuilder": true,
+      "passwordProtected": true,
+      "password": "udl2024",
+      "client": "",
+      "order": 4,
+      "icon": "📋"
+    },
+    {
+      "id": "2fbe4ee7-4ba4-8109-b29b-f97a2bb13182",
+      "name": "Usability Testing Session",
+      "assetType": "video",
+      "quadrants": [
+        "product-research"
+      ],
+      "url": "https://vimeo.com/example",
+      "thumbnailUrl": "",
+      "description": "Recorded usability session with think-aloud protocol",
+      "tags": [
+        "research",
+        "case-study"
+      ],
+      "featured": true,
+      "showInPackageBuilder": true,
+      "passwordProtected": false,
+      "password": "",
+      "client": "",
+      "order": 5,
+      "icon": "🎬"
+    },
+    {
+      "id": "2fbe4ee7-4ba4-8135-8dab-c06d761329e7",
+      "name": "Design System Components",
+      "assetType": "figma",
+      "quadrants": [
+        "product-design"
+      ],
+      "url": "https://figma.com/file/example",
+      "thumbnailUrl": "",
+      "description": "Our reusable learning experience design components",
+      "tags": [
+        "template",
+        "tool"
+      ],
+      "featured": false,
+      "showInPackageBuilder": true,
+      "passwordProtected": false,
+      "password": "",
+      "client": "",
+      "order": 6,
+      "icon": "🎨"
+    }
+  ]
+}
