@@ -1,0 +1,11 @@
+# robots.txt for windedvertigo.com
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://windedvertigo.com/sitemap.xml
+
+# Disallow admin/data directories
+Disallow: /data/
+Disallow: /scripts/
+Disallow: /node_modules/
