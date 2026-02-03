@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>package builder – winded.vertigo</title>
-  <meta name="description" content="Build your custom learning experience package with our interactive builder.">
+  <meta name="description" content="Build your custom learning experience package at the winded.vertigo apothecary.">
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
@@ -16,34 +16,20 @@
 
   <style>
     /* =============================================
-       WINDED.VERTIGO BRAND PALETTE - NEAR FUTURE 2050
+       WINDED.VERTIGO BRAND PALETTE
        ============================================= */
 
     :root {
-      /* Primary brand colors */
       --cadet-blue: #273248;
       --redwood: #b15043;
       --burnt-sienna: #cb7858;
       --champagne: #ffebd2;
       --white: #ffffff;
-
-      /* Complementary accents */
       --periwinkle: #5872cb;
       --seafoam: #58cbb2;
       --light-lavender: #d5d2ff;
       --light-cyan: #d2fdff;
 
-      /* Derived colors */
-      --bg-primary: #1a2030;
-      --bg-secondary: #232b3d;
-      --bg-surface: #2d3548;
-      --text-primary: var(--champagne);
-      --text-dim: rgba(255, 235, 210, 0.6);
-      --glow-redwood: 0 0 20px rgba(177, 80, 67, 0.5);
-      --glow-sienna: 0 0 20px rgba(203, 120, 88, 0.5);
-      --glow-periwinkle: 0 0 20px rgba(88, 114, 203, 0.4);
-
-      /* Typography */
       --font-display: 'Space Mono', monospace;
       --font-ui: 'Inter', sans-serif;
     }
@@ -61,8 +47,8 @@
 
     body {
       font-family: var(--font-ui);
-      background: var(--bg-primary);
-      color: var(--text-primary);
+      background: #1a1510;
+      color: var(--champagne);
     }
 
     /* =============================================
@@ -70,545 +56,582 @@
        ============================================= */
 
     .game-container {
-      display: grid;
-      grid-template-columns: 1fr 300px;
-      grid-template-rows: auto 1fr auto;
+      position: relative;
+      width: 100vw;
       height: 100vh;
-      gap: 0;
     }
 
-    /* =============================================
-       HEADER
-       ============================================= */
-
-    .quest-header {
-      grid-column: 1 / -1;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 28px;
-      background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
-      border-bottom: 1px solid var(--burnt-sienna);
-    }
-
-    .quest-title {
-      font-family: var(--font-display);
-      font-size: 14px;
-      color: var(--champagne);
-      letter-spacing: 1px;
-      text-transform: lowercase;
-    }
-
-    .quest-progress {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .progress-step {
-      width: 32px;
-      height: 4px;
-      background: var(--bg-surface);
-      border-radius: 2px;
-      transition: all 0.4s ease;
-      position: relative;
-    }
-
-    .progress-step.completed {
-      background: var(--burnt-sienna);
-    }
-
-    .progress-step.active {
-      background: var(--redwood);
-      box-shadow: var(--glow-redwood);
-    }
-
-    .progress-step::after {
-      content: attr(data-label);
+    #scene-canvas {
       position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 9px;
-      color: var(--text-dim);
-      white-space: nowrap;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .progress-step:hover::after {
-      opacity: 1;
-    }
-
-    /* =============================================
-       MAIN 3D SCENE AREA
-       ============================================= */
-
-    .scene-area {
-      position: relative;
-      background: var(--bg-primary);
-      overflow: hidden;
-    }
-
-    #three-canvas {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    /* Prompt overlay */
-    .quest-prompt {
-      position: absolute;
-      top: 32px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(26, 32, 48, 0.95);
-      border: 1px solid var(--burnt-sienna);
-      border-radius: 8px;
-      padding: 20px 36px;
-      text-align: center;
-      backdrop-filter: blur(10px);
-    }
-
-    .quest-prompt h2 {
-      font-family: var(--font-display);
-      font-size: 16px;
-      color: var(--champagne);
-      margin-bottom: 8px;
-      text-transform: lowercase;
-      letter-spacing: 0.5px;
-    }
-
-    .quest-prompt p {
-      font-size: 13px;
-      color: var(--text-dim);
-      max-width: 380px;
-    }
-
-    .quest-prompt .hint {
-      margin-top: 12px;
-      font-size: 11px;
-      color: var(--burnt-sienna);
-      font-style: italic;
-    }
-
-    /* =============================================
-       SELECTABLE ITEMS (Click-to-select, not drag)
-       ============================================= */
-
-    .options-container {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-      justify-content: center;
-      max-width: 600px;
-      padding: 20px;
-    }
-
-    .option-card {
-      width: 140px;
-      padding: 20px 16px;
-      background: var(--bg-secondary);
-      border: 2px solid var(--bg-surface);
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
-    .option-card:hover {
-      border-color: var(--burnt-sienna);
-      transform: translateY(-4px);
-      box-shadow: var(--glow-sienna);
-    }
-
-    .option-card.selected {
-      border-color: var(--redwood);
-      background: rgba(177, 80, 67, 0.15);
-      box-shadow: var(--glow-redwood);
-    }
-
-    .option-card .option-icon {
-      width: 56px;
-      height: 56px;
-      background: var(--bg-surface);
-      border: 2px solid var(--burnt-sienna);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      margin-bottom: 12px;
-      transition: all 0.3s ease;
-    }
-
-    .option-card.selected .option-icon {
-      background: var(--redwood);
-      border-color: var(--redwood);
-    }
-
-    .option-card .option-label {
-      font-family: var(--font-display);
-      font-size: 11px;
-      color: var(--champagne);
-      text-transform: lowercase;
-      margin-bottom: 4px;
-    }
-
-    .option-card .option-desc {
-      font-size: 10px;
-      color: var(--text-dim);
-      line-height: 1.4;
-    }
-
-    /* Multi-select indicator */
-    .option-card.multi-select::before {
-      content: '';
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      width: 16px;
-      height: 16px;
-      border: 2px solid var(--bg-surface);
-      border-radius: 4px;
-      transition: all 0.3s ease;
-    }
-
-    .option-card.multi-select.selected::before {
-      background: var(--redwood);
-      border-color: var(--redwood);
-    }
-
-    .option-card.multi-select.selected::after {
-      content: '✓';
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      width: 16px;
-      height: 16px;
-      color: var(--white);
-      font-size: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* =============================================
-       INVENTORY SIDEBAR
-       ============================================= */
-
-    .inventory-panel {
-      background: var(--bg-secondary);
-      border-left: 1px solid var(--burnt-sienna);
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .inventory-title {
-      font-family: var(--font-display);
-      font-size: 12px;
-      color: var(--burnt-sienna);
-      text-align: center;
-      margin-bottom: 20px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid var(--bg-surface);
-      letter-spacing: 1px;
-      text-transform: lowercase;
-    }
-
-    .inventory-section {
-      margin-bottom: 20px;
-    }
-
-    .inventory-section-title {
-      font-size: 10px;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 10px;
-    }
-
-    .inventory-slot {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 12px;
-      background: var(--bg-surface);
-      border-radius: 8px;
-      margin-bottom: 8px;
-      border: 1px solid transparent;
-      transition: all 0.3s ease;
-    }
-
-    .inventory-slot.filled {
-      border-color: var(--burnt-sienna);
-      background: rgba(203, 120, 88, 0.1);
-    }
-
-    .inventory-slot .slot-icon {
-      width: 32px;
-      height: 32px;
-      background: var(--bg-primary);
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-    }
-
-    .inventory-slot.filled .slot-icon {
-      background: var(--redwood);
-    }
-
-    .inventory-slot .slot-info {
-      flex: 1;
-    }
-
-    .inventory-slot .slot-label {
-      font-size: 11px;
-      color: var(--text-dim);
-      text-transform: lowercase;
-    }
-
-    .inventory-slot.filled .slot-label {
-      color: var(--champagne);
-      font-weight: 500;
-    }
-
-    .inventory-slot .slot-value {
-      font-size: 9px;
-      color: var(--burnt-sienna);
-    }
-
-    /* Multi-item slots */
-    .inventory-multi {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .inventory-tag {
-      padding: 4px 10px;
-      background: var(--bg-surface);
-      border-radius: 12px;
-      font-size: 10px;
-      color: var(--text-dim);
-      border: 1px solid transparent;
-    }
-
-    .inventory-tag.filled {
-      background: rgba(203, 120, 88, 0.2);
-      border-color: var(--burnt-sienna);
-      color: var(--champagne);
-    }
-
-    /* Quadrant indicator */
-    .quadrant-indicator {
-      margin-top: auto;
-      padding: 16px;
-      background: var(--bg-surface);
-      border-radius: 8px;
-      text-align: center;
-    }
-
-    .quadrant-label {
-      font-size: 9px;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
-    }
-
-    .quadrant-value {
-      font-family: var(--font-display);
-      font-size: 14px;
-      color: var(--redwood);
-      text-transform: lowercase;
-    }
-
-    /* =============================================
-       FOOTER - Navigation
-       ============================================= */
-
-    .quest-footer {
-      grid-column: 1 / -1;
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      padding: 16px 28px;
-      background: var(--bg-secondary);
-      border-top: 1px solid var(--bg-surface);
-    }
-
-    .nav-button {
-      font-family: var(--font-ui);
-      font-size: 13px;
-      font-weight: 500;
-      padding: 12px 28px;
-      border: 1px solid var(--bg-surface);
-      border-radius: 6px;
-      background: transparent;
-      color: var(--text-dim);
-      cursor: pointer;
-      text-transform: lowercase;
-      transition: all 0.3s ease;
-    }
-
-    .nav-button:hover:not(:disabled) {
-      border-color: var(--burnt-sienna);
-      color: var(--champagne);
-    }
-
-    .nav-button.primary {
-      background: var(--redwood);
-      border-color: var(--redwood);
-      color: var(--white);
-    }
-
-    .nav-button.primary:hover:not(:disabled) {
-      background: var(--burnt-sienna);
-      border-color: var(--burnt-sienna);
-      box-shadow: var(--glow-sienna);
-    }
-
-    .nav-button:disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
-    }
-
-    /* =============================================
-       GRID OVERLAY (Near-future aesthetic)
-       ============================================= */
-
-    .grid-overlay {
-      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none;
       z-index: 1;
-      background:
-        linear-gradient(rgba(203, 120, 88, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(203, 120, 88, 0.02) 1px, transparent 1px);
-      background-size: 40px 40px;
     }
 
     /* =============================================
-       RESPONSIVE
+       HEADER OVERLAY
        ============================================= */
 
-    @media (max-width: 768px) {
-      .game-container {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto 1fr auto auto;
-      }
+    .header-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background: linear-gradient(180deg, rgba(26, 21, 16, 0.95) 0%, transparent 100%);
+      pointer-events: none;
+    }
 
-      .inventory-panel {
-        border-left: none;
-        border-top: 1px solid var(--burnt-sienna);
-        max-height: 200px;
-        overflow-y: auto;
-      }
+    .header-overlay > * {
+      pointer-events: auto;
+    }
 
-      .options-container {
-        gap: 12px;
-      }
+    .shop-title {
+      font-family: var(--font-display);
+      font-size: 14px;
+      color: var(--champagne);
+      letter-spacing: 2px;
+      text-transform: lowercase;
+    }
 
-      .option-card {
-        width: 120px;
-        padding: 16px 12px;
-      }
+    .step-indicator {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .step-pip {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid var(--burnt-sienna);
+      background: transparent;
+      transition: all 0.3s ease;
+    }
+
+    .step-pip.active {
+      background: var(--burnt-sienna);
+      box-shadow: 0 0 10px var(--burnt-sienna);
+    }
+
+    .step-pip.complete {
+      background: var(--seafoam);
+      border-color: var(--seafoam);
+    }
+
+    .exit-btn {
+      font-family: var(--font-display);
+      font-size: 12px;
+      color: var(--champagne);
+      background: none;
+      border: 1px solid var(--burnt-sienna);
+      padding: 8px 16px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .exit-btn:hover {
+      background: var(--burnt-sienna);
+      color: var(--cadet-blue);
+    }
+
+    /* =============================================
+       INVENTORY POUCH (Zelda-style)
+       ============================================= */
+
+    .inventory-pouch {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      z-index: 20;
+      width: 320px;
+      background: linear-gradient(145deg, #2a2318 0%, #1a1510 100%);
+      border: 3px solid var(--burnt-sienna);
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 235, 210, 0.1);
+    }
+
+    .pouch-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(203, 120, 88, 0.3);
+    }
+
+    .pouch-title {
+      font-family: var(--font-display);
+      font-size: 11px;
+      color: var(--burnt-sienna);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .pouch-subtitle {
+      font-size: 10px;
+      color: var(--champagne);
+      opacity: 0.6;
+    }
+
+    .inventory-section {
+      margin-bottom: 12px;
+    }
+
+    .inventory-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-label {
+      font-family: var(--font-display);
+      font-size: 9px;
+      color: var(--champagne);
+      opacity: 0.5;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .slot-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .inventory-slot {
+      width: 48px;
+      height: 48px;
+      background: rgba(39, 50, 72, 0.4);
+      border: 2px solid rgba(203, 120, 88, 0.3);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .inventory-slot.single {
+      width: 100%;
+      max-width: 80px;
+    }
+
+    .inventory-slot.drop-target {
+      border-color: var(--seafoam);
+      background: rgba(88, 203, 178, 0.15);
+      box-shadow: 0 0 15px rgba(88, 203, 178, 0.3);
+    }
+
+    .inventory-slot.filled {
+      border-color: var(--burnt-sienna);
+      background: rgba(203, 120, 88, 0.15);
+    }
+
+    .slot-item {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .slot-tooltip {
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--cadet-blue);
+      color: var(--champagne);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+
+    .inventory-slot:hover .slot-tooltip {
+      opacity: 1;
+    }
+
+    /* =============================================
+       STAGE PROMPT OVERLAY
+       ============================================= */
+
+    .stage-prompt {
+      position: absolute;
+      top: 80px;
+      left: 24px;
+      z-index: 15;
+      max-width: 300px;
+      background: rgba(26, 21, 16, 0.9);
+      border-left: 3px solid var(--burnt-sienna);
+      padding: 16px;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .prompt-step {
+      font-family: var(--font-display);
+      font-size: 10px;
+      color: var(--burnt-sienna);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .prompt-question {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--champagne);
+      margin-bottom: 8px;
+    }
+
+    .prompt-hint {
+      font-size: 12px;
+      color: var(--champagne);
+      opacity: 0.6;
+    }
+
+    .prompt-hint em {
+      color: var(--seafoam);
+      font-style: normal;
+    }
+
+    /* =============================================
+       ITEM LABELS (floating in 3D space)
+       ============================================= */
+
+    .item-label {
+      position: absolute;
+      background: rgba(26, 21, 16, 0.9);
+      border: 1px solid var(--burnt-sienna);
+      padding: 6px 10px;
+      border-radius: 4px;
+      pointer-events: none;
+      z-index: 25;
+      transform: translate(-50%, -100%);
+      margin-top: -10px;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .item-label.visible {
+      opacity: 1;
+    }
+
+    .item-label-name {
+      font-family: var(--font-display);
+      font-size: 11px;
+      color: var(--champagne);
+      white-space: nowrap;
+    }
+
+    .item-label-desc {
+      font-size: 10px;
+      color: var(--champagne);
+      opacity: 0.6;
+      white-space: nowrap;
+    }
+
+    /* =============================================
+       CONTINUE BUTTON
+       ============================================= */
+
+    .continue-btn {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      font-family: var(--font-display);
+      font-size: 14px;
+      color: var(--cadet-blue);
+      background: var(--burnt-sienna);
+      border: none;
+      padding: 12px 32px;
+      cursor: pointer;
+      letter-spacing: 1px;
+      transition: all 0.2s ease;
+      display: none;
+    }
+
+    .continue-btn:hover {
+      background: var(--champagne);
+      box-shadow: 0 0 20px rgba(203, 120, 88, 0.5);
+    }
+
+    .continue-btn.visible {
+      display: block;
+    }
+
+    /* =============================================
+       DRAGGING STATE
+       ============================================= */
+
+    .dragging-item {
+      position: fixed;
+      z-index: 100;
+      pointer-events: none;
+      font-size: 32px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+      transform: translate(-50%, -50%);
+    }
+
+    body.dragging {
+      cursor: grabbing !important;
+    }
+
+    body.dragging * {
+      cursor: grabbing !important;
+    }
+
+    /* =============================================
+       WIZARD SPEECH BUBBLE
+       ============================================= */
+
+    .wizard-speech {
+      position: absolute;
+      bottom: 160px;
+      left: 24px;
+      z-index: 15;
+      max-width: 280px;
+      background: rgba(39, 50, 72, 0.95);
+      border: 2px solid var(--periwinkle);
+      padding: 12px 16px;
+      border-radius: 12px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+    }
+
+    .wizard-speech.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .wizard-speech::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 30px;
+      border-width: 10px 10px 0;
+      border-style: solid;
+      border-color: var(--periwinkle) transparent transparent;
+    }
+
+    .wizard-text {
+      font-size: 13px;
+      color: var(--champagne);
+      line-height: 1.5;
+    }
+
+    /* =============================================
+       SUMMARY SCREEN
+       ============================================= */
+
+    .summary-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 50;
+      background: rgba(26, 21, 16, 0.95);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .summary-overlay.visible {
+      display: flex;
+    }
+
+    .summary-content {
+      max-width: 600px;
+      text-align: center;
+    }
+
+    .summary-title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: var(--burnt-sienna);
+      margin-bottom: 8px;
+    }
+
+    .summary-subtitle {
+      font-size: 14px;
+      color: var(--champagne);
+      opacity: 0.7;
+      margin-bottom: 32px;
+    }
+
+    .summary-selections {
+      text-align: left;
+      margin-bottom: 32px;
+    }
+
+    .summary-section {
+      margin-bottom: 16px;
+      padding: 12px 16px;
+      background: rgba(39, 50, 72, 0.3);
+      border-left: 3px solid var(--burnt-sienna);
+      border-radius: 0 8px 8px 0;
+    }
+
+    .summary-section-label {
+      font-family: var(--font-display);
+      font-size: 10px;
+      color: var(--burnt-sienna);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .summary-section-value {
+      font-size: 14px;
+      color: var(--champagne);
+    }
+
+    .summary-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    .summary-btn {
+      font-family: var(--font-display);
+      font-size: 12px;
+      padding: 12px 24px;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 1px;
+      transition: all 0.2s ease;
+    }
+
+    .summary-btn.primary {
+      background: var(--burnt-sienna);
+      color: var(--cadet-blue);
+    }
+
+    .summary-btn.secondary {
+      background: transparent;
+      color: var(--champagne);
+      border: 1px solid var(--burnt-sienna);
+    }
+
+    .summary-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(203, 120, 88, 0.3);
     }
   </style>
 </head>
 <body>
-  <div class="grid-overlay"></div>
-
   <div class="game-container">
-    <!-- Header -->
-    <header class="quest-header">
-      <h1 class="quest-title">package builder</h1>
-      <div class="quest-progress">
-        <div class="progress-step active" data-step="1" data-label="focus"></div>
-        <div class="progress-step" data-step="2" data-label="approach"></div>
-        <div class="progress-step" data-step="3" data-label="services"></div>
-        <div class="progress-step" data-step="4" data-label="goals"></div>
-        <div class="progress-step" data-step="5" data-label="package"></div>
+    <!-- Three.js Canvas -->
+    <canvas id="scene-canvas"></canvas>
+
+    <!-- Header Overlay -->
+    <header class="header-overlay">
+      <div class="shop-title">winded.vertigo apothecary</div>
+      <div class="step-indicator" id="stepIndicator">
+        <div class="step-pip" data-step="1"></div>
+        <div class="step-pip" data-step="2"></div>
+        <div class="step-pip" data-step="3"></div>
+        <div class="step-pip" data-step="4"></div>
       </div>
+      <a href="../do/" class="exit-btn">← back to menu</a>
     </header>
 
-    <!-- Main Scene -->
-    <div class="scene-area">
-      <canvas id="three-canvas"></canvas>
-
-      <!-- Prompt Overlay -->
-      <div class="quest-prompt">
-        <h2 id="prompt-title">what are you trying to change?</h2>
-        <p id="prompt-subtitle">select one to continue</p>
-        <p class="hint" id="prompt-hint"></p>
-      </div>
-
-      <!-- Selectable Options -->
-      <div class="options-container" id="options-container"></div>
+    <!-- Stage Prompt -->
+    <div class="stage-prompt" id="stagePrompt">
+      <div class="prompt-step">step 1 of 4</div>
+      <div class="prompt-question">Who is your work focused on?</div>
+      <div class="prompt-hint">Drag a <em>focus crystal</em> to your pouch</div>
     </div>
 
-    <!-- Inventory Panel -->
-    <aside class="inventory-panel">
-      <h2 class="inventory-title">your package</h2>
+    <!-- Wizard Speech Bubble -->
+    <div class="wizard-speech" id="wizardSpeech">
+      <div class="wizard-text" id="wizardText">Welcome, traveler! I am the keeper of this apothecary. Browse my wares and gather what you need for your journey...</div>
+    </div>
 
-      <div class="inventory-section">
-        <div class="inventory-section-title">foundation</div>
-        <div class="inventory-slot" id="slot-focus">
-          <div class="slot-icon">?</div>
-          <div class="slot-info">
-            <div class="slot-label">focus</div>
-            <div class="slot-value" id="focus-value">—</div>
-          </div>
-        </div>
-        <div class="inventory-slot" id="slot-approach">
-          <div class="slot-icon">?</div>
-          <div class="slot-info">
-            <div class="slot-label">approach</div>
-            <div class="slot-value" id="approach-value">—</div>
-          </div>
-        </div>
+    <!-- Item Label (follows hovered item) -->
+    <div class="item-label" id="itemLabel">
+      <div class="item-label-name"></div>
+      <div class="item-label-desc"></div>
+    </div>
+
+    <!-- Inventory Pouch -->
+    <div class="inventory-pouch" id="inventoryPouch">
+      <div class="pouch-header">
+        <div class="pouch-title">Adventure Pouch</div>
+        <div class="pouch-subtitle">your selections</div>
       </div>
 
-      <div class="inventory-section">
-        <div class="inventory-section-title">services</div>
-        <div class="inventory-multi" id="services-container">
-          <span class="inventory-tag">select services...</span>
+      <!-- Step 1: Focus (single slot) -->
+      <div class="inventory-section" id="section-focus">
+        <div class="section-label">1. focus</div>
+        <div class="slot-row">
+          <div class="inventory-slot single" data-section="focus" data-index="0"></div>
         </div>
       </div>
 
-      <div class="inventory-section">
-        <div class="inventory-section-title">goals</div>
-        <div class="inventory-multi" id="goals-container">
-          <span class="inventory-tag">select goals...</span>
+      <!-- Step 2: Approach (single slot) -->
+      <div class="inventory-section" id="section-approach">
+        <div class="section-label">2. approach</div>
+        <div class="slot-row">
+          <div class="inventory-slot single" data-section="approach" data-index="0"></div>
         </div>
       </div>
 
-      <div class="quadrant-indicator">
-        <div class="quadrant-label">quadrant</div>
-        <div class="quadrant-value" id="quadrant-value">—</div>
+      <!-- Step 3: Services (multi slot) -->
+      <div class="inventory-section" id="section-services">
+        <div class="section-label">3. services (up to 4)</div>
+        <div class="slot-row">
+          <div class="inventory-slot" data-section="services" data-index="0"></div>
+          <div class="inventory-slot" data-section="services" data-index="1"></div>
+          <div class="inventory-slot" data-section="services" data-index="2"></div>
+          <div class="inventory-slot" data-section="services" data-index="3"></div>
+        </div>
       </div>
-    </aside>
 
-    <!-- Footer Navigation -->
-    <footer class="quest-footer">
-      <button class="nav-button" id="btn-back" disabled>← back</button>
-      <button class="nav-button" id="btn-reset">↻ start over</button>
-      <button class="nav-button primary" id="btn-next" disabled>continue →</button>
-    </footer>
+      <!-- Step 4: Goals (multi slot) -->
+      <div class="inventory-section" id="section-goals">
+        <div class="section-label">4. goals (up to 3)</div>
+        <div class="slot-row">
+          <div class="inventory-slot" data-section="goals" data-index="0"></div>
+          <div class="inventory-slot" data-section="goals" data-index="1"></div>
+          <div class="inventory-slot" data-section="goals" data-index="2"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Continue Button -->
+    <button class="continue-btn" id="continueBtn">Continue →</button>
+
+    <!-- Summary Overlay -->
+    <div class="summary-overlay" id="summaryOverlay">
+      <div class="summary-content">
+        <h2 class="summary-title">Your Adventure Awaits</h2>
+        <p class="summary-subtitle">Here's what you've gathered from the apothecary</p>
+        <div class="summary-selections" id="summarySelections"></div>
+        <div class="summary-actions">
+          <button class="summary-btn secondary" id="resetBtn">Start Over</button>
+          <button class="summary-btn primary" id="submitBtn">Begin Journey →</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Three.js -->
@@ -616,500 +639,1046 @@
 
   <script>
     // =============================================
-    // GAME STATE
+    // GAME DATA
     // =============================================
-    const gameState = {
-      step: 1,
-      focus: null,      // people or product
-      approach: null,   // design or research
-      services: [],     // multi-select
-      goals: []         // multi-select
-    };
 
-    // =============================================
-    // STEP CONFIGURATION
-    // =============================================
-    const STEPS = {
-      1: {
-        title: "what are you trying to change?",
-        subtitle: "select one to continue",
-        hint: "",
-        multiSelect: false,
-        options: [
-          {
-            value: "people",
-            icon: "👥",
-            label: "people",
-            desc: "training, behaviour change, system adoption"
-          },
-          {
-            value: "product",
-            icon: "🎯",
-            label: "product",
-            desc: "the tool, game, or experience itself"
-          }
+    const STEPS = [
+      null, // 1-indexed
+      {
+        id: 'focus',
+        prompt: 'Who is your work focused on?',
+        hint: 'Drag a <em>focus crystal</em> to your pouch',
+        single: true,
+        items: [
+          { value: 'people', icon: '👥', label: 'People', desc: 'Human development & learning', color: 0x5872cb },
+          { value: 'product', icon: '📦', label: 'Product', desc: 'Tools, toys & experiences', color: 0xcb7858 }
         ]
       },
-      2: {
-        title: "how do you want to approach it?",
-        subtitle: "select one to continue",
-        hint: "",
-        multiSelect: false,
-        options: [
-          {
-            value: "design",
-            icon: "✏️",
-            label: "design",
-            desc: "build, improve, make it work better"
-          },
-          {
-            value: "research",
-            icon: "🔍",
-            label: "research",
-            desc: "measure, prove, understand impact"
-          }
+      {
+        id: 'approach',
+        prompt: 'What approach guides your work?',
+        hint: 'Drag an <em>approach tome</em> to your pouch',
+        single: true,
+        items: [
+          { value: 'design', icon: '✨', label: 'Design', desc: 'Creating new solutions', color: 0x58cbb2 },
+          { value: 'research', icon: '🔮', label: 'Research', desc: 'Understanding & measuring', color: 0xd5d2ff }
         ]
       },
-      3: {
-        title: "which services match your needs?",
-        subtitle: "select one or more, then continue",
-        hint: "choose up to 4 services",
-        multiSelect: true,
+      {
+        id: 'services',
+        prompt: 'Which services do you seek?',
+        hint: 'Drag up to <em>4 service vials</em> to your pouch',
+        single: false,
         maxSelect: 4,
-        // Options populated dynamically based on quadrant
-        options: []
+        items: []
       },
-      4: {
-        title: "what does success look like?",
-        subtitle: "select one or more, then continue",
-        hint: "choose up to 3 goals",
-        multiSelect: true,
+      {
+        id: 'goals',
+        prompt: 'What outcomes do you desire?',
+        hint: 'Drag up to <em>3 goal stones</em> to your pouch',
+        single: false,
         maxSelect: 3,
-        options: [
-          { value: "prove", icon: "📊", label: "prove it", desc: "demonstrate measurable impact" },
-          { value: "improve", icon: "⬆️", label: "improve it", desc: "make what exists better" },
-          { value: "scale", icon: "📈", label: "scale it", desc: "expand reach and adoption" },
-          { value: "accessibility", icon: "♿", label: "accessibility", desc: "ensure inclusive design" },
-          { value: "concept", icon: "💡", label: "concept sprint", desc: "rapid idea exploration" },
-          { value: "prototype", icon: "🔧", label: "prototype", desc: "build a testable version" }
+        items: [
+          { value: 'awareness', icon: '💡', label: 'Build Awareness', desc: 'Spread understanding', color: 0xffebd2 },
+          { value: 'behavior', icon: '🎯', label: 'Change Behavior', desc: 'Shift actions & habits', color: 0xb15043 },
+          { value: 'skills', icon: '⚡', label: 'Develop Skills', desc: 'Build capabilities', color: 0x58cbb2 },
+          { value: 'evidence', icon: '📊', label: 'Generate Evidence', desc: 'Prove impact', color: 0x5872cb },
+          { value: 'engagement', icon: '❤️', label: 'Drive Engagement', desc: 'Create connection', color: 0xcb7858 }
         ]
-      },
-      5: {
-        title: "your package is ready",
-        subtitle: "review your selections below",
-        hint: ""
       }
-    };
+    ];
 
-    // Services by quadrant (matching main site)
     const SERVICES_BY_QUADRANT = {
       'people-design': [
-        { value: "trainings", icon: "🎓", label: "trainings", desc: "workshops and facilitation" },
-        { value: "learning-experiences", icon: "🌟", label: "learning experiences", desc: "immersive programmes" },
-        { value: "programmes", icon: "📋", label: "programmes", desc: "structured learning journeys" },
-        { value: "comms-assets", icon: "📢", label: "comms assets", desc: "materials that communicate" }
+        { value: 'trainings', icon: '🎓', label: 'Trainings', desc: 'Workshops & facilitation', color: 0x5872cb },
+        { value: 'learning-experiences', icon: '🌟', label: 'Learning Experiences', desc: 'Immersive programmes', color: 0x58cbb2 },
+        { value: 'programmes', icon: '📋', label: 'Programmes', desc: 'Structured journeys', color: 0xcb7858 },
+        { value: 'comms-assets', icon: '📢', label: 'Comms Assets', desc: 'Materials that communicate', color: 0xd5d2ff }
       ],
       'people-research': [
-        { value: "programme-evaluation", icon: "📊", label: "programme evaluation", desc: "measure programme impact" },
-        { value: "mel-touchpoints", icon: "📍", label: "MEL touchpoints", desc: "monitoring checkpoints" },
-        { value: "psychometrics", icon: "🧠", label: "psychometrics", desc: "validated assessments" },
-        { value: "evidence-for-funders", icon: "💼", label: "evidence for funders", desc: "proof for stakeholders" }
+        { value: 'programme-evaluation', icon: '📊', label: 'Programme Evaluation', desc: 'Measure impact', color: 0x5872cb },
+        { value: 'mel-touchpoints', icon: '📍', label: 'MEL Touchpoints', desc: 'Monitoring checkpoints', color: 0x58cbb2 },
+        { value: 'psychometrics', icon: '🧠', label: 'Psychometrics', desc: 'Validated assessments', color: 0xd5d2ff },
+        { value: 'evidence-for-funders', icon: '💼', label: 'Evidence for Funders', desc: 'Proof for stakeholders', color: 0xcb7858 }
       ],
       'product-design': [
-        { value: "learning-tools", icon: "🛠️", label: "learning tools", desc: "educational products" },
-        { value: "toys-games", icon: "🎲", label: "toys/games", desc: "play-based products" },
-        { value: "comms-assets", icon: "🎨", label: "comms assets", desc: "brand materials" },
-        { value: "udl-improvements", icon: "♿", label: "UDL improvements", desc: "accessibility upgrades" }
+        { value: 'learning-tools', icon: '🛠️', label: 'Learning Tools', desc: 'Educational products', color: 0x5872cb },
+        { value: 'toys-games', icon: '🎲', label: 'Toys & Games', desc: 'Play-based products', color: 0x58cbb2 },
+        { value: 'comms-assets-product', icon: '🎨', label: 'Comms Assets', desc: 'Brand materials', color: 0xcb7858 },
+        { value: 'udl-improvements', icon: '♿', label: 'UDL Improvements', desc: 'Accessibility upgrades', color: 0xd5d2ff }
       ],
       'product-research': [
-        { value: "exhibit-efficacy", icon: "🏛️", label: "exhibit efficacy", desc: "does the exhibit work?" },
-        { value: "toy-impacts", icon: "🎮", label: "toy impacts", desc: "play value research" },
-        { value: "udl-validation", icon: "✅", label: "UDL validation", desc: "accessibility testing" },
-        { value: "usability-testing", icon: "👤", label: "usability testing", desc: "user experience research" }
+        { value: 'exhibit-efficacy', icon: '🏛️', label: 'Exhibit Efficacy', desc: 'Does the exhibit work?', color: 0x5872cb },
+        { value: 'toy-impacts', icon: '🎮', label: 'Toy Impacts', desc: 'Play value research', color: 0x58cbb2 },
+        { value: 'udl-validation', icon: '✅', label: 'UDL Validation', desc: 'Accessibility testing', color: 0xd5d2ff },
+        { value: 'usability-testing', icon: '👤', label: 'Usability Testing', desc: 'User experience research', color: 0xcb7858 }
       ]
     };
 
-    const QUADRANT_NAMES = {
-      'people-design': 'design & deploy',
-      'people-research': 'pinpoint & prove',
-      'product-design': 'build & iterate',
-      'product-research': 'test & validate'
+    const WIZARD_LINES = {
+      welcome: "Welcome, traveler! I am the keeper of this apothecary. Browse my wares and gather what you need for your journey...",
+      step1: "Ah, choosing your focus! The crystal on the left calls to those who serve people directly. The one on the right, for those who craft products and tools.",
+      step2: "Now, your approach... Do you wish to design and create anew? Or research and understand what already is?",
+      step3: "Excellent choices! Now select the services that will aid your quest. Take up to four vials from the shelf.",
+      step4: "Finally, what outcomes do you seek? These goal stones will guide your path. Choose up to three.",
+      complete: "A fine selection! Your adventure pack is ready. May these tools serve you well on your journey!",
+      dragHint: "Simply drag the items from my shelves into your pouch on the right.",
+      goodChoice: ["A wise choice!", "That one has served many travelers well.", "Ah yes, a powerful selection.", "I had a feeling you'd choose that one."]
     };
 
     // =============================================
-    // THREE.JS SCENE - NEAR FUTURE LAB
+    // GAME STATE
     // =============================================
-    let scene, camera, renderer, labGroup;
 
-    function initThreeJS() {
-      const canvas = document.getElementById('three-canvas');
-      const container = canvas.parentElement;
+    const gameState = {
+      step: 1,
+      focus: null,
+      approach: null,
+      services: [],
+      goals: [],
+      dragging: null
+    };
 
-      scene = new THREE.Scene();
-      scene.background = new THREE.Color(0x1a2030);
+    // =============================================
+    // THREE.JS SETUP
+    // =============================================
 
-      camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
-      camera.position.set(0, 2, 8);
-      camera.lookAt(0, 0, 0);
+    const canvas = document.getElementById('scene-canvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
 
-      renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-      renderer.setSize(container.clientWidth, container.clientHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-      // Soft ambient lighting
-      const ambientLight = new THREE.AmbientLight(0xffebd2, 0.3);
-      scene.add(ambientLight);
+    // Colors
+    const COLORS = {
+      cadetBlue: 0x273248,
+      redwood: 0xb15043,
+      burntSienna: 0xcb7858,
+      champagne: 0xffebd2,
+      periwinkle: 0x5872cb,
+      seafoam: 0x58cbb2
+    };
 
-      // Warm accent lights (brand colors)
-      const warmLight = new THREE.PointLight(0xcb7858, 0.8, 15);
-      warmLight.position.set(-4, 3, 2);
-      scene.add(warmLight);
+    // Scene background - warm apothecary interior
+    scene.background = new THREE.Color(0x1a1510);
+    scene.fog = new THREE.Fog(0x1a1510, 8, 20);
 
-      const coolLight = new THREE.PointLight(0x5872cb, 0.5, 15);
-      coolLight.position.set(4, 3, 2);
-      scene.add(coolLight);
+    // Camera position - viewing the shop from customer perspective
+    camera.position.set(0, 1.8, 5);
+    camera.lookAt(0, 1.2, 0);
 
-      createLabEnvironment();
+    // =============================================
+    // LIGHTING - Warm apothecary glow
+    // =============================================
 
-      window.addEventListener('resize', onWindowResize);
-      animate();
+    // Ambient light - dim warm
+    const ambientLight = new THREE.AmbientLight(0xffebd2, 0.2);
+    scene.add(ambientLight);
+
+    // Main lantern light (overhead)
+    const mainLight = new THREE.PointLight(0xffebd2, 1.2, 12);
+    mainLight.position.set(0, 3.5, 1);
+    mainLight.castShadow = true;
+    mainLight.shadow.mapSize.width = 1024;
+    mainLight.shadow.mapSize.height = 1024;
+    scene.add(mainLight);
+
+    // Accent candle lights
+    const candleLight1 = new THREE.PointLight(0xcb7858, 0.6, 5);
+    candleLight1.position.set(-2, 1.8, 0);
+    scene.add(candleLight1);
+
+    const candleLight2 = new THREE.PointLight(0xcb7858, 0.6, 5);
+    candleLight2.position.set(2, 1.8, 0);
+    scene.add(candleLight2);
+
+    // Mystical accent (periwinkle glow from wizard area)
+    const wizardGlow = new THREE.PointLight(0x5872cb, 0.4, 6);
+    wizardGlow.position.set(-3, 2, -1);
+    scene.add(wizardGlow);
+
+    // =============================================
+    // APOTHECARY ENVIRONMENT
+    // =============================================
+
+    // Floor - wooden planks
+    const floorGeom = new THREE.PlaneGeometry(14, 10);
+    const floorMat = new THREE.MeshStandardMaterial({
+      color: 0x3d2a1a,
+      roughness: 0.9,
+      metalness: 0
+    });
+    const floor = new THREE.Mesh(floorGeom, floorMat);
+    floor.rotation.x = -Math.PI / 2;
+    floor.position.y = 0;
+    floor.receiveShadow = true;
+    scene.add(floor);
+
+    // Back wall
+    const backWallGeom = new THREE.PlaneGeometry(14, 5);
+    const backWallMat = new THREE.MeshStandardMaterial({
+      color: 0x4a3525,
+      roughness: 0.85
+    });
+    const backWall = new THREE.Mesh(backWallGeom, backWallMat);
+    backWall.position.set(0, 2.5, -2);
+    backWall.receiveShadow = true;
+    scene.add(backWall);
+
+    // Side walls (partial, for depth)
+    const sideWallGeom = new THREE.PlaneGeometry(6, 5);
+    const leftWall = new THREE.Mesh(sideWallGeom, backWallMat);
+    leftWall.position.set(-5, 2.5, 0);
+    leftWall.rotation.y = Math.PI / 2;
+    scene.add(leftWall);
+
+    const rightWall = new THREE.Mesh(sideWallGeom, backWallMat);
+    rightWall.position.set(5, 2.5, 0);
+    rightWall.rotation.y = -Math.PI / 2;
+    scene.add(rightWall);
+
+    // Main counter/display table
+    const counterGroup = new THREE.Group();
+
+    const counterBaseGeom = new THREE.BoxGeometry(6, 0.9, 1.5);
+    const counterMat = new THREE.MeshStandardMaterial({
+      color: 0x5a3d2a,
+      roughness: 0.7
+    });
+    const counterBase = new THREE.Mesh(counterBaseGeom, counterMat);
+    counterBase.position.y = 0.45;
+    counterBase.castShadow = true;
+    counterBase.receiveShadow = true;
+    counterGroup.add(counterBase);
+
+    // Counter top
+    const counterTopGeom = new THREE.BoxGeometry(6.2, 0.08, 1.7);
+    const counterTopMat = new THREE.MeshStandardMaterial({
+      color: 0x6b4a35,
+      roughness: 0.5
+    });
+    const counterTop = new THREE.Mesh(counterTopGeom, counterTopMat);
+    counterTop.position.y = 0.94;
+    counterTop.receiveShadow = true;
+    counterGroup.add(counterTop);
+
+    counterGroup.position.set(0, 0, 0.5);
+    scene.add(counterGroup);
+
+    // Back shelving unit
+    const shelfUnitGroup = new THREE.Group();
+
+    // Shelf frame/back
+    const shelfBackGeom = new THREE.BoxGeometry(5, 3, 0.1);
+    const shelfFrameMat = new THREE.MeshStandardMaterial({
+      color: 0x4a3525,
+      roughness: 0.8
+    });
+    const shelfBack = new THREE.Mesh(shelfBackGeom, shelfFrameMat);
+    shelfBack.position.set(0, 2.5, -1.9);
+    shelfUnitGroup.add(shelfBack);
+
+    // Create individual shelves
+    function createShelf(y, width = 4.8) {
+      const shelfGeom = new THREE.BoxGeometry(width, 0.08, 0.5);
+      const shelfMat = new THREE.MeshStandardMaterial({
+        color: 0x5a4030,
+        roughness: 0.7
+      });
+      const shelf = new THREE.Mesh(shelfGeom, shelfMat);
+      shelf.position.set(0, y, -1.6);
+      shelf.castShadow = true;
+      shelf.receiveShadow = true;
+      return shelf;
     }
 
-    function createLabEnvironment() {
-      labGroup = new THREE.Group();
+    shelfUnitGroup.add(createShelf(1.5));
+    shelfUnitGroup.add(createShelf(2.5));
+    shelfUnitGroup.add(createShelf(3.5));
 
-      // Floor grid - subtle, technical
-      const gridHelper = new THREE.GridHelper(20, 40, 0x2d3548, 0x232b3d);
-      gridHelper.position.y = -1.5;
-      labGroup.add(gridHelper);
+    scene.add(shelfUnitGroup);
 
-      // Floating platform
-      const platformGeo = new THREE.CylinderGeometry(3, 3.2, 0.2, 32);
-      const platformMat = new THREE.MeshBasicMaterial({
-        color: 0x2d3548,
+    // Decorative elements - jars on background shelves (non-interactive)
+    function createDecoJar(x, y, z, color) {
+      const jarGroup = new THREE.Group();
+
+      const bodyGeom = new THREE.CylinderGeometry(0.12, 0.14, 0.35, 12);
+      const glassMat = new THREE.MeshStandardMaterial({
+        color: 0xffffff,
         transparent: true,
-        opacity: 0.8
+        opacity: 0.25,
+        roughness: 0.1
       });
-      const platform = new THREE.Mesh(platformGeo, platformMat);
-      platform.position.y = -1.4;
-      labGroup.add(platform);
+      const body = new THREE.Mesh(bodyGeom, glassMat);
+      jarGroup.add(body);
 
-      // Platform ring
-      const ringGeo = new THREE.RingGeometry(2.9, 3.1, 64);
-      const ringMat = new THREE.MeshBasicMaterial({
-        color: 0xcb7858,
-        side: THREE.DoubleSide,
+      const liquidGeom = new THREE.CylinderGeometry(0.1, 0.12, 0.28, 12);
+      const liquidMat = new THREE.MeshStandardMaterial({
+        color: color,
         transparent: true,
-        opacity: 0.6
+        opacity: 0.6,
+        emissive: color,
+        emissiveIntensity: 0.2
       });
-      const ring = new THREE.Mesh(ringGeo, ringMat);
-      ring.rotation.x = -Math.PI / 2;
-      ring.position.y = -1.29;
-      labGroup.add(ring);
+      const liquid = new THREE.Mesh(liquidGeom, liquidMat);
+      liquid.position.y = -0.02;
+      jarGroup.add(liquid);
 
-      // Vertical accent lines
-      for (let i = 0; i < 6; i++) {
-        const angle = (i / 6) * Math.PI * 2;
-        const lineGeo = new THREE.BufferGeometry().setFromPoints([
-          new THREE.Vector3(Math.cos(angle) * 4, -1.5, Math.sin(angle) * 4),
-          new THREE.Vector3(Math.cos(angle) * 4, 3, Math.sin(angle) * 4)
-        ]);
-        const lineMat = new THREE.LineBasicMaterial({
-          color: 0x5872cb,
-          transparent: true,
-          opacity: 0.3
-        });
-        const line = new THREE.Line(lineGeo, lineMat);
-        labGroup.add(line);
+      const corkGeom = new THREE.CylinderGeometry(0.08, 0.1, 0.08, 8);
+      const corkMat = new THREE.MeshStandardMaterial({ color: 0x8b6914 });
+      const cork = new THREE.Mesh(corkGeom, corkMat);
+      cork.position.y = 0.2;
+      jarGroup.add(cork);
+
+      jarGroup.position.set(x, y, z);
+      return jarGroup;
+    }
+
+    // Background deco jars
+    const decoColors = [0x5872cb, 0x58cbb2, 0xcb7858, 0xd5d2ff, 0xb15043];
+    for (let i = 0; i < 8; i++) {
+      const x = -1.8 + (i % 4) * 1.2;
+      const y = 2.7 + Math.floor(i / 4) * 1;
+      const color = decoColors[i % decoColors.length];
+      scene.add(createDecoJar(x, y, -1.5, color));
+    }
+
+    // Hanging lantern
+    const lanternGroup = new THREE.Group();
+    const lanternFrameGeom = new THREE.BoxGeometry(0.4, 0.5, 0.4);
+    const lanternFrameMat = new THREE.MeshStandardMaterial({
+      color: 0x4a3020,
+      roughness: 0.6
+    });
+    // Frame edges (simplified)
+    const lanternFrame = new THREE.Mesh(
+      new THREE.BoxGeometry(0.35, 0.45, 0.35),
+      new THREE.MeshStandardMaterial({
+        color: 0xffebd2,
+        transparent: true,
+        opacity: 0.3,
+        emissive: 0xffebd2,
+        emissiveIntensity: 0.3
+      })
+    );
+    lanternGroup.add(lanternFrame);
+
+    // Chain
+    const chainGeom = new THREE.CylinderGeometry(0.02, 0.02, 0.8, 6);
+    const chainMat = new THREE.MeshStandardMaterial({ color: 0x4a3020 });
+    const chain = new THREE.Mesh(chainGeom, chainMat);
+    chain.position.y = 0.65;
+    lanternGroup.add(chain);
+
+    lanternGroup.position.set(0, 3.2, 1);
+    scene.add(lanternGroup);
+
+    // =============================================
+    // WIZARD CHARACTER
+    // =============================================
+
+    const wizardGroup = new THREE.Group();
+
+    // Body - robed figure
+    const robeGeom = new THREE.ConeGeometry(0.45, 1.6, 8);
+    const robeMat = new THREE.MeshStandardMaterial({
+      color: COLORS.cadetBlue,
+      roughness: 0.8
+    });
+    const robe = new THREE.Mesh(robeGeom, robeMat);
+    robe.position.y = 0.8;
+    robe.castShadow = true;
+    wizardGroup.add(robe);
+
+    // Upper body
+    const torsoGeom = new THREE.CylinderGeometry(0.25, 0.35, 0.5, 8);
+    const torso = new THREE.Mesh(torsoGeom, robeMat);
+    torso.position.y = 1.65;
+    torso.castShadow = true;
+    wizardGroup.add(torso);
+
+    // Head
+    const headGeom = new THREE.SphereGeometry(0.2, 16, 16);
+    const headMat = new THREE.MeshStandardMaterial({
+      color: 0xe8d0b8,
+      roughness: 0.7
+    });
+    const head = new THREE.Mesh(headGeom, headMat);
+    head.position.y = 2.05;
+    head.castShadow = true;
+    wizardGroup.add(head);
+
+    // Hat
+    const hatGeom = new THREE.ConeGeometry(0.28, 0.6, 8);
+    const hatMat = new THREE.MeshStandardMaterial({
+      color: COLORS.redwood,
+      roughness: 0.6
+    });
+    const hat = new THREE.Mesh(hatGeom, hatMat);
+    hat.position.y = 2.5;
+    hat.rotation.x = -0.1;
+    hat.castShadow = true;
+    wizardGroup.add(hat);
+
+    // Hat brim
+    const brimGeom = new THREE.CylinderGeometry(0.35, 0.35, 0.04, 16);
+    const brim = new THREE.Mesh(brimGeom, hatMat);
+    brim.position.y = 2.22;
+    wizardGroup.add(brim);
+
+    // Beard
+    const beardGeom = new THREE.ConeGeometry(0.15, 0.4, 8);
+    const beardMat = new THREE.MeshStandardMaterial({
+      color: 0xaaaaaa,
+      roughness: 0.9
+    });
+    const beard = new THREE.Mesh(beardGeom, beardMat);
+    beard.position.set(0, 1.75, 0.12);
+    beard.rotation.x = Math.PI;
+    wizardGroup.add(beard);
+
+    // Staff
+    const staffGeom = new THREE.CylinderGeometry(0.025, 0.035, 2, 8);
+    const staffMat = new THREE.MeshStandardMaterial({
+      color: 0x5a3d28,
+      roughness: 0.7
+    });
+    const staff = new THREE.Mesh(staffGeom, staffMat);
+    staff.position.set(0.4, 1, 0.1);
+    staff.rotation.z = 0.1;
+    wizardGroup.add(staff);
+
+    // Staff crystal
+    const staffCrystalGeom = new THREE.OctahedronGeometry(0.1, 0);
+    const staffCrystalMat = new THREE.MeshStandardMaterial({
+      color: COLORS.periwinkle,
+      emissive: COLORS.periwinkle,
+      emissiveIntensity: 0.6,
+      roughness: 0.2
+    });
+    const staffCrystal = new THREE.Mesh(staffCrystalGeom, staffCrystalMat);
+    staffCrystal.position.set(0.48, 2.05, 0.12);
+    wizardGroup.add(staffCrystal);
+
+    // Position wizard to the left side, behind counter
+    wizardGroup.position.set(-2.2, 0, -0.5);
+    scene.add(wizardGroup);
+
+    // =============================================
+    // 3D ITEM OBJECTS (Draggable wares)
+    // =============================================
+
+    const itemObjects = [];
+    const itemDataMap = new Map();
+
+    // Create different mystical 3D objects
+    function createCrystal(color, size = 0.18) {
+      const group = new THREE.Group();
+
+      const geom = new THREE.OctahedronGeometry(size, 0);
+      const mat = new THREE.MeshStandardMaterial({
+        color: color,
+        emissive: color,
+        emissiveIntensity: 0.4,
+        roughness: 0.15,
+        metalness: 0.2
+      });
+      const crystal = new THREE.Mesh(geom, mat);
+      crystal.castShadow = true;
+      group.add(crystal);
+
+      // Base/stand
+      const baseGeom = new THREE.CylinderGeometry(0.08, 0.1, 0.06, 8);
+      const baseMat = new THREE.MeshStandardMaterial({ color: 0x4a3525 });
+      const base = new THREE.Mesh(baseGeom, baseMat);
+      base.position.y = -size - 0.03;
+      group.add(base);
+
+      return group;
+    }
+
+    function createPotion(color, size = 0.14) {
+      const group = new THREE.Group();
+
+      // Bottle body - rounded flask shape
+      const bodyGeom = new THREE.SphereGeometry(size, 12, 12);
+      bodyGeom.scale(1, 1.3, 1);
+      const glassMat = new THREE.MeshStandardMaterial({
+        color: 0xffffff,
+        transparent: true,
+        opacity: 0.3,
+        roughness: 0.05,
+        metalness: 0.1
+      });
+      const body = new THREE.Mesh(bodyGeom, glassMat);
+      body.position.y = size * 0.3;
+      group.add(body);
+
+      // Neck
+      const neckGeom = new THREE.CylinderGeometry(size * 0.3, size * 0.4, size * 0.5, 8);
+      const neck = new THREE.Mesh(neckGeom, glassMat);
+      neck.position.y = size * 1.4;
+      group.add(neck);
+
+      // Liquid inside
+      const liquidGeom = new THREE.SphereGeometry(size * 0.85, 12, 12);
+      liquidGeom.scale(1, 1.2, 1);
+      const liquidMat = new THREE.MeshStandardMaterial({
+        color: color,
+        emissive: color,
+        emissiveIntensity: 0.5,
+        transparent: true,
+        opacity: 0.85,
+        roughness: 0.3
+      });
+      const liquid = new THREE.Mesh(liquidGeom, liquidMat);
+      liquid.position.y = size * 0.2;
+      group.add(liquid);
+
+      // Cork
+      const corkGeom = new THREE.CylinderGeometry(size * 0.25, size * 0.3, size * 0.3, 8);
+      const corkMat = new THREE.MeshStandardMaterial({ color: 0x8b6914, roughness: 0.8 });
+      const cork = new THREE.Mesh(corkGeom, corkMat);
+      cork.position.y = size * 1.75;
+      group.add(cork);
+
+      group.castShadow = true;
+      return group;
+    }
+
+    function createTome(color) {
+      const group = new THREE.Group();
+
+      // Book cover
+      const coverGeom = new THREE.BoxGeometry(0.22, 0.28, 0.06);
+      const coverMat = new THREE.MeshStandardMaterial({
+        color: color,
+        roughness: 0.7
+      });
+      const cover = new THREE.Mesh(coverGeom, coverMat);
+      group.add(cover);
+
+      // Pages
+      const pagesGeom = new THREE.BoxGeometry(0.19, 0.25, 0.04);
+      const pagesMat = new THREE.MeshStandardMaterial({ color: 0xf5f0e0, roughness: 0.9 });
+      const pages = new THREE.Mesh(pagesGeom, pagesMat);
+      pages.position.x = 0.008;
+      group.add(pages);
+
+      // Spine
+      const spineGeom = new THREE.BoxGeometry(0.015, 0.28, 0.06);
+      const spineMat = new THREE.MeshStandardMaterial({
+        color: new THREE.Color(color).multiplyScalar(0.6)
+      });
+      const spine = new THREE.Mesh(spineGeom, spineMat);
+      spine.position.x = -0.11;
+      group.add(spine);
+
+      // Mystical symbol on cover
+      const symbolGeom = new THREE.RingGeometry(0.04, 0.055, 6);
+      const symbolMat = new THREE.MeshStandardMaterial({
+        color: 0xffebd2,
+        emissive: color,
+        emissiveIntensity: 0.4,
+        side: THREE.DoubleSide
+      });
+      const symbol = new THREE.Mesh(symbolGeom, symbolMat);
+      symbol.position.z = 0.031;
+      symbol.rotation.z = Math.PI / 6;
+      group.add(symbol);
+
+      group.castShadow = true;
+      return group;
+    }
+
+    function createStone(color) {
+      const group = new THREE.Group();
+
+      // Irregular stone shape using dodecahedron
+      const stoneGeom = new THREE.DodecahedronGeometry(0.12, 0);
+      const stoneMat = new THREE.MeshStandardMaterial({
+        color: color,
+        emissive: color,
+        emissiveIntensity: 0.25,
+        roughness: 0.35,
+        metalness: 0.1
+      });
+      const stone = new THREE.Mesh(stoneGeom, stoneMat);
+      stone.rotation.set(Math.random(), Math.random(), Math.random());
+      stone.castShadow = true;
+      group.add(stone);
+
+      // Cloth/cushion underneath
+      const cushionGeom = new THREE.CylinderGeometry(0.1, 0.12, 0.03, 8);
+      const cushionMat = new THREE.MeshStandardMaterial({
+        color: 0x4a3525,
+        roughness: 0.9
+      });
+      const cushion = new THREE.Mesh(cushionGeom, cushionMat);
+      cushion.position.y = -0.1;
+      group.add(cushion);
+
+      return group;
+    }
+
+    // Position items on counter for current step
+    function positionItems() {
+      // Remove existing items
+      itemObjects.forEach(obj => scene.remove(obj));
+      itemObjects.length = 0;
+      itemDataMap.clear();
+
+      const step = STEPS[gameState.step];
+      if (!step) return;
+
+      let items = step.items;
+
+      // For step 3, get items based on quadrant
+      if (gameState.step === 3 && gameState.focus && gameState.approach) {
+        const quadrant = `${gameState.focus}-${gameState.approach}`;
+        items = SERVICES_BY_QUADRANT[quadrant] || [];
+        STEPS[3].items = items;
       }
 
-      // Central holographic element
-      const holoGeo = new THREE.IcosahedronGeometry(0.8, 1);
-      const holoMat = new THREE.MeshBasicMaterial({
-        color: 0xb15043,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.6
-      });
-      const holo = new THREE.Mesh(holoGeo, holoMat);
-      holo.position.y = 0.5;
-      holo.name = 'holo';
-      labGroup.add(holo);
+      const itemCount = items.length;
+      const spacing = Math.min(1.2, 4 / itemCount);
+      const startX = -(itemCount - 1) * spacing / 2;
 
-      // Outer ring
-      const outerRingGeo = new THREE.TorusGeometry(1.2, 0.02, 8, 64);
-      const outerRingMat = new THREE.MeshBasicMaterial({
-        color: 0xcb7858,
-        transparent: true,
-        opacity: 0.5
-      });
-      const outerRing = new THREE.Mesh(outerRingGeo, outerRingMat);
-      outerRing.position.y = 0.5;
-      outerRing.rotation.x = Math.PI / 2;
-      outerRing.name = 'outerRing';
-      labGroup.add(outerRing);
+      items.forEach((item, index) => {
+        let mesh;
 
-      scene.add(labGroup);
+        // Create appropriate 3D object based on step
+        if (gameState.step === 1) {
+          mesh = createCrystal(item.color, 0.2);
+          mesh.position.y = 1.15;
+        } else if (gameState.step === 2) {
+          mesh = createTome(item.color);
+          mesh.position.y = 1.08;
+          mesh.rotation.x = -0.3; // Tilted for visibility
+        } else if (gameState.step === 3) {
+          mesh = createPotion(item.color, 0.15);
+          mesh.position.y = 1.0;
+        } else if (gameState.step === 4) {
+          mesh = createStone(item.color);
+          mesh.position.y = 1.1;
+        }
+
+        mesh.position.x = startX + index * spacing;
+        mesh.position.z = 0.5; // On counter
+
+        // Store item data
+        mesh.userData = { ...item, index, originalY: mesh.position.y };
+        itemDataMap.set(mesh.uuid, item);
+
+        // Mark as draggable
+        mesh.traverse(child => {
+          child.userData.draggable = true;
+          child.userData.itemData = item;
+          child.userData.parentGroup = mesh;
+        });
+
+        scene.add(mesh);
+        itemObjects.push(mesh);
+      });
     }
 
-    function onWindowResize() {
-      const container = document.getElementById('three-canvas').parentElement;
-      camera.aspect = container.clientWidth / container.clientHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(container.clientWidth, container.clientHeight);
+    // =============================================
+    // RAYCASTING & DRAG-AND-DROP
+    // =============================================
+
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+    let hoveredItem = null;
+    let draggedItemData = null;
+    let draggedMesh = null;
+    let draggingElement = null;
+
+    function onMouseMove(event) {
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+      // Update item label position if hovering
+      if (hoveredItem && !draggedItemData) {
+        const label = document.getElementById('itemLabel');
+        label.style.left = event.clientX + 'px';
+        label.style.top = event.clientY + 'px';
+      }
+
+      // Update dragging element position
+      if (draggingElement) {
+        draggingElement.style.left = event.clientX + 'px';
+        draggingElement.style.top = event.clientY + 'px';
+        updateDropTargets(event.clientX, event.clientY);
+      }
     }
+
+    function updateDropTargets(x, y) {
+      const step = STEPS[gameState.step];
+      if (!step) return;
+
+      const slots = document.querySelectorAll(`.inventory-slot[data-section="${step.id}"]`);
+      slots.forEach(slot => {
+        const rect = slot.getBoundingClientRect();
+        const isOver = x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
+        slot.classList.toggle('drop-target', isOver && !slot.classList.contains('filled'));
+      });
+    }
+
+    function onMouseDown(event) {
+      if (event.button !== 0) return;
+
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(scene.children, true);
+
+      for (const intersect of intersects) {
+        let obj = intersect.object;
+
+        // Find the parent group with item data
+        while (obj && !obj.userData.itemData) {
+          obj = obj.parent;
+        }
+
+        if (obj && obj.userData.itemData) {
+          const itemData = obj.userData.itemData;
+          const parentGroup = obj.userData.parentGroup || obj;
+
+          // Check if already selected
+          const step = STEPS[gameState.step];
+          if (step.single) {
+            if (gameState[step.id] === itemData.value) return;
+          } else {
+            if (gameState[step.id].includes(itemData.value)) return;
+            if (gameState[step.id].length >= step.maxSelect) return;
+          }
+
+          draggedItemData = itemData;
+          draggedMesh = parentGroup;
+
+          // Create visual dragging element
+          draggingElement = document.createElement('div');
+          draggingElement.className = 'dragging-item';
+          draggingElement.textContent = itemData.icon;
+          draggingElement.style.left = event.clientX + 'px';
+          draggingElement.style.top = event.clientY + 'px';
+          document.body.appendChild(draggingElement);
+          document.body.classList.add('dragging');
+
+          // Hide label
+          document.getElementById('itemLabel').classList.remove('visible');
+
+          // Fade out 3D mesh
+          draggedMesh.traverse(child => {
+            if (child.material) {
+              child.material.transparent = true;
+              child.material.opacity = 0.3;
+            }
+          });
+
+          break;
+        }
+      }
+    }
+
+    function onMouseUp(event) {
+      if (!draggedItemData) return;
+
+      const step = STEPS[gameState.step];
+      const slots = document.querySelectorAll(`.inventory-slot[data-section="${step.id}"]`);
+      let dropped = false;
+
+      slots.forEach(slot => {
+        const rect = slot.getBoundingClientRect();
+        const isOver = event.clientX >= rect.left && event.clientX <= rect.right &&
+                       event.clientY >= rect.top && event.clientY <= rect.bottom;
+
+        if (isOver && !slot.classList.contains('filled')) {
+          dropped = true;
+
+          // Update game state
+          if (step.single) {
+            gameState[step.id] = draggedItemData.value;
+          } else {
+            gameState[step.id].push(draggedItemData.value);
+          }
+
+          // Update slot UI
+          slot.classList.add('filled');
+          slot.innerHTML = `
+            <div class="slot-item">${draggedItemData.icon}</div>
+            <div class="slot-tooltip">${draggedItemData.label}</div>
+          `;
+
+          // Wizard reaction
+          const randomLine = WIZARD_LINES.goodChoice[Math.floor(Math.random() * WIZARD_LINES.goodChoice.length)];
+          showWizardSpeech(randomLine);
+
+          // Remove from scene
+          scene.remove(draggedMesh);
+          const idx = itemObjects.indexOf(draggedMesh);
+          if (idx > -1) itemObjects.splice(idx, 1);
+
+          // Check progression
+          checkStepComplete();
+        }
+
+        slot.classList.remove('drop-target');
+      });
+
+      // If not dropped, restore mesh
+      if (!dropped && draggedMesh) {
+        draggedMesh.traverse(child => {
+          if (child.material) {
+            child.material.opacity = 1;
+          }
+        });
+      }
+
+      // Clean up
+      if (draggingElement) {
+        draggingElement.remove();
+        draggingElement = null;
+      }
+      document.body.classList.remove('dragging');
+      draggedItemData = null;
+      draggedMesh = null;
+    }
+
+    function checkHover() {
+      if (draggedItemData) return;
+
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(scene.children, true);
+
+      const label = document.getElementById('itemLabel');
+      let foundItem = null;
+
+      for (const intersect of intersects) {
+        let obj = intersect.object;
+        while (obj && !obj.userData.itemData) {
+          obj = obj.parent;
+        }
+        if (obj && obj.userData.itemData) {
+          foundItem = obj.userData.itemData;
+          break;
+        }
+      }
+
+      if (foundItem) {
+        if (hoveredItem !== foundItem) {
+          hoveredItem = foundItem;
+          label.querySelector('.item-label-name').textContent = foundItem.label;
+          label.querySelector('.item-label-desc').textContent = foundItem.desc;
+          label.classList.add('visible');
+        }
+        canvas.style.cursor = 'grab';
+      } else {
+        if (hoveredItem) {
+          hoveredItem = null;
+          label.classList.remove('visible');
+        }
+        canvas.style.cursor = 'default';
+      }
+    }
+
+    // =============================================
+    // GAME FLOW
+    // =============================================
+
+    function checkStepComplete() {
+      const step = STEPS[gameState.step];
+      const continueBtn = document.getElementById('continueBtn');
+
+      if (step.single) {
+        // Single select - auto advance after brief delay
+        if (gameState[step.id]) {
+          setTimeout(() => advanceStep(), 600);
+        }
+      } else {
+        // Multi select - show continue when at least 1
+        if (gameState[step.id].length > 0) {
+          continueBtn.classList.add('visible');
+        } else {
+          continueBtn.classList.remove('visible');
+        }
+      }
+    }
+
+    function advanceStep() {
+      if (gameState.step >= 4) {
+        showSummary();
+        return;
+      }
+
+      gameState.step++;
+      document.getElementById('continueBtn').classList.remove('visible');
+      updateUI();
+      positionItems();
+      showWizardSpeech(WIZARD_LINES[`step${gameState.step}`] || WIZARD_LINES.dragHint);
+    }
+
+    function updateUI() {
+      // Step pips
+      document.querySelectorAll('.step-pip').forEach(pip => {
+        const s = parseInt(pip.dataset.step);
+        pip.classList.toggle('active', s === gameState.step);
+        pip.classList.toggle('complete', s < gameState.step);
+      });
+
+      // Prompt
+      const step = STEPS[gameState.step];
+      const prompt = document.getElementById('stagePrompt');
+      prompt.querySelector('.prompt-step').textContent = `step ${gameState.step} of 4`;
+      prompt.querySelector('.prompt-question').textContent = step.prompt;
+      prompt.querySelector('.prompt-hint').innerHTML = step.hint;
+
+      // Inventory section opacity
+      document.querySelectorAll('.inventory-section').forEach(section => {
+        const id = section.id.replace('section-', '');
+        const stepNum = ['focus', 'approach', 'services', 'goals'].indexOf(id) + 1;
+        section.style.opacity = stepNum <= gameState.step ? '1' : '0.4';
+      });
+    }
+
+    function showWizardSpeech(text) {
+      const speech = document.getElementById('wizardSpeech');
+      const textEl = document.getElementById('wizardText');
+      textEl.textContent = text;
+      speech.classList.add('visible');
+
+      clearTimeout(window.wizardTimeout);
+      window.wizardTimeout = setTimeout(() => {
+        speech.classList.remove('visible');
+      }, 4000);
+    }
+
+    function showSummary() {
+      showWizardSpeech(WIZARD_LINES.complete);
+
+      setTimeout(() => {
+        const overlay = document.getElementById('summaryOverlay');
+        const selections = document.getElementById('summarySelections');
+
+        const focusItem = STEPS[1].items.find(i => i.value === gameState.focus);
+        const approachItem = STEPS[2].items.find(i => i.value === gameState.approach);
+        const serviceItems = gameState.services.map(v =>
+          STEPS[3].items.find(i => i.value === v)
+        ).filter(Boolean);
+        const goalItems = gameState.goals.map(v =>
+          STEPS[4].items.find(i => i.value === v)
+        ).filter(Boolean);
+
+        selections.innerHTML = `
+          <div class="summary-section">
+            <div class="summary-section-label">Focus</div>
+            <div class="summary-section-value">${focusItem?.icon || ''} ${focusItem?.label || ''}</div>
+          </div>
+          <div class="summary-section">
+            <div class="summary-section-label">Approach</div>
+            <div class="summary-section-value">${approachItem?.icon || ''} ${approachItem?.label || ''}</div>
+          </div>
+          <div class="summary-section">
+            <div class="summary-section-label">Services</div>
+            <div class="summary-section-value">${serviceItems.map(i => `${i.icon} ${i.label}`).join(', ')}</div>
+          </div>
+          <div class="summary-section">
+            <div class="summary-section-label">Goals</div>
+            <div class="summary-section-value">${goalItems.map(i => `${i.icon} ${i.label}`).join(', ')}</div>
+          </div>
+        `;
+
+        overlay.classList.add('visible');
+      }, 500);
+    }
+
+    function resetGame() {
+      gameState.step = 1;
+      gameState.focus = null;
+      gameState.approach = null;
+      gameState.services = [];
+      gameState.goals = [];
+
+      document.querySelectorAll('.inventory-slot').forEach(slot => {
+        slot.classList.remove('filled');
+        slot.innerHTML = '';
+      });
+
+      document.getElementById('summaryOverlay').classList.remove('visible');
+      document.getElementById('continueBtn').classList.remove('visible');
+
+      updateUI();
+      positionItems();
+      showWizardSpeech(WIZARD_LINES.welcome);
+    }
+
+    // =============================================
+    // ANIMATION
+    // =============================================
+
+    let time = 0;
 
     function animate() {
       requestAnimationFrame(animate);
+      time += 0.016;
 
-      const holo = labGroup.getObjectByName('holo');
-      const outerRing = labGroup.getObjectByName('outerRing');
+      // Item bobbing
+      itemObjects.forEach((obj, i) => {
+        if (obj.userData.originalY !== undefined) {
+          obj.position.y = obj.userData.originalY + Math.sin(time * 1.5 + i * 0.5) * 0.015;
+        }
+        obj.rotation.y += 0.003;
+      });
 
-      if (holo) {
-        holo.rotation.y += 0.005;
-        holo.rotation.x += 0.002;
-      }
+      // Wizard idle animation
+      wizardGroup.rotation.y = Math.sin(time * 0.3) * 0.08;
+      staffCrystal.material.emissiveIntensity = 0.4 + Math.sin(time * 2) * 0.2;
 
-      if (outerRing) {
-        outerRing.rotation.z += 0.003;
-      }
+      // Lantern flicker
+      mainLight.intensity = 1.1 + Math.sin(time * 8) * 0.1 + Math.sin(time * 13) * 0.05;
+      candleLight1.intensity = 0.5 + Math.sin(time * 6 + 1) * 0.1;
+      candleLight2.intensity = 0.5 + Math.sin(time * 7 + 2) * 0.1;
 
-      // Subtle camera movement
-      camera.position.x = Math.sin(Date.now() * 0.0003) * 0.5;
-      camera.lookAt(0, 0.3, 0);
-
+      checkHover();
       renderer.render(scene, camera);
     }
 
     // =============================================
-    // UI RENDERING
+    // EVENT LISTENERS
     // =============================================
-    function renderStep() {
-      const step = STEPS[gameState.step];
 
-      // Update progress bar
-      document.querySelectorAll('.progress-step').forEach((el, i) => {
-        el.classList.remove('active', 'completed');
-        if (i + 1 < gameState.step) el.classList.add('completed');
-        if (i + 1 === gameState.step) el.classList.add('active');
+    canvas.addEventListener('mousemove', onMouseMove);
+    canvas.addEventListener('mousedown', onMouseDown);
+    window.addEventListener('mouseup', onMouseUp);
+
+    document.getElementById('continueBtn').addEventListener('click', advanceStep);
+    document.getElementById('resetBtn').addEventListener('click', resetGame);
+    document.getElementById('submitBtn').addEventListener('click', () => {
+      const params = new URLSearchParams({
+        focus: gameState.focus,
+        approach: gameState.approach,
+        services: gameState.services.join(','),
+        goals: gameState.goals.join(',')
       });
-
-      // Update prompt
-      document.getElementById('prompt-title').textContent = step.title;
-      document.getElementById('prompt-subtitle').textContent = step.subtitle;
-      document.getElementById('prompt-hint').textContent = step.hint || '';
-
-      // Update navigation
-      document.getElementById('btn-back').disabled = gameState.step === 1;
-      document.getElementById('btn-next').disabled = !canProceed();
-
-      // Render options
-      renderOptions();
-
-      // Update inventory display
-      updateInventoryDisplay();
-    }
-
-    function renderOptions() {
-      const container = document.getElementById('options-container');
-      container.innerHTML = '';
-
-      if (gameState.step === 5) {
-        // Final step - show summary
-        renderSummary();
-        return;
-      }
-
-      let options = STEPS[gameState.step].options;
-
-      // For step 3, get options based on quadrant
-      if (gameState.step === 3) {
-        const quadrant = getQuadrant();
-        options = SERVICES_BY_QUADRANT[quadrant] || [];
-      }
-
-      const multiSelect = STEPS[gameState.step].multiSelect;
-
-      options.forEach(opt => {
-        const card = document.createElement('div');
-        card.className = 'option-card' + (multiSelect ? ' multi-select' : '');
-        card.dataset.value = opt.value;
-
-        // Check if selected
-        if (isSelected(opt.value)) {
-          card.classList.add('selected');
-        }
-
-        card.innerHTML = `
-          <div class="option-icon">${opt.icon}</div>
-          <div class="option-label">${opt.label}</div>
-          <div class="option-desc">${opt.desc}</div>
-        `;
-
-        card.addEventListener('click', () => handleSelection(opt.value, multiSelect));
-        container.appendChild(card);
-      });
-    }
-
-    function renderSummary() {
-      const container = document.getElementById('options-container');
-      container.innerHTML = `
-        <div style="text-align: center; padding: 40px;">
-          <div style="font-size: 48px; margin-bottom: 16px;">✨</div>
-          <p style="color: var(--champagne); font-size: 14px; margin-bottom: 24px;">
-            your ${QUADRANT_NAMES[getQuadrant()]} package is configured
-          </p>
-          <a href="https://calendar.app.google/ZXVqJLdprmUZk1DW6"
-             target="_blank"
-             rel="noopener noreferrer"
-             style="display: inline-block; padding: 14px 28px; background: var(--redwood); color: white; text-decoration: none; border-radius: 6px; font-weight: 500; text-transform: lowercase;">
-            book a playdate →
-          </a>
-        </div>
-      `;
-    }
-
-    function isSelected(value) {
-      if (gameState.step === 1) return gameState.focus === value;
-      if (gameState.step === 2) return gameState.approach === value;
-      if (gameState.step === 3) return gameState.services.includes(value);
-      if (gameState.step === 4) return gameState.goals.includes(value);
-      return false;
-    }
-
-    function handleSelection(value, multiSelect) {
-      if (gameState.step === 1) {
-        gameState.focus = value;
-        // Auto-advance for single-select
-        setTimeout(() => { gameState.step = 2; renderStep(); }, 300);
-      }
-      else if (gameState.step === 2) {
-        gameState.approach = value;
-        // Auto-advance for single-select
-        setTimeout(() => { gameState.step = 3; renderStep(); }, 300);
-      }
-      else if (gameState.step === 3) {
-        toggleArrayValue(gameState.services, value, STEPS[3].maxSelect);
-        renderStep();
-      }
-      else if (gameState.step === 4) {
-        toggleArrayValue(gameState.goals, value, STEPS[4].maxSelect);
-        renderStep();
-      }
-    }
-
-    function toggleArrayValue(arr, value, max) {
-      const idx = arr.indexOf(value);
-      if (idx > -1) {
-        arr.splice(idx, 1);
-      } else if (arr.length < max) {
-        arr.push(value);
-      }
-    }
-
-    function canProceed() {
-      if (gameState.step === 1) return gameState.focus !== null;
-      if (gameState.step === 2) return gameState.approach !== null;
-      if (gameState.step === 3) return gameState.services.length > 0;
-      if (gameState.step === 4) return gameState.goals.length > 0;
-      return true;
-    }
-
-    function getQuadrant() {
-      if (gameState.focus && gameState.approach) {
-        return `${gameState.focus}-${gameState.approach}`;
-      }
-      return null;
-    }
-
-    function updateInventoryDisplay() {
-      // Focus slot
-      const focusSlot = document.getElementById('slot-focus');
-      const focusValue = document.getElementById('focus-value');
-      if (gameState.focus) {
-        focusSlot.classList.add('filled');
-        focusSlot.querySelector('.slot-icon').textContent = gameState.focus === 'people' ? '👥' : '🎯';
-        focusValue.textContent = gameState.focus;
-      } else {
-        focusSlot.classList.remove('filled');
-        focusSlot.querySelector('.slot-icon').textContent = '?';
-        focusValue.textContent = '—';
-      }
-
-      // Approach slot
-      const approachSlot = document.getElementById('slot-approach');
-      const approachValue = document.getElementById('approach-value');
-      if (gameState.approach) {
-        approachSlot.classList.add('filled');
-        approachSlot.querySelector('.slot-icon').textContent = gameState.approach === 'design' ? '✏️' : '🔍';
-        approachValue.textContent = gameState.approach;
-      } else {
-        approachSlot.classList.remove('filled');
-        approachSlot.querySelector('.slot-icon').textContent = '?';
-        approachValue.textContent = '—';
-      }
-
-      // Services
-      const servicesContainer = document.getElementById('services-container');
-      if (gameState.services.length > 0) {
-        servicesContainer.innerHTML = gameState.services.map(s =>
-          `<span class="inventory-tag filled">${s.replace(/-/g, ' ')}</span>`
-        ).join('');
-      } else {
-        servicesContainer.innerHTML = '<span class="inventory-tag">select services...</span>';
-      }
-
-      // Goals
-      const goalsContainer = document.getElementById('goals-container');
-      if (gameState.goals.length > 0) {
-        goalsContainer.innerHTML = gameState.goals.map(g =>
-          `<span class="inventory-tag filled">${g}</span>`
-        ).join('');
-      } else {
-        goalsContainer.innerHTML = '<span class="inventory-tag">select goals...</span>';
-      }
-
-      // Quadrant
-      const quadrant = getQuadrant();
-      document.getElementById('quadrant-value').textContent = quadrant ? QUADRANT_NAMES[quadrant] : '—';
-    }
-
-    // =============================================
-    // NAVIGATION
-    // =============================================
-    function initNavigation() {
-      document.getElementById('btn-next').addEventListener('click', () => {
-        if (gameState.step < 5) {
-          gameState.step++;
-          renderStep();
-        }
-      });
-
-      document.getElementById('btn-back').addEventListener('click', () => {
-        if (gameState.step > 1) {
-          gameState.step--;
-          renderStep();
-        }
-      });
-
-      document.getElementById('btn-reset').addEventListener('click', () => {
-        gameState.step = 1;
-        gameState.focus = null;
-        gameState.approach = null;
-        gameState.services = [];
-        gameState.goals = [];
-        renderStep();
-      });
-    }
-
-    // =============================================
-    // INIT
-    // =============================================
-    document.addEventListener('DOMContentLoaded', () => {
-      initThreeJS();
-      initNavigation();
-      renderStep();
+      window.location.href = `../connect/?${params.toString()}`;
     });
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // =============================================
+    // INITIALIZE
+    // =============================================
+
+    updateUI();
+    positionItems();
+    showWizardSpeech(WIZARD_LINES.welcome);
+    animate();
   </script>
 </body>
 </html>
