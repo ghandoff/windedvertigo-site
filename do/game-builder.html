@@ -456,52 +456,52 @@
     }
 
     /* =============================================
-       WAYFINDER - Mobile-first (BIGGER for visibility)
+       WAYFINDER - Mobile-first (MUCH BIGGER)
     ============================================= */
     .wayfinder {
-      position: absolute; bottom: 2%; left: 1%; z-index: 15;
-      width: 110px; text-align: center;
+      position: absolute; bottom: 1%; left: 1%; z-index: 15;
+      width: 140px; text-align: center;
     }
 
     .wayfinder-sprite {
-      width: 100px; height: 150px; margin: 0 auto;
+      width: 130px; height: 195px; margin: 0 auto;
       position: relative; image-rendering: pixelated;
     }
     .wayfinder-sprite img {
       width: 100%; height: 100%;
       object-fit: contain;
       image-rendering: pixelated;
-      filter: drop-shadow(0 0 15px rgba(88, 114, 203, 0.5));
+      filter: drop-shadow(0 0 20px rgba(88, 114, 203, 0.5));
       animation: wayfinder-float 3s ease-in-out infinite;
     }
     @keyframes wayfinder-float {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
+      50% { transform: translateY(-6px); }
     }
 
     .wayfinder-placeholder {
-      width: 100px; height: 150px;
+      width: 130px; height: 195px;
       background: linear-gradient(180deg, #3a4a6a 0%, #2a3a5a 40%, var(--cadet-blue) 100%);
-      border-radius: 16px 16px 8px 8px;
+      border-radius: 20px 20px 10px 10px;
       position: relative;
-      box-shadow: 0 0 20px rgba(88, 114, 203, 0.4);
+      box-shadow: 0 0 25px rgba(88, 114, 203, 0.4);
     }
     .wayfinder-placeholder::before {
       content: ''; position: absolute;
-      top: 30px; left: 50%; transform: translateX(-50%);
-      width: 50px; height: 16px;
+      top: 40px; left: 50%; transform: translateX(-50%);
+      width: 65px; height: 22px;
       background: linear-gradient(90deg, var(--seafoam), var(--periwinkle));
-      border-radius: 10px;
-      box-shadow: 0 0 15px var(--seafoam);
+      border-radius: 12px;
+      box-shadow: 0 0 20px var(--seafoam);
       animation: visor-glow 2s ease-in-out infinite alternate;
     }
     @keyframes visor-glow {
-      from { opacity: 0.6; box-shadow: 0 0 10px var(--seafoam); }
-      to { opacity: 1; box-shadow: 0 0 25px var(--seafoam); }
+      from { opacity: 0.6; box-shadow: 0 0 12px var(--seafoam); }
+      to { opacity: 1; box-shadow: 0 0 30px var(--seafoam); }
     }
 
     .wayfinder-shadow {
-      width: 70px; height: 15px; margin: 4px auto 0;
+      width: 90px; height: 18px; margin: 5px auto 0;
       background: radial-gradient(ellipse, rgba(0,0,0,0.5) 0%, transparent 70%);
       border-radius: 50%;
     }
@@ -544,53 +544,67 @@
     }
 
     /* =============================================
-       STAGE PROMPT - Mobile-first
+       STAGE PROMPT - Bottom speech bubble from wayfinder
     ============================================= */
     .stage-prompt {
-      position: absolute; top: 50px; left: 8px; z-index: 50;
-      max-width: 180px;
+      position: absolute; bottom: 8px; left: 140px; z-index: 50;
+      max-width: 200px;
       background: rgba(13, 17, 23, 0.95);
-      border-left: 2px solid var(--burnt-sienna);
-      padding: 8px 12px; border-radius: 0 6px 6px 0;
-      box-shadow: 0 3px 15px rgba(0,0,0,0.4);
+      border: 2px solid var(--periwinkle);
+      padding: 10px 14px; border-radius: 12px 12px 12px 0;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 15px rgba(88, 114, 203, 0.2);
+    }
+    .stage-prompt::before {
+      content: ''; position: absolute;
+      bottom: 8px; left: -12px;
+      border: 10px solid transparent;
+      border-right-color: var(--periwinkle);
+      border-left: none;
+    }
+    .stage-prompt::after {
+      content: ''; position: absolute;
+      bottom: 10px; left: -8px;
+      border: 8px solid transparent;
+      border-right-color: rgba(13, 17, 23, 0.95);
+      border-left: none;
     }
     .prompt-step {
       font-family: var(--font-pixel); font-size: 5px;
-      color: var(--burnt-sienna); letter-spacing: 0.5px;
-      text-transform: uppercase; margin-bottom: 4px;
+      color: var(--seafoam); letter-spacing: 0.5px;
+      text-transform: uppercase; margin-bottom: 5px;
     }
     .prompt-question {
-      font-size: 12px; font-weight: 600; color: var(--champagne);
-      margin-bottom: 3px; line-height: 1.3;
+      font-size: 13px; font-weight: 600; color: var(--champagne);
+      margin-bottom: 4px; line-height: 1.35;
     }
-    .prompt-hint { font-size: 9px; color: var(--champagne); opacity: 0.5; }
-    .prompt-hint em { color: var(--seafoam); font-style: normal; }
+    .prompt-hint { font-size: 10px; color: var(--champagne); opacity: 0.6; }
+    .prompt-hint em { color: var(--seafoam); font-style: normal; font-weight: 500; }
 
     /* =============================================
-       GUIDE SPEECH BUBBLE - Hidden on mobile by default
+       GUIDE SPEECH BUBBLE - Conversational feedback from wayfinder
     ============================================= */
     .guide-speech {
-      display: none; /* Hidden on mobile */
-      position: absolute; bottom: 58%; left: 1%; z-index: 20;
+      position: absolute; bottom: 70px; left: 140px; z-index: 55;
       max-width: 160px;
-      background: rgba(13, 17, 23, 0.95);
-      border: 1.5px solid var(--periwinkle);
-      padding: 10px 12px; border-radius: 10px 10px 10px 0;
-      opacity: 0; transform: translateY(10px);
+      background: rgba(88, 114, 203, 0.15);
+      border: 1.5px solid var(--seafoam);
+      padding: 8px 12px; border-radius: 10px 10px 10px 0;
+      opacity: 0; transform: translateY(8px) scale(0.95);
       transition: all 0.3s ease;
-      box-shadow: 0 0 15px rgba(88, 114, 203, 0.25);
+      box-shadow: 0 3px 15px rgba(0,0,0,0.3), 0 0 10px rgba(88, 203, 178, 0.15);
     }
-    .guide-speech.visible { opacity: 1; transform: translateY(0); }
-    .guide-speech::after {
+    .guide-speech.visible { opacity: 1; transform: translateY(0) scale(1); }
+    .guide-speech::before {
       content: ''; position: absolute;
-      bottom: -10px; left: 20px;
-      border: 10px solid transparent;
-      border-top-color: var(--periwinkle);
-      border-bottom: none;
+      bottom: 6px; left: -10px;
+      border: 8px solid transparent;
+      border-right-color: var(--seafoam);
+      border-left: none;
     }
     .guide-text {
-      font-family: var(--font-pixel); font-size: 5px;
-      color: var(--champagne); line-height: 1.8;
+      font-family: var(--font-pixel); font-size: 6px;
+      color: var(--seafoam); line-height: 1.6;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
     }
 
     /* =============================================
@@ -858,10 +872,15 @@
 
       .game-wrapper { height: calc(100vh - 110px); min-height: 550px; border-radius: 10px; }
 
-      .wayfinder { bottom: 5%; left: 2%; width: 130px; }
-      .wayfinder-sprite, .wayfinder-placeholder { width: 120px; height: 180px; }
-      .wayfinder-placeholder::before { top: 35px; width: 60px; height: 20px; }
-      .wayfinder-shadow { width: 85px; height: 18px; }
+      .wayfinder { bottom: 1%; left: 2%; width: 160px; }
+      .wayfinder-sprite, .wayfinder-placeholder { width: 150px; height: 225px; }
+      .wayfinder-placeholder::before { top: 45px; width: 75px; height: 25px; }
+      .wayfinder-shadow { width: 100px; height: 20px; }
+
+      .stage-prompt { bottom: 10px; left: 165px; max-width: 220px; padding: 12px 16px; }
+      .prompt-question { font-size: 14px; }
+      .guide-speech { bottom: 85px; left: 165px; max-width: 180px; }
+      .guide-text { font-size: 6px; }
 
       .display-cubes { gap: 30px; padding: 10px; }
       .glass-cube { width: 100px; height: 125px; }
@@ -886,10 +905,6 @@
       .section-label { font-size: 7px; }
       .slot-row { gap: 4px; }
 
-      .stage-prompt { max-width: 220px; padding: 10px 14px; top: 55px; left: 12px; }
-      .prompt-step { font-size: 6px; }
-      .prompt-question { font-size: 13px; }
-      .prompt-hint { font-size: 10px; }
 
       .header-overlay { padding: 10px 16px; }
       .shop-title { font-size: 10px; letter-spacing: 2px; }
@@ -918,14 +933,17 @@
       .cabinet { display: block; }
       .shelf-unit { display: block; }
 
-      /* Show guide speech on desktop */
-      .guide-speech { display: block; max-width: 200px; left: 2%; bottom: 58%; padding: 12px 14px; }
-      .guide-text { font-size: 6px; }
+      .wayfinder { bottom: 2%; left: 2%; width: 200px; }
+      .wayfinder-sprite, .wayfinder-placeholder { width: 180px; height: 270px; }
+      .wayfinder-placeholder::before { top: 55px; width: 90px; height: 30px; }
+      .wayfinder-shadow { width: 120px; height: 22px; }
 
-      .wayfinder { bottom: 8%; left: 2%; width: 180px; }
-      .wayfinder-sprite, .wayfinder-placeholder { width: 160px; height: 240px; }
-      .wayfinder-placeholder::before { top: 45px; width: 75px; height: 25px; }
-      .wayfinder-shadow { width: 100px; height: 20px; }
+      .stage-prompt { bottom: 15px; left: 200px; max-width: 280px; padding: 14px 18px; }
+      .prompt-step { font-size: 6px; }
+      .prompt-question { font-size: 15px; }
+      .prompt-hint { font-size: 11px; }
+      .guide-speech { bottom: 100px; left: 200px; max-width: 200px; padding: 10px 14px; }
+      .guide-text { font-size: 7px; }
 
       .display-cubes { gap: 40px; padding: 12px; }
       .glass-cube { width: 110px; height: 140px; }
@@ -950,10 +968,6 @@
       .section-label { font-size: 8px; }
       .slot-row { gap: 5px; }
 
-      .stage-prompt { max-width: 280px; padding: 14px 18px; top: 70px; left: 20px; border-left-width: 3px; }
-      .prompt-step { font-size: 7px; letter-spacing: 1px; }
-      .prompt-question { font-size: 15px; }
-      .prompt-hint { font-size: 11px; }
 
       .header-overlay { padding: 14px 20px; }
       .shop-title { font-size: 11px; letter-spacing: 2.5px; }
@@ -971,13 +985,15 @@
        LARGE DESKTOP STYLES (min-width: 1000px)
     =========================================== */
     @media (min-width: 1000px) {
-      .wayfinder { bottom: 10%; left: 3%; width: 220px; }
-      .wayfinder-sprite, .wayfinder-placeholder { width: 200px; height: 300px; }
-      .wayfinder-placeholder::before { top: 55px; width: 95px; height: 32px; }
-      .wayfinder-shadow { width: 130px; height: 25px; }
+      .wayfinder { bottom: 2%; left: 3%; width: 240px; }
+      .wayfinder-sprite, .wayfinder-placeholder { width: 220px; height: 330px; }
+      .wayfinder-placeholder::before { top: 65px; width: 110px; height: 36px; }
+      .wayfinder-shadow { width: 150px; height: 28px; }
 
-      .guide-speech { max-width: 220px; padding: 14px 16px; bottom: 60%; }
-      .guide-text { font-size: 7px; line-height: 2; }
+      .stage-prompt { bottom: 20px; left: 250px; max-width: 320px; }
+      .prompt-question { font-size: 16px; }
+      .guide-speech { bottom: 120px; left: 250px; max-width: 220px; padding: 12px 16px; }
+      .guide-text { font-size: 7px; line-height: 1.8; }
 
       .display-cubes { gap: 50px; }
       .glass-cube { width: 120px; height: 150px; }
