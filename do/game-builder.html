@@ -596,35 +596,39 @@
     }
 
     /* =============================================
-       INVENTORY POUCH - Cadet blue panel with wood trim
+       INVENTORY BAR - Horizontal layout with columns
     ============================================= */
     .inventory-pouch {
-      position: absolute; top: 8px; right: 8px; z-index: 50; width: 160px;
-      background: linear-gradient(180deg, #3a4a5e 0%, #273248 100%);
+      position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
+      z-index: 50;
+      background: linear-gradient(180deg, rgba(58, 74, 94, 0.95) 0%, rgba(39, 50, 72, 0.95) 100%);
       border: 2px solid #6b5040;
-      border-radius: 4px; padding: 8px;
+      border-radius: 4px; padding: 6px 12px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      display: flex; align-items: center; gap: 12px;
     }
     .pouch-header {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 6px; padding-bottom: 5px;
-      border-bottom: 1px solid rgba(203, 120, 88, 0.3);
+      display: none; /* Hide header in horizontal mode */
     }
-    .pouch-title {
-      font-family: var(--font-pixel); font-size: 5px;
-      color: var(--burnt-sienna); letter-spacing: 0.5px;
+    .pouch-title { display: none; }
+    .pouch-subtitle { display: none; }
+    .inventory-section {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 3px;
     }
-    .pouch-subtitle { font-size: 7px; color: var(--champagne); opacity: 0.5; }
-    .inventory-section { margin-bottom: 5px; }
     .section-label {
-      font-family: var(--font-display); font-size: 6px;
-      color: var(--champagne); opacity: 0.4; letter-spacing: 0.5px;
-      text-transform: uppercase; margin-bottom: 3px;
+      font-family: var(--font-ui); font-size: 8px; font-weight: 500;
+      color: var(--champagne); opacity: 0.6; letter-spacing: 0.3px;
+      text-transform: lowercase;
+      white-space: nowrap;
     }
-    .slot-row { display: flex; gap: 3px; flex-wrap: wrap; }
-    /* ALL inventory slots same size - warm wood style */
+    .slot-row {
+      display: flex; flex-direction: column; gap: 2px;
+      align-items: center;
+    }
+    /* Inventory slots - column layout */
     .inventory-slot {
-      width: 28px; height: 28px;
+      width: 26px; height: 26px;
       background: rgba(74, 54, 40, 0.6);
       border: 1.5px solid rgba(139, 115, 85, 0.4);
       border-radius: 3px;
@@ -632,23 +636,24 @@
       transition: all 0.2s ease; position: relative;
       image-rendering: pixelated;
     }
-    .inventory-slot.single { width: 28px; height: 28px; } /* Same as regular */
+    .inventory-slot.single { width: 26px; height: 26px; }
     .inventory-slot.filled {
       border-color: var(--burnt-sienna);
       background: rgba(203, 120, 88, 0.2);
     }
-    .slot-item { font-size: 14px; }
-    .slot-item img { width: 20px; height: 20px; image-rendering: pixelated; }
-    .inventory-slot.single .slot-item img { width: 20px; height: 20px; }
+    .slot-item { font-size: 12px; }
+    .slot-item img { width: 18px; height: 18px; image-rendering: pixelated; }
+    .inventory-slot.single .slot-item img { width: 18px; height: 18px; }
     .slot-tooltip {
       position: absolute; bottom: calc(100% + 5px); left: 50%; transform: translateX(-50%);
       background: linear-gradient(180deg, #5c4a3a 0%, #4a3628 100%);
       color: var(--champagne);
       padding: 3px 6px; border-radius: 3px;
-      font-family: var(--font-pixel); font-size: 5px;
+      font-family: var(--font-ui); font-size: 8px;
       white-space: nowrap; opacity: 0; pointer-events: none;
       transition: opacity 0.2s;
       border: 1px solid #8b7355;
+      z-index: 100;
     }
     .inventory-slot:hover .slot-tooltip { opacity: 1; }
 
@@ -880,15 +885,14 @@
 
       .counter-area { width: 88%; bottom: 14%; }
 
-      .inventory-pouch { width: 190px; padding: 10px; right: 12px; top: 10px; }
-      .inventory-slot { width: 32px; height: 32px; }
-      .inventory-slot.single { width: 32px; height: 32px; }
-      .slot-item { font-size: 16px; }
-      .slot-item img { width: 24px; height: 24px; }
-      .inventory-slot.single .slot-item img { width: 24px; height: 24px; }
-      .pouch-title { font-size: 6px; }
-      .section-label { font-size: 7px; }
-      .slot-row { gap: 4px; }
+      .inventory-pouch { padding: 8px 16px; gap: 16px; }
+      .inventory-slot { width: 30px; height: 30px; }
+      .inventory-slot.single { width: 30px; height: 30px; }
+      .slot-item { font-size: 14px; }
+      .slot-item img { width: 22px; height: 22px; }
+      .inventory-slot.single .slot-item img { width: 22px; height: 22px; }
+      .section-label { font-size: 9px; }
+      .slot-row { gap: 3px; }
 
 
       .header-overlay { padding: 10px 16px; }
@@ -936,15 +940,14 @@
 
       .counter-area { width: 80%; bottom: 16%; }
 
-      .inventory-pouch { width: 240px; padding: 12px; right: 16px; top: 10px; }
-      .inventory-slot { width: 36px; height: 36px; }
-      .inventory-slot.single { width: 36px; height: 36px; }
-      .slot-item { font-size: 18px; }
-      .slot-item img { width: 28px; height: 28px; }
-      .inventory-slot.single .slot-item img { width: 28px; height: 28px; }
-      .pouch-title { font-size: 7px; }
-      .section-label { font-size: 8px; }
-      .slot-row { gap: 5px; }
+      .inventory-pouch { padding: 10px 20px; gap: 20px; }
+      .inventory-slot { width: 34px; height: 34px; }
+      .inventory-slot.single { width: 34px; height: 34px; }
+      .slot-item { font-size: 16px; }
+      .slot-item img { width: 26px; height: 26px; }
+      .inventory-slot.single .slot-item img { width: 26px; height: 26px; }
+      .section-label { font-size: 10px; }
+      .slot-row { gap: 3px; }
 
 
       .header-overlay { padding: 14px 20px; }
@@ -987,11 +990,12 @@
       .cube-label-name { font-size: 11px; }
       .cube-label-desc { font-size: 12px; }
 
-      .inventory-pouch { width: 280px; padding: 14px; right: 20px; top: 10px; }
-      .inventory-slot { width: 40px; height: 40px; }
-      .inventory-slot.single { width: 40px; height: 40px; }
-      .slot-item img { width: 32px; height: 32px; }
-      .inventory-slot.single .slot-item img { width: 32px; height: 32px; }
+      .inventory-pouch { padding: 12px 24px; gap: 24px; }
+      .inventory-slot { width: 38px; height: 38px; }
+      .inventory-slot.single { width: 38px; height: 38px; }
+      .slot-item img { width: 30px; height: 30px; }
+      .inventory-slot.single .slot-item img { width: 30px; height: 30px; }
+      .section-label { font-size: 11px; }
 
       .central-monitor { width: 180px; height: 100px; }
     }
@@ -1177,26 +1181,22 @@
       <div class="prompt-hint">Select a <em>focus</em> from the display</div>
     </div>
 
-    <!-- Inventory Pouch -->
+    <!-- Inventory Bar - Horizontal with columns -->
     <div class="inventory-pouch" id="inventoryPouch">
-      <div class="pouch-header">
-        <div class="pouch-title">INVENTORY</div>
-        <div class="pouch-subtitle">your selections</div>
-      </div>
       <div class="inventory-section" id="section-focus">
-        <div class="section-label">1. focus</div>
+        <div class="section-label">focus</div>
         <div class="slot-row">
           <div class="inventory-slot single" data-section="focus" data-index="0"></div>
         </div>
       </div>
       <div class="inventory-section" id="section-approach">
-        <div class="section-label">2. approach</div>
+        <div class="section-label">approach</div>
         <div class="slot-row">
           <div class="inventory-slot single" data-section="approach" data-index="0"></div>
         </div>
       </div>
       <div class="inventory-section" id="section-services">
-        <div class="section-label">3. services (up to 4)</div>
+        <div class="section-label">services</div>
         <div class="slot-row">
           <div class="inventory-slot" data-section="services" data-index="0"></div>
           <div class="inventory-slot" data-section="services" data-index="1"></div>
@@ -1205,7 +1205,7 @@
         </div>
       </div>
       <div class="inventory-section" id="section-goals">
-        <div class="section-label">4. goals (up to 3)</div>
+        <div class="section-label">goals</div>
         <div class="slot-row">
           <div class="inventory-slot" data-section="goals" data-index="0"></div>
           <div class="inventory-slot" data-section="goals" data-index="1"></div>
