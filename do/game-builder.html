@@ -70,221 +70,260 @@
     }
 
     /* =============================================
-       DETAILED LAB BACKGROUND
+       MID-CENTURY MODERN STUDIO BACKGROUND (Taliesin-inspired)
     ============================================= */
     .lab-bg {
       position: absolute; inset: 0; z-index: 1;
-      background: linear-gradient(180deg, #0d1117 0%, #141a24 40%, #1a2332 70%, #1e2940 100%);
+      background: linear-gradient(180deg, #2a1f18 0%, #3d2e24 30%, #4a3a2d 60%, #5c4a3a 100%);
     }
 
-    /* Ceiling structure */
+    /* Ceiling with exposed wooden beams and skylights */
     .ceiling {
-      position: absolute; top: 0; left: 0; right: 0; height: 12%;
-      background: linear-gradient(180deg, #080a0f 0%, #0d1117 100%);
+      position: absolute; top: 0; left: 0; right: 0; height: 18%;
+      background: linear-gradient(180deg, #1a1410 0%, #2a1f18 100%);
+      overflow: hidden;
+    }
+    /* Skylight panels */
+    .ceiling::before {
+      content: ''; position: absolute;
+      top: 0; left: 10%; right: 10%; height: 60%;
+      background:
+        linear-gradient(90deg,
+          transparent 0%, transparent 8%,
+          rgba(200, 180, 140, 0.15) 8%, rgba(200, 180, 140, 0.15) 12%,
+          transparent 12%, transparent 22%,
+          rgba(200, 180, 140, 0.12) 22%, rgba(200, 180, 140, 0.12) 28%,
+          transparent 28%, transparent 38%,
+          rgba(200, 180, 140, 0.18) 38%, rgba(200, 180, 140, 0.18) 42%,
+          transparent 42%, transparent 58%,
+          rgba(200, 180, 140, 0.18) 58%, rgba(200, 180, 140, 0.18) 62%,
+          transparent 62%, transparent 72%,
+          rgba(200, 180, 140, 0.12) 72%, rgba(200, 180, 140, 0.12) 78%,
+          transparent 78%, transparent 88%,
+          rgba(200, 180, 140, 0.15) 88%, rgba(200, 180, 140, 0.15) 92%,
+          transparent 92%
+        );
     }
     .ceiling-beam {
-      position: absolute; bottom: 0; height: 20px;
-      background: linear-gradient(180deg, #1a2332 0%, #141a24 100%);
-      border-bottom: 2px solid #2a3548;
+      position: absolute; bottom: 0; height: 8px;
+      background: linear-gradient(180deg, #5c4433 0%, #4a3628 100%);
+      border-bottom: 2px solid #3d2a1f;
     }
-    .ceiling-beam:nth-child(1) { left: 15%; width: 12%; }
-    .ceiling-beam:nth-child(2) { left: 44%; width: 12%; }
-    .ceiling-beam:nth-child(3) { right: 15%; width: 12%; }
+    .ceiling-beam:nth-child(1) { left: 8%; width: 18%; transform: skewX(-15deg); }
+    .ceiling-beam:nth-child(2) { left: 41%; width: 18%; }
+    .ceiling-beam:nth-child(3) { right: 8%; width: 18%; transform: skewX(15deg); }
     .ceiling-light-fixture {
-      position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%);
-      width: 40px; height: 8px;
-      background: linear-gradient(180deg, #2a3548, #1a2332);
-      border-radius: 0 0 4px 4px;
+      position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%);
+      width: 50px; height: 6px;
+      background: linear-gradient(180deg, #6b5040 0%, #5c4433 100%);
+      border-radius: 0 0 3px 3px;
     }
     .ceiling-light-fixture::after {
-      content: ''; position: absolute; bottom: 0; left: 5px; right: 5px; height: 4px;
-      background: var(--seafoam);
-      box-shadow: 0 0 20px var(--seafoam), 0 5px 30px rgba(88, 203, 178, 0.4);
+      content: ''; position: absolute; bottom: -4px; left: 8px; right: 8px; height: 4px;
+      background: rgba(255, 235, 210, 0.6);
+      box-shadow: 0 0 20px rgba(255, 235, 210, 0.4), 0 8px 30px rgba(255, 200, 140, 0.2);
       border-radius: 2px;
     }
 
-    /* Back wall with detailed panels */
+    /* Back wall - warm wood paneling */
     .back-wall {
-      position: absolute; top: 12%; left: 0; right: 0; height: 48%;
-      background: linear-gradient(180deg, #141a24 0%, #1a2332 50%, #1e2940 100%);
+      position: absolute; top: 18%; left: 0; right: 0; height: 42%;
+      background: linear-gradient(180deg, #3d2e24 0%, #4a3a2d 50%, #5c4a3a 100%);
     }
 
-    /* Wall panel sections */
+    /* Triangular wooden support beams (Taliesin style) */
     .wall-section {
-      position: absolute; background: linear-gradient(180deg, #1e2940 0%, #1a2332 100%);
-      border: 2px solid #2a3a50; border-radius: 4px;
+      position: absolute;
+      width: 0; height: 0;
+      border-left: 40px solid transparent;
+      border-right: 40px solid transparent;
+      border-bottom: 70px solid #4a3628;
     }
     .wall-section::before {
-      content: ''; position: absolute; top: 3px; left: 3px; right: 3px; height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(88, 203, 178, 0.3), transparent);
+      content: ''; position: absolute;
+      top: 12px; left: -30px;
+      width: 0; height: 0;
+      border-left: 30px solid transparent;
+      border-right: 30px solid transparent;
+      border-bottom: 52px solid var(--redwood);
+      opacity: 0.8;
+    }
+    .wall-section::after {
+      content: ''; position: absolute;
+      top: 20px; left: -20px;
+      width: 0; height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 36px solid #3d2a1f;
     }
 
-    /* Large equipment cabinets - Hidden on mobile */
+    /* Drafting tables - Hidden on mobile */
     .cabinet {
       display: none; /* Hidden by default on mobile */
       position: absolute; bottom: 0;
-      background: linear-gradient(180deg, #252f42 0%, #1e2940 50%, #1a2332 100%);
-      border: 2px solid #3a4a60; border-bottom: none; border-radius: 6px 6px 0 0;
+      background: linear-gradient(135deg, #8b7355 0%, #6b5540 50%, #5c4a3a 100%);
+      border: none; border-radius: 2px;
+      transform-origin: bottom center;
     }
-    .cabinet.left { left: 3%; width: 140px; height: 200px; }
-    .cabinet.right { right: 3%; width: 140px; height: 200px; }
+    .cabinet.left {
+      left: 5%; width: 120px; height: 180px;
+      transform: perspective(200px) rotateY(15deg);
+    }
+    .cabinet.right {
+      right: 5%; width: 120px; height: 180px;
+      transform: perspective(200px) rotateY(-15deg);
+    }
+    /* Drafting table top surface */
     .cabinet-screen {
-      position: absolute; top: 15px; left: 10px; right: 10px; height: 50px;
-      background: #0d1117; border: 1px solid #3a4a60; border-radius: 3px;
-      overflow: hidden;
+      position: absolute; top: 10px; left: 8px; right: 8px; height: 100px;
+      background: linear-gradient(145deg, #c4a87c 0%, #a8906a 50%, #8b7355 100%);
+      border: 2px solid #6b5540; border-radius: 2px;
+      transform: rotateX(-20deg);
+      transform-origin: bottom center;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
     }
     .cabinet-screen::after {
-      content: ''; position: absolute; inset: 0;
-      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(88, 203, 178, 0.05) 2px, rgba(88, 203, 178, 0.05) 4px);
-      animation: screen-scroll 2s linear infinite;
+      content: ''; position: absolute; inset: 8px;
+      background:
+        linear-gradient(90deg, transparent 49%, rgba(139, 90, 43, 0.3) 49%, rgba(139, 90, 43, 0.3) 51%, transparent 51%),
+        linear-gradient(0deg, transparent 49%, rgba(139, 90, 43, 0.3) 49%, rgba(139, 90, 43, 0.3) 51%, transparent 51%);
+      background-size: 20px 20px;
     }
-    @keyframes screen-scroll { from { transform: translateY(0); } to { transform: translateY(10px); } }
+    /* Drafting table legs */
     .cabinet-lights {
-      position: absolute; top: 75px; left: 10px; right: 10px;
-      display: flex; gap: 8px; flex-wrap: wrap;
+      position: absolute; bottom: 0; left: 15px; right: 15px;
+      height: 60px; display: flex; justify-content: space-between;
     }
     .indicator-light {
-      width: 8px; height: 8px; border-radius: 50%;
-      box-shadow: 0 0 6px currentColor;
+      width: 8px; height: 60px; border-radius: 0;
+      background: linear-gradient(180deg, #5c4433 0%, #4a3628 100%);
+      box-shadow: none;
     }
-    .indicator-light.green { background: var(--seafoam); color: var(--seafoam); }
-    .indicator-light.orange { background: var(--burnt-sienna); color: var(--burnt-sienna); }
-    .indicator-light.blue { background: var(--periwinkle); color: var(--periwinkle); }
-    .indicator-light.blink { animation: blink 1s ease-in-out infinite; }
-    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-    .cabinet-vents {
-      position: absolute; bottom: 20px; left: 10px; right: 10px; height: 40px;
-      display: flex; flex-direction: column; gap: 4px;
+    .indicator-light.green, .indicator-light.orange, .indicator-light.blue {
+      background: linear-gradient(180deg, #5c4433 0%, #4a3628 100%);
     }
-    .vent-slot {
-      height: 6px; background: #0d1117; border-radius: 2px;
-    }
+    .indicator-light.blink { animation: none; }
+    .cabinet-vents { display: none; }
+    .vent-slot { display: none; }
 
-    /* Shelf units with detailed vials - Hidden on mobile */
+    /* Decorative shelf with books/supplies - Hidden on mobile */
     .shelf-unit {
       display: none; /* Hidden by default on mobile */
-      position: absolute; width: 100px; height: 120px;
-      background: linear-gradient(180deg, #2a3548 0%, #1e2940 100%);
-      border: 2px solid #3a4a60; border-radius: 4px;
+      position: absolute; width: 90px; height: 80px;
+      background: linear-gradient(180deg, #6b5540 0%, #5c4a3a 100%);
+      border: 3px solid #4a3628; border-radius: 2px;
+      box-shadow: inset 0 -3px 8px rgba(0,0,0,0.2);
     }
-    .shelf-unit.left-upper { left: 18%; top: 15%; }
-    .shelf-unit.right-upper { right: 18%; top: 15%; }
+    .shelf-unit.left-upper { left: 12%; top: 8%; }
+    .shelf-unit.right-upper { right: 12%; top: 8%; }
     .shelf-bar {
-      position: absolute; left: 4px; right: 4px; height: 4px;
-      background: linear-gradient(180deg, #4a5a70, #3a4a60);
-      border-radius: 2px;
+      position: absolute; left: 3px; right: 3px; height: 3px;
+      background: #4a3628;
+      border-radius: 1px;
     }
-    .shelf-bar:nth-child(1) { top: 38%; }
-    .shelf-bar:nth-child(2) { top: 70%; }
+    .shelf-bar:nth-child(1) { top: 32%; }
+    .shelf-bar:nth-child(2) { top: 64%; }
+    /* Books on shelves */
     .vial-row {
-      position: absolute; left: 8px; right: 8px; display: flex; justify-content: space-around;
+      position: absolute; left: 6px; right: 6px; display: flex; gap: 2px;
     }
-    .vial-row:nth-child(3) { top: 10%; }
-    .vial-row:nth-child(4) { top: 42%; }
-    .vial-row:nth-child(5) { bottom: 8%; }
+    .vial-row:nth-child(3) { top: 6%; }
+    .vial-row:nth-child(4) { top: 36%; }
+    .vial-row:nth-child(5) { top: 68%; }
     .vial {
-      width: 10px; border-radius: 2px 2px 5px 5px;
-      background: linear-gradient(180deg, #2a3a4a 0%, #1a2a3a 100%);
+      width: 8px; border-radius: 1px;
       position: relative; overflow: hidden;
     }
-    .vial::after {
-      content: ''; position: absolute; bottom: 2px; left: 2px; right: 2px;
-      border-radius: 0 0 3px 3px;
-      animation: vial-pulse 2s ease-in-out infinite alternate;
-    }
-    @keyframes vial-pulse { from { opacity: 0.6; } to { opacity: 1; } }
+    .vial::after { display: none; }
+    @keyframes vial-pulse { from { opacity: 1; } to { opacity: 1; } }
 
-    /* Pipe system */
+    /* Horizontal wood beam across middle (replaces pipe system) */
     .pipe-system {
-      position: absolute; top: 50%; left: 0; right: 0; height: 30px;
+      position: absolute; top: 52%; left: 0; right: 0; height: 20px;
     }
     .main-pipe {
-      position: absolute; top: 50%; left: 5%; right: 5%; height: 12px;
+      position: absolute; top: 50%; left: 3%; right: 3%; height: 16px;
       transform: translateY(-50%);
-      background: linear-gradient(180deg, #3a4a60 0%, #2a3a50 30%, #1a2a3a 70%, #2a3a50 100%);
-      border-radius: 6px;
-      border: 1px solid #4a5a70;
+      background: linear-gradient(180deg, #7a6250 0%, #5c4a3a 30%, #4a3628 70%, #5c4a3a 100%);
+      border-radius: 2px;
+      border: 2px solid #3d2a1f;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
+    /* Decorative joints become wood brackets */
     .pipe-joint {
       position: absolute; top: 50%; transform: translateY(-50%);
-      width: 24px; height: 24px;
-      background: radial-gradient(circle, #3a4a60 40%, #2a3a50 100%);
-      border: 2px solid #4a5a70; border-radius: 50%;
-      box-shadow: inset 0 0 8px rgba(0,0,0,0.4);
+      width: 20px; height: 28px;
+      background: linear-gradient(180deg, #5c4433 0%, #4a3628 100%);
+      border: 2px solid #3d2a1f; border-radius: 2px;
+      box-shadow: none;
     }
-    .pipe-joint::after {
-      content: ''; position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 8px; height: 8px; border-radius: 50%;
-      background: var(--seafoam);
-      box-shadow: 0 0 8px var(--seafoam);
-      animation: joint-glow 1.5s ease-in-out infinite alternate;
+    .pipe-joint::before {
+      content: ''; position: absolute; top: 4px; left: 50%; transform: translateX(-50%);
+      width: 0; height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-bottom: 8px solid var(--redwood);
     }
-    @keyframes joint-glow { from { opacity: 0.5; } to { opacity: 1; } }
-    .pipe-joint:nth-child(2) { left: 20%; }
-    .pipe-joint:nth-child(3) { left: 40%; }
-    .pipe-joint:nth-child(4) { left: 60%; }
-    .pipe-joint:nth-child(5) { left: 80%; }
-    .pipe-flow {
-      position: absolute; top: 3px; left: 0; width: 50px; height: 6px;
-      background: linear-gradient(90deg, transparent, var(--seafoam), transparent);
-      opacity: 0.4; border-radius: 3px;
-      animation: flow 3s linear infinite;
-    }
-    @keyframes flow { from { left: -50px; } to { left: calc(100% + 50px); } }
+    .pipe-joint::after { display: none; }
+    @keyframes joint-glow { from { opacity: 1; } to { opacity: 1; } }
+    .pipe-joint:nth-child(2) { left: 18%; }
+    .pipe-joint:nth-child(3) { left: 38%; }
+    .pipe-joint:nth-child(4) { left: 58%; }
+    .pipe-joint:nth-child(5) { left: 78%; }
+    .pipe-flow { display: none; }
+    @keyframes flow { from { left: 0; } to { left: 0; } }
 
-    /* Central monitor - Mobile-first (smaller) */
+    /* Sign/nameplate instead of monitor */
     .central-monitor {
-      position: absolute; top: 6%; left: 50%; transform: translateX(-50%);
-      width: 120px; height: 65px;
-      background: linear-gradient(180deg, #1a2332 0%, #0d1117 100%);
-      border: 2px solid #3a4a60; border-radius: 6px;
-      box-shadow: 0 0 20px rgba(88, 114, 203, 0.15), inset 0 0 15px rgba(0,0,0,0.5);
+      position: absolute; top: 4%; left: 50%; transform: translateX(-50%);
+      width: 140px; height: 50px;
+      background: linear-gradient(180deg, #5c4a3a 0%, #4a3628 100%);
+      border: 3px solid #3d2a1f; border-radius: 3px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3), inset 0 0 10px rgba(0,0,0,0.2);
     }
     .monitor-screen {
-      position: absolute; top: 8px; left: 8px; right: 8px; bottom: 25px;
-      background: #0a0d12; border-radius: 4px; overflow: hidden;
+      position: absolute; top: 6px; left: 6px; right: 6px; bottom: 6px;
+      background: linear-gradient(180deg, #c4a87c 0%, #a8906a 100%);
+      border-radius: 2px; overflow: hidden;
+      border: 1px solid #8b7355;
     }
     .monitor-text {
-      position: absolute; top: 8px; left: 0; right: 0;
-      text-align: center; font-family: var(--font-pixel); font-size: 5px;
-      color: var(--periwinkle); letter-spacing: 1px;
+      position: absolute; top: 50%; left: 0; right: 0;
+      transform: translateY(-50%);
+      text-align: center; font-family: var(--font-display); font-size: 8px;
+      color: #3d2a1f; letter-spacing: 2px; text-transform: lowercase;
+      font-weight: 700;
     }
-    .monitor-bar {
-      position: absolute; bottom: 8px; left: 12px; right: 12px;
-      height: 10px; background: #1a2332; border-radius: 5px; overflow: hidden;
-    }
-    .monitor-bar-fill {
-      height: 100%; width: 20%;
-      background: linear-gradient(90deg, var(--periwinkle), var(--seafoam));
-      border-radius: 5px; transition: width 0.5s ease;
-    }
-    .monitor-buttons {
-      position: absolute; bottom: 5px; left: 10px; right: 10px;
-      display: flex; gap: 6px;
-    }
-    .monitor-btn {
-      width: 10px; height: 6px; background: #2a3a50; border-radius: 2px;
-    }
+    .monitor-bar { display: none; }
+    .monitor-bar-fill { display: none; }
+    .monitor-buttons { display: none; }
+    .monitor-btn { display: none; }
 
-    /* Floor with perspective */
+    /* Warm wood floor */
     .floor {
       position: absolute; bottom: 0; left: 0; right: 0; height: 40%;
-      background: linear-gradient(180deg, #1e2940 0%, #151b26 60%, #0d1117 100%);
+      background: linear-gradient(180deg, #5c4a3a 0%, #4a3628 40%, #3d2a1f 100%);
       transform-origin: top center;
       transform: perspective(400px) rotateX(25deg);
     }
     .floor-grid {
       position: absolute; inset: 0;
       background-image:
-        linear-gradient(rgba(88, 203, 178, 0.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(88, 203, 178, 0.08) 1px, transparent 1px);
-      background-size: 50px 50px;
+        linear-gradient(90deg, rgba(61, 42, 31, 0.4) 1px, transparent 1px);
+      background-size: 40px 100%;
+    }
+    .floor-grid::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg,
+        rgba(255, 235, 210, 0.08) 0%,
+        rgba(255, 235, 210, 0.02) 50%,
+        transparent 100%
+      );
     }
     .floor-highlight {
-      position: absolute; top: 0; left: 25%; right: 25%; height: 3px;
-      background: linear-gradient(90deg, transparent, var(--burnt-sienna), transparent);
-      box-shadow: 0 0 30px var(--burnt-sienna);
+      position: absolute; top: 0; left: 20%; right: 20%; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255, 235, 210, 0.3), transparent);
+      box-shadow: 0 0 20px rgba(255, 235, 210, 0.15);
     }
 
     /* =============================================
@@ -295,56 +334,56 @@
       width: 92%; max-width: 750px; z-index: 10;
     }
 
-    /* Counter top surface */
+    /* Counter top surface - warm wood */
     .counter-top {
       position: relative; height: 25px;
-      background: linear-gradient(180deg, #4a5a70 0%, #3a4a60 50%, #2a3a50 100%);
-      border: 2px solid #5a6a80;
+      background: linear-gradient(180deg, #a8906a 0%, #8b7355 50%, #6b5540 100%);
+      border: 2px solid #5c4433;
       border-bottom: none;
-      border-radius: 8px 8px 0 0;
+      border-radius: 4px 4px 0 0;
       transform: perspective(300px) rotateX(-8deg);
       transform-origin: bottom center;
     }
     .counter-top::before {
       content: ''; position: absolute; top: 4px; left: 10px; right: 10px; height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255,235,210,0.3), transparent);
     }
     .counter-top::after {
       content: ''; position: absolute; bottom: -2px; left: -2px; right: -2px; height: 4px;
-      background: linear-gradient(90deg, #2a3a50, #3a4a60, #2a3a50);
+      background: linear-gradient(90deg, #5c4433, #6b5540, #5c4433);
     }
 
-    /* Counter front face */
+    /* Counter front face - rich wood paneling */
     .counter-front {
       position: relative; height: 80px;
-      background: linear-gradient(180deg, #2a3a50 0%, #1e2940 40%, #151b26 100%);
-      border: 2px solid #3a4a60;
+      background: linear-gradient(180deg, #6b5540 0%, #5c4a3a 40%, #4a3628 100%);
+      border: 2px solid #5c4433;
       border-top: none;
-      border-radius: 0 0 6px 6px;
+      border-radius: 0 0 4px 4px;
     }
     .counter-front::before {
       content: ''; position: absolute; top: 15px; left: 20px; right: 20px;
-      height: 1px; background: linear-gradient(90deg, transparent, #4a5a70, transparent);
+      height: 1px; background: linear-gradient(90deg, transparent, #7a6250, transparent);
     }
     .counter-front::after {
       content: ''; position: absolute; bottom: 15px; left: 20px; right: 20px;
-      height: 1px; background: linear-gradient(90deg, #3a4a60, transparent, #3a4a60);
+      height: 1px; background: linear-gradient(90deg, #5c4433, transparent, #5c4433);
     }
 
-    /* Counter trim */
+    /* Counter trim - dark wood base */
     .counter-trim {
       position: absolute; bottom: -8px; left: -4px; right: -4px; height: 8px;
-      background: linear-gradient(180deg, #1a2332 0%, #0d1117 100%);
-      border: 2px solid #2a3a50; border-top: none;
-      border-radius: 0 0 8px 8px;
+      background: linear-gradient(180deg, #3d2a1f 0%, #2a1f18 100%);
+      border: 2px solid #4a3628; border-top: none;
+      border-radius: 0 0 4px 4px;
     }
 
-    /* Counter edge lights */
+    /* Counter accent strips - warm terracotta instead of glowing */
     .counter-edge-light {
       position: absolute; top: -3px; height: 3px;
-      background: var(--seafoam); border-radius: 2px;
-      box-shadow: 0 0 10px var(--seafoam);
-      opacity: 0.6;
+      background: var(--redwood); border-radius: 1px;
+      box-shadow: none;
+      opacity: 0.9;
     }
     .counter-edge-light:nth-child(1) { left: 15%; width: 60px; }
     .counter-edge-light:nth-child(2) { right: 15%; width: 60px; }
@@ -372,45 +411,45 @@
     .cube-base {
       position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
       width: 110px; height: 16px;
-      background: linear-gradient(180deg, #4a5a70 0%, #3a4a60 50%, #2a3a50 100%);
-      border: 1px solid #5a6a80; border-radius: 4px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+      background: linear-gradient(180deg, #8b7355 0%, #6b5540 50%, #5c4433 100%);
+      border: 1px solid #4a3628; border-radius: 3px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
     }
     .cube-base::after {
       content: ''; position: absolute; top: 3px; left: 8px; right: 8px; height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255,235,210,0.25), transparent);
     }
 
     .cube-glass {
       position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
       width: 100px; height: 125px;
       background: linear-gradient(135deg,
-        rgba(180, 210, 255, 0.12) 0%,
-        rgba(120, 160, 220, 0.06) 50%,
-        rgba(180, 210, 255, 0.1) 100%
+        rgba(255, 245, 230, 0.1) 0%,
+        rgba(200, 180, 150, 0.05) 50%,
+        rgba(255, 245, 230, 0.08) 100%
       );
-      border: 2px solid rgba(180, 210, 240, 0.3);
-      border-radius: 6px;
+      border: 2px solid rgba(200, 180, 150, 0.35);
+      border-radius: 4px;
       box-shadow:
-        inset 0 0 30px rgba(255,255,255,0.06),
-        0 0 20px rgba(100, 150, 200, 0.25);
-      backdrop-filter: blur(2px);
+        inset 0 0 25px rgba(255,255,255,0.04),
+        0 0 15px rgba(139, 115, 85, 0.2);
+      backdrop-filter: blur(1px);
     }
     .cube-glass::before {
       content: ''; position: absolute;
       top: 8px; left: 8px; width: 12px; height: 60%;
-      background: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.02) 100%);
-      border-radius: 3px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.02) 100%);
+      border-radius: 2px;
     }
 
     .cube-glow {
       position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
-      width: 85px; height: 14px; border-radius: 50%; opacity: 0.8;
-      animation: glow-pulse 2s ease-in-out infinite alternate;
+      width: 85px; height: 14px; border-radius: 50%; opacity: 0.5;
+      animation: glow-pulse 3s ease-in-out infinite alternate;
     }
     @keyframes glow-pulse {
-      from { opacity: 0.5; transform: translateX(-50%) scale(0.95); }
-      to { opacity: 0.9; transform: translateX(-50%) scale(1.05); }
+      from { opacity: 0.3; transform: translateX(-50%) scale(0.95); }
+      to { opacity: 0.6; transform: translateX(-50%) scale(1.02); }
     }
 
     /* Items - Mobile-first (50% LARGER for easy selection) */
@@ -434,24 +473,24 @@
       transform: translateX(-50%) scale(1.08);
     }
 
-    /* Labels float ABOVE glass cubes - Mobile-first (no overlap) */
+    /* Labels float ABOVE glass cubes - warm wood card style */
     .cube-label {
       position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
       text-align: center; z-index: 20;
-      background: rgba(13, 17, 23, 0.95);
-      padding: 6px 10px; border-radius: 6px;
-      border: 1px solid rgba(88, 203, 178, 0.4);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+      background: linear-gradient(180deg, #5c4a3a 0%, #4a3628 100%);
+      padding: 6px 10px; border-radius: 4px;
+      border: 2px solid #6b5540;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
       max-width: 115px;
     }
     .cube-label-name {
       font-family: var(--font-pixel); font-size: 8px;
-      color: var(--champagne); text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+      color: var(--champagne); text-shadow: 0 1px 3px rgba(0,0,0,0.4);
       letter-spacing: 0.4px;
       white-space: nowrap;
     }
     .cube-label-desc {
-      font-size: 9px; color: var(--seafoam); opacity: 0.85; margin-top: 3px;
+      font-size: 9px; color: #c4a87c; opacity: 0.9; margin-top: 3px;
       white-space: normal; line-height: 1.25;
     }
 
@@ -471,33 +510,33 @@
       width: 100%; height: 100%;
       object-fit: contain;
       image-rendering: pixelated;
-      filter: drop-shadow(0 0 25px rgba(88, 114, 203, 0.6));
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
       animation: wayfinder-float 3s ease-in-out infinite;
     }
     @keyframes wayfinder-float {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+      50% { transform: translateY(-6px); }
     }
 
     .wayfinder-placeholder {
       width: 100%; aspect-ratio: 2/3;
-      background: linear-gradient(180deg, #3a4a6a 0%, #2a3a5a 40%, var(--cadet-blue) 100%);
+      background: linear-gradient(180deg, #6b5540 0%, #5c4a3a 40%, #4a3628 100%);
       border-radius: 24px 24px 12px 12px;
       position: relative;
-      box-shadow: 0 0 30px rgba(88, 114, 203, 0.5);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     }
     .wayfinder-placeholder::before {
       content: ''; position: absolute;
       top: 20%; left: 50%; transform: translateX(-50%);
       width: 50%; height: 12%;
-      background: linear-gradient(90deg, var(--seafoam), var(--periwinkle));
+      background: linear-gradient(90deg, var(--burnt-sienna), var(--redwood));
       border-radius: 14px;
-      box-shadow: 0 0 25px var(--seafoam);
+      box-shadow: 0 0 15px rgba(177, 80, 67, 0.4);
       animation: visor-glow 2s ease-in-out infinite alternate;
     }
     @keyframes visor-glow {
-      from { opacity: 0.6; box-shadow: 0 0 15px var(--seafoam); }
-      to { opacity: 1; box-shadow: 0 0 35px var(--seafoam); }
+      from { opacity: 0.7; box-shadow: 0 0 10px rgba(177, 80, 67, 0.3); }
+      to { opacity: 1; box-shadow: 0 0 20px rgba(177, 80, 67, 0.5); }
     }
 
     .wayfinder-shadow {
@@ -507,23 +546,23 @@
     }
 
     /* =============================================
-       HEADER - Mobile-first
+       HEADER - Mobile-first (warm wood tones)
     ============================================= */
     .header-overlay {
       position: absolute; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
       padding: 8px 12px;
-      background: linear-gradient(180deg, rgba(13, 17, 23, 0.98) 0%, transparent 100%);
+      background: linear-gradient(180deg, rgba(42, 31, 24, 0.95) 0%, transparent 100%);
     }
     .shop-title {
       font-family: var(--font-display); font-size: 9px;
-      color: var(--seafoam); letter-spacing: 1.5px; text-transform: lowercase;
-      text-shadow: 0 0 8px rgba(88, 203, 178, 0.5);
+      color: var(--champagne); letter-spacing: 1.5px; text-transform: lowercase;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     }
     .step-indicator { display: flex; gap: 5px; align-items: center; }
     .step-pip {
       width: 6px; height: 6px; border-radius: 50%;
-      background: #2a3a50; transition: all 0.3s ease;
+      background: #5c4a3a; transition: all 0.3s ease;
     }
     .step-pip.active {
       width: 16px; border-radius: 3px;
@@ -534,38 +573,38 @@
     }
     .exit-btn {
       font-family: var(--font-display); font-size: 8px;
-      color: var(--champagne); background: rgba(30, 41, 64, 0.8);
-      border: 1px solid var(--periwinkle); padding: 5px 10px;
+      color: var(--champagne); background: rgba(92, 74, 58, 0.9);
+      border: 1px solid #8b7355; padding: 5px 10px;
       cursor: pointer; text-decoration: none; transition: all 0.2s ease;
       border-radius: 3px;
     }
     .exit-btn:hover {
-      background: var(--periwinkle); color: #0d1117;
+      background: var(--burnt-sienna); color: var(--champagne);
     }
 
     /* =============================================
-       STAGE PROMPT - Clean speech bubble from wayfinder
+       STAGE PROMPT - Warm wood card style speech bubble
     ============================================= */
     .stage-prompt {
       position: absolute; bottom: 10px; left: 48%; z-index: 50;
       max-width: calc(52% - 20px);
-      background: rgba(13, 17, 23, 0.95);
-      border: 2px solid var(--periwinkle);
-      padding: 12px 16px; border-radius: 14px 14px 14px 0;
-      box-shadow: 0 4px 25px rgba(0,0,0,0.6), 0 0 20px rgba(88, 114, 203, 0.25);
+      background: linear-gradient(180deg, #5c4a3a 0%, #4a3628 100%);
+      border: 2px solid #8b7355;
+      padding: 12px 16px; border-radius: 8px 8px 8px 0;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
     .stage-prompt::before {
       content: ''; position: absolute;
       bottom: 12px; left: -14px;
       border: 12px solid transparent;
-      border-right-color: var(--periwinkle);
+      border-right-color: #8b7355;
       border-left: none;
     }
     .stage-prompt::after {
       content: ''; position: absolute;
       bottom: 14px; left: -9px;
       border: 10px solid transparent;
-      border-right-color: rgba(13, 17, 23, 0.95);
+      border-right-color: #5c4a3a;
       border-left: none;
     }
     .prompt-step {
@@ -580,48 +619,48 @@
     }
 
     /* =============================================
-       GUIDE SPEECH BUBBLE - At wayfinder level, above prompts, below items
+       GUIDE SPEECH BUBBLE - Warm style at wayfinder level
     ============================================= */
     .guide-speech {
       position: absolute; bottom: 20%; left: 42%; z-index: 55;
       max-width: 140px;
-      background: rgba(13, 17, 23, 0.95);
-      border: 2px solid var(--seafoam);
-      padding: 8px 12px; border-radius: 10px 10px 10px 0;
+      background: linear-gradient(180deg, #6b5540 0%, #5c4a3a 100%);
+      border: 2px solid var(--burnt-sienna);
+      padding: 8px 12px; border-radius: 8px 8px 8px 0;
       opacity: 0; transform: translateY(8px) scale(0.95);
       transition: all 0.3s ease;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 15px rgba(88, 203, 178, 0.25);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
     }
     .guide-speech.visible { opacity: 1; transform: translateY(0) scale(1); }
     .guide-speech::before {
       content: ''; position: absolute;
       bottom: 8px; left: -12px;
       border: 10px solid transparent;
-      border-right-color: var(--seafoam);
+      border-right-color: var(--burnt-sienna);
       border-left: none;
     }
     .guide-speech::after {
       content: ''; position: absolute;
       bottom: 10px; left: -7px;
       border: 8px solid transparent;
-      border-right-color: rgba(13, 17, 23, 0.95);
+      border-right-color: #6b5540;
       border-left: none;
     }
     .guide-text {
       font-family: var(--font-pixel); font-size: 7px;
-      color: var(--seafoam); line-height: 1.5;
+      color: var(--champagne); line-height: 1.5;
       text-shadow: 0 1px 2px rgba(0,0,0,0.3);
     }
 
     /* =============================================
-       INVENTORY POUCH - Mobile-first (upper-left, all slots same size)
+       INVENTORY POUCH - Warm wood panel style
     ============================================= */
     .inventory-pouch {
       position: absolute; top: 45px; right: 8px; z-index: 50; width: 160px;
-      background: rgba(13, 17, 23, 0.95);
-      border: 1.5px solid var(--burnt-sienna);
-      border-radius: 6px; padding: 8px;
-      box-shadow: 0 3px 15px rgba(0,0,0,0.5);
+      background: linear-gradient(180deg, #5c4a3a 0%, #4a3628 100%);
+      border: 2px solid #6b5540;
+      border-radius: 4px; padding: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
     }
     .pouch-header {
       display: flex; justify-content: space-between; align-items: center;
@@ -640,11 +679,11 @@
       text-transform: uppercase; margin-bottom: 3px;
     }
     .slot-row { display: flex; gap: 3px; flex-wrap: wrap; }
-    /* ALL inventory slots same size */
+    /* ALL inventory slots same size - warm wood style */
     .inventory-slot {
       width: 28px; height: 28px;
-      background: rgba(21, 27, 38, 0.8);
-      border: 1.5px solid rgba(203, 120, 88, 0.25);
+      background: rgba(74, 54, 40, 0.6);
+      border: 1.5px solid rgba(139, 115, 85, 0.4);
       border-radius: 3px;
       display: flex; align-items: center; justify-content: center;
       transition: all 0.2s ease; position: relative;
@@ -653,38 +692,39 @@
     .inventory-slot.single { width: 28px; height: 28px; } /* Same as regular */
     .inventory-slot.filled {
       border-color: var(--burnt-sienna);
-      background: rgba(203, 120, 88, 0.1);
+      background: rgba(203, 120, 88, 0.2);
     }
     .slot-item { font-size: 14px; }
     .slot-item img { width: 20px; height: 20px; image-rendering: pixelated; }
     .inventory-slot.single .slot-item img { width: 20px; height: 20px; }
     .slot-tooltip {
       position: absolute; bottom: calc(100% + 5px); left: 50%; transform: translateX(-50%);
-      background: rgba(13, 17, 23, 0.95); color: var(--champagne);
+      background: linear-gradient(180deg, #5c4a3a 0%, #4a3628 100%);
+      color: var(--champagne);
       padding: 3px 6px; border-radius: 3px;
       font-family: var(--font-pixel); font-size: 5px;
       white-space: nowrap; opacity: 0; pointer-events: none;
       transition: opacity 0.2s;
-      border: 1px solid var(--periwinkle);
+      border: 1px solid #8b7355;
     }
     .inventory-slot:hover .slot-tooltip { opacity: 1; }
 
     /* =============================================
-       CONTINUE BUTTON - Positioned with prompt
+       CONTINUE BUTTON - Warm terracotta style
     ============================================= */
     .continue-btn {
       position: absolute; bottom: 75px; left: 48%;
       z-index: 51; font-family: var(--font-pixel); font-size: 8px;
-      color: #0d1117; background: var(--seafoam);
+      color: var(--champagne); background: var(--redwood);
       border: none; padding: 12px 24px; border-radius: 4px;
       cursor: pointer; transition: all 0.2s ease;
       display: none;
-      box-shadow: 0 4px 0 #3a8a7a, 0 0 20px rgba(88, 203, 178, 0.4);
+      box-shadow: 0 4px 0 #8b3a2f, 0 4px 15px rgba(0, 0, 0, 0.3);
       letter-spacing: 0.5px;
     }
     .continue-btn:hover {
       transform: translateY(-3px);
-      box-shadow: 0 6px 0 #3a8a7a, 0 0 25px rgba(88, 203, 178, 0.6);
+      box-shadow: 0 6px 0 #8b3a2f, 0 6px 20px rgba(0, 0, 0, 0.4);
     }
     .continue-btn.visible { display: block; }
 
@@ -1089,58 +1129,52 @@
           </div>
         </div>
 
-        <!-- Shelf units with vials -->
+        <!-- Book shelves -->
         <div class="shelf-unit left-upper">
           <div class="shelf-bar"></div>
           <div class="shelf-bar"></div>
           <div class="vial-row">
-            <div class="vial" style="height:20px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:12px;background:var(--seafoam);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
-            <div class="vial" style="height:16px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:10px;background:var(--periwinkle);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
-            <div class="vial" style="height:22px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:14px;background:var(--burnt-sienna);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
+            <div class="vial" style="height:20px;background:#8b5a3c;"></div>
+            <div class="vial" style="height:16px;background:#6b4c3a;"></div>
+            <div class="vial" style="height:22px;background:var(--redwood);"></div>
           </div>
           <div class="vial-row">
-            <div class="vial" style="height:18px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:11px;background:var(--light-cyan);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
-            <div class="vial" style="height:24px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:16px;background:var(--seafoam);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
+            <div class="vial" style="height:18px;background:#a8906a;"></div>
+            <div class="vial" style="height:24px;background:#5c4433;"></div>
           </div>
           <div class="vial-row">
-            <div class="vial" style="height:15px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:9px;background:var(--redwood);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
-            <div class="vial" style="height:20px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:13px;background:var(--periwinkle);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
-            <div class="vial" style="height:17px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:10px;background:var(--burnt-sienna);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
+            <div class="vial" style="height:15px;background:var(--burnt-sienna);"></div>
+            <div class="vial" style="height:20px;background:#7a6250;"></div>
+            <div class="vial" style="height:17px;background:#4a3628;"></div>
           </div>
         </div>
         <div class="shelf-unit right-upper">
           <div class="shelf-bar"></div>
           <div class="shelf-bar"></div>
           <div class="vial-row">
-            <div class="vial" style="height:22px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:14px;background:var(--periwinkle);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
-            <div class="vial" style="height:18px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:11px;background:var(--seafoam);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
-            <div class="vial" style="height:25px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:17px;background:var(--redwood);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
+            <div class="vial" style="height:22px;background:#6b5540;"></div>
+            <div class="vial" style="height:18px;background:#8b7355;"></div>
+            <div class="vial" style="height:25px;background:var(--redwood);"></div>
           </div>
           <div class="vial-row">
-            <div class="vial" style="height:20px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:13px;background:var(--burnt-sienna);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
-            <div class="vial" style="height:16px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:10px;background:var(--light-cyan);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
+            <div class="vial" style="height:20px;background:var(--burnt-sienna);"></div>
+            <div class="vial" style="height:16px;background:#5c4a3a;"></div>
           </div>
           <div class="vial-row">
-            <div class="vial" style="height:19px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:12px;background:var(--seafoam);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
-            <div class="vial" style="height:23px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:15px;background:var(--periwinkle);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
-            <div class="vial" style="height:17px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:10px;background:var(--burnt-sienna);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
+            <div class="vial" style="height:19px;background:#a8906a;"></div>
+            <div class="vial" style="height:23px;background:#7a6250;"></div>
+            <div class="vial" style="height:17px;background:#4a3628;"></div>
           </div>
         </div>
 
-        <!-- Central monitor -->
+        <!-- Studio nameplate -->
         <div class="central-monitor">
           <div class="monitor-screen">
-            <div class="monitor-text">PACKAGE CONFIGURATOR</div>
-            <div class="monitor-bar"><div class="monitor-bar-fill" id="progressBar"></div></div>
-          </div>
-          <div class="monitor-buttons">
-            <div class="monitor-btn"></div>
-            <div class="monitor-btn"></div>
-            <div class="monitor-btn"></div>
+            <div class="monitor-text">design studio</div>
           </div>
         </div>
 
-        <!-- Pipe system -->
+        <!-- Horizontal beam -->
         <div class="pipe-system">
           <div class="main-pipe">
             <div class="pipe-flow"></div>
@@ -1186,7 +1220,7 @@
 
     <!-- Header -->
     <header class="header-overlay">
-      <div class="shop-title">winded.vertigo lab</div>
+      <div class="shop-title">winded.vertigo studio</div>
       <div class="step-indicator" id="stepIndicator">
         <div class="step-pip" data-step="1"></div>
         <div class="step-pip" data-step="2"></div>
@@ -1520,7 +1554,8 @@
     }
 
     function updateUI() {
-      progressBar.style.width = `${(gameState.step / 5) * 100}%`;
+      // Progress bar removed in studio redesign
+      if (progressBar) progressBar.style.width = `${(gameState.step / 5) * 100}%`;
       document.querySelectorAll('.step-pip').forEach(p => {
         const s = parseInt(p.dataset.step);
         p.classList.toggle('active', s === gameState.step);
