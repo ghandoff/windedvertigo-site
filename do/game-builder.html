@@ -71,16 +71,17 @@
 
     /* =============================================
        MID-CENTURY MODERN STUDIO BACKGROUND (Taliesin-inspired)
+       Uses brand cadet blue (#273248) as dominant color
     ============================================= */
     .lab-bg {
       position: absolute; inset: 0; z-index: 1;
-      background: linear-gradient(180deg, #2a1f18 0%, #3d2e24 30%, #4a3a2d 60%, #5c4a3a 100%);
+      background: linear-gradient(180deg, #1a2233 0%, #273248 30%, #2f3d52 60%, #3a4a5e 100%);
     }
 
     /* Ceiling with exposed wooden beams and skylights */
     .ceiling {
       position: absolute; top: 0; left: 0; right: 0; height: 18%;
-      background: linear-gradient(180deg, #1a1410 0%, #2a1f18 100%);
+      background: linear-gradient(180deg, #141c2a 0%, #1a2233 100%);
       overflow: hidden;
     }
     /* Skylight panels */
@@ -104,104 +105,114 @@
           transparent 92%
         );
     }
+    /* Wooden ceiling beams with visible grain */
     .ceiling-beam {
-      position: absolute; bottom: 0; height: 8px;
-      background: linear-gradient(180deg, #5c4433 0%, #4a3628 100%);
-      border-bottom: 2px solid #3d2a1f;
+      position: absolute; bottom: 0; height: 12px;
+      background: linear-gradient(180deg, #8b6b4d 0%, #6b5040 50%, #5c4433 100%);
+      border-bottom: 3px solid #4a3628;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .ceiling-beam::before {
+      content: ''; position: absolute; inset: 2px 4px;
+      background: repeating-linear-gradient(90deg, transparent, transparent 8px, rgba(0,0,0,0.1) 8px, rgba(0,0,0,0.1) 10px);
     }
     .ceiling-beam:nth-child(1) { left: 8%; width: 18%; transform: skewX(-15deg); }
     .ceiling-beam:nth-child(2) { left: 41%; width: 18%; }
     .ceiling-beam:nth-child(3) { right: 8%; width: 18%; transform: skewX(15deg); }
     .ceiling-light-fixture {
-      position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%);
-      width: 50px; height: 6px;
-      background: linear-gradient(180deg, #6b5040 0%, #5c4433 100%);
-      border-radius: 0 0 3px 3px;
+      position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%);
+      width: 60px; height: 8px;
+      background: linear-gradient(180deg, #8b6b4d 0%, #6b5040 100%);
+      border-radius: 0 0 4px 4px;
+      border: 2px solid #5c4433;
+      border-top: none;
     }
     .ceiling-light-fixture::after {
-      content: ''; position: absolute; bottom: -4px; left: 8px; right: 8px; height: 4px;
-      background: rgba(255, 235, 210, 0.6);
-      box-shadow: 0 0 20px rgba(255, 235, 210, 0.4), 0 8px 30px rgba(255, 200, 140, 0.2);
+      content: ''; position: absolute; bottom: -6px; left: 10px; right: 10px; height: 5px;
+      background: var(--champagne);
+      box-shadow: 0 0 25px rgba(255, 235, 210, 0.6), 0 10px 40px rgba(255, 200, 140, 0.3);
       border-radius: 2px;
     }
 
-    /* Back wall - warm wood paneling */
+    /* Back wall - cadet blue with wood accent */
     .back-wall {
       position: absolute; top: 18%; left: 0; right: 0; height: 42%;
-      background: linear-gradient(180deg, #3d2e24 0%, #4a3a2d 50%, #5c4a3a 100%);
+      background: linear-gradient(180deg, #273248 0%, #2f3d52 50%, #3a4a5e 100%);
     }
 
-    /* Triangular wooden support beams (Taliesin style) */
+    /* Triangular wooden rafters (Taliesin style) - more visible */
     .wall-section {
       position: absolute;
       width: 0; height: 0;
-      border-left: 40px solid transparent;
-      border-right: 40px solid transparent;
-      border-bottom: 70px solid #4a3628;
+      border-left: 45px solid transparent;
+      border-right: 45px solid transparent;
+      border-bottom: 80px solid #6b5040;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
     }
     .wall-section::before {
       content: ''; position: absolute;
-      top: 12px; left: -30px;
+      top: 14px; left: -35px;
       width: 0; height: 0;
-      border-left: 30px solid transparent;
-      border-right: 30px solid transparent;
-      border-bottom: 52px solid var(--redwood);
-      opacity: 0.8;
+      border-left: 35px solid transparent;
+      border-right: 35px solid transparent;
+      border-bottom: 58px solid var(--redwood);
     }
     .wall-section::after {
       content: ''; position: absolute;
-      top: 20px; left: -20px;
+      top: 24px; left: -25px;
       width: 0; height: 0;
-      border-left: 20px solid transparent;
-      border-right: 20px solid transparent;
-      border-bottom: 36px solid #3d2a1f;
+      border-left: 25px solid transparent;
+      border-right: 25px solid transparent;
+      border-bottom: 40px solid #4a3628;
     }
 
-    /* Drafting tables - Hidden on mobile */
+    /* Studio doors/alcoves - Hidden on mobile */
     .cabinet {
       display: none; /* Hidden by default on mobile */
       position: absolute; bottom: 0;
-      background: linear-gradient(135deg, #8b7355 0%, #6b5540 50%, #5c4a3a 100%);
-      border: none; border-radius: 2px;
-      transform-origin: bottom center;
+      background: linear-gradient(180deg, #1a2233 0%, #273248 100%);
+      border: 4px solid #8b6b4d;
+      border-bottom: none;
+      border-radius: 8px 8px 0 0;
+      box-shadow: inset 0 0 30px rgba(0,0,0,0.4), 0 0 20px rgba(0,0,0,0.3);
     }
     .cabinet.left {
-      left: 5%; width: 120px; height: 180px;
-      transform: perspective(200px) rotateY(15deg);
+      left: 3%; width: 130px; height: 200px;
     }
     .cabinet.right {
-      right: 5%; width: 120px; height: 180px;
-      transform: perspective(200px) rotateY(-15deg);
+      right: 3%; width: 130px; height: 200px;
     }
-    /* Drafting table top surface */
+    /* Door panel with wood frame */
     .cabinet-screen {
-      position: absolute; top: 10px; left: 8px; right: 8px; height: 100px;
-      background: linear-gradient(145deg, #c4a87c 0%, #a8906a 50%, #8b7355 100%);
-      border: 2px solid #6b5540; border-radius: 2px;
-      transform: rotateX(-20deg);
-      transform-origin: bottom center;
-      box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+      position: absolute; top: 12px; left: 12px; right: 12px; bottom: 20px;
+      background: linear-gradient(180deg, #2f3d52 0%, #273248 100%);
+      border: 3px solid #6b5040;
+      border-radius: 4px;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.3);
+    }
+    .cabinet-screen::before {
+      content: ''; position: absolute;
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 40px; height: 40px;
+      border: 3px solid #8b6b4d;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #5c4433 0%, #4a3628 100%);
     }
     .cabinet-screen::after {
-      content: ''; position: absolute; inset: 8px;
-      background:
-        linear-gradient(90deg, transparent 49%, rgba(139, 90, 43, 0.3) 49%, rgba(139, 90, 43, 0.3) 51%, transparent 51%),
-        linear-gradient(0deg, transparent 49%, rgba(139, 90, 43, 0.3) 49%, rgba(139, 90, 43, 0.3) 51%, transparent 51%);
-      background-size: 20px 20px;
+      content: ''; position: absolute;
+      top: 10px; left: 10px; right: 10px; bottom: 10px;
+      border: 2px solid rgba(139, 107, 77, 0.3);
+      border-radius: 2px;
     }
-    /* Drafting table legs */
+    /* Door frame detail */
     .cabinet-lights {
-      position: absolute; bottom: 0; left: 15px; right: 15px;
-      height: 60px; display: flex; justify-content: space-between;
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 20px;
+      background: linear-gradient(180deg, #6b5040 0%, #5c4433 100%);
+      border-top: 2px solid #8b6b4d;
     }
-    .indicator-light {
-      width: 8px; height: 60px; border-radius: 0;
-      background: linear-gradient(180deg, #5c4433 0%, #4a3628 100%);
-      box-shadow: none;
-    }
-    .indicator-light.green, .indicator-light.orange, .indicator-light.blue {
-      background: linear-gradient(180deg, #5c4433 0%, #4a3628 100%);
-    }
+    .indicator-light { display: none; }
+    .indicator-light.green, .indicator-light.orange, .indicator-light.blue { display: none; }
     .indicator-light.blink { animation: none; }
     .cabinet-vents { display: none; }
     .vent-slot { display: none; }
@@ -299,31 +310,31 @@
     .monitor-buttons { display: none; }
     .monitor-btn { display: none; }
 
-    /* Warm wood floor */
+    /* Floor - cadet blue with wood planks */
     .floor {
       position: absolute; bottom: 0; left: 0; right: 0; height: 40%;
-      background: linear-gradient(180deg, #5c4a3a 0%, #4a3628 40%, #3d2a1f 100%);
+      background: linear-gradient(180deg, #3a4a5e 0%, #2f3d52 40%, #273248 100%);
       transform-origin: top center;
       transform: perspective(400px) rotateX(25deg);
     }
     .floor-grid {
       position: absolute; inset: 0;
       background-image:
-        linear-gradient(90deg, rgba(61, 42, 31, 0.4) 1px, transparent 1px);
-      background-size: 40px 100%;
+        linear-gradient(90deg, rgba(139, 107, 77, 0.2) 2px, transparent 2px);
+      background-size: 50px 100%;
     }
     .floor-grid::before {
       content: ''; position: absolute; inset: 0;
       background: linear-gradient(180deg,
-        rgba(255, 235, 210, 0.08) 0%,
+        rgba(255, 235, 210, 0.06) 0%,
         rgba(255, 235, 210, 0.02) 50%,
         transparent 100%
       );
     }
     .floor-highlight {
-      position: absolute; top: 0; left: 20%; right: 20%; height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(255, 235, 210, 0.3), transparent);
-      box-shadow: 0 0 20px rgba(255, 235, 210, 0.15);
+      position: absolute; top: 0; left: 20%; right: 20%; height: 3px;
+      background: linear-gradient(90deg, transparent, var(--burnt-sienna), transparent);
+      box-shadow: 0 0 25px rgba(203, 120, 88, 0.3);
     }
 
     /* =============================================
@@ -334,11 +345,11 @@
       width: 92%; max-width: 750px; z-index: 10;
     }
 
-    /* Counter top surface - warm wood */
+    /* Counter top surface - wood with cadet blue accent */
     .counter-top {
       position: relative; height: 25px;
-      background: linear-gradient(180deg, #a8906a 0%, #8b7355 50%, #6b5540 100%);
-      border: 2px solid #5c4433;
+      background: linear-gradient(180deg, #a8906a 0%, #8b7355 50%, #6b5040 100%);
+      border: 3px solid #5c4433;
       border-bottom: none;
       border-radius: 4px 4px 0 0;
       transform: perspective(300px) rotateX(-8deg);
@@ -346,35 +357,35 @@
     }
     .counter-top::before {
       content: ''; position: absolute; top: 4px; left: 10px; right: 10px; height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(255,235,210,0.3), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255,235,210,0.4), transparent);
     }
     .counter-top::after {
       content: ''; position: absolute; bottom: -2px; left: -2px; right: -2px; height: 4px;
-      background: linear-gradient(90deg, #5c4433, #6b5540, #5c4433);
+      background: linear-gradient(90deg, #5c4433, #6b5040, #5c4433);
     }
 
-    /* Counter front face - rich wood paneling */
+    /* Counter front face - cadet blue with wood trim */
     .counter-front {
       position: relative; height: 80px;
-      background: linear-gradient(180deg, #6b5540 0%, #5c4a3a 40%, #4a3628 100%);
-      border: 2px solid #5c4433;
+      background: linear-gradient(180deg, #3a4a5e 0%, #2f3d52 40%, #273248 100%);
+      border: 3px solid #6b5040;
       border-top: none;
       border-radius: 0 0 4px 4px;
     }
     .counter-front::before {
       content: ''; position: absolute; top: 15px; left: 20px; right: 20px;
-      height: 1px; background: linear-gradient(90deg, transparent, #7a6250, transparent);
+      height: 1px; background: linear-gradient(90deg, transparent, #8b6b4d, transparent);
     }
     .counter-front::after {
       content: ''; position: absolute; bottom: 15px; left: 20px; right: 20px;
-      height: 1px; background: linear-gradient(90deg, #5c4433, transparent, #5c4433);
+      height: 1px; background: linear-gradient(90deg, #6b5040, transparent, #6b5040);
     }
 
-    /* Counter trim - dark wood base */
+    /* Counter trim - dark base */
     .counter-trim {
       position: absolute; bottom: -8px; left: -4px; right: -4px; height: 8px;
-      background: linear-gradient(180deg, #3d2a1f 0%, #2a1f18 100%);
-      border: 2px solid #4a3628; border-top: none;
+      background: linear-gradient(180deg, #1a2233 0%, #141c2a 100%);
+      border: 2px solid #5c4433; border-top: none;
       border-radius: 0 0 4px 4px;
     }
 
@@ -473,33 +484,34 @@
       transform: translateX(-50%) scale(1.08);
     }
 
-    /* Labels float ABOVE glass cubes - warm wood card style */
+    /* Labels float ABOVE glass cubes - cadet blue card style */
     .cube-label {
       position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
       text-align: center; z-index: 20;
-      background: linear-gradient(180deg, #5c4a3a 0%, #4a3628 100%);
+      background: linear-gradient(180deg, #3a4a5e 0%, #273248 100%);
       padding: 6px 10px; border-radius: 4px;
-      border: 2px solid #6b5540;
+      border: 2px solid #6b5040;
       box-shadow: 0 4px 12px rgba(0,0,0,0.4);
       max-width: 115px;
     }
     .cube-label-name {
-      font-family: var(--font-pixel); font-size: 8px;
+      font-family: var(--font-ui); font-size: 11px; font-weight: 600;
       color: var(--champagne); text-shadow: 0 1px 3px rgba(0,0,0,0.4);
-      letter-spacing: 0.4px;
+      letter-spacing: 0.3px;
       white-space: nowrap;
     }
     .cube-label-desc {
-      font-size: 9px; color: #c4a87c; opacity: 0.9; margin-top: 3px;
+      font-family: var(--font-ui); font-size: 10px;
+      color: var(--burnt-sienna); opacity: 0.95; margin-top: 3px;
       white-space: normal; line-height: 1.25;
     }
 
     /* =============================================
-       WAYFINDER - Mobile-first (VERY LARGE)
+       WAYFINDER - Mobile-first (25% LARGER)
     ============================================= */
     .wayfinder {
       position: absolute; bottom: 0; left: 0; z-index: 15;
-      width: 45%; max-width: 200px; text-align: center;
+      width: 56%; max-width: 250px; text-align: center;
     }
 
     .wayfinder-sprite {
@@ -583,13 +595,13 @@
     }
 
     /* =============================================
-       STAGE PROMPT - Warm wood card style speech bubble
+       STAGE PROMPT - Cadet blue speech bubble with wood accent
     ============================================= */
     .stage-prompt {
       position: absolute; bottom: 10px; left: 48%; z-index: 50;
       max-width: calc(52% - 20px);
-      background: linear-gradient(180deg, #5c4a3a 0%, #4a3628 100%);
-      border: 2px solid #8b7355;
+      background: linear-gradient(180deg, #3a4a5e 0%, #273248 100%);
+      border: 2px solid #8b6b4d;
       padding: 12px 16px; border-radius: 8px 8px 8px 0;
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
@@ -597,14 +609,14 @@
       content: ''; position: absolute;
       bottom: 12px; left: -14px;
       border: 12px solid transparent;
-      border-right-color: #8b7355;
+      border-right-color: #8b6b4d;
       border-left: none;
     }
     .stage-prompt::after {
       content: ''; position: absolute;
       bottom: 14px; left: -9px;
       border: 10px solid transparent;
-      border-right-color: #5c4a3a;
+      border-right-color: #3a4a5e;
       border-left: none;
     }
     .prompt-step {
@@ -619,14 +631,14 @@
     }
 
     /* =============================================
-       GUIDE SPEECH BUBBLE - Warm style at wayfinder level
+       GUIDE SPEECH BUBBLE - Cadet blue at wayfinder level
     ============================================= */
     .guide-speech {
       position: absolute; bottom: 20%; left: 42%; z-index: 55;
-      max-width: 140px;
-      background: linear-gradient(180deg, #6b5540 0%, #5c4a3a 100%);
+      max-width: 160px;
+      background: linear-gradient(180deg, #3a4a5e 0%, #273248 100%);
       border: 2px solid var(--burnt-sienna);
-      padding: 8px 12px; border-radius: 8px 8px 8px 0;
+      padding: 10px 14px; border-radius: 8px 8px 8px 0;
       opacity: 0; transform: translateY(8px) scale(0.95);
       transition: all 0.3s ease;
       box-shadow: 0 4px 15px rgba(0,0,0,0.4);
@@ -643,22 +655,22 @@
       content: ''; position: absolute;
       bottom: 10px; left: -7px;
       border: 8px solid transparent;
-      border-right-color: #6b5540;
+      border-right-color: #3a4a5e;
       border-left: none;
     }
     .guide-text {
-      font-family: var(--font-pixel); font-size: 7px;
-      color: var(--champagne); line-height: 1.5;
+      font-family: var(--font-ui); font-size: 11px; font-weight: 500;
+      color: var(--champagne); line-height: 1.4;
       text-shadow: 0 1px 2px rgba(0,0,0,0.3);
     }
 
     /* =============================================
-       INVENTORY POUCH - Warm wood panel style
+       INVENTORY POUCH - Cadet blue panel with wood trim
     ============================================= */
     .inventory-pouch {
       position: absolute; top: 45px; right: 8px; z-index: 50; width: 160px;
-      background: linear-gradient(180deg, #5c4a3a 0%, #4a3628 100%);
-      border: 2px solid #6b5540;
+      background: linear-gradient(180deg, #3a4a5e 0%, #273248 100%);
+      border: 2px solid #6b5040;
       border-radius: 4px; padding: 8px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.4);
     }
@@ -918,7 +930,7 @@
 
       .game-wrapper { height: calc(100vh - 110px); min-height: 550px; border-radius: 10px; }
 
-      .wayfinder { bottom: 0; left: 1%; width: 200px; max-width: 220px; }
+      .wayfinder { bottom: 0; left: 1%; width: 250px; max-width: 275px; }
 
       .stage-prompt { bottom: 12px; left: 220px; max-width: 280px; padding: 14px 18px; }
       .prompt-step { display: block; font-size: 5px; margin-bottom: 4px; }
@@ -981,7 +993,7 @@
       .cabinet { display: block; }
       .shelf-unit { display: block; }
 
-      .wayfinder { bottom: 0; left: 2%; width: 240px; max-width: 260px; }
+      .wayfinder { bottom: 0; left: 2%; width: 300px; max-width: 325px; }
 
       .stage-prompt { bottom: 20px; left: 260px; max-width: 320px; padding: 16px 20px; }
       .prompt-step { font-size: 6px; margin-bottom: 5px; }
@@ -1035,7 +1047,7 @@
        LARGE DESKTOP STYLES (min-width: 1000px)
     =========================================== */
     @media (min-width: 1000px) {
-      .wayfinder { bottom: 0; left: 2%; width: 280px; max-width: 300px; }
+      .wayfinder { bottom: 0; left: 2%; width: 350px; max-width: 375px; }
 
       .stage-prompt { bottom: 25px; left: 300px; max-width: 360px; padding: 18px 22px; }
       .prompt-step { font-size: 7px; }
@@ -1584,7 +1596,7 @@
       guideText.textContent = text;
       guideSpeech.classList.add('visible');
       clearTimeout(window.guideTimeout);
-      window.guideTimeout = setTimeout(() => guideSpeech.classList.remove('visible'), 3000);
+      window.guideTimeout = setTimeout(() => guideSpeech.classList.remove('visible'), 6000);
     }
 
     function showPackageSummary() {
