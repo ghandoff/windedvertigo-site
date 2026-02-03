@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles/main.css?v=30">
+  <link rel="stylesheet" href="../styles/main.css?v=31">
 
   <style>
     :root {
@@ -121,7 +121,7 @@
 
     /* Game wrapper - sits below fixed 30px header */
     .game-wrapper {
-      max-width: 900px; margin: 0 auto;
+      max-width: 100%; margin: 0 auto;
       height: calc(100vh - 70px); min-height: 380px;
       position: relative; overflow: visible;
     }
@@ -130,6 +130,7 @@
       position: relative; width: 100%; height: 100%;
       overflow: visible; border-radius: 8px;
       background: #0a0d14;
+      margin: 0 auto;
     }
 
     /* =============================================
@@ -363,8 +364,8 @@
        3D COUNTER - Mobile-first
     ============================================= */
     .counter-area {
-      position: absolute; bottom: 28%; left: 50%; transform: translateX(-50%);
-      width: 92%; max-width: 750px; z-index: 10;
+      position: absolute; bottom: 32%; left: 50%; transform: translateX(-50%);
+      width: 92%; max-width: 400px; z-index: 10;
     }
 
     /* Counter top surface - wood with cadet blue accent */
@@ -533,8 +534,8 @@
        Large size, positioned very low (cape near footer)
     ============================================= */
     .wayfinder {
-      position: absolute; bottom: -22%; left: 0; z-index: 15;
-      width: 70%; max-width: 280px; text-align: center;
+      position: absolute; bottom: -12%; left: 0; z-index: 15;
+      width: 60%; max-width: 220px; text-align: center;
       pointer-events: none;
     }
 
@@ -727,7 +728,7 @@
        NAVIGATION BUTTONS - At very bottom of game area
     ============================================= */
     .game-nav-buttons {
-      position: absolute; bottom: 18%; left: 50%; transform: translateX(-50%);
+      position: absolute; bottom: 22%; left: 50%; transform: translateX(-50%);
       z-index: 51; display: flex; gap: 8px;
     }
     .nav-btn {
@@ -985,12 +986,13 @@
       .cube-label-name { font-size: 8px; }
       .cube-label-desc { font-size: 6px; }
 
-      .game-nav-buttons { bottom: 16%; }
+      .game-nav-buttons { bottom: 20%; }
       .nav-btn { font-size: 7px; padding: 10px 18px; }
 
-      .counter-area { width: 88%; bottom: 26%; }
+      .game-container { max-width: 500px; }
+      .counter-area { width: 85%; bottom: 30%; max-width: 420px; }
 
-      .wayfinder { bottom: -18%; width: 280px; max-width: 320px; }
+      .wayfinder { bottom: -8%; width: 200px; max-width: 240px; }
       .package-summary { left: 32%; }
       .package-content { max-width: 400px; padding: 24px 20px 100px; }
 
@@ -1024,26 +1026,26 @@
 
       .game-wrapper { height: calc(100vh - 84px); min-height: 600px; border-radius: 12px; }
 
-      /* wayfinder adjusted in desktop section below */
+      .game-container { max-width: 550px; }
 
-      .game-nav-buttons { bottom: 14%; }
+      .game-nav-buttons { bottom: 18%; }
       .nav-btn { font-size: 8px; padding: 10px 20px; }
 
       /* Larger items for desktop */
-      .display-cubes { gap: 20px; padding: 8px; }
-      .glass-cube { width: 95px; height: 120px; }
-      .cube-glass { width: 82px; height: 102px; bottom: 12px; }
-      .cube-base { width: 88px; height: 12px; }
-      .cube-item { width: 68px; height: 82px; bottom: 18px; }
-      .cube-item .emoji-fallback { font-size: 40px; }
-      .cube-glow { width: 68px; height: 12px; bottom: 10px; }
-      .cube-label { bottom: 14px; padding: 4px 6px; width: 78px; }
-      .cube-label-name { font-size: 9px; }
-      .cube-label-desc { font-size: 7px; }
+      .display-cubes { gap: 16px; padding: 8px; }
+      .glass-cube { width: 85px; height: 108px; }
+      .cube-glass { width: 74px; height: 92px; bottom: 10px; }
+      .cube-base { width: 80px; height: 10px; }
+      .cube-item { width: 60px; height: 74px; bottom: 16px; }
+      .cube-item .emoji-fallback { font-size: 36px; }
+      .cube-glow { width: 60px; height: 10px; bottom: 8px; }
+      .cube-label { bottom: 12px; padding: 3px 5px; width: 70px; }
+      .cube-label-name { font-size: 8px; }
+      .cube-label-desc { font-size: 6px; }
 
-      .counter-area { width: 80%; bottom: 24%; }
+      .counter-area { width: 85%; bottom: 28%; max-width: 460px; }
 
-      .wayfinder { bottom: -14%; width: 320px; max-width: 360px; }
+      .wayfinder { bottom: -4%; width: 220px; max-width: 260px; }
       .package-summary { left: 30%; }
       .package-content { max-width: 420px; }
 
@@ -1067,24 +1069,26 @@
        LARGE DESKTOP STYLES (min-width: 1000px)
     =========================================== */
     @media (min-width: 1000px) {
-      /* wayfinder size increased in large desktop section below */
+      .game-container { max-width: 600px; }
 
-      .game-nav-buttons { bottom: 12%; }
+      .game-nav-buttons { bottom: 16%; }
       .nav-btn { font-size: 8px; padding: 12px 24px; }
 
-      /* Even larger items for big screens */
-      .display-cubes { gap: 28px; }
-      .glass-cube { width: 115px; height: 145px; }
-      .cube-glass { width: 100px; height: 125px; bottom: 14px; }
-      .cube-base { width: 106px; height: 14px; }
-      .cube-item { width: 82px; height: 100px; bottom: 22px; }
-      .cube-item .emoji-fallback { font-size: 50px; }
-      .cube-glow { width: 82px; height: 14px; bottom: 12px; }
-      .cube-label { bottom: 16px; padding: 5px 8px; width: 95px; }
-      .cube-label-name { font-size: 10px; }
-      .cube-label-desc { font-size: 8px; }
+      /* Slightly larger items for big screens - but still compact */
+      .display-cubes { gap: 18px; }
+      .glass-cube { width: 90px; height: 115px; }
+      .cube-glass { width: 78px; height: 98px; bottom: 12px; }
+      .cube-base { width: 84px; height: 12px; }
+      .cube-item { width: 64px; height: 80px; bottom: 18px; }
+      .cube-item .emoji-fallback { font-size: 40px; }
+      .cube-glow { width: 64px; height: 12px; bottom: 10px; }
+      .cube-label { bottom: 14px; padding: 4px 6px; width: 75px; }
+      .cube-label-name { font-size: 9px; }
+      .cube-label-desc { font-size: 7px; }
 
-      .wayfinder { bottom: -10%; width: 380px; max-width: 420px; }
+      .counter-area { max-width: 500px; bottom: 26%; }
+
+      .wayfinder { bottom: 0; width: 240px; max-width: 280px; }
       .package-summary { left: 28%; }
       .package-content { max-width: 450px; }
 
