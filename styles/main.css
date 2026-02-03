@@ -39,7 +39,7 @@ em { font-style: italic; }
 .header-inner { display: flex; justify-content: space-between; align-items: flex-start; }
 .logo { display: block; }
 .logo-img { width: 200px; height: auto; }
-.nav { display: flex; gap: var(--space-lg); }
+.nav { display: flex; gap: 30px; }
 .nav a { font-family: var(--font-primary); font-size: 32px; font-weight: 800; padding: var(--space-xs) 0; text-transform: lowercase; color: var(--text-primary); transition: color 0.2s ease; }
 .nav a:hover { color: var(--accent-hover); }
 .nav a.active { color: var(--accent); }
