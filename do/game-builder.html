@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles/main.css?v=18">
+  <link rel="stylesheet" href="../styles/main.css?v=19">
 
   <style>
     :root {
@@ -463,25 +463,25 @@
       transform: translateX(-50%) scale(1.08);
     }
 
-    /* Labels float BELOW glass cubes on mobile to avoid prompt overlap */
+    /* Labels at base of glass, above wooden base - like museum display labels */
     .cube-label {
-      position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%);
-      text-align: center; z-index: 20;
-      background: linear-gradient(180deg, #3a4a5e 0%, #273248 100%);
-      padding: 5px 6px; border-radius: 4px;
-      border: 2px solid #6b5040;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-      width: 90px;
+      position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
+      text-align: center; z-index: 25;
+      background: linear-gradient(180deg, rgba(39, 50, 72, 0.95) 0%, rgba(26, 34, 51, 0.98) 100%);
+      padding: 4px 6px; border-radius: 2px;
+      border: 1px solid rgba(139, 107, 77, 0.4);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+      width: 92px;
       box-sizing: border-box;
     }
     .cube-label-name {
       font-family: var(--font-ui); font-size: 10px; font-weight: 600;
-      color: var(--champagne); text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+      color: var(--champagne); text-shadow: 0 1px 2px rgba(0,0,0,0.5);
       letter-spacing: 0.3px;
     }
     .cube-label-desc {
-      font-family: var(--font-ui); font-size: 8px;
-      color: var(--burnt-sienna); opacity: 0.95; margin-top: 1px;
+      font-family: var(--font-ui); font-size: 7px;
+      color: var(--burnt-sienna); opacity: 0.9; margin-top: 1px;
       line-height: 1.2;
     }
 
@@ -911,9 +911,9 @@
       .cube-item { width: 92px; height: 115px; bottom: 24px; }
       .cube-item .emoji-fallback { font-size: 58px; }
       .cube-glow { width: 95px; height: 14px; bottom: 14px; }
-      .cube-label { top: calc(100% + 8px); padding: 6px 8px; width: 110px; }
-      .cube-label-name { font-size: 10px; }
-      .cube-label-desc { font-size: 9px; }
+      .cube-label { bottom: 20px; padding: 5px 8px; width: 102px; }
+      .cube-label-name { font-size: 11px; }
+      .cube-label-desc { font-size: 8px; }
 
       .counter-area { width: 88%; bottom: 12%; }
 
@@ -961,9 +961,9 @@
       .cube-item { width: 100px; height: 125px; bottom: 26px; }
       .cube-item .emoji-fallback { font-size: 62px; }
       .cube-glow { width: 105px; height: 16px; bottom: 16px; }
-      .cube-label { top: calc(100% + 10px); padding: 8px 10px; width: 120px; }
-      .cube-label-name { font-size: 11px; }
-      .cube-label-desc { font-size: 10px; }
+      .cube-label { bottom: 22px; padding: 6px 10px; width: 112px; }
+      .cube-label-name { font-size: 12px; }
+      .cube-label-desc { font-size: 9px; }
 
       .counter-area { width: 80%; bottom: 14%; }
 
@@ -1003,9 +1003,9 @@
       .cube-item { width: 115px; height: 145px; bottom: 30px; }
       .cube-item .emoji-fallback { font-size: 70px; }
       .cube-glow { width: 120px; height: 18px; bottom: 18px; }
-      .cube-label { top: calc(100% + 12px); padding: 10px 12px; width: 140px; }
-      .cube-label-name { font-size: 12px; }
-      .cube-label-desc { font-size: 11px; }
+      .cube-label { bottom: 26px; padding: 8px 12px; width: 130px; }
+      .cube-label-name { font-size: 13px; }
+      .cube-label-desc { font-size: 10px; }
 
       .wayfinder { bottom: 0; width: 300px; max-width: 320px; }
       .package-summary { left: 25%; }
