@@ -349,74 +349,74 @@
     .counter-edge-light:nth-child(1) { left: 15%; width: 60px; }
     .counter-edge-light:nth-child(2) { right: 15%; width: 60px; }
 
-    /* Glass display cubes - Mobile-first (BIGGER for visibility) */
+    /* Glass display cubes - Mobile-first (50% LARGER for easy selection) */
     .display-cubes {
       position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
-      display: flex; gap: 24px; padding: 6px;
+      display: flex; gap: 20px; padding: 6px;
     }
 
     .glass-cube {
-      width: 90px; height: 110px;
+      width: 120px; height: 150px;
       position: relative; cursor: pointer;
       transition: transform 0.3s ease, filter 0.3s ease;
     }
     .glass-cube:hover {
-      transform: translateY(-6px) scale(1.03);
-      filter: brightness(1.15);
+      transform: translateY(-8px) scale(1.04);
+      filter: brightness(1.2);
     }
     .glass-cube.selected {
-      opacity: 0.2; filter: grayscale(0.6);
+      opacity: 0.15; filter: grayscale(0.7);
       pointer-events: none;
     }
 
     .cube-base {
       position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-      width: 80px; height: 12px;
+      width: 110px; height: 16px;
       background: linear-gradient(180deg, #4a5a70 0%, #3a4a60 50%, #2a3a50 100%);
-      border: 1px solid #5a6a80; border-radius: 3px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      border: 1px solid #5a6a80; border-radius: 4px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.6);
     }
     .cube-base::after {
-      content: ''; position: absolute; top: 2px; left: 6px; right: 6px; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      content: ''; position: absolute; top: 3px; left: 8px; right: 8px; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
     }
 
     .cube-glass {
-      position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
-      width: 75px; height: 90px;
+      position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+      width: 100px; height: 125px;
       background: linear-gradient(135deg,
-        rgba(180, 210, 255, 0.1) 0%,
-        rgba(120, 160, 220, 0.05) 50%,
-        rgba(180, 210, 255, 0.08) 100%
+        rgba(180, 210, 255, 0.12) 0%,
+        rgba(120, 160, 220, 0.06) 50%,
+        rgba(180, 210, 255, 0.1) 100%
       );
-      border: 1.5px solid rgba(180, 210, 240, 0.25);
-      border-radius: 4px;
+      border: 2px solid rgba(180, 210, 240, 0.3);
+      border-radius: 6px;
       box-shadow:
-        inset 0 0 25px rgba(255,255,255,0.05),
-        0 0 15px rgba(100, 150, 200, 0.2);
+        inset 0 0 30px rgba(255,255,255,0.06),
+        0 0 20px rgba(100, 150, 200, 0.25);
       backdrop-filter: blur(2px);
     }
     .cube-glass::before {
       content: ''; position: absolute;
-      top: 6px; left: 6px; width: 10px; height: 60%;
-      background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.02) 100%);
-      border-radius: 2px;
+      top: 8px; left: 8px; width: 12px; height: 60%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.02) 100%);
+      border-radius: 3px;
     }
 
     .cube-glow {
-      position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
-      width: 60px; height: 10px; border-radius: 50%; opacity: 0.7;
+      position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
+      width: 85px; height: 14px; border-radius: 50%; opacity: 0.8;
       animation: glow-pulse 2s ease-in-out infinite alternate;
     }
     @keyframes glow-pulse {
       from { opacity: 0.5; transform: translateX(-50%) scale(0.95); }
-      to { opacity: 0.85; transform: translateX(-50%) scale(1.05); }
+      to { opacity: 0.9; transform: translateX(-50%) scale(1.05); }
     }
 
-    /* Items - Mobile-first (BIGGER for visibility) */
+    /* Items - Mobile-first (50% LARGER for easy selection) */
     .cube-item {
-      position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
-      width: 60px; height: 75px;
+      position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+      width: 85px; height: 105px;
       display: flex; align-items: center; justify-content: center;
       image-rendering: pixelated;
       transition: transform 0.2s ease;
@@ -424,35 +424,35 @@
     .cube-item img {
       max-width: 100%; max-height: 100%;
       image-rendering: pixelated;
-      filter: drop-shadow(0 0 10px rgba(0,0,0,0.6));
+      filter: drop-shadow(0 0 15px rgba(0,0,0,0.7));
     }
     .cube-item .emoji-fallback {
-      font-size: 38px;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+      font-size: 52px;
+      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.6));
     }
     .glass-cube:hover .cube-item {
-      transform: translateX(-50%) scale(1.06);
+      transform: translateX(-50%) scale(1.08);
     }
 
     /* Labels float ABOVE glass cubes - Mobile-first (no overlap) */
     .cube-label {
-      position: absolute; bottom: calc(100% + 4px); left: 50%; transform: translateX(-50%);
+      position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
       text-align: center; z-index: 20;
       background: rgba(13, 17, 23, 0.95);
-      padding: 4px 6px; border-radius: 4px;
-      border: 1px solid rgba(88, 203, 178, 0.3);
-      box-shadow: 0 3px 8px rgba(0,0,0,0.5);
-      max-width: 85px;
+      padding: 6px 10px; border-radius: 6px;
+      border: 1px solid rgba(88, 203, 178, 0.4);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+      max-width: 115px;
     }
     .cube-label-name {
-      font-family: var(--font-pixel); font-size: 7px;
-      color: var(--champagne); text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-      letter-spacing: 0.3px;
+      font-family: var(--font-pixel); font-size: 8px;
+      color: var(--champagne); text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+      letter-spacing: 0.4px;
       white-space: nowrap;
     }
     .cube-label-desc {
-      font-size: 7px; color: var(--seafoam); opacity: 0.8; margin-top: 2px;
-      white-space: normal; line-height: 1.2;
+      font-size: 9px; color: var(--seafoam); opacity: 0.85; margin-top: 3px;
+      white-space: normal; line-height: 1.25;
     }
 
     /* =============================================
@@ -580,30 +580,36 @@
     }
 
     /* =============================================
-       GUIDE SPEECH BUBBLE - Hidden on mobile (too noisy)
+       GUIDE SPEECH BUBBLE - Positioned near wayfinder, in front of counter
     ============================================= */
     .guide-speech {
-      display: none; /* Hidden on mobile */
-      position: absolute; z-index: 55;
-      max-width: 180px;
-      background: rgba(88, 114, 203, 0.15);
-      border: 1.5px solid var(--seafoam);
+      position: absolute; bottom: 38%; left: 48%; z-index: 55;
+      max-width: 140px;
+      background: rgba(13, 17, 23, 0.95);
+      border: 2px solid var(--seafoam);
       padding: 8px 12px; border-radius: 10px 10px 10px 0;
       opacity: 0; transform: translateY(8px) scale(0.95);
       transition: all 0.3s ease;
-      box-shadow: 0 3px 15px rgba(0,0,0,0.3), 0 0 10px rgba(88, 203, 178, 0.15);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 15px rgba(88, 203, 178, 0.25);
     }
     .guide-speech.visible { opacity: 1; transform: translateY(0) scale(1); }
     .guide-speech::before {
       content: ''; position: absolute;
-      bottom: 6px; left: -10px;
-      border: 8px solid transparent;
+      bottom: 8px; left: -12px;
+      border: 10px solid transparent;
       border-right-color: var(--seafoam);
       border-left: none;
     }
+    .guide-speech::after {
+      content: ''; position: absolute;
+      bottom: 10px; left: -7px;
+      border: 8px solid transparent;
+      border-right-color: rgba(13, 17, 23, 0.95);
+      border-left: none;
+    }
     .guide-text {
-      font-family: var(--font-pixel); font-size: 6px;
-      color: var(--seafoam); line-height: 1.6;
+      font-family: var(--font-pixel); font-size: 7px;
+      color: var(--seafoam); line-height: 1.5;
       text-shadow: 0 1px 2px rgba(0,0,0,0.3);
     }
 
@@ -881,16 +887,19 @@
 
       .continue-btn { bottom: 85px; left: 220px; }
 
-      .display-cubes { gap: 30px; padding: 10px; }
-      .glass-cube { width: 100px; height: 125px; }
-      .cube-glass { width: 85px; height: 100px; bottom: 14px; }
-      .cube-base { width: 90px; height: 14px; }
-      .cube-item { width: 68px; height: 85px; bottom: 20px; }
-      .cube-item .emoji-fallback { font-size: 42px; }
-      .cube-glow { width: 70px; height: 12px; bottom: 12px; }
-      .cube-label { padding: 5px 10px; max-width: 95px; }
-      .cube-label-name { font-size: 8px; }
-      .cube-label-desc { font-size: 8px; }
+      .display-cubes { gap: 35px; padding: 10px; }
+      .glass-cube { width: 130px; height: 165px; }
+      .cube-glass { width: 110px; height: 138px; bottom: 16px; }
+      .cube-base { width: 120px; height: 16px; }
+      .cube-item { width: 92px; height: 115px; bottom: 24px; }
+      .cube-item .emoji-fallback { font-size: 58px; }
+      .cube-glow { width: 95px; height: 14px; bottom: 14px; }
+      .cube-label { padding: 6px 12px; max-width: 125px; }
+      .cube-label-name { font-size: 9px; }
+      .cube-label-desc { font-size: 9px; }
+
+      .guide-speech { bottom: 40%; left: 230px; max-width: 180px; }
+      .guide-text { font-size: 7px; }
 
       .counter-area { width: 88%; bottom: 20%; }
 
@@ -939,22 +948,23 @@
       .prompt-question { font-size: 16px; }
       .prompt-hint { font-size: 11px; margin-top: 5px; }
 
-      /* Show guide speech on desktop */
-      .guide-speech { display: block; bottom: 110px; left: 260px; max-width: 220px; padding: 10px 14px; }
-      .guide-text { font-size: 7px; }
+      /* Show guide speech on desktop - positioned in front of counter */
+      .guide-speech { display: block; bottom: 42%; left: 270px; max-width: 200px; padding: 10px 14px; }
+      .guide-text { font-size: 8px; }
 
       .continue-btn { bottom: 100px; left: 260px; font-size: 9px; padding: 14px 28px; }
 
-      .display-cubes { gap: 40px; padding: 12px; }
-      .glass-cube { width: 110px; height: 140px; }
-      .cube-glass { width: 95px; height: 115px; bottom: 14px; }
-      .cube-base { width: 100px; height: 14px; }
-      .cube-item { width: 78px; height: 95px; bottom: 20px; }
-      .cube-item .emoji-fallback { font-size: 48px; }
-      .cube-glow { width: 80px; height: 12px; bottom: 12px; }
-      .cube-label { padding: 6px 12px; max-width: 110px; }
-      .cube-label-name { font-size: 9px; }
-      .cube-label-desc { font-size: 10px; }
+      /* Larger items for desktop - scale UP from mobile */
+      .display-cubes { gap: 45px; padding: 12px; }
+      .glass-cube { width: 140px; height: 175px; }
+      .cube-glass { width: 120px; height: 148px; bottom: 18px; }
+      .cube-base { width: 130px; height: 18px; }
+      .cube-item { width: 100px; height: 125px; bottom: 26px; }
+      .cube-item .emoji-fallback { font-size: 62px; }
+      .cube-glow { width: 105px; height: 16px; bottom: 16px; }
+      .cube-label { padding: 8px 14px; max-width: 135px; }
+      .cube-label-name { font-size: 10px; }
+      .cube-label-desc { font-size: 11px; }
 
       .counter-area { width: 80%; bottom: 22%; }
 
@@ -992,20 +1002,23 @@
       .prompt-question { font-size: 17px; }
       .prompt-hint { font-size: 12px; }
 
-      .guide-speech { bottom: 130px; left: 300px; max-width: 240px; padding: 12px 16px; }
-      .guide-text { font-size: 7px; line-height: 1.8; }
+      /* Guide speech - positioned in front of counter for large screens */
+      .guide-speech { bottom: 44%; left: 310px; max-width: 220px; padding: 12px 16px; }
+      .guide-text { font-size: 8px; line-height: 1.8; }
 
       .continue-btn { bottom: 115px; left: 300px; }
 
-      .display-cubes { gap: 50px; }
-      .glass-cube { width: 120px; height: 150px; }
-      .cube-glass { width: 105px; height: 125px; }
-      .cube-base { width: 110px; height: 16px; }
-      .cube-item { width: 88px; height: 105px; bottom: 22px; }
-      .cube-item .emoji-fallback { font-size: 55px; }
-      .cube-label { max-width: 120px; }
-      .cube-label-name { font-size: 10px; }
-      .cube-label-desc { font-size: 11px; }
+      /* Even larger items for big screens */
+      .display-cubes { gap: 55px; }
+      .glass-cube { width: 160px; height: 200px; }
+      .cube-glass { width: 140px; height: 170px; bottom: 20px; }
+      .cube-base { width: 150px; height: 20px; }
+      .cube-item { width: 115px; height: 145px; bottom: 30px; }
+      .cube-item .emoji-fallback { font-size: 70px; }
+      .cube-glow { width: 120px; height: 18px; bottom: 18px; }
+      .cube-label { max-width: 155px; padding: 10px 16px; }
+      .cube-label-name { font-size: 11px; }
+      .cube-label-desc { font-size: 12px; }
 
       .inventory-pouch { width: 280px; padding: 14px; right: 20px; top: 65px; }
       .inventory-slot { width: 40px; height: 40px; }
