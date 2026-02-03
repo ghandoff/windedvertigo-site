@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles/main.css?v=19">
+  <link rel="stylesheet" href="../styles/main.css?v=20">
 
   <style>
     :root {
@@ -378,14 +378,14 @@
     .counter-edge-light:nth-child(1) { left: 15%; width: 60px; }
     .counter-edge-light:nth-child(2) { right: 15%; width: 60px; }
 
-    /* Glass display cubes - Mobile-first (50% LARGER for easy selection) */
+    /* Glass display cubes - Mobile-first, sized so 4 fit on screen */
     .display-cubes {
       position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
-      display: flex; gap: 20px; padding: 6px;
+      display: flex; gap: 8px; padding: 4px;
     }
 
     .glass-cube {
-      width: 120px; height: 150px;
+      width: 80px; height: 100px;
       position: relative; cursor: pointer;
       transition: transform 0.3s ease, filter 0.3s ease;
     }
@@ -400,41 +400,41 @@
 
     .cube-base {
       position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-      width: 110px; height: 16px;
+      width: 74px; height: 10px;
       background: linear-gradient(180deg, #8b7355 0%, #6b5540 50%, #5c4433 100%);
-      border: 1px solid #4a3628; border-radius: 3px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+      border: 1px solid #4a3628; border-radius: 2px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.4);
     }
     .cube-base::after {
-      content: ''; position: absolute; top: 3px; left: 8px; right: 8px; height: 2px;
+      content: ''; position: absolute; top: 2px; left: 6px; right: 6px; height: 1px;
       background: linear-gradient(90deg, transparent, rgba(255,235,210,0.25), transparent);
     }
 
     .cube-glass {
-      position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
-      width: 100px; height: 125px;
+      position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+      width: 68px; height: 82px;
       background: linear-gradient(135deg,
         rgba(255, 245, 230, 0.1) 0%,
         rgba(200, 180, 150, 0.05) 50%,
         rgba(255, 245, 230, 0.08) 100%
       );
       border: 2px solid rgba(200, 180, 150, 0.35);
-      border-radius: 4px;
+      border-radius: 3px;
       box-shadow:
-        inset 0 0 25px rgba(255,255,255,0.04),
-        0 0 15px rgba(139, 115, 85, 0.2);
+        inset 0 0 20px rgba(255,255,255,0.04),
+        0 0 10px rgba(139, 115, 85, 0.2);
       backdrop-filter: blur(1px);
     }
     .cube-glass::before {
       content: ''; position: absolute;
-      top: 8px; left: 8px; width: 12px; height: 60%;
+      top: 6px; left: 6px; width: 8px; height: 50%;
       background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.02) 100%);
       border-radius: 2px;
     }
 
     .cube-glow {
-      position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
-      width: 85px; height: 14px; border-radius: 50%; opacity: 0.5;
+      position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+      width: 55px; height: 10px; border-radius: 50%; opacity: 0.5;
       animation: glow-pulse 3s ease-in-out infinite alternate;
     }
     @keyframes glow-pulse {
@@ -442,10 +442,10 @@
       to { opacity: 0.6; transform: translateX(-50%) scale(1.02); }
     }
 
-    /* Items - Mobile-first (50% LARGER for easy selection) */
+    /* Items - Mobile-first, sized for 4 cubes to fit */
     .cube-item {
-      position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
-      width: 85px; height: 105px;
+      position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+      width: 55px; height: 65px;
       display: flex; align-items: center; justify-content: center;
       image-rendering: pixelated;
       transition: transform 0.2s ease;
@@ -453,11 +453,11 @@
     .cube-item img {
       max-width: 100%; max-height: 100%;
       image-rendering: pixelated;
-      filter: drop-shadow(0 0 15px rgba(0,0,0,0.7));
+      filter: drop-shadow(0 0 10px rgba(0,0,0,0.7));
     }
     .cube-item .emoji-fallback {
-      font-size: 52px;
-      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.6));
+      font-size: 32px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6));
     }
     .glass-cube:hover .cube-item {
       transform: translateX(-50%) scale(1.08);
@@ -465,36 +465,36 @@
 
     /* Labels at base of glass, above wooden base - like museum display labels */
     .cube-label {
-      position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
+      position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
       text-align: center; z-index: 25;
       background: linear-gradient(180deg, rgba(39, 50, 72, 0.95) 0%, rgba(26, 34, 51, 0.98) 100%);
-      padding: 4px 6px; border-radius: 2px;
+      padding: 3px 4px; border-radius: 2px;
       border: 1px solid rgba(139, 107, 77, 0.4);
-      box-shadow: 0 1px 4px rgba(0,0,0,0.4);
-      width: 92px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+      width: 64px;
       box-sizing: border-box;
     }
     .cube-label-name {
-      font-family: var(--font-ui); font-size: 10px; font-weight: 600;
+      font-family: var(--font-ui); font-size: 8px; font-weight: 600;
       color: var(--champagne); text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-      letter-spacing: 0.3px;
+      letter-spacing: 0.2px;
     }
     .cube-label-desc {
-      font-family: var(--font-ui); font-size: 7px;
+      font-family: var(--font-ui); font-size: 6px;
       color: var(--burnt-sienna); opacity: 0.9; margin-top: 1px;
-      line-height: 1.2;
+      line-height: 1.1;
     }
 
     /* =============================================
        WAYFINDER - Mobile-first, stays visible during package summary
     ============================================= */
     .wayfinder {
-      position: absolute; bottom: 0; left: 0; z-index: 250;
-      width: 40%; max-width: 180px; text-align: center;
+      position: absolute; bottom: 2%; left: 0; z-index: 250;
+      width: 50%; max-width: 220px; text-align: center;
     }
 
     .wayfinder-sprite {
-      width: 100%; aspect-ratio: 2/3; margin: 0 auto;
+      width: 100%; aspect-ratio: 2/3; margin: 0 auto 0;
       position: relative; image-rendering: pixelated;
     }
     .wayfinder-sprite img {
@@ -531,7 +531,7 @@
     }
 
     .wayfinder-shadow {
-      width: 70%; height: 12px; margin: 6px auto 0;
+      width: 80%; height: 14px; margin: 2px auto 0;
       background: radial-gradient(ellipse, rgba(0,0,0,0.5) 0%, transparent 70%);
       border-radius: 50%;
     }
@@ -904,21 +904,21 @@
 
       .continue-btn { bottom: 15px; right: 20px; left: auto; font-size: 8px; padding: 12px 24px; }
 
-      .display-cubes { gap: 35px; padding: 10px; }
-      .glass-cube { width: 130px; height: 165px; }
-      .cube-glass { width: 110px; height: 138px; bottom: 16px; }
-      .cube-base { width: 120px; height: 16px; }
-      .cube-item { width: 92px; height: 115px; bottom: 24px; }
-      .cube-item .emoji-fallback { font-size: 58px; }
-      .cube-glow { width: 95px; height: 14px; bottom: 14px; }
-      .cube-label { bottom: 20px; padding: 5px 8px; width: 102px; }
-      .cube-label-name { font-size: 11px; }
-      .cube-label-desc { font-size: 8px; }
+      .display-cubes { gap: 20px; padding: 8px; }
+      .glass-cube { width: 100px; height: 125px; }
+      .cube-glass { width: 85px; height: 105px; bottom: 12px; }
+      .cube-base { width: 92px; height: 12px; }
+      .cube-item { width: 70px; height: 85px; bottom: 18px; }
+      .cube-item .emoji-fallback { font-size: 42px; }
+      .cube-glow { width: 70px; height: 12px; bottom: 10px; }
+      .cube-label { bottom: 14px; padding: 4px 6px; width: 80px; }
+      .cube-label-name { font-size: 9px; }
+      .cube-label-desc { font-size: 7px; }
 
       .counter-area { width: 88%; bottom: 12%; }
 
-      .wayfinder { bottom: 0; width: 220px; max-width: 240px; }
-      .package-summary { left: 30%; }
+      .wayfinder { bottom: 2%; width: 240px; max-width: 260px; }
+      .package-summary { left: 32%; }
       .package-content { max-width: 400px; padding: 24px 20px 100px; }
 
       /* Inventory - tablet */
@@ -954,21 +954,21 @@
       .continue-btn { bottom: 20px; right: 30px; left: auto; font-size: 9px; padding: 14px 28px; letter-spacing: 1px; }
 
       /* Larger items for desktop */
-      .display-cubes { gap: 45px; padding: 12px; }
-      .glass-cube { width: 140px; height: 175px; }
-      .cube-glass { width: 120px; height: 148px; bottom: 18px; }
-      .cube-base { width: 130px; height: 18px; }
-      .cube-item { width: 100px; height: 125px; bottom: 26px; }
-      .cube-item .emoji-fallback { font-size: 62px; }
-      .cube-glow { width: 105px; height: 16px; bottom: 16px; }
-      .cube-label { bottom: 22px; padding: 6px 10px; width: 112px; }
-      .cube-label-name { font-size: 12px; }
-      .cube-label-desc { font-size: 9px; }
+      .display-cubes { gap: 30px; padding: 10px; }
+      .glass-cube { width: 120px; height: 150px; }
+      .cube-glass { width: 100px; height: 125px; bottom: 14px; }
+      .cube-base { width: 108px; height: 14px; }
+      .cube-item { width: 85px; height: 105px; bottom: 22px; }
+      .cube-item .emoji-fallback { font-size: 52px; }
+      .cube-glow { width: 85px; height: 14px; bottom: 12px; }
+      .cube-label { bottom: 18px; padding: 5px 8px; width: 95px; }
+      .cube-label-name { font-size: 10px; }
+      .cube-label-desc { font-size: 8px; }
 
       .counter-area { width: 80%; bottom: 14%; }
 
-      .wayfinder { bottom: 0; width: 260px; max-width: 280px; }
-      .package-summary { left: 28%; }
+      .wayfinder { bottom: 2%; width: 280px; max-width: 300px; }
+      .package-summary { left: 30%; }
       .package-content { max-width: 420px; }
 
       /* Inventory - desktop */
@@ -996,19 +996,19 @@
       .continue-btn { bottom: 25px; right: 40px; }
 
       /* Even larger items for big screens */
-      .display-cubes { gap: 55px; }
-      .glass-cube { width: 160px; height: 200px; }
-      .cube-glass { width: 140px; height: 170px; bottom: 20px; }
-      .cube-base { width: 150px; height: 20px; }
-      .cube-item { width: 115px; height: 145px; bottom: 30px; }
-      .cube-item .emoji-fallback { font-size: 70px; }
-      .cube-glow { width: 120px; height: 18px; bottom: 18px; }
-      .cube-label { bottom: 26px; padding: 8px 12px; width: 130px; }
-      .cube-label-name { font-size: 13px; }
-      .cube-label-desc { font-size: 10px; }
+      .display-cubes { gap: 40px; }
+      .glass-cube { width: 140px; height: 175px; }
+      .cube-glass { width: 120px; height: 150px; bottom: 16px; }
+      .cube-base { width: 128px; height: 16px; }
+      .cube-item { width: 100px; height: 125px; bottom: 26px; }
+      .cube-item .emoji-fallback { font-size: 62px; }
+      .cube-glow { width: 100px; height: 16px; bottom: 14px; }
+      .cube-label { bottom: 20px; padding: 6px 10px; width: 112px; }
+      .cube-label-name { font-size: 11px; }
+      .cube-label-desc { font-size: 9px; }
 
-      .wayfinder { bottom: 0; width: 300px; max-width: 320px; }
-      .package-summary { left: 25%; }
+      .wayfinder { bottom: 2%; width: 320px; max-width: 340px; }
+      .package-summary { left: 28%; }
       .package-content { max-width: 450px; }
 
       /* Inventory - large desktop */
