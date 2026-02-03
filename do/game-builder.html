@@ -33,35 +33,39 @@
     html, body { height: 100%; }
     body { font-family: var(--font-ui); background: var(--cadet-blue); color: var(--champagne); }
 
+    /* ===========================================
+       MOBILE-FIRST BASE STYLES (< 600px default)
+    =========================================== */
+
     /* Site header/footer integration */
     .site-header {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 16px 24px; max-width: 900px; margin: 0 auto;
+      padding: 10px 16px; max-width: 900px; margin: 0 auto;
     }
-    .site-logo { height: 40px; }
-    .site-nav { display: flex; gap: 24px; }
+    .site-logo { height: 28px; }
+    .site-nav { display: flex; gap: 14px; }
     .site-nav a {
       color: var(--champagne); text-decoration: none;
-      font-family: var(--font-display); font-size: 14px;
+      font-family: var(--font-display); font-size: 11px;
       opacity: 0.7; transition: opacity 0.2s;
     }
     .site-nav a:hover, .site-nav a.active { opacity: 1; }
 
     .site-footer {
-      text-align: center; padding: 20px;
-      font-size: 12px; color: rgba(255,235,210,0.5);
+      text-align: center; padding: 12px;
+      font-size: 10px; color: rgba(255,235,210,0.5);
       max-width: 900px; margin: 0 auto;
     }
 
     .game-wrapper {
       max-width: 900px; margin: 0 auto;
-      height: calc(100vh - 140px); min-height: 600px;
+      height: calc(100vh - 90px); min-height: 480px;
       position: relative; overflow: hidden;
     }
 
     .game-container {
       position: relative; width: 100%; height: 100%;
-      overflow: hidden; border-radius: 12px;
+      overflow: hidden; border-radius: 8px;
       background: #0a0d14;
     }
 
@@ -115,8 +119,9 @@
       background: linear-gradient(90deg, transparent, rgba(88, 203, 178, 0.3), transparent);
     }
 
-    /* Large equipment cabinets */
+    /* Large equipment cabinets - Hidden on mobile */
     .cabinet {
+      display: none; /* Hidden by default on mobile */
       position: absolute; bottom: 0;
       background: linear-gradient(180deg, #252f42 0%, #1e2940 50%, #1a2332 100%);
       border: 2px solid #3a4a60; border-bottom: none; border-radius: 6px 6px 0 0;
@@ -155,8 +160,9 @@
       height: 6px; background: #0d1117; border-radius: 2px;
     }
 
-    /* Shelf units with detailed vials */
+    /* Shelf units with detailed vials - Hidden on mobile */
     .shelf-unit {
+      display: none; /* Hidden by default on mobile */
       position: absolute; width: 100px; height: 120px;
       background: linear-gradient(180deg, #2a3548 0%, #1e2940 100%);
       border: 2px solid #3a4a60; border-radius: 4px;
@@ -227,13 +233,13 @@
     }
     @keyframes flow { from { left: -50px; } to { left: calc(100% + 50px); } }
 
-    /* Central monitor */
+    /* Central monitor - Mobile-first (smaller) */
     .central-monitor {
-      position: absolute; top: 8%; left: 50%; transform: translateX(-50%);
-      width: 180px; height: 100px;
+      position: absolute; top: 6%; left: 50%; transform: translateX(-50%);
+      width: 120px; height: 65px;
       background: linear-gradient(180deg, #1a2332 0%, #0d1117 100%);
-      border: 3px solid #3a4a60; border-radius: 8px;
-      box-shadow: 0 0 30px rgba(88, 114, 203, 0.15), inset 0 0 20px rgba(0,0,0,0.5);
+      border: 2px solid #3a4a60; border-radius: 6px;
+      box-shadow: 0 0 20px rgba(88, 114, 203, 0.15), inset 0 0 15px rgba(0,0,0,0.5);
     }
     .monitor-screen {
       position: absolute; top: 8px; left: 8px; right: 8px; bottom: 25px;
@@ -282,11 +288,11 @@
     }
 
     /* =============================================
-       3D COUNTER
+       3D COUNTER - Mobile-first
     ============================================= */
     .counter-area {
-      position: absolute; bottom: 22%; left: 50%; transform: translateX(-50%);
-      width: 80%; max-width: 750px; z-index: 10;
+      position: absolute; bottom: 18%; left: 50%; transform: translateX(-50%);
+      width: 92%; max-width: 750px; z-index: 10;
     }
 
     /* Counter top surface */
@@ -343,19 +349,19 @@
     .counter-edge-light:nth-child(1) { left: 15%; width: 60px; }
     .counter-edge-light:nth-child(2) { right: 15%; width: 60px; }
 
-    /* Glass display cubes */
+    /* Glass display cubes - Mobile-first */
     .display-cubes {
-      position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%);
-      display: flex; gap: 40px; padding: 15px;
+      position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+      display: flex; gap: 12px; padding: 8px;
     }
 
     .glass-cube {
-      width: 110px; height: 140px;
+      width: 70px; height: 90px;
       position: relative; cursor: pointer;
       transition: transform 0.3s ease, filter 0.3s ease;
     }
     .glass-cube:hover {
-      transform: translateY(-12px) scale(1.05);
+      transform: translateY(-8px) scale(1.05);
       filter: brightness(1.15);
     }
     .glass-cube.selected {
@@ -365,41 +371,41 @@
 
     .cube-base {
       position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-      width: 100px; height: 16px;
+      width: 60px; height: 10px;
       background: linear-gradient(180deg, #4a5a70 0%, #3a4a60 50%, #2a3a50 100%);
-      border: 1px solid #5a6a80; border-radius: 4px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+      border: 1px solid #5a6a80; border-radius: 3px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     }
     .cube-base::after {
-      content: ''; position: absolute; top: 2px; left: 8px; right: 8px; height: 2px;
+      content: ''; position: absolute; top: 2px; left: 6px; right: 6px; height: 1px;
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
     }
 
     .cube-glass {
-      position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
-      width: 90px; height: 110px;
+      position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+      width: 55px; height: 70px;
       background: linear-gradient(135deg,
         rgba(180, 210, 255, 0.1) 0%,
         rgba(120, 160, 220, 0.05) 50%,
         rgba(180, 210, 255, 0.08) 100%
       );
-      border: 2px solid rgba(180, 210, 240, 0.25);
-      border-radius: 6px;
+      border: 1.5px solid rgba(180, 210, 240, 0.25);
+      border-radius: 4px;
       box-shadow:
-        inset 0 0 40px rgba(255,255,255,0.05),
-        0 0 25px rgba(100, 150, 200, 0.2);
+        inset 0 0 25px rgba(255,255,255,0.05),
+        0 0 15px rgba(100, 150, 200, 0.2);
       backdrop-filter: blur(2px);
     }
     .cube-glass::before {
       content: ''; position: absolute;
-      top: 10px; left: 10px; width: 12px; height: 65%;
+      top: 6px; left: 6px; width: 8px; height: 60%;
       background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.02) 100%);
-      border-radius: 3px;
+      border-radius: 2px;
     }
 
     .cube-glow {
-      position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
-      width: 75px; height: 12px; border-radius: 50%; opacity: 0.7;
+      position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+      width: 45px; height: 8px; border-radius: 50%; opacity: 0.7;
       animation: glow-pulse 2s ease-in-out infinite alternate;
     }
     @keyframes glow-pulse {
@@ -407,10 +413,10 @@
       to { opacity: 0.85; transform: translateX(-50%) scale(1.05); }
     }
 
-    /* LARGER ITEMS - 50% increase */
+    /* Items - Mobile-first (small) */
     .cube-item {
-      position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%);
-      width: 75px; height: 90px;
+      position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
+      width: 42px; height: 54px;
       display: flex; align-items: center; justify-content: center;
       image-rendering: pixelated;
       transition: transform 0.2s ease;
@@ -418,215 +424,221 @@
     .cube-item img {
       max-width: 100%; max-height: 100%;
       image-rendering: pixelated;
-      filter: drop-shadow(0 0 12px rgba(0,0,0,0.6));
+      filter: drop-shadow(0 0 8px rgba(0,0,0,0.6));
     }
     .cube-item .emoji-fallback {
-      font-size: 48px;
-      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.5));
+      font-size: 28px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
     }
     .glass-cube:hover .cube-item {
       transform: translateX(-50%) scale(1.08);
     }
 
+    /* Labels float ABOVE glass cubes - Mobile-first */
     .cube-label {
-      position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%);
-      text-align: center; white-space: nowrap;
+      position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+      text-align: center; white-space: nowrap; z-index: 20;
+      background: rgba(13, 17, 23, 0.95);
+      padding: 4px 8px; border-radius: 4px;
+      border: 1px solid rgba(88, 203, 178, 0.3);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.5);
     }
     .cube-label-name {
-      font-family: var(--font-pixel); font-size: 8px;
-      color: var(--champagne); text-shadow: 0 2px 6px rgba(0,0,0,0.8);
-      letter-spacing: 0.5px;
+      font-family: var(--font-pixel); font-size: 6px;
+      color: var(--champagne); text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      letter-spacing: 0.3px;
     }
     .cube-label-desc {
-      font-size: 10px; color: var(--champagne); opacity: 0.5; margin-top: 4px;
+      font-size: 8px; color: var(--seafoam); opacity: 0.8; margin-top: 2px;
     }
 
     /* =============================================
-       LARGER WAYFINDER
+       WAYFINDER - Mobile-first (small by default)
     ============================================= */
     .wayfinder {
-      position: absolute; bottom: 12%; left: 2%; z-index: 15;
-      width: 240px; text-align: center;
+      position: absolute; bottom: 3%; left: 1%; z-index: 15;
+      width: 80px; text-align: center;
     }
 
     .wayfinder-sprite {
-      width: 220px; height: 330px; margin: 0 auto;
+      width: 70px; height: 105px; margin: 0 auto;
       position: relative; image-rendering: pixelated;
     }
     .wayfinder-sprite img {
       width: 100%; height: 100%;
       object-fit: contain;
       image-rendering: pixelated;
-      filter: drop-shadow(0 0 25px rgba(88, 114, 203, 0.5));
+      filter: drop-shadow(0 0 15px rgba(88, 114, 203, 0.5));
       animation: wayfinder-float 3s ease-in-out infinite;
     }
     @keyframes wayfinder-float {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+      50% { transform: translateY(-5px); }
     }
 
     .wayfinder-placeholder {
-      width: 220px; height: 330px;
+      width: 70px; height: 105px;
       background: linear-gradient(180deg, #3a4a6a 0%, #2a3a5a 40%, var(--cadet-blue) 100%);
-      border-radius: 20px 20px 8px 8px;
+      border-radius: 12px 12px 6px 6px;
       position: relative;
-      box-shadow: 0 0 30px rgba(88, 114, 203, 0.4);
+      box-shadow: 0 0 20px rgba(88, 114, 203, 0.4);
     }
     .wayfinder-placeholder::before {
       content: ''; position: absolute;
-      top: 50px; left: 50%; transform: translateX(-50%);
-      width: 100px; height: 35px;
+      top: 20px; left: 50%; transform: translateX(-50%);
+      width: 35px; height: 12px;
       background: linear-gradient(90deg, var(--seafoam), var(--periwinkle));
-      border-radius: 16px;
-      box-shadow: 0 0 30px var(--seafoam);
+      border-radius: 8px;
+      box-shadow: 0 0 15px var(--seafoam);
       animation: visor-glow 2s ease-in-out infinite alternate;
     }
     @keyframes visor-glow {
-      from { opacity: 0.6; box-shadow: 0 0 15px var(--seafoam); }
-      to { opacity: 1; box-shadow: 0 0 35px var(--seafoam); }
+      from { opacity: 0.6; box-shadow: 0 0 10px var(--seafoam); }
+      to { opacity: 1; box-shadow: 0 0 25px var(--seafoam); }
     }
 
     .wayfinder-shadow {
-      width: 120px; height: 25px; margin: 8px auto 0;
+      width: 50px; height: 12px; margin: 4px auto 0;
       background: radial-gradient(ellipse, rgba(0,0,0,0.5) 0%, transparent 70%);
       border-radius: 50%;
     }
 
     /* =============================================
-       HEADER
+       HEADER - Mobile-first
     ============================================= */
     .header-overlay {
       position: absolute; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
-      padding: 16px 24px;
+      padding: 8px 12px;
       background: linear-gradient(180deg, rgba(13, 17, 23, 0.98) 0%, transparent 100%);
     }
     .shop-title {
-      font-family: var(--font-display); font-size: 12px;
-      color: var(--seafoam); letter-spacing: 3px; text-transform: lowercase;
-      text-shadow: 0 0 10px rgba(88, 203, 178, 0.5);
+      font-family: var(--font-display); font-size: 9px;
+      color: var(--seafoam); letter-spacing: 1.5px; text-transform: lowercase;
+      text-shadow: 0 0 8px rgba(88, 203, 178, 0.5);
     }
-    .step-indicator { display: flex; gap: 8px; align-items: center; }
+    .step-indicator { display: flex; gap: 5px; align-items: center; }
     .step-pip {
-      width: 8px; height: 8px; border-radius: 50%;
+      width: 6px; height: 6px; border-radius: 50%;
       background: #2a3a50; transition: all 0.3s ease;
     }
     .step-pip.active {
-      width: 24px; border-radius: 4px;
+      width: 16px; border-radius: 3px;
       background: var(--redwood);
     }
     .step-pip.complete {
       background: var(--burnt-sienna);
     }
     .exit-btn {
-      font-family: var(--font-display); font-size: 10px;
+      font-family: var(--font-display); font-size: 8px;
       color: var(--champagne); background: rgba(30, 41, 64, 0.8);
-      border: 1px solid var(--periwinkle); padding: 8px 16px;
+      border: 1px solid var(--periwinkle); padding: 5px 10px;
       cursor: pointer; text-decoration: none; transition: all 0.2s ease;
-      border-radius: 4px;
+      border-radius: 3px;
     }
     .exit-btn:hover {
       background: var(--periwinkle); color: #0d1117;
     }
 
     /* =============================================
-       STAGE PROMPT
+       STAGE PROMPT - Mobile-first
     ============================================= */
     .stage-prompt {
-      position: absolute; top: 70px; left: 24px; z-index: 50;
-      max-width: 280px;
+      position: absolute; top: 50px; left: 8px; z-index: 50;
+      max-width: 180px;
       background: rgba(13, 17, 23, 0.95);
-      border-left: 3px solid var(--burnt-sienna);
-      padding: 14px 18px; border-radius: 0 8px 8px 0;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      border-left: 2px solid var(--burnt-sienna);
+      padding: 8px 12px; border-radius: 0 6px 6px 0;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.4);
     }
     .prompt-step {
-      font-family: var(--font-pixel); font-size: 7px;
-      color: var(--burnt-sienna); letter-spacing: 1px;
-      text-transform: uppercase; margin-bottom: 6px;
+      font-family: var(--font-pixel); font-size: 5px;
+      color: var(--burnt-sienna); letter-spacing: 0.5px;
+      text-transform: uppercase; margin-bottom: 4px;
     }
     .prompt-question {
-      font-size: 15px; font-weight: 600; color: var(--champagne);
-      margin-bottom: 4px; line-height: 1.4;
+      font-size: 12px; font-weight: 600; color: var(--champagne);
+      margin-bottom: 3px; line-height: 1.3;
     }
-    .prompt-hint { font-size: 11px; color: var(--champagne); opacity: 0.5; }
+    .prompt-hint { font-size: 9px; color: var(--champagne); opacity: 0.5; }
     .prompt-hint em { color: var(--seafoam); font-style: normal; }
 
     /* =============================================
-       GUIDE SPEECH BUBBLE
+       GUIDE SPEECH BUBBLE - Hidden on mobile by default
     ============================================= */
     .guide-speech {
-      position: absolute; bottom: 62%; left: 2%; z-index: 20;
-      max-width: 220px;
+      display: none; /* Hidden on mobile */
+      position: absolute; bottom: 58%; left: 1%; z-index: 20;
+      max-width: 160px;
       background: rgba(13, 17, 23, 0.95);
-      border: 2px solid var(--periwinkle);
-      padding: 14px 16px; border-radius: 12px 12px 12px 0;
+      border: 1.5px solid var(--periwinkle);
+      padding: 10px 12px; border-radius: 10px 10px 10px 0;
       opacity: 0; transform: translateY(10px);
       transition: all 0.3s ease;
-      box-shadow: 0 0 25px rgba(88, 114, 203, 0.25);
+      box-shadow: 0 0 15px rgba(88, 114, 203, 0.25);
     }
     .guide-speech.visible { opacity: 1; transform: translateY(0); }
     .guide-speech::after {
       content: ''; position: absolute;
-      bottom: -12px; left: 30px;
-      border: 12px solid transparent;
+      bottom: -10px; left: 20px;
+      border: 10px solid transparent;
       border-top-color: var(--periwinkle);
       border-bottom: none;
     }
     .guide-text {
-      font-family: var(--font-pixel); font-size: 7px;
-      color: var(--champagne); line-height: 2;
+      font-family: var(--font-pixel); font-size: 5px;
+      color: var(--champagne); line-height: 1.8;
     }
 
     /* =============================================
-       INVENTORY POUCH
+       INVENTORY POUCH - Mobile-first
     ============================================= */
     .inventory-pouch {
-      position: absolute; bottom: 20px; right: 20px; z-index: 50; width: 260px;
+      position: absolute; bottom: 8px; right: 8px; z-index: 50; width: 150px;
       background: rgba(13, 17, 23, 0.95);
-      border: 2px solid var(--burnt-sienna);
-      border-radius: 8px; padding: 14px;
-      box-shadow: 0 4px 25px rgba(0,0,0,0.5);
+      border: 1.5px solid var(--burnt-sienna);
+      border-radius: 6px; padding: 8px;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.5);
     }
     .pouch-header {
       display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 10px; padding-bottom: 8px;
+      margin-bottom: 6px; padding-bottom: 5px;
       border-bottom: 1px solid rgba(203, 120, 88, 0.3);
     }
     .pouch-title {
-      font-family: var(--font-pixel); font-size: 7px;
-      color: var(--burnt-sienna); letter-spacing: 1px;
+      font-family: var(--font-pixel); font-size: 5px;
+      color: var(--burnt-sienna); letter-spacing: 0.5px;
     }
-    .pouch-subtitle { font-size: 9px; color: var(--champagne); opacity: 0.5; }
-    .inventory-section { margin-bottom: 8px; }
+    .pouch-subtitle { font-size: 7px; color: var(--champagne); opacity: 0.5; }
+    .inventory-section { margin-bottom: 5px; }
     .section-label {
-      font-family: var(--font-display); font-size: 8px;
-      color: var(--champagne); opacity: 0.4; letter-spacing: 1px;
-      text-transform: uppercase; margin-bottom: 4px;
+      font-family: var(--font-display); font-size: 6px;
+      color: var(--champagne); opacity: 0.4; letter-spacing: 0.5px;
+      text-transform: uppercase; margin-bottom: 3px;
     }
-    .slot-row { display: flex; gap: 5px; }
+    .slot-row { display: flex; gap: 3px; }
     .inventory-slot {
-      width: 36px; height: 36px;
+      width: 24px; height: 24px;
       background: rgba(21, 27, 38, 0.8);
-      border: 2px solid rgba(203, 120, 88, 0.25);
-      border-radius: 4px;
+      border: 1.5px solid rgba(203, 120, 88, 0.25);
+      border-radius: 3px;
       display: flex; align-items: center; justify-content: center;
       transition: all 0.2s ease; position: relative;
       image-rendering: pixelated;
     }
-    .inventory-slot.single { width: 50px; height: 50px; }
+    .inventory-slot.single { width: 32px; height: 32px; }
     .inventory-slot.filled {
       border-color: var(--burnt-sienna);
       background: rgba(203, 120, 88, 0.1);
     }
-    .slot-item { font-size: 16px; }
-    .slot-item img { width: 26px; height: 26px; image-rendering: pixelated; }
-    .inventory-slot.single .slot-item img { width: 36px; height: 36px; }
+    .slot-item { font-size: 12px; }
+    .slot-item img { width: 18px; height: 18px; image-rendering: pixelated; }
+    .inventory-slot.single .slot-item img { width: 24px; height: 24px; }
     .slot-tooltip {
       position: absolute; bottom: calc(100% + 5px); left: 50%; transform: translateX(-50%);
       background: rgba(13, 17, 23, 0.95); color: var(--champagne);
-      padding: 4px 8px; border-radius: 4px;
-      font-family: var(--font-pixel); font-size: 6px;
+      padding: 3px 6px; border-radius: 3px;
+      font-family: var(--font-pixel); font-size: 5px;
       white-space: nowrap; opacity: 0; pointer-events: none;
       transition: opacity 0.2s;
       border: 1px solid var(--periwinkle);
@@ -634,21 +646,21 @@
     .inventory-slot:hover .slot-tooltip { opacity: 1; }
 
     /* =============================================
-       CONTINUE BUTTON
+       CONTINUE BUTTON - Mobile-first
     ============================================= */
     .continue-btn {
-      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
-      z-index: 50; font-family: var(--font-pixel); font-size: 9px;
+      position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+      z-index: 50; font-family: var(--font-pixel); font-size: 7px;
       color: #0d1117; background: var(--seafoam);
-      border: none; padding: 14px 28px; border-radius: 4px;
+      border: none; padding: 10px 20px; border-radius: 3px;
       cursor: pointer; transition: all 0.2s ease;
       display: none;
-      box-shadow: 0 4px 0 #3a8a7a, 0 0 20px rgba(88, 203, 178, 0.3);
-      letter-spacing: 1px;
+      box-shadow: 0 3px 0 #3a8a7a, 0 0 15px rgba(88, 203, 178, 0.3);
+      letter-spacing: 0.5px;
     }
     .continue-btn:hover {
-      transform: translateX(-50%) translateY(-3px);
-      box-shadow: 0 7px 0 #3a8a7a, 0 0 30px rgba(88, 203, 178, 0.5);
+      transform: translateX(-50%) translateY(-2px);
+      box-shadow: 0 5px 0 #3a8a7a, 0 0 20px rgba(88, 203, 178, 0.5);
     }
     .continue-btn.visible { display: block; }
 
@@ -830,50 +842,149 @@
     }
     .package-btn:hover { transform: translateY(-2px); }
 
-    @media (max-width: 800px) {
-      .cabinet { display: none; }
-      .shelf-unit { display: none; }
-      .wayfinder { left: 1%; bottom: 8%; }
-      .wayfinder-sprite, .wayfinder-placeholder { width: 150px; height: 225px; }
-      .display-cubes { gap: 25px; }
-      .glass-cube { width: 95px; height: 120px; }
-      .cube-glass { width: 80px; height: 95px; }
-      .cube-item { width: 65px; height: 78px; }
-      .guide-speech { left: 1%; max-width: 180px; }
-      .guide-text { font-size: 6px; }
-      .inventory-pouch { width: 220px; padding: 10px; }
-      .stage-prompt { max-width: 240px; }
-    }
-
-    @media (max-width: 600px) {
-      .site-header { padding: 12px 16px; }
-      .site-logo { height: 32px; }
-      .site-nav { gap: 16px; }
+    /* ===========================================
+       TABLET STYLES (min-width: 600px)
+    =========================================== */
+    @media (min-width: 600px) {
+      .site-header { padding: 12px 20px; }
+      .site-logo { height: 34px; }
+      .site-nav { gap: 18px; }
       .site-nav a { font-size: 12px; }
-      .game-wrapper { height: calc(100vh - 120px); min-height: 500px; }
-      .wayfinder { left: 0; bottom: 5%; width: 100px; }
-      .wayfinder-sprite, .wayfinder-placeholder { width: 90px; height: 135px; }
-      .wayfinder-shadow { width: 70px; }
-      .display-cubes { gap: 15px; padding: 10px; }
-      .glass-cube { width: 80px; height: 100px; }
-      .cube-glass { width: 65px; height: 80px; }
-      .cube-item { width: 50px; height: 60px; }
-      .cube-label-name { font-size: 6px; }
-      .cube-label-desc { font-size: 8px; }
-      .counter-area { width: 95%; }
-      .inventory-pouch { width: 180px; right: 10px; bottom: 10px; padding: 8px; }
+      .site-footer { padding: 16px; font-size: 11px; }
+
+      .game-wrapper { height: calc(100vh - 110px); min-height: 550px; border-radius: 10px; }
+
+      .wayfinder { bottom: 6%; left: 2%; width: 120px; }
+      .wayfinder-sprite, .wayfinder-placeholder { width: 100px; height: 150px; }
+      .wayfinder-shadow { width: 70px; height: 15px; }
+
+      .display-cubes { gap: 20px; padding: 12px; }
+      .glass-cube { width: 85px; height: 105px; }
+      .cube-glass { width: 70px; height: 85px; }
+      .cube-base { width: 75px; height: 12px; }
+      .cube-item { width: 55px; height: 68px; bottom: 16px; }
+      .cube-item .emoji-fallback { font-size: 36px; }
+      .cube-glow { width: 55px; height: 10px; bottom: 10px; }
+      .cube-label { padding: 5px 10px; }
+      .cube-label-name { font-size: 7px; }
+      .cube-label-desc { font-size: 9px; }
+
+      .counter-area { width: 88%; bottom: 20%; }
+
+      .inventory-pouch { width: 180px; padding: 10px; right: 12px; bottom: 12px; }
       .inventory-slot { width: 28px; height: 28px; }
-      .inventory-slot.single { width: 40px; height: 40px; }
+      .inventory-slot.single { width: 38px; height: 38px; }
+      .slot-item { font-size: 14px; }
+      .slot-item img { width: 20px; height: 20px; }
+      .inventory-slot.single .slot-item img { width: 28px; height: 28px; }
       .pouch-title { font-size: 6px; }
       .section-label { font-size: 7px; }
-      .stage-prompt { max-width: 200px; padding: 10px 14px; }
+
+      .stage-prompt { max-width: 220px; padding: 10px 14px; top: 55px; left: 12px; }
       .prompt-step { font-size: 6px; }
       .prompt-question { font-size: 13px; }
       .prompt-hint { font-size: 10px; }
-      .guide-speech { display: none; }
-      .header-overlay { padding: 12px 16px; }
+
+      .header-overlay { padding: 10px 16px; }
       .shop-title { font-size: 10px; letter-spacing: 2px; }
-      .central-monitor { width: 140px; height: 80px; }
+      .step-pip { width: 7px; height: 7px; }
+      .step-pip.active { width: 20px; }
+      .exit-btn { font-size: 9px; padding: 6px 12px; }
+
+      .central-monitor { width: 140px; height: 75px; }
+
+      .continue-btn { font-size: 8px; padding: 12px 24px; bottom: 15px; }
+    }
+
+    /* ===========================================
+       DESKTOP STYLES (min-width: 800px)
+    =========================================== */
+    @media (min-width: 800px) {
+      .site-header { padding: 16px 24px; }
+      .site-logo { height: 40px; }
+      .site-nav { gap: 24px; }
+      .site-nav a { font-size: 14px; }
+      .site-footer { padding: 20px; font-size: 12px; }
+
+      .game-wrapper { height: calc(100vh - 140px); min-height: 600px; border-radius: 12px; }
+
+      /* Show cabinets and shelves on desktop */
+      .cabinet { display: block; }
+      .shelf-unit { display: block; }
+
+      /* Show guide speech on desktop */
+      .guide-speech { display: block; max-width: 200px; left: 2%; bottom: 60%; padding: 12px 14px; }
+      .guide-text { font-size: 6px; }
+
+      .wayfinder { bottom: 10%; left: 2%; width: 180px; }
+      .wayfinder-sprite, .wayfinder-placeholder { width: 160px; height: 240px; }
+      .wayfinder-placeholder::before { top: 35px; width: 70px; height: 22px; }
+      .wayfinder-shadow { width: 100px; height: 20px; }
+
+      .display-cubes { gap: 35px; padding: 15px; }
+      .glass-cube { width: 100px; height: 130px; }
+      .cube-glass { width: 85px; height: 105px; bottom: 14px; }
+      .cube-base { width: 90px; height: 14px; }
+      .cube-item { width: 70px; height: 85px; bottom: 20px; }
+      .cube-item .emoji-fallback { font-size: 44px; }
+      .cube-glow { width: 70px; height: 12px; bottom: 12px; }
+      .cube-label { padding: 6px 12px; }
+      .cube-label-name { font-size: 8px; }
+      .cube-label-desc { font-size: 10px; }
+
+      .counter-area { width: 80%; bottom: 22%; }
+
+      .inventory-pouch { width: 240px; padding: 12px; right: 16px; bottom: 16px; }
+      .inventory-slot { width: 34px; height: 34px; }
+      .inventory-slot.single { width: 46px; height: 46px; }
+      .slot-item { font-size: 16px; }
+      .slot-item img { width: 24px; height: 24px; }
+      .inventory-slot.single .slot-item img { width: 34px; height: 34px; }
+      .pouch-title { font-size: 7px; }
+      .section-label { font-size: 8px; }
+      .slot-row { gap: 5px; }
+
+      .stage-prompt { max-width: 280px; padding: 14px 18px; top: 70px; left: 20px; border-left-width: 3px; }
+      .prompt-step { font-size: 7px; letter-spacing: 1px; }
+      .prompt-question { font-size: 15px; }
+      .prompt-hint { font-size: 11px; }
+
+      .header-overlay { padding: 14px 20px; }
+      .shop-title { font-size: 11px; letter-spacing: 2.5px; }
+      .step-indicator { gap: 7px; }
+      .step-pip { width: 8px; height: 8px; }
+      .step-pip.active { width: 24px; }
+      .exit-btn { font-size: 10px; padding: 8px 16px; }
+
+      .central-monitor { width: 170px; height: 95px; top: 8%; }
+
+      .continue-btn { font-size: 9px; padding: 14px 28px; bottom: 20px; letter-spacing: 1px; }
+    }
+
+    /* ===========================================
+       LARGE DESKTOP STYLES (min-width: 1000px)
+    =========================================== */
+    @media (min-width: 1000px) {
+      .wayfinder { bottom: 12%; left: 3%; width: 220px; }
+      .wayfinder-sprite, .wayfinder-placeholder { width: 200px; height: 300px; }
+      .wayfinder-placeholder::before { top: 45px; width: 90px; height: 30px; }
+      .wayfinder-shadow { width: 120px; height: 25px; }
+
+      .guide-speech { max-width: 220px; padding: 14px 16px; }
+      .guide-text { font-size: 7px; line-height: 2; }
+
+      .display-cubes { gap: 45px; }
+      .glass-cube { width: 115px; height: 145px; }
+      .cube-glass { width: 95px; height: 115px; }
+      .cube-base { width: 105px; height: 16px; }
+      .cube-item { width: 80px; height: 95px; bottom: 22px; }
+      .cube-item .emoji-fallback { font-size: 50px; }
+
+      .inventory-pouch { width: 260px; padding: 14px; }
+      .inventory-slot { width: 36px; height: 36px; }
+      .inventory-slot.single { width: 50px; height: 50px; }
+
+      .central-monitor { width: 180px; height: 100px; }
     }
   </style>
 </head>
