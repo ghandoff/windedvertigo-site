@@ -4,9 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>package builder – winded.vertigo</title>
-  <meta name="description" content="Build your custom learning experience package at the winded.vertigo lab.">
+  <meta name="description" content="Build your custom learning experience package at the winded.vertigo studio.">
 
-  <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32.png">
 
@@ -15,10 +14,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    /* =============================================
-       WINDED.VERTIGO BRAND PALETTE - CYBER LAB
-       ============================================= */
-
     :root {
       --cadet-blue: #273248;
       --redwood: #b15043;
@@ -29,622 +24,272 @@
       --seafoam: #58cbb2;
       --light-lavender: #d5d2ff;
       --light-cyan: #d2fdff;
-
-      /* Neon variants for cyber aesthetic */
-      --neon-sienna: #ff8a5c;
-      --neon-periwinkle: #7b9aff;
-      --neon-seafoam: #5effdb;
-
       --font-display: 'Space Mono', monospace;
       --font-ui: 'Inter', sans-serif;
     }
 
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow: hidden; }
+    body { font-family: var(--font-ui); background: #1e2530; color: var(--champagne); }
 
-    html, body {
-      height: 100%;
-      overflow: hidden;
-    }
+    .game-container { position: relative; width: 100vw; height: 100vh; }
+    #scene-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
 
-    body {
-      font-family: var(--font-ui);
-      background: #0a0d12;
-      color: var(--champagne);
-    }
-
-    /* =============================================
-       LAYOUT
-       ============================================= */
-
-    .game-container {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-    }
-
-    #scene-canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-    }
-
-    /* =============================================
-       HEADER OVERLAY
-       ============================================= */
-
+    /* Header */
     .header-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 10;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      position: absolute; top: 0; left: 0; right: 0; z-index: 10;
+      display: flex; justify-content: space-between; align-items: center;
       padding: 16px 24px;
-      background: linear-gradient(180deg, rgba(10, 13, 18, 0.95) 0%, transparent 100%);
+      background: linear-gradient(180deg, rgba(39, 50, 72, 0.95) 0%, transparent 100%);
       pointer-events: none;
     }
-
-    .header-overlay > * {
-      pointer-events: auto;
-    }
-
+    .header-overlay > * { pointer-events: auto; }
     .shop-title {
-      font-family: var(--font-display);
-      font-size: 14px;
-      color: var(--neon-seafoam);
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      text-shadow: 0 0 10px var(--seafoam);
+      font-family: var(--font-display); font-size: 13px;
+      color: var(--champagne); letter-spacing: 2px; text-transform: lowercase;
     }
-
-    .step-indicator {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-    }
-
+    .step-indicator { display: flex; gap: 10px; align-items: center; }
     .step-pip {
-      width: 10px;
-      height: 10px;
-      border: 2px solid var(--periwinkle);
-      background: transparent;
+      width: 10px; height: 10px; border-radius: 50%;
+      border: 2px solid var(--burnt-sienna); background: transparent;
       transition: all 0.3s ease;
-      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
     }
-
-    .step-pip.active {
-      background: var(--neon-periwinkle);
-      box-shadow: 0 0 15px var(--periwinkle);
-    }
-
-    .step-pip.complete {
-      background: var(--neon-seafoam);
-      border-color: var(--seafoam);
-      box-shadow: 0 0 10px var(--seafoam);
-    }
-
+    .step-pip.active { background: var(--burnt-sienna); box-shadow: 0 0 8px var(--burnt-sienna); }
+    .step-pip.complete { background: var(--seafoam); border-color: var(--seafoam); }
     .exit-btn {
-      font-family: var(--font-display);
-      font-size: 11px;
-      color: var(--champagne);
-      background: rgba(39, 50, 72, 0.5);
-      border: 1px solid var(--periwinkle);
-      padding: 8px 16px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      letter-spacing: 1px;
+      font-family: var(--font-display); font-size: 11px;
+      color: var(--champagne); background: rgba(39, 50, 72, 0.8);
+      border: 1px solid var(--burnt-sienna); padding: 8px 16px;
+      cursor: pointer; text-decoration: none; transition: all 0.2s ease;
     }
+    .exit-btn:hover { background: var(--burnt-sienna); color: var(--cadet-blue); }
 
-    .exit-btn:hover {
-      background: var(--periwinkle);
-      color: var(--white);
-      box-shadow: 0 0 15px var(--periwinkle);
-    }
-
-    /* =============================================
-       INVENTORY POUCH (Tech Interface)
-       ============================================= */
-
+    /* Inventory Panel */
     .inventory-pouch {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      z-index: 20;
-      width: 320px;
-      background: linear-gradient(145deg, rgba(39, 50, 72, 0.9) 0%, rgba(10, 13, 18, 0.95) 100%);
-      border: 1px solid var(--periwinkle);
-      border-radius: 4px;
-      padding: 16px;
-      box-shadow:
-        0 0 30px rgba(88, 114, 203, 0.2),
-        inset 0 1px 0 rgba(123, 154, 255, 0.1);
+      position: absolute; bottom: 20px; right: 20px; z-index: 20; width: 300px;
+      background: rgba(39, 50, 72, 0.95); border: 1px solid var(--burnt-sienna);
+      border-radius: 8px; padding: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
-
-    .inventory-pouch::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--neon-periwinkle), transparent);
-    }
-
     .pouch-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid rgba(88, 114, 203, 0.3);
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 12px; padding-bottom: 8px;
+      border-bottom: 1px solid rgba(203, 120, 88, 0.3);
     }
-
     .pouch-title {
-      font-family: var(--font-display);
-      font-size: 10px;
-      color: var(--neon-seafoam);
-      letter-spacing: 3px;
-      text-transform: uppercase;
+      font-family: var(--font-display); font-size: 10px;
+      color: var(--burnt-sienna); letter-spacing: 2px; text-transform: uppercase;
     }
-
-    .pouch-subtitle {
-      font-size: 10px;
-      color: var(--champagne);
-      opacity: 0.5;
-    }
-
-    .inventory-section {
-      margin-bottom: 12px;
-    }
-
-    .inventory-section:last-child {
-      margin-bottom: 0;
-    }
-
+    .pouch-subtitle { font-size: 10px; color: var(--champagne); opacity: 0.6; }
+    .inventory-section { margin-bottom: 10px; }
     .section-label {
-      font-family: var(--font-display);
-      font-size: 9px;
-      color: var(--periwinkle);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 6px;
+      font-family: var(--font-display); font-size: 9px;
+      color: var(--champagne); opacity: 0.5; letter-spacing: 1px;
+      text-transform: uppercase; margin-bottom: 5px;
     }
-
-    .slot-row {
-      display: flex;
-      gap: 8px;
-    }
-
+    .slot-row { display: flex; gap: 6px; }
     .inventory-slot {
-      width: 48px;
-      height: 48px;
-      background: rgba(10, 13, 18, 0.8);
-      border: 1px solid rgba(88, 114, 203, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
-      position: relative;
-      clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+      width: 44px; height: 44px;
+      background: rgba(30, 37, 48, 0.8); border: 1px solid rgba(203, 120, 88, 0.3);
+      border-radius: 6px; display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s ease; position: relative;
     }
-
-    .inventory-slot.single {
-      width: 100%;
-      max-width: 80px;
-    }
-
+    .inventory-slot.single { width: 70px; }
     .inventory-slot.drop-target {
-      border-color: var(--neon-seafoam);
-      background: rgba(88, 203, 178, 0.15);
-      box-shadow: 0 0 20px rgba(88, 203, 178, 0.4);
+      border-color: var(--seafoam); background: rgba(88, 203, 178, 0.15);
+      box-shadow: 0 0 12px rgba(88, 203, 178, 0.3);
     }
-
-    .inventory-slot.filled {
-      border-color: var(--neon-sienna);
-      background: rgba(203, 120, 88, 0.1);
-    }
-
-    .slot-item {
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-    }
-
+    .inventory-slot.filled { border-color: var(--burnt-sienna); background: rgba(203, 120, 88, 0.1); }
+    .slot-item { font-size: 18px; }
     .slot-tooltip {
-      position: absolute;
-      bottom: calc(100% + 8px);
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--cadet-blue);
-      color: var(--champagne);
-      padding: 4px 8px;
-      border-radius: 2px;
-      font-size: 10px;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s;
-      border: 1px solid var(--periwinkle);
+      position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+      background: var(--cadet-blue); color: var(--champagne);
+      padding: 4px 8px; border-radius: 4px; font-size: 9px;
+      white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s;
     }
+    .inventory-slot:hover .slot-tooltip { opacity: 1; }
 
-    .inventory-slot:hover .slot-tooltip {
-      opacity: 1;
-    }
-
-    /* =============================================
-       STAGE PROMPT OVERLAY
-       ============================================= */
-
+    /* Stage Prompt */
     .stage-prompt {
-      position: absolute;
-      top: 80px;
-      left: 24px;
-      z-index: 15;
-      max-width: 320px;
-      background: rgba(10, 13, 18, 0.9);
-      border: 1px solid var(--periwinkle);
-      border-left: 3px solid var(--neon-sienna);
-      padding: 16px 20px;
+      position: absolute; top: 80px; left: 24px; z-index: 15;
+      max-width: 320px; background: rgba(39, 50, 72, 0.95);
+      border-left: 3px solid var(--burnt-sienna);
+      padding: 16px 20px; border-radius: 0 8px 8px 0;
     }
-
     .prompt-step {
-      font-family: var(--font-display);
-      font-size: 10px;
-      color: var(--neon-sienna);
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 6px;
+      font-family: var(--font-display); font-size: 10px;
+      color: var(--burnt-sienna); letter-spacing: 2px;
+      text-transform: uppercase; margin-bottom: 4px;
     }
-
     .prompt-question {
-      font-size: 18px;
-      font-weight: 500;
-      color: var(--champagne);
-      margin-bottom: 8px;
-      line-height: 1.3;
+      font-size: 17px; font-weight: 500; color: var(--champagne);
+      margin-bottom: 6px; line-height: 1.3;
     }
+    .prompt-hint { font-size: 12px; color: var(--champagne); opacity: 0.6; }
+    .prompt-hint em { color: var(--seafoam); font-style: normal; }
 
-    .prompt-hint {
-      font-size: 12px;
-      color: var(--champagne);
-      opacity: 0.6;
-    }
-
-    .prompt-hint em {
-      color: var(--neon-seafoam);
-      font-style: normal;
-    }
-
-    /* =============================================
-       ITEM LABELS (floating near 3D objects)
-       ============================================= */
-
+    /* Item Label */
     .item-label {
-      position: absolute;
-      background: rgba(10, 13, 18, 0.95);
-      border: 1px solid var(--periwinkle);
-      padding: 8px 12px;
-      pointer-events: none;
-      z-index: 25;
-      transform: translate(-50%, -100%);
-      margin-top: -15px;
-      opacity: 0;
-      transition: opacity 0.2s;
+      position: absolute; background: rgba(39, 50, 72, 0.95);
+      border: 1px solid var(--burnt-sienna); padding: 8px 12px;
+      border-radius: 6px; pointer-events: none; z-index: 25;
+      transform: translate(-50%, -100%); margin-top: -12px;
+      opacity: 0; transition: opacity 0.2s;
     }
-
-    .item-label.visible {
-      opacity: 1;
-    }
-
-    .item-label::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border: 6px solid transparent;
-      border-top-color: var(--periwinkle);
-    }
-
+    .item-label.visible { opacity: 1; }
     .item-label-name {
-      font-family: var(--font-display);
-      font-size: 12px;
-      color: var(--neon-sienna);
-      white-space: nowrap;
-      letter-spacing: 1px;
+      font-family: var(--font-display); font-size: 12px;
+      color: var(--burnt-sienna); white-space: nowrap;
     }
-
     .item-label-desc {
-      font-size: 11px;
-      color: var(--champagne);
-      opacity: 0.7;
-      white-space: nowrap;
-      margin-top: 2px;
+      font-size: 11px; color: var(--champagne); opacity: 0.7;
+      white-space: nowrap; margin-top: 2px;
     }
 
-    /* =============================================
-       CONTINUE BUTTON
-       ============================================= */
-
+    /* Continue Button */
     .continue-btn {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 20;
-      font-family: var(--font-display);
-      font-size: 12px;
-      color: var(--cadet-blue);
-      background: var(--neon-sienna);
-      border: none;
-      padding: 12px 32px;
-      cursor: pointer;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      transition: all 0.2s ease;
+      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+      z-index: 20; font-family: var(--font-display); font-size: 12px;
+      color: var(--cadet-blue); background: var(--burnt-sienna);
+      border: none; padding: 12px 28px; border-radius: 6px;
+      cursor: pointer; letter-spacing: 1px; transition: all 0.2s ease;
       display: none;
-      clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
     }
+    .continue-btn:hover { background: var(--champagne); box-shadow: 0 4px 15px rgba(203, 120, 88, 0.4); }
+    .continue-btn.visible { display: block; }
 
-    .continue-btn:hover {
-      background: var(--champagne);
-      box-shadow: 0 0 25px rgba(255, 138, 92, 0.5);
-    }
-
-    .continue-btn.visible {
-      display: block;
-    }
-
-    /* =============================================
-       DRAGGING STATE
-       ============================================= */
-
+    /* Dragging */
     .dragging-item {
-      position: fixed;
-      z-index: 100;
-      pointer-events: none;
-      font-size: 36px;
-      filter: drop-shadow(0 0 15px var(--neon-periwinkle));
+      position: fixed; z-index: 100; pointer-events: none;
+      font-size: 32px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
       transform: translate(-50%, -50%);
     }
+    body.dragging, body.dragging * { cursor: grabbing !important; }
 
-    body.dragging {
-      cursor: grabbing !important;
-    }
-
-    body.dragging * {
-      cursor: grabbing !important;
-    }
-
-    /* =============================================
-       WAYFINDER SPEECH BUBBLE
-       ============================================= */
-
+    /* Guide Speech */
     .wizard-speech {
-      position: absolute;
-      bottom: 140px;
-      left: 24px;
-      z-index: 15;
-      max-width: 300px;
-      background: rgba(39, 50, 72, 0.95);
-      border: 1px solid var(--neon-seafoam);
-      padding: 14px 18px;
-      opacity: 0;
-      transform: translateY(10px);
+      position: absolute; bottom: 120px; left: 24px; z-index: 15;
+      max-width: 280px; background: rgba(39, 50, 72, 0.95);
+      border: 1px solid var(--seafoam); padding: 14px 16px;
+      border-radius: 8px; opacity: 0; transform: translateY(10px);
       transition: all 0.3s ease;
     }
-
-    .wizard-speech.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
+    .wizard-speech.visible { opacity: 1; transform: translateY(0); }
     .wizard-speech::before {
-      content: 'WAYFINDER';
-      position: absolute;
-      top: -10px;
-      left: 12px;
-      font-family: var(--font-display);
-      font-size: 9px;
-      color: var(--neon-seafoam);
-      letter-spacing: 2px;
-      background: rgba(39, 50, 72, 1);
-      padding: 2px 8px;
-      border: 1px solid var(--neon-seafoam);
+      content: 'GUIDE'; position: absolute; top: -9px; left: 12px;
+      font-family: var(--font-display); font-size: 9px;
+      color: var(--seafoam); letter-spacing: 1px;
+      background: rgba(39, 50, 72, 1); padding: 2px 8px;
+      border: 1px solid var(--seafoam); border-radius: 3px;
     }
+    .wizard-text { font-size: 13px; color: var(--champagne); line-height: 1.5; }
 
-    .wizard-speech::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 30px;
-      border: 8px solid transparent;
-      border-top-color: var(--neon-seafoam);
+    /* Package Summary (Step 5) */
+    .package-summary {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      z-index: 30; width: 90%; max-width: 700px;
+      background: rgba(39, 50, 72, 0.98); border: 1px solid var(--burnt-sienna);
+      border-radius: 12px; padding: 32px; display: none;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.4);
     }
-
-    .wizard-text {
-      font-size: 13px;
-      color: var(--champagne);
-      line-height: 1.5;
+    .package-summary.visible { display: block; }
+    .package-header {
+      text-align: center; margin-bottom: 24px;
+      padding-bottom: 16px; border-bottom: 1px solid rgba(203, 120, 88, 0.3);
     }
-
-    /* =============================================
-       SUMMARY SCREEN
-       ============================================= */
-
-    .summary-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 50;
-      background: rgba(10, 13, 18, 0.97);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 40px;
+    .package-title {
+      font-family: var(--font-display); font-size: 18px;
+      color: var(--burnt-sienna); letter-spacing: 2px;
+      text-transform: uppercase; margin-bottom: 4px;
     }
-
-    .summary-overlay.visible {
-      display: flex;
+    .package-subtitle { font-size: 13px; color: var(--champagne); opacity: 0.7; }
+    .package-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+    .package-section {
+      background: rgba(30, 37, 48, 0.6); border-radius: 8px;
+      padding: 16px; border-left: 3px solid var(--periwinkle);
     }
-
-    .summary-content {
-      max-width: 500px;
-      text-align: center;
+    .package-section.full-width { grid-column: 1 / -1; }
+    .package-section-label {
+      font-family: var(--font-display); font-size: 9px;
+      color: var(--periwinkle); letter-spacing: 1px;
+      text-transform: uppercase; margin-bottom: 8px;
     }
-
-    .summary-title {
-      font-family: var(--font-display);
-      font-size: 20px;
-      color: var(--neon-seafoam);
-      margin-bottom: 8px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
+    .package-section-value { font-size: 15px; color: var(--champagne); line-height: 1.5; }
+    .package-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .package-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(203, 120, 88, 0.15); border: 1px solid var(--burnt-sienna);
+      padding: 6px 12px; border-radius: 20px; font-size: 12px; color: var(--champagne);
     }
-
-    .summary-subtitle {
-      font-size: 14px;
-      color: var(--champagne);
-      opacity: 0.6;
-      margin-bottom: 32px;
+    .package-actions { display: flex; gap: 12px; justify-content: center; }
+    .package-btn {
+      font-family: var(--font-display); font-size: 12px;
+      padding: 12px 24px; border: none; border-radius: 6px;
+      cursor: pointer; letter-spacing: 1px; transition: all 0.2s ease;
     }
-
-    .summary-selections {
-      text-align: left;
-      margin-bottom: 32px;
+    .package-btn.primary { background: var(--burnt-sienna); color: var(--cadet-blue); }
+    .package-btn.secondary {
+      background: transparent; color: var(--champagne);
+      border: 1px solid var(--burnt-sienna);
     }
+    .package-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(203, 120, 88, 0.3); }
 
-    .summary-section {
-      margin-bottom: 12px;
-      padding: 12px 16px;
-      background: rgba(39, 50, 72, 0.3);
-      border-left: 2px solid var(--neon-sienna);
-    }
-
-    .summary-section-label {
-      font-family: var(--font-display);
-      font-size: 9px;
-      color: var(--periwinkle);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-
-    .summary-section-value {
-      font-size: 14px;
-      color: var(--champagne);
-    }
-
-    .summary-actions {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-    }
-
-    .summary-btn {
-      font-family: var(--font-display);
-      font-size: 11px;
-      padding: 12px 24px;
-      border: none;
-      cursor: pointer;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      transition: all 0.2s ease;
-    }
-
-    .summary-btn.primary {
-      background: var(--neon-sienna);
-      color: var(--cadet-blue);
-      clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
-    }
-
-    .summary-btn.secondary {
-      background: transparent;
-      color: var(--champagne);
-      border: 1px solid var(--periwinkle);
-    }
-
-    .summary-btn:hover {
-      box-shadow: 0 0 20px rgba(255, 138, 92, 0.4);
+    @media (max-width: 600px) {
+      .package-grid { grid-template-columns: 1fr; }
+      .inventory-pouch { width: 260px; padding: 12px; }
     }
   </style>
 </head>
 <body>
   <div class="game-container">
-    <!-- Three.js Canvas -->
     <canvas id="scene-canvas"></canvas>
 
-    <!-- Header Overlay -->
     <header class="header-overlay">
-      <div class="shop-title">// W.V LAB</div>
+      <div class="shop-title">winded.vertigo studio</div>
       <div class="step-indicator" id="stepIndicator">
         <div class="step-pip" data-step="1"></div>
         <div class="step-pip" data-step="2"></div>
         <div class="step-pip" data-step="3"></div>
         <div class="step-pip" data-step="4"></div>
+        <div class="step-pip" data-step="5"></div>
       </div>
-      <a href="../do/" class="exit-btn">← EXIT</a>
+      <a href="../do/" class="exit-btn">← back</a>
     </header>
 
-    <!-- Stage Prompt -->
     <div class="stage-prompt" id="stagePrompt">
-      <div class="prompt-step">// STEP 01</div>
+      <div class="prompt-step">step 1 of 5</div>
       <div class="prompt-question">Who is your work focused on?</div>
-      <div class="prompt-hint">Select a <em>focus artifact</em> from the display</div>
+      <div class="prompt-hint">Select a <em>focus</em> from the display</div>
     </div>
 
-    <!-- Wayfinder Speech Bubble -->
     <div class="wizard-speech" id="wizardSpeech">
-      <div class="wizard-text" id="wizardText">The path is treacherous. Which artifact calls to you?</div>
+      <div class="wizard-text" id="wizardText">Welcome to the studio. Let's configure your experience package together.</div>
     </div>
 
-    <!-- Item Label (follows hovered item) -->
     <div class="item-label" id="itemLabel">
       <div class="item-label-name"></div>
       <div class="item-label-desc"></div>
     </div>
 
-    <!-- Inventory Pouch -->
     <div class="inventory-pouch" id="inventoryPouch">
       <div class="pouch-header">
-        <div class="pouch-title">LOADOUT</div>
-        <div class="pouch-subtitle">selected artifacts</div>
+        <div class="pouch-title">Your Package</div>
+        <div class="pouch-subtitle">selections</div>
       </div>
-
-      <!-- Step 1: Focus (single slot) -->
       <div class="inventory-section" id="section-focus">
-        <div class="section-label">01 // FOCUS</div>
+        <div class="section-label">1. focus</div>
         <div class="slot-row">
           <div class="inventory-slot single" data-section="focus" data-index="0"></div>
         </div>
       </div>
-
-      <!-- Step 2: Approach (single slot) -->
       <div class="inventory-section" id="section-approach">
-        <div class="section-label">02 // APPROACH</div>
+        <div class="section-label">2. approach</div>
         <div class="slot-row">
           <div class="inventory-slot single" data-section="approach" data-index="0"></div>
         </div>
       </div>
-
-      <!-- Step 3: Services (multi slot) -->
       <div class="inventory-section" id="section-services">
-        <div class="section-label">03 // SERVICES [MAX 4]</div>
+        <div class="section-label">3. services (up to 4)</div>
         <div class="slot-row">
           <div class="inventory-slot" data-section="services" data-index="0"></div>
           <div class="inventory-slot" data-section="services" data-index="1"></div>
@@ -652,10 +297,8 @@
           <div class="inventory-slot" data-section="services" data-index="3"></div>
         </div>
       </div>
-
-      <!-- Step 4: Goals (multi slot) -->
       <div class="inventory-section" id="section-goals">
-        <div class="section-label">04 // GOALS [MAX 3]</div>
+        <div class="section-label">4. goals (up to 3)</div>
         <div class="slot-row">
           <div class="inventory-slot" data-section="goals" data-index="0"></div>
           <div class="inventory-slot" data-section="goals" data-index="1"></div>
@@ -664,783 +307,550 @@
       </div>
     </div>
 
-    <!-- Continue Button -->
-    <button class="continue-btn" id="continueBtn">CONTINUE →</button>
+    <button class="continue-btn" id="continueBtn">Continue →</button>
 
-    <!-- Summary Overlay -->
-    <div class="summary-overlay" id="summaryOverlay">
-      <div class="summary-content">
-        <h2 class="summary-title">// LOADOUT COMPLETE</h2>
-        <p class="summary-subtitle">Your artifacts have been selected</p>
-        <div class="summary-selections" id="summarySelections"></div>
-        <div class="summary-actions">
-          <button class="summary-btn secondary" id="resetBtn">RESET</button>
-          <button class="summary-btn primary" id="submitBtn">INITIATE →</button>
+    <!-- Package Summary (Step 5) -->
+    <div class="package-summary" id="packageSummary">
+      <div class="package-header">
+        <div class="package-title">Your Package</div>
+        <div class="package-subtitle" id="packageQuadrant">design & deploy</div>
+      </div>
+      <div class="package-grid">
+        <div class="package-section">
+          <div class="package-section-label">Focus</div>
+          <div class="package-section-value" id="summaryFocus">—</div>
         </div>
+        <div class="package-section">
+          <div class="package-section-label">Approach</div>
+          <div class="package-section-value" id="summaryApproach">—</div>
+        </div>
+        <div class="package-section full-width">
+          <div class="package-section-label">Services</div>
+          <div class="package-tags" id="summaryServices"></div>
+        </div>
+        <div class="package-section full-width">
+          <div class="package-section-label">Goals</div>
+          <div class="package-tags" id="summaryGoals"></div>
+        </div>
+      </div>
+      <div class="package-actions">
+        <button class="package-btn secondary" id="resetBtn">Start Over</button>
+        <button class="package-btn primary" id="submitBtn">Book a Playdate →</button>
       </div>
     </div>
   </div>
 
-  <!-- Three.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
   <script>
     // =============================================
     // GAME DATA
     // =============================================
-
     const STEPS = [
-      null, // 1-indexed
+      null,
       {
-        id: 'focus',
-        prompt: 'Who is your work focused on?',
-        hint: 'Select a <em>focus artifact</em> from the display',
-        single: true,
+        id: 'focus', prompt: 'Who is your work focused on?',
+        hint: 'Select a <em>focus</em> from the display', single: true,
         items: [
-          { value: 'people', icon: '👥', label: 'PEOPLE', desc: 'Human development & learning', color: 0x5872cb },
-          { value: 'product', icon: '📦', label: 'PRODUCT', desc: 'Tools, toys & experiences', color: 0xcb7858 }
+          { value: 'people', icon: '👥', label: 'People', desc: 'Human development & learning', color: 0x5872cb },
+          { value: 'product', icon: '📦', label: 'Product', desc: 'Tools, toys & experiences', color: 0xcb7858 }
         ]
       },
       {
-        id: 'approach',
-        prompt: 'What approach guides your work?',
-        hint: 'Select an <em>approach module</em> from the display',
-        single: true,
+        id: 'approach', prompt: 'What approach guides your work?',
+        hint: 'Select an <em>approach</em> from the display', single: true,
         items: [
-          { value: 'design', icon: '✨', label: 'DESIGN', desc: 'Creating new solutions', color: 0x58cbb2 },
-          { value: 'research', icon: '🔮', label: 'RESEARCH', desc: 'Understanding & measuring', color: 0xd5d2ff }
+          { value: 'design', icon: '✨', label: 'Design', desc: 'Creating new solutions', color: 0x58cbb2 },
+          { value: 'research', icon: '🔍', label: 'Research', desc: 'Understanding & measuring', color: 0xd5d2ff }
         ]
       },
       {
-        id: 'services',
-        prompt: 'Which services do you seek?',
-        hint: 'Select up to <em>4 service cores</em>',
-        single: false,
-        maxSelect: 4,
-        items: []
+        id: 'services', prompt: 'Which services match your needs?',
+        hint: 'Select up to <em>4 services</em>', single: false, maxSelect: 4, items: []
       },
       {
-        id: 'goals',
-        prompt: 'What outcomes do you desire?',
-        hint: 'Select up to <em>3 goal matrices</em>',
-        single: false,
-        maxSelect: 3,
+        id: 'goals', prompt: 'What outcomes do you want?',
+        hint: 'Select up to <em>3 goals</em>', single: false, maxSelect: 3,
         items: [
-          { value: 'awareness', icon: '💡', label: 'BUILD AWARENESS', desc: 'Spread understanding', color: 0xffebd2 },
-          { value: 'behavior', icon: '🎯', label: 'CHANGE BEHAVIOR', desc: 'Shift actions & habits', color: 0xb15043 },
-          { value: 'skills', icon: '⚡', label: 'DEVELOP SKILLS', desc: 'Build capabilities', color: 0x58cbb2 },
-          { value: 'evidence', icon: '📊', label: 'GENERATE EVIDENCE', desc: 'Prove impact', color: 0x5872cb },
-          { value: 'engagement', icon: '❤️', label: 'DRIVE ENGAGEMENT', desc: 'Create connection', color: 0xcb7858 }
+          { value: 'awareness', icon: '💡', label: 'Build Awareness', desc: 'Spread understanding', color: 0xffebd2 },
+          { value: 'behavior', icon: '🎯', label: 'Change Behavior', desc: 'Shift actions & habits', color: 0xb15043 },
+          { value: 'skills', icon: '⚡', label: 'Develop Skills', desc: 'Build capabilities', color: 0x58cbb2 },
+          { value: 'evidence', icon: '📊', label: 'Generate Evidence', desc: 'Prove impact', color: 0x5872cb },
+          { value: 'engagement', icon: '❤️', label: 'Drive Engagement', desc: 'Create connection', color: 0xcb7858 }
         ]
-      }
+      },
+      { id: 'summary', prompt: 'Your package is ready', hint: '', single: true, items: [] }
     ];
 
     const SERVICES_BY_QUADRANT = {
       'people-design': [
-        { value: 'trainings', icon: '🎓', label: 'TRAININGS', desc: 'Workshops & facilitation', color: 0x5872cb },
-        { value: 'learning-experiences', icon: '🌟', label: 'LEARNING EXP', desc: 'Immersive programmes', color: 0x58cbb2 },
-        { value: 'programmes', icon: '📋', label: 'PROGRAMMES', desc: 'Structured journeys', color: 0xcb7858 },
-        { value: 'comms-assets', icon: '📢', label: 'COMMS ASSETS', desc: 'Materials that communicate', color: 0xd5d2ff }
+        { value: 'trainings', icon: '🎓', label: 'Trainings', desc: 'Workshops & facilitation', color: 0x5872cb },
+        { value: 'learning-experiences', icon: '🌟', label: 'Learning Experiences', desc: 'Immersive programmes', color: 0x58cbb2 },
+        { value: 'programmes', icon: '📋', label: 'Programmes', desc: 'Structured journeys', color: 0xcb7858 },
+        { value: 'comms-assets', icon: '📢', label: 'Comms Assets', desc: 'Materials that communicate', color: 0xd5d2ff }
       ],
       'people-research': [
-        { value: 'programme-evaluation', icon: '📊', label: 'PROG EVALUATION', desc: 'Measure impact', color: 0x5872cb },
-        { value: 'mel-touchpoints', icon: '📍', label: 'MEL TOUCHPOINTS', desc: 'Monitoring checkpoints', color: 0x58cbb2 },
-        { value: 'psychometrics', icon: '🧠', label: 'PSYCHOMETRICS', desc: 'Validated assessments', color: 0xd5d2ff },
-        { value: 'evidence-for-funders', icon: '💼', label: 'FUNDER EVIDENCE', desc: 'Proof for stakeholders', color: 0xcb7858 }
+        { value: 'programme-evaluation', icon: '📊', label: 'Programme Evaluation', desc: 'Measure impact', color: 0x5872cb },
+        { value: 'mel-touchpoints', icon: '📍', label: 'MEL Touchpoints', desc: 'Monitoring checkpoints', color: 0x58cbb2 },
+        { value: 'psychometrics', icon: '🧠', label: 'Psychometrics', desc: 'Validated assessments', color: 0xd5d2ff },
+        { value: 'evidence-for-funders', icon: '💼', label: 'Evidence for Funders', desc: 'Proof for stakeholders', color: 0xcb7858 }
       ],
       'product-design': [
-        { value: 'learning-tools', icon: '🛠️', label: 'LEARNING TOOLS', desc: 'Educational products', color: 0x5872cb },
-        { value: 'toys-games', icon: '🎲', label: 'TOYS & GAMES', desc: 'Play-based products', color: 0x58cbb2 },
-        { value: 'comms-assets-product', icon: '🎨', label: 'COMMS ASSETS', desc: 'Brand materials', color: 0xcb7858 },
-        { value: 'udl-improvements', icon: '♿', label: 'UDL UPGRADES', desc: 'Accessibility upgrades', color: 0xd5d2ff }
+        { value: 'learning-tools', icon: '🛠️', label: 'Learning Tools', desc: 'Educational products', color: 0x5872cb },
+        { value: 'toys-games', icon: '🎲', label: 'Toys & Games', desc: 'Play-based products', color: 0x58cbb2 },
+        { value: 'comms-assets-product', icon: '🎨', label: 'Comms Assets', desc: 'Brand materials', color: 0xcb7858 },
+        { value: 'udl-improvements', icon: '♿', label: 'UDL Improvements', desc: 'Accessibility upgrades', color: 0xd5d2ff }
       ],
       'product-research': [
-        { value: 'exhibit-efficacy', icon: '🏛️', label: 'EXHIBIT EFFICACY', desc: 'Does the exhibit work?', color: 0x5872cb },
-        { value: 'toy-impacts', icon: '🎮', label: 'TOY IMPACTS', desc: 'Play value research', color: 0x58cbb2 },
-        { value: 'udl-validation', icon: '✅', label: 'UDL VALIDATION', desc: 'Accessibility testing', color: 0xd5d2ff },
-        { value: 'usability-testing', icon: '👤', label: 'USABILITY TEST', desc: 'User experience research', color: 0xcb7858 }
+        { value: 'exhibit-efficacy', icon: '🏛️', label: 'Exhibit Efficacy', desc: 'Does the exhibit work?', color: 0x5872cb },
+        { value: 'toy-impacts', icon: '🎮', label: 'Toy Impacts', desc: 'Play value research', color: 0x58cbb2 },
+        { value: 'udl-validation', icon: '✅', label: 'UDL Validation', desc: 'Accessibility testing', color: 0xd5d2ff },
+        { value: 'usability-testing', icon: '👤', label: 'Usability Testing', desc: 'User experience research', color: 0xcb7858 }
       ]
     };
 
-    const WIZARD_LINES = {
-      welcome: "The digital realm awaits. Select your interface components to configure your journey.",
-      step1: "The path diverges here. People... or Product. Each leads to different possibilities.",
-      step2: "Design creates. Research reveals. Choose the approach that serves your mission.",
-      step3: "Service cores online. Select up to four modules for your loadout.",
-      step4: "Final configuration. What outcomes will define success? Choose up to three.",
-      complete: "Configuration complete. Your loadout is optimized for the journey ahead.",
-      dragHint: "Interact with the holographic displays to make your selection.",
-      goodChoice: ["Module acquired.", "Excellent selection.", "That interface suits you.", "A wise configuration."]
+    const QUADRANT_NAMES = {
+      'people-design': 'Design & Deploy',
+      'people-research': 'Pinpoint & Prove',
+      'product-design': 'Build & Iterate',
+      'product-research': 'Test & Validate'
     };
 
-    // =============================================
-    // GAME STATE
-    // =============================================
-
-    const gameState = {
-      step: 1,
-      focus: null,
-      approach: null,
-      services: [],
-      goals: [],
-      dragging: null
+    const GUIDE_LINES = {
+      welcome: "Welcome to the studio. Let's configure your experience package together.",
+      step1: "First, let's determine your focus. Are you working with people or on a product?",
+      step2: "Great choice. Now, what's your approach—design or research?",
+      step3: "Perfect. Select the services that match your project needs.",
+      step4: "Almost there. What outcomes are you hoping to achieve?",
+      step5: "Excellent! Your package is configured. Review it below.",
+      goodChoice: ["Good choice.", "That works well.", "Noted.", "Added to your package."]
     };
 
-    // =============================================
-    // THREE.JS SETUP
-    // =============================================
+    const gameState = { step: 1, focus: null, approach: null, services: [], goals: [] };
 
+    // =============================================
+    // THREE.JS - BRIGHT STUDIO ENVIRONMENT
+    // =============================================
     const canvas = document.getElementById('scene-canvas');
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
 
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-    // Colors (brand colors as neon)
-    const COLORS = {
-      cadetBlue: 0x273248,
-      redwood: 0xb15043,
-      burntSienna: 0xcb7858,
-      champagne: 0xffebd2,
-      periwinkle: 0x5872cb,
-      seafoam: 0x58cbb2,
-      neonSienna: 0xff8a5c,
-      neonPeriwinkle: 0x7b9aff,
-      neonSeafoam: 0x5effdb
-    };
+    // Bright background
+    scene.background = new THREE.Color(0x2a3444);
 
-    // Dark cyber background
-    scene.background = new THREE.Color(0x0a0d12);
-
-    // Camera position
-    camera.position.set(0, 2, 7);
-    camera.lookAt(0, 1, 0);
+    camera.position.set(0, 2.2, 6);
+    camera.lookAt(0, 1.2, 0);
 
     // =============================================
-    // LIGHTING - Cyber Lab
+    // LIGHTING - Bright, well-lit studio
     // =============================================
-
-    // Dim ambient
-    const ambientLight = new THREE.AmbientLight(0x1a1a2e, 0.4);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
     scene.add(ambientLight);
 
-    // Main overhead light (cool)
-    const mainLight = new THREE.PointLight(COLORS.neonPeriwinkle, 0.8, 15);
-    mainLight.position.set(0, 5, 2);
+    const mainLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    mainLight.position.set(5, 8, 5);
+    mainLight.castShadow = true;
+    mainLight.shadow.mapSize.width = 1024;
+    mainLight.shadow.mapSize.height = 1024;
     scene.add(mainLight);
 
-    // Accent lights
-    const accentLight1 = new THREE.PointLight(COLORS.neonSeafoam, 0.6, 10);
-    accentLight1.position.set(-4, 2, 0);
-    scene.add(accentLight1);
+    const fillLight = new THREE.DirectionalLight(0xcbe0ff, 0.4);
+    fillLight.position.set(-5, 4, 2);
+    scene.add(fillLight);
 
-    const accentLight2 = new THREE.PointLight(COLORS.neonSienna, 0.5, 10);
-    accentLight2.position.set(4, 2, 0);
-    scene.add(accentLight2);
+    const accentLight = new THREE.PointLight(0xcb7858, 0.5, 10);
+    accentLight.position.set(0, 3, 0);
+    scene.add(accentLight);
 
     // =============================================
-    // CYBER LAB ENVIRONMENT
+    // STUDIO ENVIRONMENT - Walls, Floor, Display
     // =============================================
 
-    // Grid floor (TRON style)
-    const gridSize = 30;
-    const gridDivisions = 30;
-    const gridHelper = new THREE.GridHelper(gridSize, gridDivisions, COLORS.periwinkle, 0x1a1a2e);
-    gridHelper.position.y = 0;
-    gridHelper.material.opacity = 0.4;
-    gridHelper.material.transparent = true;
-    scene.add(gridHelper);
-
-    // Glowing floor plane
-    const floorGeom = new THREE.PlaneGeometry(30, 30);
-    const floorMat = new THREE.MeshBasicMaterial({
-      color: 0x0a0d12,
-      transparent: true,
-      opacity: 0.9
-    });
+    // Floor
+    const floorGeom = new THREE.PlaneGeometry(20, 15);
+    const floorMat = new THREE.MeshStandardMaterial({ color: 0x3a4555, roughness: 0.8 });
     const floor = new THREE.Mesh(floorGeom, floorMat);
     floor.rotation.x = -Math.PI / 2;
-    floor.position.y = -0.01;
+    floor.receiveShadow = true;
     scene.add(floor);
 
-    // Central platform (hexagonal)
-    const platformGeom = new THREE.CylinderGeometry(3, 3.2, 0.15, 6);
-    const platformMat = new THREE.MeshBasicMaterial({
-      color: COLORS.cadetBlue,
-      transparent: true,
-      opacity: 0.8
+    // Floor accent line
+    const lineGeom = new THREE.PlaneGeometry(8, 0.02);
+    const lineMat = new THREE.MeshBasicMaterial({ color: 0xcb7858 });
+    const floorLine = new THREE.Mesh(lineGeom, lineMat);
+    floorLine.rotation.x = -Math.PI / 2;
+    floorLine.position.set(0, 0.01, 2);
+    scene.add(floorLine);
+
+    // Back wall
+    const wallGeom = new THREE.PlaneGeometry(16, 6);
+    const wallMat = new THREE.MeshStandardMaterial({ color: 0x3d4a5c, roughness: 0.9 });
+    const backWall = new THREE.Mesh(wallGeom, wallMat);
+    backWall.position.set(0, 3, -4);
+    backWall.receiveShadow = true;
+    scene.add(backWall);
+
+    // Side walls
+    const sideWallGeom = new THREE.PlaneGeometry(10, 6);
+    const leftWall = new THREE.Mesh(sideWallGeom, wallMat);
+    leftWall.position.set(-6, 3, 0);
+    leftWall.rotation.y = Math.PI / 2;
+    scene.add(leftWall);
+
+    const rightWall = new THREE.Mesh(sideWallGeom, wallMat);
+    rightWall.position.set(6, 3, 0);
+    rightWall.rotation.y = -Math.PI / 2;
+    scene.add(rightWall);
+
+    // Display table/platform
+    const tableGeom = new THREE.BoxGeometry(5, 0.1, 1.5);
+    const tableMat = new THREE.MeshStandardMaterial({ color: 0x4a5568, roughness: 0.3, metalness: 0.2 });
+    const table = new THREE.Mesh(tableGeom, tableMat);
+    table.position.set(0, 0.9, 0);
+    table.castShadow = true;
+    table.receiveShadow = true;
+    scene.add(table);
+
+    // Table legs
+    const legGeom = new THREE.CylinderGeometry(0.05, 0.05, 0.9, 8);
+    const legMat = new THREE.MeshStandardMaterial({ color: 0x4a5568, metalness: 0.3 });
+    [[-2, 0.5], [2, 0.5], [-2, -0.5], [2, -0.5]].forEach(([x, z]) => {
+      const leg = new THREE.Mesh(legGeom, legMat);
+      leg.position.set(x, 0.45, z);
+      scene.add(leg);
     });
-    const platform = new THREE.Mesh(platformGeom, platformMat);
-    platform.position.y = 0.075;
-    scene.add(platform);
 
-    // Platform edge glow
-    const platformRingGeom = new THREE.TorusGeometry(3.1, 0.03, 8, 6);
-    const platformRingMat = new THREE.MeshBasicMaterial({
-      color: COLORS.neonPeriwinkle,
-      transparent: true,
-      opacity: 0.8
-    });
-    const platformRing = new THREE.Mesh(platformRingGeom, platformRingMat);
-    platformRing.rotation.x = Math.PI / 2;
-    platformRing.position.y = 0.15;
-    scene.add(platformRing);
+    // Back wall accent panel
+    const panelGeom = new THREE.PlaneGeometry(6, 2);
+    const panelMat = new THREE.MeshStandardMaterial({ color: 0x273248, roughness: 0.7 });
+    const panel = new THREE.Mesh(panelGeom, panelMat);
+    panel.position.set(0, 2.5, -3.95);
+    scene.add(panel);
 
-    // Vertical light beams
-    function createLightBeam(x, z, color) {
-      const beamGeom = new THREE.CylinderGeometry(0.02, 0.02, 8, 8);
-      const beamMat = new THREE.MeshBasicMaterial({
-        color: color,
-        transparent: true,
-        opacity: 0.3
-      });
-      const beam = new THREE.Mesh(beamGeom, beamMat);
-      beam.position.set(x, 4, z);
-      scene.add(beam);
-    }
-
-    createLightBeam(-4, -2, COLORS.neonSeafoam);
-    createLightBeam(4, -2, COLORS.neonSienna);
-    createLightBeam(-4, 2, COLORS.neonPeriwinkle);
-    createLightBeam(4, 2, COLORS.neonPeriwinkle);
-
-    // Circuit line decorations (background)
-    function createCircuitLine(points, color) {
-      const lineGeom = new THREE.BufferGeometry().setFromPoints(points);
-      const lineMat = new THREE.LineBasicMaterial({
-        color: color,
-        transparent: true,
-        opacity: 0.4
-      });
-      return new THREE.Line(lineGeom, lineMat);
-    }
-
-    // Horizontal circuit lines
-    for (let i = 0; i < 5; i++) {
-      const y = 1 + i * 0.8;
-      const points = [
-        new THREE.Vector3(-6, y, -3),
-        new THREE.Vector3(-4, y, -3),
-        new THREE.Vector3(-4, y + 0.3, -3),
-        new THREE.Vector3(-2, y + 0.3, -3)
-      ];
-      scene.add(createCircuitLine(points, COLORS.periwinkle));
-
-      const points2 = [
-        new THREE.Vector3(6, y, -3),
-        new THREE.Vector3(4, y, -3),
-        new THREE.Vector3(4, y + 0.3, -3),
-        new THREE.Vector3(2, y + 0.3, -3)
-      ];
-      scene.add(createCircuitLine(points2, COLORS.periwinkle));
-    }
+    // Panel glow strip
+    const stripGeom = new THREE.PlaneGeometry(5.5, 0.03);
+    const stripMat = new THREE.MeshBasicMaterial({ color: 0xcb7858 });
+    const strip = new THREE.Mesh(stripGeom, stripMat);
+    strip.position.set(0, 3.55, -3.94);
+    scene.add(strip);
 
     // =============================================
-    // CYBER MONK / WAYFINDER
+    // GUIDE CHARACTER - Human-like curator
     // =============================================
+    const guide = new THREE.Group();
 
-    const wayfinder = new THREE.Group();
+    // Body
+    const bodyGeom = new THREE.CylinderGeometry(0.25, 0.3, 1.2, 12);
+    const bodyMat = new THREE.MeshStandardMaterial({ color: 0x4a5568, roughness: 0.6 });
+    const body = new THREE.Mesh(bodyGeom, bodyMat);
+    body.position.y = 0.8;
+    body.castShadow = true;
+    guide.add(body);
 
-    // Body - tech robe (elongated cone)
-    const robeGeom = new THREE.ConeGeometry(0.5, 2, 8);
-    const robeMat = new THREE.MeshStandardMaterial({
-      color: 0x1a1a2e,
-      roughness: 0.8,
-      metalness: 0.2
-    });
-    const robe = new THREE.Mesh(robeGeom, robeMat);
-    robe.position.y = 1;
-    wayfinder.add(robe);
+    // Torso accent
+    const vestGeom = new THREE.CylinderGeometry(0.26, 0.28, 0.5, 12);
+    const vestMat = new THREE.MeshStandardMaterial({ color: 0x273248, roughness: 0.5 });
+    const vest = new THREE.Mesh(vestGeom, vestMat);
+    vest.position.y = 1.1;
+    guide.add(vest);
 
-    // Robe circuit lines (glowing strips)
-    const stripeMat = new THREE.MeshBasicMaterial({
-      color: COLORS.neonSeafoam,
-      transparent: true,
-      opacity: 0.8
-    });
+    // Head
+    const headGeom = new THREE.SphereGeometry(0.2, 16, 16);
+    const headMat = new THREE.MeshStandardMaterial({ color: 0xd4b896, roughness: 0.7 });
+    const head = new THREE.Mesh(headGeom, headMat);
+    head.position.y = 1.65;
+    head.castShadow = true;
+    guide.add(head);
 
-    for (let i = 0; i < 4; i++) {
-      const stripeGeom = new THREE.BoxGeometry(0.02, 1.8, 0.02);
-      const stripe = new THREE.Mesh(stripeGeom, stripeMat);
-      const angle = (i / 4) * Math.PI * 2;
-      stripe.position.set(Math.cos(angle) * 0.35, 1, Math.sin(angle) * 0.35);
-      wayfinder.add(stripe);
-    }
+    // Hair
+    const hairGeom = new THREE.SphereGeometry(0.21, 16, 8, 0, Math.PI * 2, 0, Math.PI * 0.5);
+    const hairMat = new THREE.MeshStandardMaterial({ color: 0x3d3d3d, roughness: 0.8 });
+    const hair = new THREE.Mesh(hairGeom, hairMat);
+    hair.position.y = 1.7;
+    guide.add(hair);
 
-    // Hood/head covering
-    const hoodGeom = new THREE.SphereGeometry(0.3, 16, 16, 0, Math.PI * 2, 0, Math.PI * 0.6);
-    const hoodMat = new THREE.MeshStandardMaterial({
-      color: 0x1a1a2e,
-      roughness: 0.8,
-      side: THREE.DoubleSide
-    });
-    const hood = new THREE.Mesh(hoodGeom, hoodMat);
-    hood.position.y = 2.1;
-    hood.rotation.x = 0.2;
-    wayfinder.add(hood);
+    // Eyes (simple dots)
+    const eyeGeom = new THREE.SphereGeometry(0.025, 8, 8);
+    const eyeMat = new THREE.MeshBasicMaterial({ color: 0x273248 });
+    const leftEye = new THREE.Mesh(eyeGeom, eyeMat);
+    leftEye.position.set(-0.07, 1.67, 0.17);
+    guide.add(leftEye);
+    const rightEye = new THREE.Mesh(eyeGeom, eyeMat);
+    rightEye.position.set(0.07, 1.67, 0.17);
+    guide.add(rightEye);
 
-    // Face glow (visor/eyes)
-    const visorGeom = new THREE.BoxGeometry(0.35, 0.06, 0.05);
-    const visorMat = new THREE.MeshBasicMaterial({
-      color: COLORS.neonSeafoam,
-      transparent: true,
-      opacity: 0.9
-    });
-    const visor = new THREE.Mesh(visorGeom, visorMat);
-    visor.position.set(0, 2.05, 0.25);
-    wayfinder.add(visor);
+    // Arms
+    const armGeom = new THREE.CylinderGeometry(0.06, 0.05, 0.6, 8);
+    const armMat = new THREE.MeshStandardMaterial({ color: 0x4a5568, roughness: 0.6 });
+    const leftArm = new THREE.Mesh(armGeom, armMat);
+    leftArm.position.set(-0.35, 1, 0);
+    leftArm.rotation.z = 0.3;
+    guide.add(leftArm);
+    const rightArm = new THREE.Mesh(armGeom, armMat);
+    rightArm.position.set(0.35, 1, 0);
+    rightArm.rotation.z = -0.3;
+    rightArm.name = 'rightArm';
+    guide.add(rightArm);
 
-    // Shoulder pads with tech detail
-    const shoulderGeom = new THREE.BoxGeometry(0.25, 0.08, 0.15);
-    const shoulderMat = new THREE.MeshStandardMaterial({
-      color: COLORS.cadetBlue,
-      roughness: 0.4,
-      metalness: 0.6
-    });
-    const shoulder1 = new THREE.Mesh(shoulderGeom, shoulderMat);
-    shoulder1.position.set(-0.45, 1.8, 0);
-    wayfinder.add(shoulder1);
-    const shoulder2 = new THREE.Mesh(shoulderGeom, shoulderMat);
-    shoulder2.position.set(0.45, 1.8, 0);
-    wayfinder.add(shoulder2);
+    // Hands
+    const handGeom = new THREE.SphereGeometry(0.06, 8, 8);
+    const handMat = new THREE.MeshStandardMaterial({ color: 0xd4b896, roughness: 0.7 });
+    const leftHand = new THREE.Mesh(handGeom, handMat);
+    leftHand.position.set(-0.5, 0.75, 0);
+    guide.add(leftHand);
+    const rightHand = new THREE.Mesh(handGeom, handMat);
+    rightHand.position.set(0.5, 0.75, 0.1);
+    rightHand.name = 'rightHand';
+    guide.add(rightHand);
 
-    // Shoulder lights
-    const shoulderLightGeom = new THREE.BoxGeometry(0.08, 0.03, 0.08);
-    const shoulderLightMat = new THREE.MeshBasicMaterial({ color: COLORS.neonSienna });
-    const shoulderLight1 = new THREE.Mesh(shoulderLightGeom, shoulderLightMat);
-    shoulderLight1.position.set(-0.45, 1.85, 0);
-    wayfinder.add(shoulderLight1);
-    const shoulderLight2 = new THREE.Mesh(shoulderLightGeom, shoulderLightMat);
-    shoulderLight2.position.set(0.45, 1.85, 0);
-    wayfinder.add(shoulderLight2);
+    // Tablet in hand
+    const tabletGeom = new THREE.BoxGeometry(0.2, 0.3, 0.02);
+    const tabletMat = new THREE.MeshStandardMaterial({ color: 0x1a1a2e, roughness: 0.3 });
+    const tablet = new THREE.Mesh(tabletGeom, tabletMat);
+    tablet.position.set(0.5, 0.8, 0.15);
+    tablet.rotation.y = -0.3;
+    tablet.rotation.x = -0.2;
+    guide.add(tablet);
 
-    // Floating hands/gauntlets
-    const gauntletGeom = new THREE.BoxGeometry(0.12, 0.15, 0.08);
-    const gauntletMat = new THREE.MeshStandardMaterial({
-      color: COLORS.cadetBlue,
-      roughness: 0.3,
-      metalness: 0.7
-    });
-    const gauntlet1 = new THREE.Mesh(gauntletGeom, gauntletMat);
-    gauntlet1.position.set(-0.6, 1.2, 0.3);
-    gauntlet1.name = 'leftHand';
-    wayfinder.add(gauntlet1);
-    const gauntlet2 = new THREE.Mesh(gauntletGeom, gauntletMat);
-    gauntlet2.position.set(0.6, 1.2, 0.3);
-    gauntlet2.name = 'rightHand';
-    wayfinder.add(gauntlet2);
+    // Tablet screen glow
+    const screenGeom = new THREE.PlaneGeometry(0.15, 0.22);
+    const screenMat = new THREE.MeshBasicMaterial({ color: 0x58cbb2, transparent: true, opacity: 0.6 });
+    const screen = new THREE.Mesh(screenGeom, screenMat);
+    screen.position.set(0.5, 0.8, 0.17);
+    screen.rotation.y = -0.3;
+    screen.rotation.x = -0.2;
+    guide.add(screen);
 
-    // Gauntlet lights
-    const gauntletLightGeom = new THREE.BoxGeometry(0.04, 0.1, 0.02);
-    const gLight1 = new THREE.Mesh(gauntletLightGeom, new THREE.MeshBasicMaterial({ color: COLORS.neonPeriwinkle }));
-    gLight1.position.set(-0.6, 1.2, 0.35);
-    wayfinder.add(gLight1);
-    const gLight2 = new THREE.Mesh(gauntletLightGeom, new THREE.MeshBasicMaterial({ color: COLORS.neonPeriwinkle }));
-    gLight2.position.set(0.6, 1.2, 0.35);
-    wayfinder.add(gLight2);
-
-    // Position wayfinder
-    wayfinder.position.set(-2.5, 0, 0.5);
-    scene.add(wayfinder);
+    guide.position.set(-2.8, 0, 1);
+    guide.rotation.y = 0.4;
+    scene.add(guide);
 
     // =============================================
-    // HOLOGRAPHIC CUBE CONTAINERS
+    // HOLOGRAPHIC DISPLAY ITEMS
     // =============================================
-
     const itemObjects = [];
     const itemDataMap = new Map();
-    const cubeContainers = [];
+    const displayBases = [];
 
-    // Create holographic cube container
-    function createHoloCube(size = 0.6) {
+    function createDisplayBase() {
       const group = new THREE.Group();
+      const baseGeom = new THREE.CylinderGeometry(0.25, 0.28, 0.05, 16);
+      const baseMat = new THREE.MeshStandardMaterial({ color: 0x5a6577, roughness: 0.4, metalness: 0.3 });
+      const base = new THREE.Mesh(baseGeom, baseMat);
+      group.add(base);
 
-      // Wireframe cube
-      const cubeGeom = new THREE.BoxGeometry(size, size, size);
-      const edges = new THREE.EdgesGeometry(cubeGeom);
-      const cubeMat = new THREE.LineBasicMaterial({
-        color: COLORS.neonPeriwinkle,
-        transparent: true,
-        opacity: 0.6
-      });
-      const cube = new THREE.LineSegments(edges, cubeMat);
-      group.add(cube);
-
-      // Corner accents
-      const cornerSize = size * 0.15;
-      const cornerGeom = new THREE.BoxGeometry(cornerSize, cornerSize, cornerSize);
-      const cornerMat = new THREE.MeshBasicMaterial({
-        color: COLORS.neonPeriwinkle,
-        transparent: true,
-        opacity: 0.4
-      });
-
-      const positions = [
-        [-1, -1, -1], [-1, -1, 1], [-1, 1, -1], [-1, 1, 1],
-        [1, -1, -1], [1, -1, 1], [1, 1, -1], [1, 1, 1]
-      ];
-
-      positions.forEach(pos => {
-        const corner = new THREE.Mesh(cornerGeom, cornerMat);
-        corner.position.set(
-          pos[0] * size * 0.45,
-          pos[1] * size * 0.45,
-          pos[2] * size * 0.45
-        );
-        group.add(corner);
-      });
+      // Glow ring
+      const ringGeom = new THREE.TorusGeometry(0.26, 0.01, 8, 32);
+      const ringMat = new THREE.MeshBasicMaterial({ color: 0x58cbb2, transparent: true, opacity: 0.6 });
+      const ring = new THREE.Mesh(ringGeom, ringMat);
+      ring.rotation.x = Math.PI / 2;
+      ring.position.y = 0.03;
+      group.add(ring);
 
       return group;
     }
 
-    // Create floating item inside cube
-    function createFloatingItem(type, color) {
+    function createHoloItem(type, color) {
       const group = new THREE.Group();
 
       if (type === 'crystal') {
-        // Octahedron crystal
         const geom = new THREE.OctahedronGeometry(0.15, 0);
-        const mat = new THREE.MeshBasicMaterial({
-          color: color,
-          transparent: true,
-          opacity: 0.9
+        const mat = new THREE.MeshStandardMaterial({
+          color: color, emissive: color, emissiveIntensity: 0.3,
+          transparent: true, opacity: 0.85, roughness: 0.2
         });
-        const crystal = new THREE.Mesh(geom, mat);
-        group.add(crystal);
+        group.add(new THREE.Mesh(geom, mat));
+      } else if (type === 'cube') {
+        const geom = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+        const mat = new THREE.MeshStandardMaterial({
+          color: color, emissive: color, emissiveIntensity: 0.2,
+          transparent: true, opacity: 0.85, roughness: 0.3
+        });
+        group.add(new THREE.Mesh(geom, mat));
+      } else if (type === 'sphere') {
+        const geom = new THREE.SphereGeometry(0.12, 16, 16);
+        const mat = new THREE.MeshStandardMaterial({
+          color: color, emissive: color, emissiveIntensity: 0.25,
+          transparent: true, opacity: 0.85, roughness: 0.25
+        });
+        group.add(new THREE.Mesh(geom, mat));
 
-        // Inner glow
-        const glowMat = new THREE.MeshBasicMaterial({
-          color: 0xffffff,
-          transparent: true,
-          opacity: 0.3
-        });
-        const glow = new THREE.Mesh(new THREE.OctahedronGeometry(0.1, 0), glowMat);
-        group.add(glow);
-      }
-      else if (type === 'disc') {
-        // Data disc
-        const discGeom = new THREE.CylinderGeometry(0.15, 0.15, 0.03, 16);
-        const discMat = new THREE.MeshBasicMaterial({
-          color: color,
-          transparent: true,
-          opacity: 0.9
-        });
-        const disc = new THREE.Mesh(discGeom, discMat);
-        disc.rotation.x = Math.PI * 0.1;
-        group.add(disc);
-
-        // Ring detail
-        const ringGeom = new THREE.TorusGeometry(0.12, 0.015, 8, 16);
-        const ringMat = new THREE.MeshBasicMaterial({
-          color: 0xffffff,
-          transparent: true,
-          opacity: 0.5
-        });
+        // Ring
+        const ringGeom = new THREE.TorusGeometry(0.18, 0.015, 8, 32);
+        const ringMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.4 });
         const ring = new THREE.Mesh(ringGeom, ringMat);
-        ring.rotation.x = Math.PI * 0.6;
+        ring.rotation.x = Math.PI * 0.3;
         group.add(ring);
-      }
-      else if (type === 'core') {
-        // Service core (sphere with rings)
-        const sphereGeom = new THREE.SphereGeometry(0.12, 16, 16);
-        const sphereMat = new THREE.MeshBasicMaterial({
-          color: color,
-          transparent: true,
-          opacity: 0.9
-        });
-        const sphere = new THREE.Mesh(sphereGeom, sphereMat);
-        group.add(sphere);
-
-        // Orbiting ring
-        const orbitGeom = new THREE.TorusGeometry(0.18, 0.01, 8, 32);
-        const orbitMat = new THREE.MeshBasicMaterial({
-          color: 0xffffff,
-          transparent: true,
-          opacity: 0.6
-        });
-        const orbit = new THREE.Mesh(orbitGeom, orbitMat);
-        orbit.rotation.x = Math.PI * 0.3;
-        group.add(orbit);
-      }
-      else if (type === 'matrix') {
-        // Goal matrix (icosahedron)
+      } else if (type === 'gem') {
         const geom = new THREE.IcosahedronGeometry(0.14, 0);
-        const mat = new THREE.MeshBasicMaterial({
-          color: color,
-          transparent: true,
-          opacity: 0.9
+        const mat = new THREE.MeshStandardMaterial({
+          color: color, emissive: color, emissiveIntensity: 0.3,
+          transparent: true, opacity: 0.85, roughness: 0.2
         });
-        const matrix = new THREE.Mesh(geom, mat);
-        group.add(matrix);
+        group.add(new THREE.Mesh(geom, mat));
       }
 
       return group;
     }
 
-    // Position items for current step
     function positionItems() {
-      // Remove existing items and cubes
       itemObjects.forEach(obj => scene.remove(obj));
-      cubeContainers.forEach(cube => scene.remove(cube));
+      displayBases.forEach(base => scene.remove(base));
       itemObjects.length = 0;
-      cubeContainers.length = 0;
+      displayBases.length = 0;
       itemDataMap.clear();
 
       const step = STEPS[gameState.step];
-      if (!step) return;
+      if (!step || gameState.step === 5) return;
 
       let items = step.items;
-
-      // For step 3, get items based on quadrant
       if (gameState.step === 3 && gameState.focus && gameState.approach) {
-        const quadrant = `${gameState.focus}-${gameState.approach}`;
-        items = SERVICES_BY_QUADRANT[quadrant] || [];
+        items = SERVICES_BY_QUADRANT[`${gameState.focus}-${gameState.approach}`] || [];
         STEPS[3].items = items;
       }
 
-      const itemCount = items.length;
-      const spacing = Math.min(1.5, 5 / itemCount);
-      const startX = -(itemCount - 1) * spacing / 2;
+      const count = items.length;
+      const spacing = Math.min(1.0, 4 / count);
+      const startX = -(count - 1) * spacing / 2;
 
-      items.forEach((item, index) => {
-        // Create container cube
-        const cube = createHoloCube(0.65);
-        cube.position.x = startX + index * spacing;
-        cube.position.y = 1.8;
-        cube.position.z = 1;
-        scene.add(cube);
-        cubeContainers.push(cube);
+      items.forEach((item, i) => {
+        // Display base
+        const base = createDisplayBase();
+        base.position.set(startX + i * spacing, 0.95, 0);
+        scene.add(base);
+        displayBases.push(base);
 
-        // Create item inside
-        let itemType = 'crystal';
-        if (gameState.step === 2) itemType = 'disc';
-        if (gameState.step === 3) itemType = 'core';
-        if (gameState.step === 4) itemType = 'matrix';
+        // Floating item
+        const types = ['crystal', 'cube', 'sphere', 'gem'];
+        const holoItem = createHoloItem(types[gameState.step - 1] || 'crystal', item.color);
+        holoItem.position.set(startX + i * spacing, 1.35, 0);
+        holoItem.userData = { ...item, index: i, baseRef: base };
+        itemDataMap.set(holoItem.uuid, item);
 
-        const floatingItem = createFloatingItem(itemType, item.color);
-        floatingItem.position.copy(cube.position);
-
-        // Store item data
-        floatingItem.userData = { ...item, index, cubeRef: cube };
-        itemDataMap.set(floatingItem.uuid, item);
-
-        // Mark as draggable
-        floatingItem.traverse(child => {
+        holoItem.traverse(child => {
           child.userData.draggable = true;
           child.userData.itemData = item;
-          child.userData.parentGroup = floatingItem;
+          child.userData.parentGroup = holoItem;
         });
 
-        scene.add(floatingItem);
-        itemObjects.push(floatingItem);
+        scene.add(holoItem);
+        itemObjects.push(holoItem);
       });
     }
 
     // =============================================
-    // RAYCASTING & DRAG-AND-DROP
+    // INTERACTION
     // =============================================
-
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
-    let hoveredItem = null;
-    let draggedItemData = null;
-    let draggedMesh = null;
-    let draggingElement = null;
+    let hoveredItem = null, draggedItemData = null, draggedMesh = null, draggingElement = null;
 
-    function onMouseMove(event) {
-      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
+    function onMouseMove(e) {
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
       if (hoveredItem && !draggedItemData) {
         const label = document.getElementById('itemLabel');
-        label.style.left = event.clientX + 'px';
-        label.style.top = event.clientY + 'px';
+        label.style.left = e.clientX + 'px';
+        label.style.top = e.clientY + 'px';
       }
-
       if (draggingElement) {
-        draggingElement.style.left = event.clientX + 'px';
-        draggingElement.style.top = event.clientY + 'px';
-        updateDropTargets(event.clientX, event.clientY);
+        draggingElement.style.left = e.clientX + 'px';
+        draggingElement.style.top = e.clientY + 'px';
+        updateDropTargets(e.clientX, e.clientY);
       }
     }
 
     function updateDropTargets(x, y) {
       const step = STEPS[gameState.step];
       if (!step) return;
-
-      const slots = document.querySelectorAll(`.inventory-slot[data-section="${step.id}"]`);
-      slots.forEach(slot => {
-        const rect = slot.getBoundingClientRect();
-        const isOver = x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
-        slot.classList.toggle('drop-target', isOver && !slot.classList.contains('filled'));
+      document.querySelectorAll(`.inventory-slot[data-section="${step.id}"]`).forEach(slot => {
+        const r = slot.getBoundingClientRect();
+        slot.classList.toggle('drop-target', x >= r.left && x <= r.right && y >= r.top && y <= r.bottom && !slot.classList.contains('filled'));
       });
     }
 
-    function onMouseDown(event) {
-      if (event.button !== 0) return;
-
+    function onMouseDown(e) {
+      if (e.button !== 0 || gameState.step === 5) return;
       raycaster.setFromCamera(mouse, camera);
       const intersects = raycaster.intersectObjects(itemObjects, true);
-
-      for (const intersect of intersects) {
-        let obj = intersect.object;
-
-        while (obj && !obj.userData.itemData) {
-          obj = obj.parent;
-        }
-
-        if (obj && obj.userData.itemData) {
-          const itemData = obj.userData.itemData;
-          const parentGroup = obj.userData.parentGroup || obj;
-
+      for (const hit of intersects) {
+        let obj = hit.object;
+        while (obj && !obj.userData.itemData) obj = obj.parent;
+        if (obj?.userData.itemData) {
+          const data = obj.userData.itemData;
           const step = STEPS[gameState.step];
-          if (step.single) {
-            if (gameState[step.id] === itemData.value) return;
-          } else {
-            if (gameState[step.id].includes(itemData.value)) return;
-            if (gameState[step.id].length >= step.maxSelect) return;
-          }
+          if (step.single && gameState[step.id] === data.value) return;
+          if (!step.single && (gameState[step.id].includes(data.value) || gameState[step.id].length >= step.maxSelect)) return;
 
-          draggedItemData = itemData;
-          draggedMesh = parentGroup;
-
+          draggedItemData = data;
+          draggedMesh = obj.userData.parentGroup || obj;
           draggingElement = document.createElement('div');
           draggingElement.className = 'dragging-item';
-          draggingElement.textContent = itemData.icon;
-          draggingElement.style.left = event.clientX + 'px';
-          draggingElement.style.top = event.clientY + 'px';
+          draggingElement.textContent = data.icon;
+          draggingElement.style.left = e.clientX + 'px';
+          draggingElement.style.top = e.clientY + 'px';
           document.body.appendChild(draggingElement);
           document.body.classList.add('dragging');
-
           document.getElementById('itemLabel').classList.remove('visible');
-
-          // Fade out mesh
-          draggedMesh.traverse(child => {
-            if (child.material) {
-              child.material.transparent = true;
-              child.material.opacity = 0.2;
-            }
-          });
-
-          // Also fade the cube
-          if (draggedMesh.userData.cubeRef) {
-            draggedMesh.userData.cubeRef.traverse(child => {
-              if (child.material) {
-                child.material.opacity = 0.2;
-              }
-            });
-          }
-
+          draggedMesh.traverse(c => { if (c.material) { c.material.transparent = true; c.material.opacity = 0.3; }});
           break;
         }
       }
     }
 
-    function onMouseUp(event) {
+    function onMouseUp(e) {
       if (!draggedItemData) return;
-
       const step = STEPS[gameState.step];
-      const slots = document.querySelectorAll(`.inventory-slot[data-section="${step.id}"]`);
       let dropped = false;
-
-      slots.forEach(slot => {
-        const rect = slot.getBoundingClientRect();
-        const isOver = event.clientX >= rect.left && event.clientX <= rect.right &&
-                       event.clientY >= rect.top && event.clientY <= rect.bottom;
-
-        if (isOver && !slot.classList.contains('filled')) {
+      document.querySelectorAll(`.inventory-slot[data-section="${step.id}"]`).forEach(slot => {
+        const r = slot.getBoundingClientRect();
+        if (e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom && !slot.classList.contains('filled')) {
           dropped = true;
-
-          if (step.single) {
-            gameState[step.id] = draggedItemData.value;
-          } else {
-            gameState[step.id].push(draggedItemData.value);
-          }
-
+          if (step.single) gameState[step.id] = draggedItemData.value;
+          else gameState[step.id].push(draggedItemData.value);
           slot.classList.add('filled');
-          slot.innerHTML = `
-            <div class="slot-item">${draggedItemData.icon}</div>
-            <div class="slot-tooltip">${draggedItemData.label}</div>
-          `;
-
-          const randomLine = WIZARD_LINES.goodChoice[Math.floor(Math.random() * WIZARD_LINES.goodChoice.length)];
-          showWizardSpeech(randomLine);
-
-          // Remove item and cube
+          slot.innerHTML = `<div class="slot-item">${draggedItemData.icon}</div><div class="slot-tooltip">${draggedItemData.label}</div>`;
+          showGuide(GUIDE_LINES.goodChoice[Math.floor(Math.random() * GUIDE_LINES.goodChoice.length)]);
           scene.remove(draggedMesh);
-          if (draggedMesh.userData.cubeRef) {
-            scene.remove(draggedMesh.userData.cubeRef);
-            const cubeIdx = cubeContainers.indexOf(draggedMesh.userData.cubeRef);
-            if (cubeIdx > -1) cubeContainers.splice(cubeIdx, 1);
-          }
-          const idx = itemObjects.indexOf(draggedMesh);
-          if (idx > -1) itemObjects.splice(idx, 1);
-
+          if (draggedMesh.userData.baseRef) { scene.remove(draggedMesh.userData.baseRef); displayBases.splice(displayBases.indexOf(draggedMesh.userData.baseRef), 1); }
+          itemObjects.splice(itemObjects.indexOf(draggedMesh), 1);
           checkStepComplete();
         }
-
         slot.classList.remove('drop-target');
       });
-
-      if (!dropped && draggedMesh) {
-        draggedMesh.traverse(child => {
-          if (child.material) {
-            child.material.opacity = 0.9;
-          }
-        });
-        if (draggedMesh.userData.cubeRef) {
-          draggedMesh.userData.cubeRef.traverse(child => {
-            if (child.material) {
-              child.material.opacity = child.material.opacity < 0.5 ? 0.4 : 0.6;
-            }
-          });
-        }
-      }
-
-      if (draggingElement) {
-        draggingElement.remove();
-        draggingElement = null;
-      }
+      if (!dropped && draggedMesh) draggedMesh.traverse(c => { if (c.material) c.material.opacity = 0.85; });
+      if (draggingElement) { draggingElement.remove(); draggingElement = null; }
       document.body.classList.remove('dragging');
-      draggedItemData = null;
-      draggedMesh = null;
+      draggedItemData = draggedMesh = null;
     }
 
     function checkHover() {
-      if (draggedItemData) return;
-
+      if (draggedItemData || gameState.step === 5) return;
       raycaster.setFromCamera(mouse, camera);
-      const intersects = raycaster.intersectObjects(itemObjects, true);
-
+      const hits = raycaster.intersectObjects(itemObjects, true);
       const label = document.getElementById('itemLabel');
-      let foundItem = null;
-
-      for (const intersect of intersects) {
-        let obj = intersect.object;
-        while (obj && !obj.userData.itemData) {
-          obj = obj.parent;
-        }
-        if (obj && obj.userData.itemData) {
-          foundItem = obj.userData.itemData;
-          break;
-        }
+      let found = null;
+      for (const h of hits) {
+        let o = h.object;
+        while (o && !o.userData.itemData) o = o.parent;
+        if (o?.userData.itemData) { found = o.userData.itemData; break; }
       }
-
-      if (foundItem) {
-        if (hoveredItem !== foundItem) {
-          hoveredItem = foundItem;
-          label.querySelector('.item-label-name').textContent = foundItem.label;
-          label.querySelector('.item-label-desc').textContent = foundItem.desc;
+      if (found) {
+        if (hoveredItem !== found) {
+          hoveredItem = found;
+          label.querySelector('.item-label-name').textContent = found.label;
+          label.querySelector('.item-label-desc').textContent = found.desc;
           label.classList.add('visible');
         }
         canvas.style.cursor = 'grab';
       } else {
-        if (hoveredItem) {
-          hoveredItem = null;
-          label.classList.remove('visible');
-        }
+        if (hoveredItem) { hoveredItem = null; label.classList.remove('visible'); }
         canvas.style.cursor = 'default';
       }
     }
@@ -1448,207 +858,134 @@
     // =============================================
     // GAME FLOW
     // =============================================
-
     function checkStepComplete() {
       const step = STEPS[gameState.step];
-      const continueBtn = document.getElementById('continueBtn');
-
-      if (step.single) {
-        if (gameState[step.id]) {
-          setTimeout(() => advanceStep(), 600);
-        }
-      } else {
-        if (gameState[step.id].length > 0) {
-          continueBtn.classList.add('visible');
-        } else {
-          continueBtn.classList.remove('visible');
-        }
-      }
+      if (step.single && gameState[step.id]) setTimeout(advanceStep, 500);
+      else document.getElementById('continueBtn').classList.toggle('visible', gameState[step.id]?.length > 0);
     }
 
     function advanceStep() {
-      if (gameState.step >= 4) {
-        showSummary();
-        return;
-      }
-
+      if (gameState.step >= 5) return;
       gameState.step++;
       document.getElementById('continueBtn').classList.remove('visible');
       updateUI();
       positionItems();
-      showWizardSpeech(WIZARD_LINES[`step${gameState.step}`] || WIZARD_LINES.dragHint);
+      if (gameState.step === 5) showPackageSummary();
+      else showGuide(GUIDE_LINES[`step${gameState.step}`] || GUIDE_LINES.welcome);
     }
 
     function updateUI() {
-      document.querySelectorAll('.step-pip').forEach(pip => {
-        const s = parseInt(pip.dataset.step);
-        pip.classList.toggle('active', s === gameState.step);
-        pip.classList.toggle('complete', s < gameState.step);
+      document.querySelectorAll('.step-pip').forEach(p => {
+        const s = parseInt(p.dataset.step);
+        p.classList.toggle('active', s === gameState.step);
+        p.classList.toggle('complete', s < gameState.step);
       });
-
       const step = STEPS[gameState.step];
-      const prompt = document.getElementById('stagePrompt');
-      prompt.querySelector('.prompt-step').textContent = `// STEP 0${gameState.step}`;
-      prompt.querySelector('.prompt-question').textContent = step.prompt;
-      prompt.querySelector('.prompt-hint').innerHTML = step.hint;
-
-      document.querySelectorAll('.inventory-section').forEach(section => {
-        const id = section.id.replace('section-', '');
-        const stepNum = ['focus', 'approach', 'services', 'goals'].indexOf(id) + 1;
-        section.style.opacity = stepNum <= gameState.step ? '1' : '0.3';
+      if (step && gameState.step < 5) {
+        document.getElementById('stagePrompt').querySelector('.prompt-step').textContent = `step ${gameState.step} of 5`;
+        document.getElementById('stagePrompt').querySelector('.prompt-question').textContent = step.prompt;
+        document.getElementById('stagePrompt').querySelector('.prompt-hint').innerHTML = step.hint;
+        document.getElementById('stagePrompt').style.display = 'block';
+      } else {
+        document.getElementById('stagePrompt').style.display = 'none';
+      }
+      document.querySelectorAll('.inventory-section').forEach(sec => {
+        const id = sec.id.replace('section-', '');
+        const num = ['focus', 'approach', 'services', 'goals'].indexOf(id) + 1;
+        sec.style.opacity = num <= gameState.step ? '1' : '0.4';
       });
     }
 
-    function showWizardSpeech(text) {
-      const speech = document.getElementById('wizardSpeech');
-      const textEl = document.getElementById('wizardText');
-      textEl.textContent = text;
-      speech.classList.add('visible');
-
-      clearTimeout(window.wizardTimeout);
-      window.wizardTimeout = setTimeout(() => {
-        speech.classList.remove('visible');
-      }, 4000);
+    function showGuide(text) {
+      const el = document.getElementById('wizardSpeech');
+      document.getElementById('wizardText').textContent = text;
+      el.classList.add('visible');
+      clearTimeout(window.guideTimeout);
+      window.guideTimeout = setTimeout(() => el.classList.remove('visible'), 4000);
     }
 
-    function showSummary() {
-      showWizardSpeech(WIZARD_LINES.complete);
-
-      setTimeout(() => {
-        const overlay = document.getElementById('summaryOverlay');
-        const selections = document.getElementById('summarySelections');
-
-        const focusItem = STEPS[1].items.find(i => i.value === gameState.focus);
-        const approachItem = STEPS[2].items.find(i => i.value === gameState.approach);
-        const serviceItems = gameState.services.map(v =>
-          STEPS[3].items.find(i => i.value === v)
-        ).filter(Boolean);
-        const goalItems = gameState.goals.map(v =>
-          STEPS[4].items.find(i => i.value === v)
-        ).filter(Boolean);
-
-        selections.innerHTML = `
-          <div class="summary-section">
-            <div class="summary-section-label">FOCUS</div>
-            <div class="summary-section-value">${focusItem?.icon || ''} ${focusItem?.label || ''}</div>
-          </div>
-          <div class="summary-section">
-            <div class="summary-section-label">APPROACH</div>
-            <div class="summary-section-value">${approachItem?.icon || ''} ${approachItem?.label || ''}</div>
-          </div>
-          <div class="summary-section">
-            <div class="summary-section-label">SERVICES</div>
-            <div class="summary-section-value">${serviceItems.map(i => `${i.icon} ${i.label}`).join(', ') || '—'}</div>
-          </div>
-          <div class="summary-section">
-            <div class="summary-section-label">GOALS</div>
-            <div class="summary-section-value">${goalItems.map(i => `${i.icon} ${i.label}`).join(', ') || '—'}</div>
-          </div>
-        `;
-
-        overlay.classList.add('visible');
-      }, 500);
+    function showPackageSummary() {
+      showGuide(GUIDE_LINES.step5);
+      const quadrant = `${gameState.focus}-${gameState.approach}`;
+      document.getElementById('packageQuadrant').textContent = QUADRANT_NAMES[quadrant] || '';
+      const focusItem = STEPS[1].items.find(i => i.value === gameState.focus);
+      const approachItem = STEPS[2].items.find(i => i.value === gameState.approach);
+      document.getElementById('summaryFocus').textContent = focusItem ? `${focusItem.icon} ${focusItem.label}` : '—';
+      document.getElementById('summaryApproach').textContent = approachItem ? `${approachItem.icon} ${approachItem.label}` : '—';
+      document.getElementById('summaryServices').innerHTML = gameState.services.map(v => {
+        const item = STEPS[3].items.find(i => i.value === v);
+        return item ? `<span class="package-tag">${item.icon} ${item.label}</span>` : '';
+      }).join('');
+      document.getElementById('summaryGoals').innerHTML = gameState.goals.map(v => {
+        const item = STEPS[4].items.find(i => i.value === v);
+        return item ? `<span class="package-tag">${item.icon} ${item.label}</span>` : '';
+      }).join('');
+      document.getElementById('inventoryPouch').style.display = 'none';
+      document.getElementById('packageSummary').classList.add('visible');
     }
 
     function resetGame() {
       gameState.step = 1;
-      gameState.focus = null;
-      gameState.approach = null;
+      gameState.focus = gameState.approach = null;
       gameState.services = [];
       gameState.goals = [];
-
-      document.querySelectorAll('.inventory-slot').forEach(slot => {
-        slot.classList.remove('filled');
-        slot.innerHTML = '';
-      });
-
-      document.getElementById('summaryOverlay').classList.remove('visible');
+      document.querySelectorAll('.inventory-slot').forEach(s => { s.classList.remove('filled'); s.innerHTML = ''; });
+      document.getElementById('packageSummary').classList.remove('visible');
+      document.getElementById('inventoryPouch').style.display = 'block';
       document.getElementById('continueBtn').classList.remove('visible');
-
       updateUI();
       positionItems();
-      showWizardSpeech(WIZARD_LINES.welcome);
+      showGuide(GUIDE_LINES.welcome);
     }
 
     // =============================================
     // ANIMATION
     // =============================================
-
     let time = 0;
-
     function animate() {
       requestAnimationFrame(animate);
       time += 0.016;
 
-      // Float and rotate items
+      // Float items
       itemObjects.forEach((obj, i) => {
-        obj.position.y = 1.8 + Math.sin(time * 1.2 + i * 0.7) * 0.08;
-        obj.rotation.y += 0.008;
-        obj.rotation.x = Math.sin(time * 0.5 + i) * 0.1;
+        obj.position.y = 1.35 + Math.sin(time * 1.5 + i * 0.8) * 0.05;
+        obj.rotation.y += 0.005;
       });
 
-      // Rotate cube containers
-      cubeContainers.forEach((cube, i) => {
-        cube.rotation.y += 0.003;
-        cube.rotation.x = Math.sin(time * 0.3 + i) * 0.05;
-      });
-
-      // Wayfinder animations
-      wayfinder.rotation.y = Math.sin(time * 0.2) * 0.1;
-
-      // Hand gestures
-      const leftHand = wayfinder.getObjectByName('leftHand');
-      const rightHand = wayfinder.getObjectByName('rightHand');
-      if (leftHand) {
-        leftHand.position.y = 1.2 + Math.sin(time * 0.8) * 0.05;
-      }
-      if (rightHand) {
-        rightHand.position.y = 1.2 + Math.sin(time * 0.8 + Math.PI) * 0.05;
-      }
-
-      // Platform ring pulse
-      platformRing.material.opacity = 0.5 + Math.sin(time * 2) * 0.3;
-
-      // Grid pulse
-      gridHelper.material.opacity = 0.3 + Math.sin(time * 0.5) * 0.1;
+      // Guide subtle animation
+      guide.rotation.y = 0.4 + Math.sin(time * 0.5) * 0.05;
+      const rh = guide.getObjectByName('rightHand');
+      if (rh) rh.position.y = 0.75 + Math.sin(time * 0.8) * 0.02;
 
       checkHover();
       renderer.render(scene, camera);
     }
 
     // =============================================
-    // EVENT LISTENERS
+    // EVENTS
     // =============================================
-
     canvas.addEventListener('mousemove', onMouseMove);
     canvas.addEventListener('mousedown', onMouseDown);
     window.addEventListener('mouseup', onMouseUp);
-
     document.getElementById('continueBtn').addEventListener('click', advanceStep);
     document.getElementById('resetBtn').addEventListener('click', resetGame);
     document.getElementById('submitBtn').addEventListener('click', () => {
       const params = new URLSearchParams({
-        focus: gameState.focus,
-        approach: gameState.approach,
-        services: gameState.services.join(','),
-        goals: gameState.goals.join(',')
+        focus: gameState.focus, approach: gameState.approach,
+        services: gameState.services.join(','), goals: gameState.goals.join(',')
       });
       window.location.href = `../connect/?${params.toString()}`;
     });
-
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    // =============================================
-    // INITIALIZE
-    // =============================================
-
+    // INIT
     updateUI();
     positionItems();
-    showWizardSpeech(WIZARD_LINES.welcome);
+    showGuide(GUIDE_LINES.welcome);
     animate();
   </script>
 </body>
