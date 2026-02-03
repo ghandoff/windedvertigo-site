@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adventure Builder – winded.vertigo</title>
+  <meta name="description" content="Embark on your learning adventure. Gather supplies for your quest with our interactive Adventure Builder.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* =============================================
+       TRON × ZELDA GAME AESTHETIC
+       ============================================= */
+
+    :root {
+      --bg-dark: #0a0a1a;
+      --bg-dungeon: #0d1117;
+      --neon-cyan: #00ffff;
+      --neon-magenta: #ff00ff;
+      --neon-gold: #ffd700;
+      --neon-green: #00ff88;
+      --glow-cyan: 0 0 20px #00ffff, 0 0 40px #00ffff;
+      --glow-magenta: 0 0 20px #ff00ff, 0 0 40px #ff00ff;
+      --text-primary: #e0e0e0;
+      --text-dim: #666;
+      --font-pixel: 'Press Start 2P', cursive;
+      --font-ui: 'Inter', sans-serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: var(--font-ui);
+      background: var(--bg-dark);
+      color: var(--text-primary);
+    }
+
+    /* =============================================
+       LAYOUT
+       ============================================= */
+
+    .game-container {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      grid-template-rows: auto 1fr auto;
+      height: 100vh;
+      gap: 0;
+    }
+
+    /* =============================================
+       HEADER - Quest Title Bar
+       ============================================= */
+
+    .quest-header {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      background: linear-gradient(180deg, #1a1a2e 0%, #0d1117 100%);
+      border-bottom: 2px solid var(--neon-cyan);
+      box-shadow: 0 2px 20px rgba(0, 255, 255, 0.2);
+    }
+
+    .quest-title {
+      font-family: var(--font-pixel);
+      font-size: 14px;
+      color: var(--neon-cyan);
+      text-shadow: var(--glow-cyan);
+      letter-spacing: 2px;
+    }
+
+    .quest-progress {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .progress-gem {
+      width: 16px;
+      height: 16px;
+      background: var(--bg-dungeon);
+      border: 2px solid var(--neon-magenta);
+      transform: rotate(45deg);
+      transition: all 0.3s ease;
+    }
+
+    .progress-gem.collected {
+      background: var(--neon-magenta);
+      box-shadow: var(--glow-magenta);
+    }
+
+    .progress-gem.active {
+      background: var(--neon-cyan);
+      border-color: var(--neon-cyan);
+      box-shadow: var(--glow-cyan);
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: rotate(45deg) scale(1); }
+      50% { transform: rotate(45deg) scale(1.2); }
+    }
+
+    /* =============================================
+       MAIN 3D SCENE AREA
+       ============================================= */
+
+    .scene-area {
+      position: relative;
+      background: var(--bg-dungeon);
+      overflow: hidden;
+    }
+
+    #three-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Quest prompt overlay */
+    .quest-prompt {
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(10, 10, 26, 0.9);
+      border: 2px solid var(--neon-cyan);
+      padding: 16px 32px;
+      text-align: center;
+      box-shadow: var(--glow-cyan), inset 0 0 30px rgba(0, 255, 255, 0.1);
+    }
+
+    .quest-prompt h2 {
+      font-family: var(--font-pixel);
+      font-size: 12px;
+      color: var(--neon-cyan);
+      text-shadow: var(--glow-cyan);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .quest-prompt p {
+      font-size: 14px;
+      color: var(--text-primary);
+      max-width: 400px;
+    }
+
+    /* Floating supply items in 3D space (HTML overlays) */
+    .supply-item {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      cursor: grab;
+      transition: transform 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .supply-item:hover {
+      transform: scale(1.1);
+    }
+
+    .supply-item:active {
+      cursor: grabbing;
+    }
+
+    .supply-item.dragging {
+      opacity: 0.7;
+      z-index: 1000;
+    }
+
+    .supply-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--bg-dark);
+      border: 3px solid var(--neon-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: 6px;
+      box-shadow: var(--glow-cyan);
+      transition: all 0.3s ease;
+    }
+
+    .supply-item[data-type="sherpa"] .supply-icon { border-color: var(--neon-gold); box-shadow: 0 0 20px var(--neon-gold); }
+    .supply-item[data-type="locker"] .supply-icon { border-color: var(--neon-magenta); box-shadow: var(--glow-magenta); }
+    .supply-item[data-type="map"] .supply-icon { border-color: var(--neon-green); box-shadow: 0 0 20px var(--neon-green); }
+    .supply-item[data-type="notebook"] .supply-icon { border-color: var(--neon-cyan); box-shadow: var(--glow-cyan); }
+
+    .supply-label {
+      font-family: var(--font-pixel);
+      font-size: 8px;
+      color: var(--text-primary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* =============================================
+       INVENTORY SIDEBAR
+       ============================================= */
+
+    .inventory-panel {
+      background: linear-gradient(180deg, #0d1117 0%, #161b22 50%, #0d1117 100%);
+      border-left: 2px solid var(--neon-magenta);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: -5px 0 30px rgba(255, 0, 255, 0.2);
+    }
+
+    .inventory-title {
+      font-family: var(--font-pixel);
+      font-size: 10px;
+      color: var(--neon-magenta);
+      text-shadow: var(--glow-magenta);
+      text-align: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 0, 255, 0.3);
+      letter-spacing: 2px;
+    }
+
+    .inventory-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      flex: 1;
+    }
+
+    .inventory-slot {
+      aspect-ratio: 1;
+      background: rgba(10, 10, 26, 0.8);
+      border: 2px dashed rgba(255, 0, 255, 0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .inventory-slot.drop-target {
+      border-color: var(--neon-cyan);
+      border-style: solid;
+      background: rgba(0, 255, 255, 0.1);
+      box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.2);
+    }
+
+    .inventory-slot.filled {
+      border-color: var(--neon-magenta);
+      border-style: solid;
+      background: rgba(255, 0, 255, 0.1);
+    }
+
+    .inventory-slot .slot-icon {
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+
+    .inventory-slot .slot-label {
+      font-family: var(--font-pixel);
+      font-size: 6px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .inventory-slot.filled .slot-label {
+      color: var(--neon-magenta);
+    }
+
+    /* Inventory stats */
+    .inventory-stats {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 0, 255, 0.3);
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 11px;
+    }
+
+    .stat-label {
+      color: var(--text-dim);
+    }
+
+    .stat-value {
+      font-family: var(--font-pixel);
+      font-size: 10px;
+      color: var(--neon-cyan);
+    }
+
+    /* =============================================
+       FOOTER - Navigation
+       ============================================= */
+
+    .quest-footer {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      padding: 16px 24px;
+      background: linear-gradient(0deg, #1a1a2e 0%, #0d1117 100%);
+      border-top: 2px solid var(--neon-magenta);
+    }
+
+    .nav-button {
+      font-family: var(--font-pixel);
+      font-size: 10px;
+      padding: 12px 24px;
+      border: 2px solid var(--neon-cyan);
+      background: transparent;
+      color: var(--neon-cyan);
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-button:hover {
+      background: var(--neon-cyan);
+      color: var(--bg-dark);
+      box-shadow: var(--glow-cyan);
+    }
+
+    .nav-button.primary {
+      border-color: var(--neon-magenta);
+      color: var(--neon-magenta);
+    }
+
+    .nav-button.primary:hover {
+      background: var(--neon-magenta);
+      color: var(--bg-dark);
+      box-shadow: var(--glow-magenta);
+    }
+
+    .nav-button:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .nav-button:disabled:hover {
+      background: transparent;
+      color: var(--neon-cyan);
+      box-shadow: none;
+    }
+
+    /* =============================================
+       SCANLINES OVERLAY (Retro CRT Effect)
+       ============================================= */
+
+    .scanlines {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.1) 0px,
+        rgba(0, 0, 0, 0.1) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+    }
+
+    /* =============================================
+       RESPONSIVE
+       ============================================= */
+
+    @media (max-width: 768px) {
+      .game-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr 200px auto;
+      }
+
+      .inventory-panel {
+        border-left: none;
+        border-top: 2px solid var(--neon-magenta);
+        box-shadow: 0 -5px 30px rgba(255, 0, 255, 0.2);
+      }
+
+      .inventory-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .quest-prompt h2 {
+        font-size: 10px;
+      }
+
+      .quest-prompt p {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="scanlines"></div>
+
+  <div class="game-container">
+    <!-- Header -->
+    <header class="quest-header">
+      <h1 class="quest-title">⚔ Adventure Builder</h1>
+      <div class="quest-progress">
+        <div class="progress-gem active" data-step="1"></div>
+        <div class="progress-gem" data-step="2"></div>
+        <div class="progress-gem" data-step="3"></div>
+        <div class="progress-gem" data-step="4"></div>
+        <div class="progress-gem" data-step="5"></div>
+      </div>
+    </header>
+
+    <!-- Main 3D Scene -->
+    <div class="scene-area">
+      <canvas id="three-canvas"></canvas>
+
+      <!-- Quest Prompt Overlay -->
+      <div class="quest-prompt">
+        <h2>What Quest Awaits You?</h2>
+        <p>Drag a supply to your inventory to begin your adventure</p>
+      </div>
+
+      <!-- Draggable Supply Items (positioned by JS) -->
+      <div class="supply-items" id="supply-items">
+        <!-- Step 1: Quest Type -->
+        <div class="supply-item" data-type="sherpa" data-value="people" style="left: 25%; top: 40%;">
+          <div class="supply-icon">🧙</div>
+          <span class="supply-label">Sherpa</span>
+        </div>
+        <div class="supply-item" data-type="locker" data-value="product" style="left: 65%; top: 40%;">
+          <div class="supply-icon">📦</div>
+          <span class="supply-label">Supply Locker</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Inventory Panel -->
+    <aside class="inventory-panel">
+      <h2 class="inventory-title">⚗ Your Pack</h2>
+
+      <div class="inventory-grid" id="inventory-grid">
+        <div class="inventory-slot" data-slot="quest">
+          <span class="slot-icon">?</span>
+          <span class="slot-label">Quest</span>
+        </div>
+        <div class="inventory-slot" data-slot="approach">
+          <span class="slot-icon">?</span>
+          <span class="slot-label">Approach</span>
+        </div>
+        <div class="inventory-slot" data-slot="skill1">
+          <span class="slot-icon">?</span>
+          <span class="slot-label">Skill 1</span>
+        </div>
+        <div class="inventory-slot" data-slot="skill2">
+          <span class="slot-icon">?</span>
+          <span class="slot-label">Skill 2</span>
+        </div>
+        <div class="inventory-slot" data-slot="goal1">
+          <span class="slot-icon">?</span>
+          <span class="slot-label">Goal 1</span>
+        </div>
+        <div class="inventory-slot" data-slot="goal2">
+          <span class="slot-icon">?</span>
+          <span class="slot-label">Goal 2</span>
+        </div>
+      </div>
+
+      <div class="inventory-stats">
+        <div class="stat-row">
+          <span class="stat-label">Items Collected</span>
+          <span class="stat-value" id="items-count">0/6</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Quest Power</span>
+          <span class="stat-value" id="quest-power">---</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Footer Navigation -->
+    <footer class="quest-footer">
+      <button class="nav-button" id="btn-back" disabled>◀ Retreat</button>
+      <button class="nav-button" id="btn-reset">↺ New Quest</button>
+      <button class="nav-button primary" id="btn-next" disabled>Continue ▶</button>
+    </footer>
+  </div>
+
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <script>
+    // =============================================
+    // GAME STATE
+    // =============================================
+    const gameState = {
+      step: 1,
+      inventory: {
+        quest: null,      // people or product
+        approach: null,   // design or research
+        skills: [],       // array of selected skills
+        goals: []         // array of selected goals
+      }
+    };
+
+    // =============================================
+    // STEP CONTENT
+    // =============================================
+    const STEPS = {
+      1: {
+        title: "What Quest Awaits You?",
+        subtitle: "Choose your path, brave adventurer",
+        items: [
+          { type: "sherpa", value: "people", icon: "🧙", label: "Sherpa", desc: "Guide travelers through change", slot: "quest" },
+          { type: "locker", value: "product", icon: "📦", label: "Supply Locker", desc: "Craft tools and artifacts", slot: "quest" }
+        ]
+      },
+      2: {
+        title: "Choose Your Approach",
+        subtitle: "How will you tackle the challenge?",
+        items: [
+          { type: "notebook", value: "design", icon: "📓", label: "Enchanted Notebook", desc: "Create and build solutions", slot: "approach" },
+          { type: "map", value: "research", icon: "🗺️", label: "Ancient Map", desc: "Discover and validate truths", slot: "approach" }
+        ]
+      },
+      3: {
+        title: "Gather Your Skills",
+        subtitle: "Select the abilities you need (pick 1-2)",
+        // Items populated dynamically based on quadrant
+        items: []
+      },
+      4: {
+        title: "Set Your Goals",
+        subtitle: "What treasures do you seek? (pick 1-2)",
+        items: [
+          { type: "gem", value: "prove", icon: "💎", label: "Proof Gem", desc: "Demonstrate measurable impact", slot: "goal" },
+          { type: "elixir", value: "improve", icon: "🧪", label: "Growth Elixir", desc: "Make what exists better", slot: "goal" },
+          { type: "scroll", value: "scale", icon: "📜", label: "Expansion Scroll", desc: "Expand reach and adoption", slot: "goal" },
+          { type: "key", value: "accessibility", icon: "🔑", label: "Access Key", desc: "Unlock inclusive design", slot: "goal" }
+        ]
+      },
+      5: {
+        title: "Your Quest is Ready!",
+        subtitle: "Review your adventure pack"
+      }
+    };
+
+    // Skills by quadrant
+    const SKILLS_BY_QUADRANT = {
+      'people-design': [
+        { type: "skill", value: "trainings", icon: "⚔️", label: "Training Blade", desc: "Workshops and facilitation" },
+        { type: "skill", value: "learning-exp", icon: "🛡️", label: "Experience Shield", desc: "Immersive programmes" },
+        { type: "skill", value: "programmes", icon: "🏹", label: "Journey Bow", desc: "Structured learning paths" },
+        { type: "skill", value: "comms", icon: "📯", label: "Message Horn", desc: "Communication materials" }
+      ],
+      'people-research': [
+        { type: "skill", value: "evaluation", icon: "⚖️", label: "Truth Scale", desc: "Measure programme impact" },
+        { type: "skill", value: "mel", icon: "🔮", label: "Vision Orb", desc: "Monitoring checkpoints" },
+        { type: "skill", value: "psychometrics", icon: "📊", label: "Mind Charts", desc: "Validated assessments" },
+        { type: "skill", value: "evidence", icon: "🏆", label: "Proof Trophy", desc: "Evidence for stakeholders" }
+      ],
+      'product-design': [
+        { type: "skill", value: "tools", icon: "🔧", label: "Builder's Wrench", desc: "Educational products" },
+        { type: "skill", value: "games", icon: "🎲", label: "Play Dice", desc: "Games and toys" },
+        { type: "skill", value: "brand", icon: "🎨", label: "Brand Palette", desc: "Visual materials" },
+        { type: "skill", value: "udl", icon: "♿", label: "Access Rune", desc: "Accessibility upgrades" }
+      ],
+      'product-research': [
+        { type: "skill", value: "efficacy", icon: "🔬", label: "Test Lens", desc: "Does the product work?" },
+        { type: "skill", value: "impact", icon: "📈", label: "Impact Graph", desc: "Play value research" },
+        { type: "skill", value: "validation", icon: "✅", label: "Check Mark", desc: "Accessibility testing" },
+        { type: "skill", value: "usability", icon: "👤", label: "User Spirit", desc: "User experience research" }
+      ]
+    };
+
+    // =============================================
+    // THREE.JS SCENE SETUP
+    // =============================================
+    let scene, camera, renderer;
+    let apothecaryGroup;
+
+    function initThreeJS() {
+      const canvas = document.getElementById('three-canvas');
+      const container = canvas.parentElement;
+
+      // Scene
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x0d1117);
+
+      // Camera
+      camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
+      camera.position.set(0, 2, 6);
+      camera.lookAt(0, 0, 0);
+
+      // Renderer
+      renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      // Lighting
+      const ambientLight = new THREE.AmbientLight(0x404060, 0.5);
+      scene.add(ambientLight);
+
+      const cyanLight = new THREE.PointLight(0x00ffff, 1, 20);
+      cyanLight.position.set(-3, 3, 2);
+      scene.add(cyanLight);
+
+      const magentaLight = new THREE.PointLight(0xff00ff, 1, 20);
+      magentaLight.position.set(3, 3, 2);
+      scene.add(magentaLight);
+
+      // Create apothecary room
+      createApothecary();
+
+      // Handle resize
+      window.addEventListener('resize', onWindowResize);
+
+      // Start animation loop
+      animate();
+    }
+
+    function createApothecary() {
+      apothecaryGroup = new THREE.Group();
+
+      // Floor - glowing grid
+      const floorGeo = new THREE.PlaneGeometry(12, 12, 24, 24);
+      const floorMat = new THREE.MeshBasicMaterial({
+        color: 0x00ffff,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.15
+      });
+      const floor = new THREE.Mesh(floorGeo, floorMat);
+      floor.rotation.x = -Math.PI / 2;
+      floor.position.y = -1;
+      apothecaryGroup.add(floor);
+
+      // Back wall
+      const wallGeo = new THREE.PlaneGeometry(12, 6);
+      const wallMat = new THREE.MeshBasicMaterial({
+        color: 0x1a1a2e,
+        side: THREE.DoubleSide
+      });
+      const backWall = new THREE.Mesh(wallGeo, wallMat);
+      backWall.position.z = -4;
+      backWall.position.y = 2;
+      apothecaryGroup.add(backWall);
+
+      // Neon border on wall
+      const borderGeo = new THREE.EdgesGeometry(wallGeo);
+      const borderMat = new THREE.LineBasicMaterial({ color: 0xff00ff });
+      const wallBorder = new THREE.LineSegments(borderGeo, borderMat);
+      wallBorder.position.copy(backWall.position);
+      apothecaryGroup.add(wallBorder);
+
+      // Shelves
+      createShelf(-2.5, 1.5, -3.5);
+      createShelf(0, 1.5, -3.5);
+      createShelf(2.5, 1.5, -3.5);
+      createShelf(-2.5, 0, -3.5);
+      createShelf(2.5, 0, -3.5);
+
+      // Central pedestal
+      const pedestalGeo = new THREE.CylinderGeometry(0.5, 0.6, 0.8, 8);
+      const pedestalMat = new THREE.MeshBasicMaterial({
+        color: 0x00ffff,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.6
+      });
+      const pedestal = new THREE.Mesh(pedestalGeo, pedestalMat);
+      pedestal.position.set(0, -0.6, 0);
+      apothecaryGroup.add(pedestal);
+
+      // Floating particles
+      createParticles();
+
+      scene.add(apothecaryGroup);
+    }
+
+    function createShelf(x, y, z) {
+      const shelfGeo = new THREE.BoxGeometry(2, 0.1, 0.5);
+      const shelfMat = new THREE.MeshBasicMaterial({
+        color: 0x00ffff,
+        transparent: true,
+        opacity: 0.3
+      });
+      const shelf = new THREE.Mesh(shelfGeo, shelfMat);
+      shelf.position.set(x, y, z);
+      apothecaryGroup.add(shelf);
+
+      // Shelf edge glow
+      const edgeGeo = new THREE.EdgesGeometry(shelfGeo);
+      const edgeMat = new THREE.LineBasicMaterial({ color: 0x00ffff });
+      const edge = new THREE.LineSegments(edgeGeo, edgeMat);
+      edge.position.copy(shelf.position);
+      apothecaryGroup.add(edge);
+    }
+
+    function createParticles() {
+      const particleCount = 50;
+      const positions = new Float32Array(particleCount * 3);
+
+      for (let i = 0; i < particleCount; i++) {
+        positions[i * 3] = (Math.random() - 0.5) * 10;
+        positions[i * 3 + 1] = Math.random() * 4 - 1;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 8;
+      }
+
+      const particleGeo = new THREE.BufferGeometry();
+      particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+      const particleMat = new THREE.PointsMaterial({
+        color: 0xff00ff,
+        size: 0.05,
+        transparent: true,
+        opacity: 0.8
+      });
+
+      const particles = new THREE.Points(particleGeo, particleMat);
+      particles.name = 'particles';
+      apothecaryGroup.add(particles);
+    }
+
+    function onWindowResize() {
+      const container = document.getElementById('three-canvas').parentElement;
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      // Rotate particles slowly
+      const particles = apothecaryGroup.getObjectByName('particles');
+      if (particles) {
+        particles.rotation.y += 0.001;
+      }
+
+      // Gentle camera sway
+      camera.position.x = Math.sin(Date.now() * 0.0005) * 0.3;
+      camera.lookAt(0, 0.5, 0);
+
+      renderer.render(scene, camera);
+    }
+
+    // =============================================
+    // DRAG AND DROP SYSTEM
+    // =============================================
+    let draggedItem = null;
+    let dragOffset = { x: 0, y: 0 };
+
+    function initDragDrop() {
+      const supplyItems = document.querySelectorAll('.supply-item');
+      const inventorySlots = document.querySelectorAll('.inventory-slot');
+
+      supplyItems.forEach(item => {
+        item.addEventListener('mousedown', startDrag);
+        item.addEventListener('touchstart', startDrag, { passive: false });
+      });
+
+      document.addEventListener('mousemove', onDrag);
+      document.addEventListener('touchmove', onDrag, { passive: false });
+      document.addEventListener('mouseup', endDrag);
+      document.addEventListener('touchend', endDrag);
+    }
+
+    function startDrag(e) {
+      e.preventDefault();
+      draggedItem = e.currentTarget;
+      draggedItem.classList.add('dragging');
+
+      const rect = draggedItem.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+      dragOffset.x = clientX - rect.left;
+      dragOffset.y = clientY - rect.top;
+
+      // Highlight valid drop targets
+      highlightDropTargets(true);
+    }
+
+    function onDrag(e) {
+      if (!draggedItem) return;
+      e.preventDefault();
+
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+      draggedItem.style.position = 'fixed';
+      draggedItem.style.left = (clientX - dragOffset.x) + 'px';
+      draggedItem.style.top = (clientY - dragOffset.y) + 'px';
+      draggedItem.style.zIndex = '1000';
+    }
+
+    function endDrag(e) {
+      if (!draggedItem) return;
+
+      const clientX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+      const clientY = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
+
+      // Check if dropped on inventory
+      const slot = getDropTarget(clientX, clientY);
+
+      if (slot) {
+        collectItem(draggedItem, slot);
+      } else {
+        // Return to original position
+        resetItemPosition(draggedItem);
+      }
+
+      draggedItem.classList.remove('dragging');
+      draggedItem = null;
+      highlightDropTargets(false);
+    }
+
+    function getDropTarget(x, y) {
+      const slots = document.querySelectorAll('.inventory-slot:not(.filled)');
+      for (const slot of slots) {
+        const rect = slot.getBoundingClientRect();
+        if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
+          return slot;
+        }
+      }
+      return null;
+    }
+
+    function highlightDropTargets(show) {
+      document.querySelectorAll('.inventory-slot:not(.filled)').forEach(slot => {
+        slot.classList.toggle('drop-target', show);
+      });
+    }
+
+    function collectItem(item, slot) {
+      const value = item.dataset.value;
+      const type = item.dataset.type;
+      const icon = item.querySelector('.supply-icon').textContent;
+      const label = item.querySelector('.supply-label').textContent;
+
+      // Update inventory UI
+      slot.classList.add('filled');
+      slot.querySelector('.slot-icon').textContent = icon;
+      slot.querySelector('.slot-label').textContent = label;
+
+      // Update game state
+      if (gameState.step === 1) {
+        gameState.inventory.quest = value;
+      } else if (gameState.step === 2) {
+        gameState.inventory.approach = value;
+      } else if (gameState.step === 3) {
+        if (gameState.inventory.skills.length < 2) {
+          gameState.inventory.skills.push(value);
+        }
+      } else if (gameState.step === 4) {
+        if (gameState.inventory.goals.length < 2) {
+          gameState.inventory.goals.push(value);
+        }
+      }
+
+      // Remove the item from scene
+      item.style.display = 'none';
+
+      // Update stats
+      updateStats();
+
+      // Check if can proceed
+      checkProgress();
+    }
+
+    function resetItemPosition(item) {
+      item.style.position = 'absolute';
+      item.style.zIndex = '';
+      // Keep original left/top from style attribute
+    }
+
+    function updateStats() {
+      const count = countCollectedItems();
+      document.getElementById('items-count').textContent = `${count}/6`;
+
+      const quadrant = getQuadrant();
+      if (quadrant) {
+        const powerNames = {
+          'people-design': 'CREATOR',
+          'people-research': 'SEEKER',
+          'product-design': 'BUILDER',
+          'product-research': 'TESTER'
+        };
+        document.getElementById('quest-power').textContent = powerNames[quadrant] || '---';
+      }
+    }
+
+    function countCollectedItems() {
+      let count = 0;
+      if (gameState.inventory.quest) count++;
+      if (gameState.inventory.approach) count++;
+      count += gameState.inventory.skills.length;
+      count += gameState.inventory.goals.length;
+      return count;
+    }
+
+    function getQuadrant() {
+      if (gameState.inventory.quest && gameState.inventory.approach) {
+        return `${gameState.inventory.quest}-${gameState.inventory.approach}`;
+      }
+      return null;
+    }
+
+    function checkProgress() {
+      const nextBtn = document.getElementById('btn-next');
+
+      if (gameState.step === 1 && gameState.inventory.quest) {
+        nextBtn.disabled = false;
+      } else if (gameState.step === 2 && gameState.inventory.approach) {
+        nextBtn.disabled = false;
+      } else if (gameState.step === 3 && gameState.inventory.skills.length > 0) {
+        nextBtn.disabled = false;
+      } else if (gameState.step === 4 && gameState.inventory.goals.length > 0) {
+        nextBtn.disabled = false;
+      }
+    }
+
+    // =============================================
+    // NAVIGATION
+    // =============================================
+    function initNavigation() {
+      document.getElementById('btn-next').addEventListener('click', nextStep);
+      document.getElementById('btn-back').addEventListener('click', prevStep);
+      document.getElementById('btn-reset').addEventListener('click', resetQuest);
+    }
+
+    function nextStep() {
+      if (gameState.step < 5) {
+        gameState.step++;
+        renderStep();
+      }
+    }
+
+    function prevStep() {
+      if (gameState.step > 1) {
+        gameState.step--;
+        renderStep();
+      }
+    }
+
+    function resetQuest() {
+      gameState.step = 1;
+      gameState.inventory = { quest: null, approach: null, skills: [], goals: [] };
+
+      // Reset inventory UI
+      document.querySelectorAll('.inventory-slot').forEach(slot => {
+        slot.classList.remove('filled');
+        slot.querySelector('.slot-icon').textContent = '?';
+      });
+
+      updateStats();
+      document.getElementById('quest-power').textContent = '---';
+      renderStep();
+    }
+
+    function renderStep() {
+      const stepData = STEPS[gameState.step];
+
+      // Update progress gems
+      document.querySelectorAll('.progress-gem').forEach(gem => {
+        const gemStep = parseInt(gem.dataset.step);
+        gem.classList.remove('active', 'collected');
+        if (gemStep < gameState.step) gem.classList.add('collected');
+        if (gemStep === gameState.step) gem.classList.add('active');
+      });
+
+      // Update quest prompt
+      const prompt = document.querySelector('.quest-prompt');
+      prompt.querySelector('h2').textContent = stepData.title;
+      prompt.querySelector('p').textContent = stepData.subtitle;
+
+      // Update navigation buttons
+      document.getElementById('btn-back').disabled = gameState.step === 1;
+      document.getElementById('btn-next').disabled = true; // Reset until item collected
+
+      // Render supply items for this step
+      renderSupplyItems();
+    }
+
+    function renderSupplyItems() {
+      const container = document.getElementById('supply-items');
+      container.innerHTML = '';
+
+      let items = STEPS[gameState.step].items;
+
+      // For step 3, populate skills based on quadrant
+      if (gameState.step === 3) {
+        const quadrant = getQuadrant();
+        items = SKILLS_BY_QUADRANT[quadrant] || [];
+      }
+
+      // Position items in scene
+      const positions = [
+        { left: '20%', top: '35%' },
+        { left: '60%', top: '35%' },
+        { left: '20%', top: '55%' },
+        { left: '60%', top: '55%' }
+      ];
+
+      items.forEach((item, i) => {
+        const pos = positions[i] || { left: '40%', top: '45%' };
+        const el = document.createElement('div');
+        el.className = 'supply-item';
+        el.dataset.type = item.type;
+        el.dataset.value = item.value;
+        el.style.left = pos.left;
+        el.style.top = pos.top;
+        el.innerHTML = `
+          <div class="supply-icon">${item.icon}</div>
+          <span class="supply-label">${item.label}</span>
+        `;
+        container.appendChild(el);
+      });
+
+      // Re-init drag listeners
+      container.querySelectorAll('.supply-item').forEach(item => {
+        item.addEventListener('mousedown', startDrag);
+        item.addEventListener('touchstart', startDrag, { passive: false });
+      });
+    }
+
+    // =============================================
+    // INIT
+    // =============================================
+    document.addEventListener('DOMContentLoaded', () => {
+      initThreeJS();
+      initDragDrop();
+      initNavigation();
+      renderStep();
+    });
+  </script>
+</body>
+</html>
