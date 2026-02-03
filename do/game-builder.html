@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Adventure Builder – winded.vertigo</title>
-  <meta name="description" content="Embark on your learning adventure. Gather supplies for your quest with our interactive Adventure Builder.">
+  <title>package builder – winded.vertigo</title>
+  <meta name="description" content="Build your custom learning experience package with our interactive builder.">
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
@@ -12,25 +12,39 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     /* =============================================
-       TRON × ZELDA GAME AESTHETIC
+       WINDED.VERTIGO BRAND PALETTE - NEAR FUTURE 2050
        ============================================= */
 
     :root {
-      --bg-dark: #0a0a1a;
-      --bg-dungeon: #0d1117;
-      --neon-cyan: #00ffff;
-      --neon-magenta: #ff00ff;
-      --neon-gold: #ffd700;
-      --neon-green: #00ff88;
-      --glow-cyan: 0 0 20px #00ffff, 0 0 40px #00ffff;
-      --glow-magenta: 0 0 20px #ff00ff, 0 0 40px #ff00ff;
-      --text-primary: #e0e0e0;
-      --text-dim: #666;
-      --font-pixel: 'Press Start 2P', cursive;
+      /* Primary brand colors */
+      --cadet-blue: #273248;
+      --redwood: #b15043;
+      --burnt-sienna: #cb7858;
+      --champagne: #ffebd2;
+      --white: #ffffff;
+
+      /* Complementary accents */
+      --periwinkle: #5872cb;
+      --seafoam: #58cbb2;
+      --light-lavender: #d5d2ff;
+      --light-cyan: #d2fdff;
+
+      /* Derived colors */
+      --bg-primary: #1a2030;
+      --bg-secondary: #232b3d;
+      --bg-surface: #2d3548;
+      --text-primary: var(--champagne);
+      --text-dim: rgba(255, 235, 210, 0.6);
+      --glow-redwood: 0 0 20px rgba(177, 80, 67, 0.5);
+      --glow-sienna: 0 0 20px rgba(203, 120, 88, 0.5);
+      --glow-periwinkle: 0 0 20px rgba(88, 114, 203, 0.4);
+
+      /* Typography */
+      --font-display: 'Space Mono', monospace;
       --font-ui: 'Inter', sans-serif;
     }
 
@@ -47,7 +61,7 @@
 
     body {
       font-family: var(--font-ui);
-      background: var(--bg-dark);
+      background: var(--bg-primary);
       color: var(--text-primary);
     }
 
@@ -57,14 +71,14 @@
 
     .game-container {
       display: grid;
-      grid-template-columns: 1fr 280px;
+      grid-template-columns: 1fr 300px;
       grid-template-rows: auto 1fr auto;
       height: 100vh;
       gap: 0;
     }
 
     /* =============================================
-       HEADER - Quest Title Bar
+       HEADER
        ============================================= */
 
     .quest-header {
@@ -72,50 +86,58 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 24px;
-      background: linear-gradient(180deg, #1a1a2e 0%, #0d1117 100%);
-      border-bottom: 2px solid var(--neon-cyan);
-      box-shadow: 0 2px 20px rgba(0, 255, 255, 0.2);
+      padding: 16px 28px;
+      background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+      border-bottom: 1px solid var(--burnt-sienna);
     }
 
     .quest-title {
-      font-family: var(--font-pixel);
+      font-family: var(--font-display);
       font-size: 14px;
-      color: var(--neon-cyan);
-      text-shadow: var(--glow-cyan);
-      letter-spacing: 2px;
+      color: var(--champagne);
+      letter-spacing: 1px;
+      text-transform: lowercase;
     }
 
     .quest-progress {
       display: flex;
-      gap: 8px;
+      gap: 12px;
       align-items: center;
     }
 
-    .progress-gem {
-      width: 16px;
-      height: 16px;
-      background: var(--bg-dungeon);
-      border: 2px solid var(--neon-magenta);
-      transform: rotate(45deg);
-      transition: all 0.3s ease;
+    .progress-step {
+      width: 32px;
+      height: 4px;
+      background: var(--bg-surface);
+      border-radius: 2px;
+      transition: all 0.4s ease;
+      position: relative;
     }
 
-    .progress-gem.collected {
-      background: var(--neon-magenta);
-      box-shadow: var(--glow-magenta);
+    .progress-step.completed {
+      background: var(--burnt-sienna);
     }
 
-    .progress-gem.active {
-      background: var(--neon-cyan);
-      border-color: var(--neon-cyan);
-      box-shadow: var(--glow-cyan);
-      animation: pulse 1.5s ease-in-out infinite;
+    .progress-step.active {
+      background: var(--redwood);
+      box-shadow: var(--glow-redwood);
     }
 
-    @keyframes pulse {
-      0%, 100% { transform: rotate(45deg) scale(1); }
-      50% { transform: rotate(45deg) scale(1.2); }
+    .progress-step::after {
+      content: attr(data-label);
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 9px;
+      color: var(--text-dim);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .progress-step:hover::after {
+      opacity: 1;
     }
 
     /* =============================================
@@ -124,7 +146,7 @@
 
     .scene-area {
       position: relative;
-      background: var(--bg-dungeon);
+      background: var(--bg-primary);
       overflow: hidden;
     }
 
@@ -134,87 +156,148 @@
       display: block;
     }
 
-    /* Quest prompt overlay */
+    /* Prompt overlay */
     .quest-prompt {
       position: absolute;
-      top: 40px;
+      top: 32px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(10, 10, 26, 0.9);
-      border: 2px solid var(--neon-cyan);
-      padding: 16px 32px;
+      background: rgba(26, 32, 48, 0.95);
+      border: 1px solid var(--burnt-sienna);
+      border-radius: 8px;
+      padding: 20px 36px;
       text-align: center;
-      box-shadow: var(--glow-cyan), inset 0 0 30px rgba(0, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
     }
 
     .quest-prompt h2 {
-      font-family: var(--font-pixel);
-      font-size: 12px;
-      color: var(--neon-cyan);
-      text-shadow: var(--glow-cyan);
+      font-family: var(--font-display);
+      font-size: 16px;
+      color: var(--champagne);
       margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      text-transform: lowercase;
+      letter-spacing: 0.5px;
     }
 
     .quest-prompt p {
-      font-size: 14px;
-      color: var(--text-primary);
-      max-width: 400px;
+      font-size: 13px;
+      color: var(--text-dim);
+      max-width: 380px;
     }
 
-    /* Floating supply items in 3D space (HTML overlays) */
-    .supply-item {
+    .quest-prompt .hint {
+      margin-top: 12px;
+      font-size: 11px;
+      color: var(--burnt-sienna);
+      font-style: italic;
+    }
+
+    /* =============================================
+       SELECTABLE ITEMS (Click-to-select, not drag)
+       ============================================= */
+
+    .options-container {
       position: absolute;
-      width: 80px;
-      height: 80px;
-      cursor: grab;
-      transition: transform 0.2s ease;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 600px;
+      padding: 20px;
+    }
+
+    .option-card {
+      width: 140px;
+      padding: 20px 16px;
+      background: var(--bg-secondary);
+      border: 2px solid var(--bg-surface);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       text-align: center;
     }
 
-    .supply-item:hover {
-      transform: scale(1.1);
+    .option-card:hover {
+      border-color: var(--burnt-sienna);
+      transform: translateY(-4px);
+      box-shadow: var(--glow-sienna);
     }
 
-    .supply-item:active {
-      cursor: grabbing;
+    .option-card.selected {
+      border-color: var(--redwood);
+      background: rgba(177, 80, 67, 0.15);
+      box-shadow: var(--glow-redwood);
     }
 
-    .supply-item.dragging {
-      opacity: 0.7;
-      z-index: 1000;
-    }
-
-    .supply-icon {
-      width: 64px;
-      height: 64px;
-      background: var(--bg-dark);
-      border: 3px solid var(--neon-cyan);
+    .option-card .option-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--bg-surface);
+      border: 2px solid var(--burnt-sienna);
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 28px;
-      margin-bottom: 6px;
-      box-shadow: var(--glow-cyan);
+      font-size: 24px;
+      margin-bottom: 12px;
       transition: all 0.3s ease;
     }
 
-    .supply-item[data-type="sherpa"] .supply-icon { border-color: var(--neon-gold); box-shadow: 0 0 20px var(--neon-gold); }
-    .supply-item[data-type="locker"] .supply-icon { border-color: var(--neon-magenta); box-shadow: var(--glow-magenta); }
-    .supply-item[data-type="map"] .supply-icon { border-color: var(--neon-green); box-shadow: 0 0 20px var(--neon-green); }
-    .supply-item[data-type="notebook"] .supply-icon { border-color: var(--neon-cyan); box-shadow: var(--glow-cyan); }
+    .option-card.selected .option-icon {
+      background: var(--redwood);
+      border-color: var(--redwood);
+    }
 
-    .supply-label {
-      font-family: var(--font-pixel);
-      font-size: 8px;
-      color: var(--text-primary);
-      text-transform: uppercase;
-      letter-spacing: 1px;
+    .option-card .option-label {
+      font-family: var(--font-display);
+      font-size: 11px;
+      color: var(--champagne);
+      text-transform: lowercase;
+      margin-bottom: 4px;
+    }
+
+    .option-card .option-desc {
+      font-size: 10px;
+      color: var(--text-dim);
+      line-height: 1.4;
+    }
+
+    /* Multi-select indicator */
+    .option-card.multi-select::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--bg-surface);
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .option-card.multi-select.selected::before {
+      background: var(--redwood);
+      border-color: var(--redwood);
+    }
+
+    .option-card.multi-select.selected::after {
+      content: '✓';
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 16px;
+      height: 16px;
+      color: var(--white);
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     /* =============================================
@@ -222,98 +305,133 @@
        ============================================= */
 
     .inventory-panel {
-      background: linear-gradient(180deg, #0d1117 0%, #161b22 50%, #0d1117 100%);
-      border-left: 2px solid var(--neon-magenta);
-      padding: 20px;
+      background: var(--bg-secondary);
+      border-left: 1px solid var(--burnt-sienna);
+      padding: 24px;
       display: flex;
       flex-direction: column;
-      box-shadow: -5px 0 30px rgba(255, 0, 255, 0.2);
     }
 
     .inventory-title {
-      font-family: var(--font-pixel);
-      font-size: 10px;
-      color: var(--neon-magenta);
-      text-shadow: var(--glow-magenta);
+      font-family: var(--font-display);
+      font-size: 12px;
+      color: var(--burnt-sienna);
       text-align: center;
-      margin-bottom: 16px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid rgba(255, 0, 255, 0.3);
-      letter-spacing: 2px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--bg-surface);
+      letter-spacing: 1px;
+      text-transform: lowercase;
     }
 
-    .inventory-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      flex: 1;
+    .inventory-section {
+      margin-bottom: 20px;
+    }
+
+    .inventory-section-title {
+      font-size: 10px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
     }
 
     .inventory-slot {
-      aspect-ratio: 1;
-      background: rgba(10, 10, 26, 0.8);
-      border: 2px dashed rgba(255, 0, 255, 0.3);
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: center;
+      gap: 12px;
+      padding: 10px 12px;
+      background: var(--bg-surface);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      border: 1px solid transparent;
       transition: all 0.3s ease;
-      position: relative;
-    }
-
-    .inventory-slot.drop-target {
-      border-color: var(--neon-cyan);
-      border-style: solid;
-      background: rgba(0, 255, 255, 0.1);
-      box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.2);
     }
 
     .inventory-slot.filled {
-      border-color: var(--neon-magenta);
-      border-style: solid;
-      background: rgba(255, 0, 255, 0.1);
+      border-color: var(--burnt-sienna);
+      background: rgba(203, 120, 88, 0.1);
     }
 
     .inventory-slot .slot-icon {
-      font-size: 24px;
-      margin-bottom: 4px;
+      width: 32px;
+      height: 32px;
+      background: var(--bg-primary);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .inventory-slot.filled .slot-icon {
+      background: var(--redwood);
+    }
+
+    .inventory-slot .slot-info {
+      flex: 1;
     }
 
     .inventory-slot .slot-label {
-      font-family: var(--font-pixel);
-      font-size: 6px;
+      font-size: 11px;
       color: var(--text-dim);
-      text-transform: uppercase;
-      text-align: center;
+      text-transform: lowercase;
     }
 
     .inventory-slot.filled .slot-label {
-      color: var(--neon-magenta);
+      color: var(--champagne);
+      font-weight: 500;
     }
 
-    /* Inventory stats */
-    .inventory-stats {
-      margin-top: auto;
-      padding-top: 16px;
-      border-top: 1px solid rgba(255, 0, 255, 0.3);
+    .inventory-slot .slot-value {
+      font-size: 9px;
+      color: var(--burnt-sienna);
     }
 
-    .stat-row {
+    /* Multi-item slots */
+    .inventory-multi {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-      font-size: 11px;
+      flex-wrap: wrap;
+      gap: 6px;
     }
 
-    .stat-label {
-      color: var(--text-dim);
-    }
-
-    .stat-value {
-      font-family: var(--font-pixel);
+    .inventory-tag {
+      padding: 4px 10px;
+      background: var(--bg-surface);
+      border-radius: 12px;
       font-size: 10px;
-      color: var(--neon-cyan);
+      color: var(--text-dim);
+      border: 1px solid transparent;
+    }
+
+    .inventory-tag.filled {
+      background: rgba(203, 120, 88, 0.2);
+      border-color: var(--burnt-sienna);
+      color: var(--champagne);
+    }
+
+    /* Quadrant indicator */
+    .quadrant-indicator {
+      margin-top: auto;
+      padding: 16px;
+      background: var(--bg-surface);
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .quadrant-label {
+      font-size: 9px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .quadrant-value {
+      font-family: var(--font-display);
+      font-size: 14px;
+      color: var(--redwood);
+      text-transform: lowercase;
     }
 
     /* =============================================
@@ -325,39 +443,40 @@
       display: flex;
       justify-content: center;
       gap: 16px;
-      padding: 16px 24px;
-      background: linear-gradient(0deg, #1a1a2e 0%, #0d1117 100%);
-      border-top: 2px solid var(--neon-magenta);
+      padding: 16px 28px;
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--bg-surface);
     }
 
     .nav-button {
-      font-family: var(--font-pixel);
-      font-size: 10px;
-      padding: 12px 24px;
-      border: 2px solid var(--neon-cyan);
+      font-family: var(--font-ui);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 12px 28px;
+      border: 1px solid var(--bg-surface);
+      border-radius: 6px;
       background: transparent;
-      color: var(--neon-cyan);
+      color: var(--text-dim);
       cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      text-transform: lowercase;
       transition: all 0.3s ease;
     }
 
-    .nav-button:hover {
-      background: var(--neon-cyan);
-      color: var(--bg-dark);
-      box-shadow: var(--glow-cyan);
+    .nav-button:hover:not(:disabled) {
+      border-color: var(--burnt-sienna);
+      color: var(--champagne);
     }
 
     .nav-button.primary {
-      border-color: var(--neon-magenta);
-      color: var(--neon-magenta);
+      background: var(--redwood);
+      border-color: var(--redwood);
+      color: var(--white);
     }
 
-    .nav-button.primary:hover {
-      background: var(--neon-magenta);
-      color: var(--bg-dark);
-      box-shadow: var(--glow-magenta);
+    .nav-button.primary:hover:not(:disabled) {
+      background: var(--burnt-sienna);
+      border-color: var(--burnt-sienna);
+      box-shadow: var(--glow-sienna);
     }
 
     .nav-button:disabled {
@@ -365,31 +484,22 @@
       cursor: not-allowed;
     }
 
-    .nav-button:disabled:hover {
-      background: transparent;
-      color: var(--neon-cyan);
-      box-shadow: none;
-    }
-
     /* =============================================
-       SCANLINES OVERLAY (Retro CRT Effect)
+       GRID OVERLAY (Near-future aesthetic)
        ============================================= */
 
-    .scanlines {
+    .grid-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: 9999;
-      background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.1) 0px,
-        rgba(0, 0, 0, 0.1) 1px,
-        transparent 1px,
-        transparent 2px
-      );
+      z-index: 1;
+      background:
+        linear-gradient(rgba(203, 120, 88, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(203, 120, 88, 0.02) 1px, transparent 1px);
+      background-size: 40px 40px;
     }
 
     /* =============================================
@@ -399,117 +509,105 @@
     @media (max-width: 768px) {
       .game-container {
         grid-template-columns: 1fr;
-        grid-template-rows: auto 1fr 200px auto;
+        grid-template-rows: auto 1fr auto auto;
       }
 
       .inventory-panel {
         border-left: none;
-        border-top: 2px solid var(--neon-magenta);
-        box-shadow: 0 -5px 30px rgba(255, 0, 255, 0.2);
+        border-top: 1px solid var(--burnt-sienna);
+        max-height: 200px;
+        overflow-y: auto;
       }
 
-      .inventory-grid {
-        grid-template-columns: repeat(4, 1fr);
+      .options-container {
+        gap: 12px;
       }
 
-      .quest-prompt h2 {
-        font-size: 10px;
-      }
-
-      .quest-prompt p {
-        font-size: 12px;
+      .option-card {
+        width: 120px;
+        padding: 16px 12px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="scanlines"></div>
+  <div class="grid-overlay"></div>
 
   <div class="game-container">
     <!-- Header -->
     <header class="quest-header">
-      <h1 class="quest-title">⚔ Adventure Builder</h1>
+      <h1 class="quest-title">package builder</h1>
       <div class="quest-progress">
-        <div class="progress-gem active" data-step="1"></div>
-        <div class="progress-gem" data-step="2"></div>
-        <div class="progress-gem" data-step="3"></div>
-        <div class="progress-gem" data-step="4"></div>
-        <div class="progress-gem" data-step="5"></div>
+        <div class="progress-step active" data-step="1" data-label="focus"></div>
+        <div class="progress-step" data-step="2" data-label="approach"></div>
+        <div class="progress-step" data-step="3" data-label="services"></div>
+        <div class="progress-step" data-step="4" data-label="goals"></div>
+        <div class="progress-step" data-step="5" data-label="package"></div>
       </div>
     </header>
 
-    <!-- Main 3D Scene -->
+    <!-- Main Scene -->
     <div class="scene-area">
       <canvas id="three-canvas"></canvas>
 
-      <!-- Quest Prompt Overlay -->
+      <!-- Prompt Overlay -->
       <div class="quest-prompt">
-        <h2>What Quest Awaits You?</h2>
-        <p>Drag a supply to your inventory to begin your adventure</p>
+        <h2 id="prompt-title">what are you trying to change?</h2>
+        <p id="prompt-subtitle">select one to continue</p>
+        <p class="hint" id="prompt-hint"></p>
       </div>
 
-      <!-- Draggable Supply Items (positioned by JS) -->
-      <div class="supply-items" id="supply-items">
-        <!-- Step 1: Quest Type -->
-        <div class="supply-item" data-type="sherpa" data-value="people" style="left: 25%; top: 40%;">
-          <div class="supply-icon">🧙</div>
-          <span class="supply-label">Sherpa</span>
-        </div>
-        <div class="supply-item" data-type="locker" data-value="product" style="left: 65%; top: 40%;">
-          <div class="supply-icon">📦</div>
-          <span class="supply-label">Supply Locker</span>
-        </div>
-      </div>
+      <!-- Selectable Options -->
+      <div class="options-container" id="options-container"></div>
     </div>
 
     <!-- Inventory Panel -->
     <aside class="inventory-panel">
-      <h2 class="inventory-title">⚗ Your Pack</h2>
+      <h2 class="inventory-title">your package</h2>
 
-      <div class="inventory-grid" id="inventory-grid">
-        <div class="inventory-slot" data-slot="quest">
-          <span class="slot-icon">?</span>
-          <span class="slot-label">Quest</span>
+      <div class="inventory-section">
+        <div class="inventory-section-title">foundation</div>
+        <div class="inventory-slot" id="slot-focus">
+          <div class="slot-icon">?</div>
+          <div class="slot-info">
+            <div class="slot-label">focus</div>
+            <div class="slot-value" id="focus-value">—</div>
+          </div>
         </div>
-        <div class="inventory-slot" data-slot="approach">
-          <span class="slot-icon">?</span>
-          <span class="slot-label">Approach</span>
-        </div>
-        <div class="inventory-slot" data-slot="skill1">
-          <span class="slot-icon">?</span>
-          <span class="slot-label">Skill 1</span>
-        </div>
-        <div class="inventory-slot" data-slot="skill2">
-          <span class="slot-icon">?</span>
-          <span class="slot-label">Skill 2</span>
-        </div>
-        <div class="inventory-slot" data-slot="goal1">
-          <span class="slot-icon">?</span>
-          <span class="slot-label">Goal 1</span>
-        </div>
-        <div class="inventory-slot" data-slot="goal2">
-          <span class="slot-icon">?</span>
-          <span class="slot-label">Goal 2</span>
+        <div class="inventory-slot" id="slot-approach">
+          <div class="slot-icon">?</div>
+          <div class="slot-info">
+            <div class="slot-label">approach</div>
+            <div class="slot-value" id="approach-value">—</div>
+          </div>
         </div>
       </div>
 
-      <div class="inventory-stats">
-        <div class="stat-row">
-          <span class="stat-label">Items Collected</span>
-          <span class="stat-value" id="items-count">0/6</span>
+      <div class="inventory-section">
+        <div class="inventory-section-title">services</div>
+        <div class="inventory-multi" id="services-container">
+          <span class="inventory-tag">select services...</span>
         </div>
-        <div class="stat-row">
-          <span class="stat-label">Quest Power</span>
-          <span class="stat-value" id="quest-power">---</span>
+      </div>
+
+      <div class="inventory-section">
+        <div class="inventory-section-title">goals</div>
+        <div class="inventory-multi" id="goals-container">
+          <span class="inventory-tag">select goals...</span>
         </div>
+      </div>
+
+      <div class="quadrant-indicator">
+        <div class="quadrant-label">quadrant</div>
+        <div class="quadrant-value" id="quadrant-value">—</div>
       </div>
     </aside>
 
     <!-- Footer Navigation -->
     <footer class="quest-footer">
-      <button class="nav-button" id="btn-back" disabled>◀ Retreat</button>
-      <button class="nav-button" id="btn-reset">↺ New Quest</button>
-      <button class="nav-button primary" id="btn-next" disabled>Continue ▶</button>
+      <button class="nav-button" id="btn-back" disabled>← back</button>
+      <button class="nav-button" id="btn-reset">↻ start over</button>
+      <button class="nav-button primary" id="btn-next" disabled>continue →</button>
     </footer>
   </div>
 
@@ -522,231 +620,236 @@
     // =============================================
     const gameState = {
       step: 1,
-      inventory: {
-        quest: null,      // people or product
-        approach: null,   // design or research
-        skills: [],       // array of selected skills
-        goals: []         // array of selected goals
-      }
+      focus: null,      // people or product
+      approach: null,   // design or research
+      services: [],     // multi-select
+      goals: []         // multi-select
     };
 
     // =============================================
-    // STEP CONTENT
+    // STEP CONFIGURATION
     // =============================================
     const STEPS = {
       1: {
-        title: "What Quest Awaits You?",
-        subtitle: "Choose your path, brave adventurer",
-        items: [
-          { type: "sherpa", value: "people", icon: "🧙", label: "Sherpa", desc: "Guide travelers through change", slot: "quest" },
-          { type: "locker", value: "product", icon: "📦", label: "Supply Locker", desc: "Craft tools and artifacts", slot: "quest" }
+        title: "what are you trying to change?",
+        subtitle: "select one to continue",
+        hint: "",
+        multiSelect: false,
+        options: [
+          {
+            value: "people",
+            icon: "👥",
+            label: "people",
+            desc: "training, behaviour change, system adoption"
+          },
+          {
+            value: "product",
+            icon: "🎯",
+            label: "product",
+            desc: "the tool, game, or experience itself"
+          }
         ]
       },
       2: {
-        title: "Choose Your Approach",
-        subtitle: "How will you tackle the challenge?",
-        items: [
-          { type: "notebook", value: "design", icon: "📓", label: "Enchanted Notebook", desc: "Create and build solutions", slot: "approach" },
-          { type: "map", value: "research", icon: "🗺️", label: "Ancient Map", desc: "Discover and validate truths", slot: "approach" }
+        title: "how do you want to approach it?",
+        subtitle: "select one to continue",
+        hint: "",
+        multiSelect: false,
+        options: [
+          {
+            value: "design",
+            icon: "✏️",
+            label: "design",
+            desc: "build, improve, make it work better"
+          },
+          {
+            value: "research",
+            icon: "🔍",
+            label: "research",
+            desc: "measure, prove, understand impact"
+          }
         ]
       },
       3: {
-        title: "Gather Your Skills",
-        subtitle: "Select the abilities you need (pick 1-2)",
-        // Items populated dynamically based on quadrant
-        items: []
+        title: "which services match your needs?",
+        subtitle: "select one or more, then continue",
+        hint: "choose up to 4 services",
+        multiSelect: true,
+        maxSelect: 4,
+        // Options populated dynamically based on quadrant
+        options: []
       },
       4: {
-        title: "Set Your Goals",
-        subtitle: "What treasures do you seek? (pick 1-2)",
-        items: [
-          { type: "gem", value: "prove", icon: "💎", label: "Proof Gem", desc: "Demonstrate measurable impact", slot: "goal" },
-          { type: "elixir", value: "improve", icon: "🧪", label: "Growth Elixir", desc: "Make what exists better", slot: "goal" },
-          { type: "scroll", value: "scale", icon: "📜", label: "Expansion Scroll", desc: "Expand reach and adoption", slot: "goal" },
-          { type: "key", value: "accessibility", icon: "🔑", label: "Access Key", desc: "Unlock inclusive design", slot: "goal" }
+        title: "what does success look like?",
+        subtitle: "select one or more, then continue",
+        hint: "choose up to 3 goals",
+        multiSelect: true,
+        maxSelect: 3,
+        options: [
+          { value: "prove", icon: "📊", label: "prove it", desc: "demonstrate measurable impact" },
+          { value: "improve", icon: "⬆️", label: "improve it", desc: "make what exists better" },
+          { value: "scale", icon: "📈", label: "scale it", desc: "expand reach and adoption" },
+          { value: "accessibility", icon: "♿", label: "accessibility", desc: "ensure inclusive design" },
+          { value: "concept", icon: "💡", label: "concept sprint", desc: "rapid idea exploration" },
+          { value: "prototype", icon: "🔧", label: "prototype", desc: "build a testable version" }
         ]
       },
       5: {
-        title: "Your Quest is Ready!",
-        subtitle: "Review your adventure pack"
+        title: "your package is ready",
+        subtitle: "review your selections below",
+        hint: ""
       }
     };
 
-    // Skills by quadrant
-    const SKILLS_BY_QUADRANT = {
+    // Services by quadrant (matching main site)
+    const SERVICES_BY_QUADRANT = {
       'people-design': [
-        { type: "skill", value: "trainings", icon: "⚔️", label: "Training Blade", desc: "Workshops and facilitation" },
-        { type: "skill", value: "learning-exp", icon: "🛡️", label: "Experience Shield", desc: "Immersive programmes" },
-        { type: "skill", value: "programmes", icon: "🏹", label: "Journey Bow", desc: "Structured learning paths" },
-        { type: "skill", value: "comms", icon: "📯", label: "Message Horn", desc: "Communication materials" }
+        { value: "trainings", icon: "🎓", label: "trainings", desc: "workshops and facilitation" },
+        { value: "learning-experiences", icon: "🌟", label: "learning experiences", desc: "immersive programmes" },
+        { value: "programmes", icon: "📋", label: "programmes", desc: "structured learning journeys" },
+        { value: "comms-assets", icon: "📢", label: "comms assets", desc: "materials that communicate" }
       ],
       'people-research': [
-        { type: "skill", value: "evaluation", icon: "⚖️", label: "Truth Scale", desc: "Measure programme impact" },
-        { type: "skill", value: "mel", icon: "🔮", label: "Vision Orb", desc: "Monitoring checkpoints" },
-        { type: "skill", value: "psychometrics", icon: "📊", label: "Mind Charts", desc: "Validated assessments" },
-        { type: "skill", value: "evidence", icon: "🏆", label: "Proof Trophy", desc: "Evidence for stakeholders" }
+        { value: "programme-evaluation", icon: "📊", label: "programme evaluation", desc: "measure programme impact" },
+        { value: "mel-touchpoints", icon: "📍", label: "MEL touchpoints", desc: "monitoring checkpoints" },
+        { value: "psychometrics", icon: "🧠", label: "psychometrics", desc: "validated assessments" },
+        { value: "evidence-for-funders", icon: "💼", label: "evidence for funders", desc: "proof for stakeholders" }
       ],
       'product-design': [
-        { type: "skill", value: "tools", icon: "🔧", label: "Builder's Wrench", desc: "Educational products" },
-        { type: "skill", value: "games", icon: "🎲", label: "Play Dice", desc: "Games and toys" },
-        { type: "skill", value: "brand", icon: "🎨", label: "Brand Palette", desc: "Visual materials" },
-        { type: "skill", value: "udl", icon: "♿", label: "Access Rune", desc: "Accessibility upgrades" }
+        { value: "learning-tools", icon: "🛠️", label: "learning tools", desc: "educational products" },
+        { value: "toys-games", icon: "🎲", label: "toys/games", desc: "play-based products" },
+        { value: "comms-assets", icon: "🎨", label: "comms assets", desc: "brand materials" },
+        { value: "udl-improvements", icon: "♿", label: "UDL improvements", desc: "accessibility upgrades" }
       ],
       'product-research': [
-        { type: "skill", value: "efficacy", icon: "🔬", label: "Test Lens", desc: "Does the product work?" },
-        { type: "skill", value: "impact", icon: "📈", label: "Impact Graph", desc: "Play value research" },
-        { type: "skill", value: "validation", icon: "✅", label: "Check Mark", desc: "Accessibility testing" },
-        { type: "skill", value: "usability", icon: "👤", label: "User Spirit", desc: "User experience research" }
+        { value: "exhibit-efficacy", icon: "🏛️", label: "exhibit efficacy", desc: "does the exhibit work?" },
+        { value: "toy-impacts", icon: "🎮", label: "toy impacts", desc: "play value research" },
+        { value: "udl-validation", icon: "✅", label: "UDL validation", desc: "accessibility testing" },
+        { value: "usability-testing", icon: "👤", label: "usability testing", desc: "user experience research" }
       ]
     };
 
+    const QUADRANT_NAMES = {
+      'people-design': 'design & deploy',
+      'people-research': 'pinpoint & prove',
+      'product-design': 'build & iterate',
+      'product-research': 'test & validate'
+    };
+
     // =============================================
-    // THREE.JS SCENE SETUP
+    // THREE.JS SCENE - NEAR FUTURE LAB
     // =============================================
-    let scene, camera, renderer;
-    let apothecaryGroup;
+    let scene, camera, renderer, labGroup;
 
     function initThreeJS() {
       const canvas = document.getElementById('three-canvas');
       const container = canvas.parentElement;
 
-      // Scene
       scene = new THREE.Scene();
-      scene.background = new THREE.Color(0x0d1117);
+      scene.background = new THREE.Color(0x1a2030);
 
-      // Camera
-      camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
-      camera.position.set(0, 2, 6);
+      camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
+      camera.position.set(0, 2, 8);
       camera.lookAt(0, 0, 0);
 
-      // Renderer
       renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
       renderer.setSize(container.clientWidth, container.clientHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-      // Lighting
-      const ambientLight = new THREE.AmbientLight(0x404060, 0.5);
+      // Soft ambient lighting
+      const ambientLight = new THREE.AmbientLight(0xffebd2, 0.3);
       scene.add(ambientLight);
 
-      const cyanLight = new THREE.PointLight(0x00ffff, 1, 20);
-      cyanLight.position.set(-3, 3, 2);
-      scene.add(cyanLight);
+      // Warm accent lights (brand colors)
+      const warmLight = new THREE.PointLight(0xcb7858, 0.8, 15);
+      warmLight.position.set(-4, 3, 2);
+      scene.add(warmLight);
 
-      const magentaLight = new THREE.PointLight(0xff00ff, 1, 20);
-      magentaLight.position.set(3, 3, 2);
-      scene.add(magentaLight);
+      const coolLight = new THREE.PointLight(0x5872cb, 0.5, 15);
+      coolLight.position.set(4, 3, 2);
+      scene.add(coolLight);
 
-      // Create apothecary room
-      createApothecary();
+      createLabEnvironment();
 
-      // Handle resize
       window.addEventListener('resize', onWindowResize);
-
-      // Start animation loop
       animate();
     }
 
-    function createApothecary() {
-      apothecaryGroup = new THREE.Group();
+    function createLabEnvironment() {
+      labGroup = new THREE.Group();
 
-      // Floor - glowing grid
-      const floorGeo = new THREE.PlaneGeometry(12, 12, 24, 24);
-      const floorMat = new THREE.MeshBasicMaterial({
-        color: 0x00ffff,
-        wireframe: true,
+      // Floor grid - subtle, technical
+      const gridHelper = new THREE.GridHelper(20, 40, 0x2d3548, 0x232b3d);
+      gridHelper.position.y = -1.5;
+      labGroup.add(gridHelper);
+
+      // Floating platform
+      const platformGeo = new THREE.CylinderGeometry(3, 3.2, 0.2, 32);
+      const platformMat = new THREE.MeshBasicMaterial({
+        color: 0x2d3548,
         transparent: true,
-        opacity: 0.15
+        opacity: 0.8
       });
-      const floor = new THREE.Mesh(floorGeo, floorMat);
-      floor.rotation.x = -Math.PI / 2;
-      floor.position.y = -1;
-      apothecaryGroup.add(floor);
+      const platform = new THREE.Mesh(platformGeo, platformMat);
+      platform.position.y = -1.4;
+      labGroup.add(platform);
 
-      // Back wall
-      const wallGeo = new THREE.PlaneGeometry(12, 6);
-      const wallMat = new THREE.MeshBasicMaterial({
-        color: 0x1a1a2e,
-        side: THREE.DoubleSide
+      // Platform ring
+      const ringGeo = new THREE.RingGeometry(2.9, 3.1, 64);
+      const ringMat = new THREE.MeshBasicMaterial({
+        color: 0xcb7858,
+        side: THREE.DoubleSide,
+        transparent: true,
+        opacity: 0.6
       });
-      const backWall = new THREE.Mesh(wallGeo, wallMat);
-      backWall.position.z = -4;
-      backWall.position.y = 2;
-      apothecaryGroup.add(backWall);
+      const ring = new THREE.Mesh(ringGeo, ringMat);
+      ring.rotation.x = -Math.PI / 2;
+      ring.position.y = -1.29;
+      labGroup.add(ring);
 
-      // Neon border on wall
-      const borderGeo = new THREE.EdgesGeometry(wallGeo);
-      const borderMat = new THREE.LineBasicMaterial({ color: 0xff00ff });
-      const wallBorder = new THREE.LineSegments(borderGeo, borderMat);
-      wallBorder.position.copy(backWall.position);
-      apothecaryGroup.add(wallBorder);
+      // Vertical accent lines
+      for (let i = 0; i < 6; i++) {
+        const angle = (i / 6) * Math.PI * 2;
+        const lineGeo = new THREE.BufferGeometry().setFromPoints([
+          new THREE.Vector3(Math.cos(angle) * 4, -1.5, Math.sin(angle) * 4),
+          new THREE.Vector3(Math.cos(angle) * 4, 3, Math.sin(angle) * 4)
+        ]);
+        const lineMat = new THREE.LineBasicMaterial({
+          color: 0x5872cb,
+          transparent: true,
+          opacity: 0.3
+        });
+        const line = new THREE.Line(lineGeo, lineMat);
+        labGroup.add(line);
+      }
 
-      // Shelves
-      createShelf(-2.5, 1.5, -3.5);
-      createShelf(0, 1.5, -3.5);
-      createShelf(2.5, 1.5, -3.5);
-      createShelf(-2.5, 0, -3.5);
-      createShelf(2.5, 0, -3.5);
-
-      // Central pedestal
-      const pedestalGeo = new THREE.CylinderGeometry(0.5, 0.6, 0.8, 8);
-      const pedestalMat = new THREE.MeshBasicMaterial({
-        color: 0x00ffff,
+      // Central holographic element
+      const holoGeo = new THREE.IcosahedronGeometry(0.8, 1);
+      const holoMat = new THREE.MeshBasicMaterial({
+        color: 0xb15043,
         wireframe: true,
         transparent: true,
         opacity: 0.6
       });
-      const pedestal = new THREE.Mesh(pedestalGeo, pedestalMat);
-      pedestal.position.set(0, -0.6, 0);
-      apothecaryGroup.add(pedestal);
+      const holo = new THREE.Mesh(holoGeo, holoMat);
+      holo.position.y = 0.5;
+      holo.name = 'holo';
+      labGroup.add(holo);
 
-      // Floating particles
-      createParticles();
-
-      scene.add(apothecaryGroup);
-    }
-
-    function createShelf(x, y, z) {
-      const shelfGeo = new THREE.BoxGeometry(2, 0.1, 0.5);
-      const shelfMat = new THREE.MeshBasicMaterial({
-        color: 0x00ffff,
+      // Outer ring
+      const outerRingGeo = new THREE.TorusGeometry(1.2, 0.02, 8, 64);
+      const outerRingMat = new THREE.MeshBasicMaterial({
+        color: 0xcb7858,
         transparent: true,
-        opacity: 0.3
+        opacity: 0.5
       });
-      const shelf = new THREE.Mesh(shelfGeo, shelfMat);
-      shelf.position.set(x, y, z);
-      apothecaryGroup.add(shelf);
+      const outerRing = new THREE.Mesh(outerRingGeo, outerRingMat);
+      outerRing.position.y = 0.5;
+      outerRing.rotation.x = Math.PI / 2;
+      outerRing.name = 'outerRing';
+      labGroup.add(outerRing);
 
-      // Shelf edge glow
-      const edgeGeo = new THREE.EdgesGeometry(shelfGeo);
-      const edgeMat = new THREE.LineBasicMaterial({ color: 0x00ffff });
-      const edge = new THREE.LineSegments(edgeGeo, edgeMat);
-      edge.position.copy(shelf.position);
-      apothecaryGroup.add(edge);
-    }
-
-    function createParticles() {
-      const particleCount = 50;
-      const positions = new Float32Array(particleCount * 3);
-
-      for (let i = 0; i < particleCount; i++) {
-        positions[i * 3] = (Math.random() - 0.5) * 10;
-        positions[i * 3 + 1] = Math.random() * 4 - 1;
-        positions[i * 3 + 2] = (Math.random() - 0.5) * 8;
-      }
-
-      const particleGeo = new THREE.BufferGeometry();
-      particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-      const particleMat = new THREE.PointsMaterial({
-        color: 0xff00ff,
-        size: 0.05,
-        transparent: true,
-        opacity: 0.8
-      });
-
-      const particles = new THREE.Points(particleGeo, particleMat);
-      particles.name = 'particles';
-      apothecaryGroup.add(particles);
+      scene.add(labGroup);
     }
 
     function onWindowResize() {
@@ -759,296 +862,243 @@
     function animate() {
       requestAnimationFrame(animate);
 
-      // Rotate particles slowly
-      const particles = apothecaryGroup.getObjectByName('particles');
-      if (particles) {
-        particles.rotation.y += 0.001;
+      const holo = labGroup.getObjectByName('holo');
+      const outerRing = labGroup.getObjectByName('outerRing');
+
+      if (holo) {
+        holo.rotation.y += 0.005;
+        holo.rotation.x += 0.002;
       }
 
-      // Gentle camera sway
-      camera.position.x = Math.sin(Date.now() * 0.0005) * 0.3;
-      camera.lookAt(0, 0.5, 0);
+      if (outerRing) {
+        outerRing.rotation.z += 0.003;
+      }
+
+      // Subtle camera movement
+      camera.position.x = Math.sin(Date.now() * 0.0003) * 0.5;
+      camera.lookAt(0, 0.3, 0);
 
       renderer.render(scene, camera);
     }
 
     // =============================================
-    // DRAG AND DROP SYSTEM
+    // UI RENDERING
     // =============================================
-    let draggedItem = null;
-    let dragOffset = { x: 0, y: 0 };
+    function renderStep() {
+      const step = STEPS[gameState.step];
 
-    function initDragDrop() {
-      const supplyItems = document.querySelectorAll('.supply-item');
-      const inventorySlots = document.querySelectorAll('.inventory-slot');
-
-      supplyItems.forEach(item => {
-        item.addEventListener('mousedown', startDrag);
-        item.addEventListener('touchstart', startDrag, { passive: false });
+      // Update progress bar
+      document.querySelectorAll('.progress-step').forEach((el, i) => {
+        el.classList.remove('active', 'completed');
+        if (i + 1 < gameState.step) el.classList.add('completed');
+        if (i + 1 === gameState.step) el.classList.add('active');
       });
 
-      document.addEventListener('mousemove', onDrag);
-      document.addEventListener('touchmove', onDrag, { passive: false });
-      document.addEventListener('mouseup', endDrag);
-      document.addEventListener('touchend', endDrag);
+      // Update prompt
+      document.getElementById('prompt-title').textContent = step.title;
+      document.getElementById('prompt-subtitle').textContent = step.subtitle;
+      document.getElementById('prompt-hint').textContent = step.hint || '';
+
+      // Update navigation
+      document.getElementById('btn-back').disabled = gameState.step === 1;
+      document.getElementById('btn-next').disabled = !canProceed();
+
+      // Render options
+      renderOptions();
+
+      // Update inventory display
+      updateInventoryDisplay();
     }
 
-    function startDrag(e) {
-      e.preventDefault();
-      draggedItem = e.currentTarget;
-      draggedItem.classList.add('dragging');
+    function renderOptions() {
+      const container = document.getElementById('options-container');
+      container.innerHTML = '';
 
-      const rect = draggedItem.getBoundingClientRect();
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-
-      dragOffset.x = clientX - rect.left;
-      dragOffset.y = clientY - rect.top;
-
-      // Highlight valid drop targets
-      highlightDropTargets(true);
-    }
-
-    function onDrag(e) {
-      if (!draggedItem) return;
-      e.preventDefault();
-
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-
-      draggedItem.style.position = 'fixed';
-      draggedItem.style.left = (clientX - dragOffset.x) + 'px';
-      draggedItem.style.top = (clientY - dragOffset.y) + 'px';
-      draggedItem.style.zIndex = '1000';
-    }
-
-    function endDrag(e) {
-      if (!draggedItem) return;
-
-      const clientX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
-      const clientY = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
-
-      // Check if dropped on inventory
-      const slot = getDropTarget(clientX, clientY);
-
-      if (slot) {
-        collectItem(draggedItem, slot);
-      } else {
-        // Return to original position
-        resetItemPosition(draggedItem);
+      if (gameState.step === 5) {
+        // Final step - show summary
+        renderSummary();
+        return;
       }
 
-      draggedItem.classList.remove('dragging');
-      draggedItem = null;
-      highlightDropTargets(false);
-    }
+      let options = STEPS[gameState.step].options;
 
-    function getDropTarget(x, y) {
-      const slots = document.querySelectorAll('.inventory-slot:not(.filled)');
-      for (const slot of slots) {
-        const rect = slot.getBoundingClientRect();
-        if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
-          return slot;
+      // For step 3, get options based on quadrant
+      if (gameState.step === 3) {
+        const quadrant = getQuadrant();
+        options = SERVICES_BY_QUADRANT[quadrant] || [];
+      }
+
+      const multiSelect = STEPS[gameState.step].multiSelect;
+
+      options.forEach(opt => {
+        const card = document.createElement('div');
+        card.className = 'option-card' + (multiSelect ? ' multi-select' : '');
+        card.dataset.value = opt.value;
+
+        // Check if selected
+        if (isSelected(opt.value)) {
+          card.classList.add('selected');
         }
-      }
-      return null;
-    }
 
-    function highlightDropTargets(show) {
-      document.querySelectorAll('.inventory-slot:not(.filled)').forEach(slot => {
-        slot.classList.toggle('drop-target', show);
+        card.innerHTML = `
+          <div class="option-icon">${opt.icon}</div>
+          <div class="option-label">${opt.label}</div>
+          <div class="option-desc">${opt.desc}</div>
+        `;
+
+        card.addEventListener('click', () => handleSelection(opt.value, multiSelect));
+        container.appendChild(card);
       });
     }
 
-    function collectItem(item, slot) {
-      const value = item.dataset.value;
-      const type = item.dataset.type;
-      const icon = item.querySelector('.supply-icon').textContent;
-      const label = item.querySelector('.supply-label').textContent;
+    function renderSummary() {
+      const container = document.getElementById('options-container');
+      container.innerHTML = `
+        <div style="text-align: center; padding: 40px;">
+          <div style="font-size: 48px; margin-bottom: 16px;">✨</div>
+          <p style="color: var(--champagne); font-size: 14px; margin-bottom: 24px;">
+            your ${QUADRANT_NAMES[getQuadrant()]} package is configured
+          </p>
+          <a href="https://calendar.app.google/ZXVqJLdprmUZk1DW6"
+             target="_blank"
+             rel="noopener noreferrer"
+             style="display: inline-block; padding: 14px 28px; background: var(--redwood); color: white; text-decoration: none; border-radius: 6px; font-weight: 500; text-transform: lowercase;">
+            book a playdate →
+          </a>
+        </div>
+      `;
+    }
 
-      // Update inventory UI
-      slot.classList.add('filled');
-      slot.querySelector('.slot-icon').textContent = icon;
-      slot.querySelector('.slot-label').textContent = label;
+    function isSelected(value) {
+      if (gameState.step === 1) return gameState.focus === value;
+      if (gameState.step === 2) return gameState.approach === value;
+      if (gameState.step === 3) return gameState.services.includes(value);
+      if (gameState.step === 4) return gameState.goals.includes(value);
+      return false;
+    }
 
-      // Update game state
+    function handleSelection(value, multiSelect) {
       if (gameState.step === 1) {
-        gameState.inventory.quest = value;
-      } else if (gameState.step === 2) {
-        gameState.inventory.approach = value;
-      } else if (gameState.step === 3) {
-        if (gameState.inventory.skills.length < 2) {
-          gameState.inventory.skills.push(value);
-        }
-      } else if (gameState.step === 4) {
-        if (gameState.inventory.goals.length < 2) {
-          gameState.inventory.goals.push(value);
-        }
+        gameState.focus = value;
+        // Auto-advance for single-select
+        setTimeout(() => { gameState.step = 2; renderStep(); }, 300);
       }
-
-      // Remove the item from scene
-      item.style.display = 'none';
-
-      // Update stats
-      updateStats();
-
-      // Check if can proceed
-      checkProgress();
-    }
-
-    function resetItemPosition(item) {
-      item.style.position = 'absolute';
-      item.style.zIndex = '';
-      // Keep original left/top from style attribute
-    }
-
-    function updateStats() {
-      const count = countCollectedItems();
-      document.getElementById('items-count').textContent = `${count}/6`;
-
-      const quadrant = getQuadrant();
-      if (quadrant) {
-        const powerNames = {
-          'people-design': 'CREATOR',
-          'people-research': 'SEEKER',
-          'product-design': 'BUILDER',
-          'product-research': 'TESTER'
-        };
-        document.getElementById('quest-power').textContent = powerNames[quadrant] || '---';
+      else if (gameState.step === 2) {
+        gameState.approach = value;
+        // Auto-advance for single-select
+        setTimeout(() => { gameState.step = 3; renderStep(); }, 300);
+      }
+      else if (gameState.step === 3) {
+        toggleArrayValue(gameState.services, value, STEPS[3].maxSelect);
+        renderStep();
+      }
+      else if (gameState.step === 4) {
+        toggleArrayValue(gameState.goals, value, STEPS[4].maxSelect);
+        renderStep();
       }
     }
 
-    function countCollectedItems() {
-      let count = 0;
-      if (gameState.inventory.quest) count++;
-      if (gameState.inventory.approach) count++;
-      count += gameState.inventory.skills.length;
-      count += gameState.inventory.goals.length;
-      return count;
+    function toggleArrayValue(arr, value, max) {
+      const idx = arr.indexOf(value);
+      if (idx > -1) {
+        arr.splice(idx, 1);
+      } else if (arr.length < max) {
+        arr.push(value);
+      }
+    }
+
+    function canProceed() {
+      if (gameState.step === 1) return gameState.focus !== null;
+      if (gameState.step === 2) return gameState.approach !== null;
+      if (gameState.step === 3) return gameState.services.length > 0;
+      if (gameState.step === 4) return gameState.goals.length > 0;
+      return true;
     }
 
     function getQuadrant() {
-      if (gameState.inventory.quest && gameState.inventory.approach) {
-        return `${gameState.inventory.quest}-${gameState.inventory.approach}`;
+      if (gameState.focus && gameState.approach) {
+        return `${gameState.focus}-${gameState.approach}`;
       }
       return null;
     }
 
-    function checkProgress() {
-      const nextBtn = document.getElementById('btn-next');
-
-      if (gameState.step === 1 && gameState.inventory.quest) {
-        nextBtn.disabled = false;
-      } else if (gameState.step === 2 && gameState.inventory.approach) {
-        nextBtn.disabled = false;
-      } else if (gameState.step === 3 && gameState.inventory.skills.length > 0) {
-        nextBtn.disabled = false;
-      } else if (gameState.step === 4 && gameState.inventory.goals.length > 0) {
-        nextBtn.disabled = false;
+    function updateInventoryDisplay() {
+      // Focus slot
+      const focusSlot = document.getElementById('slot-focus');
+      const focusValue = document.getElementById('focus-value');
+      if (gameState.focus) {
+        focusSlot.classList.add('filled');
+        focusSlot.querySelector('.slot-icon').textContent = gameState.focus === 'people' ? '👥' : '🎯';
+        focusValue.textContent = gameState.focus;
+      } else {
+        focusSlot.classList.remove('filled');
+        focusSlot.querySelector('.slot-icon').textContent = '?';
+        focusValue.textContent = '—';
       }
+
+      // Approach slot
+      const approachSlot = document.getElementById('slot-approach');
+      const approachValue = document.getElementById('approach-value');
+      if (gameState.approach) {
+        approachSlot.classList.add('filled');
+        approachSlot.querySelector('.slot-icon').textContent = gameState.approach === 'design' ? '✏️' : '🔍';
+        approachValue.textContent = gameState.approach;
+      } else {
+        approachSlot.classList.remove('filled');
+        approachSlot.querySelector('.slot-icon').textContent = '?';
+        approachValue.textContent = '—';
+      }
+
+      // Services
+      const servicesContainer = document.getElementById('services-container');
+      if (gameState.services.length > 0) {
+        servicesContainer.innerHTML = gameState.services.map(s =>
+          `<span class="inventory-tag filled">${s.replace(/-/g, ' ')}</span>`
+        ).join('');
+      } else {
+        servicesContainer.innerHTML = '<span class="inventory-tag">select services...</span>';
+      }
+
+      // Goals
+      const goalsContainer = document.getElementById('goals-container');
+      if (gameState.goals.length > 0) {
+        goalsContainer.innerHTML = gameState.goals.map(g =>
+          `<span class="inventory-tag filled">${g}</span>`
+        ).join('');
+      } else {
+        goalsContainer.innerHTML = '<span class="inventory-tag">select goals...</span>';
+      }
+
+      // Quadrant
+      const quadrant = getQuadrant();
+      document.getElementById('quadrant-value').textContent = quadrant ? QUADRANT_NAMES[quadrant] : '—';
     }
 
     // =============================================
     // NAVIGATION
     // =============================================
     function initNavigation() {
-      document.getElementById('btn-next').addEventListener('click', nextStep);
-      document.getElementById('btn-back').addEventListener('click', prevStep);
-      document.getElementById('btn-reset').addEventListener('click', resetQuest);
-    }
+      document.getElementById('btn-next').addEventListener('click', () => {
+        if (gameState.step < 5) {
+          gameState.step++;
+          renderStep();
+        }
+      });
 
-    function nextStep() {
-      if (gameState.step < 5) {
-        gameState.step++;
+      document.getElementById('btn-back').addEventListener('click', () => {
+        if (gameState.step > 1) {
+          gameState.step--;
+          renderStep();
+        }
+      });
+
+      document.getElementById('btn-reset').addEventListener('click', () => {
+        gameState.step = 1;
+        gameState.focus = null;
+        gameState.approach = null;
+        gameState.services = [];
+        gameState.goals = [];
         renderStep();
-      }
-    }
-
-    function prevStep() {
-      if (gameState.step > 1) {
-        gameState.step--;
-        renderStep();
-      }
-    }
-
-    function resetQuest() {
-      gameState.step = 1;
-      gameState.inventory = { quest: null, approach: null, skills: [], goals: [] };
-
-      // Reset inventory UI
-      document.querySelectorAll('.inventory-slot').forEach(slot => {
-        slot.classList.remove('filled');
-        slot.querySelector('.slot-icon').textContent = '?';
-      });
-
-      updateStats();
-      document.getElementById('quest-power').textContent = '---';
-      renderStep();
-    }
-
-    function renderStep() {
-      const stepData = STEPS[gameState.step];
-
-      // Update progress gems
-      document.querySelectorAll('.progress-gem').forEach(gem => {
-        const gemStep = parseInt(gem.dataset.step);
-        gem.classList.remove('active', 'collected');
-        if (gemStep < gameState.step) gem.classList.add('collected');
-        if (gemStep === gameState.step) gem.classList.add('active');
-      });
-
-      // Update quest prompt
-      const prompt = document.querySelector('.quest-prompt');
-      prompt.querySelector('h2').textContent = stepData.title;
-      prompt.querySelector('p').textContent = stepData.subtitle;
-
-      // Update navigation buttons
-      document.getElementById('btn-back').disabled = gameState.step === 1;
-      document.getElementById('btn-next').disabled = true; // Reset until item collected
-
-      // Render supply items for this step
-      renderSupplyItems();
-    }
-
-    function renderSupplyItems() {
-      const container = document.getElementById('supply-items');
-      container.innerHTML = '';
-
-      let items = STEPS[gameState.step].items;
-
-      // For step 3, populate skills based on quadrant
-      if (gameState.step === 3) {
-        const quadrant = getQuadrant();
-        items = SKILLS_BY_QUADRANT[quadrant] || [];
-      }
-
-      // Position items in scene
-      const positions = [
-        { left: '20%', top: '35%' },
-        { left: '60%', top: '35%' },
-        { left: '20%', top: '55%' },
-        { left: '60%', top: '55%' }
-      ];
-
-      items.forEach((item, i) => {
-        const pos = positions[i] || { left: '40%', top: '45%' };
-        const el = document.createElement('div');
-        el.className = 'supply-item';
-        el.dataset.type = item.type;
-        el.dataset.value = item.value;
-        el.style.left = pos.left;
-        el.style.top = pos.top;
-        el.innerHTML = `
-          <div class="supply-icon">${item.icon}</div>
-          <span class="supply-label">${item.label}</span>
-        `;
-        container.appendChild(el);
-      });
-
-      // Re-init drag listeners
-      container.querySelectorAll('.supply-item').forEach(item => {
-        item.addEventListener('mousedown', startDrag);
-        item.addEventListener('touchstart', startDrag, { passive: false });
       });
     }
 
@@ -1057,7 +1107,6 @@
     // =============================================
     document.addEventListener('DOMContentLoaded', () => {
       initThreeJS();
-      initDragDrop();
       initNavigation();
       renderStep();
     });
