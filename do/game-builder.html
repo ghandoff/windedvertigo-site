@@ -40,32 +40,33 @@
 
     /* Override site header for compact mobile display */
     .header {
-      padding: 8px 0;
+      padding: 6px 0;
     }
     .header .container {
       padding: 0 12px;
     }
     .header .logo-img {
-      height: 28px;
+      height: 24px;
+      width: auto;
     }
 
     /* Override site footer for compact display */
     .footer {
-      padding: 10px 0;
+      padding: 6px 0;
     }
     .footer .container {
-      padding: 8px 12px;
+      padding: 4px 12px;
     }
     .footer p {
-      font-size: 9px;
-      margin-bottom: 4px;
+      font-size: 8px;
+      margin-bottom: 2px;
     }
     .footer .social-links {
-      gap: 12px;
+      gap: 10px;
     }
     .footer .social-links svg {
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
     }
 
     /* Game wrapper - maximize vertical space */
@@ -455,26 +456,26 @@
       transform: translateX(-50%) scale(1.08);
     }
 
-    /* Labels float ABOVE glass cubes - cadet blue card style */
+    /* Labels float ABOVE glass cubes - match glass container width */
     .cube-label {
       position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
       text-align: center; z-index: 20;
       background: linear-gradient(180deg, #3a4a5e 0%, #273248 100%);
-      padding: 6px 10px; border-radius: 4px;
+      padding: 6px 8px; border-radius: 4px;
       border: 2px solid #6b5040;
       box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-      max-width: 115px;
+      width: 100px; /* Match cube-glass width */
+      box-sizing: border-box;
     }
     .cube-label-name {
       font-family: var(--font-ui); font-size: 11px; font-weight: 600;
       color: var(--champagne); text-shadow: 0 1px 3px rgba(0,0,0,0.4);
       letter-spacing: 0.3px;
-      white-space: nowrap;
     }
     .cube-label-desc {
-      font-family: var(--font-ui); font-size: 10px;
-      color: var(--burnt-sienna); opacity: 0.95; margin-top: 3px;
-      white-space: normal; line-height: 1.25;
+      font-family: var(--font-ui); font-size: 9px;
+      color: var(--burnt-sienna); opacity: 0.95; margin-top: 2px;
+      line-height: 1.2;
     }
 
     /* =============================================
@@ -595,7 +596,7 @@
        GUIDE SPEECH BUBBLE - Next to wayfinder's head
     ============================================= */
     .guide-speech {
-      position: absolute; bottom: 38%; left: 38%; z-index: 55;
+      position: absolute; bottom: 28%; left: 38%; z-index: 55;
       max-width: 160px;
       background: linear-gradient(180deg, #3a4a5e 0%, #273248 100%);
       border: 2px solid var(--burnt-sienna);
@@ -911,11 +912,11 @@
       .cube-item { width: 92px; height: 115px; bottom: 24px; }
       .cube-item .emoji-fallback { font-size: 58px; }
       .cube-glow { width: 95px; height: 14px; bottom: 14px; }
-      .cube-label { padding: 6px 12px; max-width: 125px; }
-      .cube-label-name { font-size: 9px; }
+      .cube-label { padding: 6px 8px; width: 110px; } /* Match cube-glass */
+      .cube-label-name { font-size: 10px; }
       .cube-label-desc { font-size: 9px; }
 
-      .guide-speech { bottom: 42%; left: 200px; max-width: 180px; }
+      .guide-speech { bottom: 32%; left: 200px; max-width: 180px; }
       .guide-text { font-size: 7px; }
 
       .counter-area { width: 88%; bottom: 14%; }
@@ -962,7 +963,7 @@
       .prompt-hint { font-size: 11px; margin-top: 5px; }
 
       /* Guide speech - next to wayfinder's head */
-      .guide-speech { display: block; bottom: 44%; left: 240px; max-width: 200px; padding: 10px 14px; }
+      .guide-speech { display: block; bottom: 34%; left: 240px; max-width: 200px; padding: 10px 14px; }
       .guide-text { font-size: 8px; }
 
       .continue-btn { bottom: 100px; left: 260px; font-size: 9px; padding: 14px 28px; }
@@ -975,9 +976,9 @@
       .cube-item { width: 100px; height: 125px; bottom: 26px; }
       .cube-item .emoji-fallback { font-size: 62px; }
       .cube-glow { width: 105px; height: 16px; bottom: 16px; }
-      .cube-label { padding: 8px 14px; max-width: 135px; }
-      .cube-label-name { font-size: 10px; }
-      .cube-label-desc { font-size: 11px; }
+      .cube-label { padding: 8px 10px; width: 120px; } /* Match cube-glass */
+      .cube-label-name { font-size: 11px; }
+      .cube-label-desc { font-size: 10px; }
 
       .counter-area { width: 80%; bottom: 16%; }
 
@@ -1014,7 +1015,7 @@
       .prompt-hint { font-size: 12px; }
 
       /* Guide speech - next to wayfinder's head */
-      .guide-speech { bottom: 46%; left: 280px; max-width: 220px; padding: 12px 16px; }
+      .guide-speech { bottom: 36%; left: 280px; max-width: 220px; padding: 12px 16px; }
       .guide-text { font-size: 8px; line-height: 1.8; }
 
       .continue-btn { bottom: 115px; left: 300px; }
@@ -1027,9 +1028,9 @@
       .cube-item { width: 115px; height: 145px; bottom: 30px; }
       .cube-item .emoji-fallback { font-size: 70px; }
       .cube-glow { width: 120px; height: 18px; bottom: 18px; }
-      .cube-label { max-width: 155px; padding: 10px 16px; }
-      .cube-label-name { font-size: 11px; }
-      .cube-label-desc { font-size: 12px; }
+      .cube-label { padding: 10px 12px; width: 140px; } /* Match cube-glass */
+      .cube-label-name { font-size: 12px; }
+      .cube-label-desc { font-size: 11px; }
 
       .inventory-pouch { padding: 12px 24px; gap: 24px; }
       .inventory-slot { width: 38px; height: 38px; }
