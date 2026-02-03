@@ -40,14 +40,21 @@
 
     /* Override site header for compact mobile display */
     .header {
-      padding: 6px 0;
+      padding: 8px 0;
+      margin-bottom: 0;
     }
     .header .container {
       padding: 0 12px;
     }
     .header .logo-img {
-      height: 24px;
+      height: 36px;
       width: auto;
+    }
+
+    /* Remove any margin/padding from main that creates gap */
+    main#main-content {
+      padding: 0;
+      margin: 0;
     }
 
     /* Override site footer for compact display */
@@ -890,7 +897,7 @@
     =========================================== */
     @media (min-width: 600px) {
       .header { padding: 10px 0; }
-      .header .logo-img { height: 32px; }
+      .header .logo-img { height: 40px; }
       .footer { padding: 12px 0; }
       .footer p { font-size: 10px; }
 
@@ -946,7 +953,7 @@
     =========================================== */
     @media (min-width: 800px) {
       .header { padding: 12px 0; }
-      .header .logo-img { height: 36px; }
+      .header .logo-img { height: 44px; }
       .footer { padding: 16px 0; }
       .footer p { font-size: 11px; }
       .footer .social-links svg { width: 20px; height: 20px; }
