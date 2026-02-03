@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles/main.css?v=17">
+  <link rel="stylesheet" href="../styles/main.css?v=18">
 
   <style>
     :root {
@@ -463,34 +463,34 @@
       transform: translateX(-50%) scale(1.08);
     }
 
-    /* Labels float ABOVE glass cubes - match glass container width */
+    /* Labels float BELOW glass cubes on mobile to avoid prompt overlap */
     .cube-label {
-      position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+      position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%);
       text-align: center; z-index: 20;
       background: linear-gradient(180deg, #3a4a5e 0%, #273248 100%);
-      padding: 6px 8px; border-radius: 4px;
+      padding: 5px 6px; border-radius: 4px;
       border: 2px solid #6b5040;
       box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-      width: 100px; /* Match cube-glass width */
+      width: 90px;
       box-sizing: border-box;
     }
     .cube-label-name {
-      font-family: var(--font-ui); font-size: 11px; font-weight: 600;
+      font-family: var(--font-ui); font-size: 10px; font-weight: 600;
       color: var(--champagne); text-shadow: 0 1px 3px rgba(0,0,0,0.4);
       letter-spacing: 0.3px;
     }
     .cube-label-desc {
-      font-family: var(--font-ui); font-size: 9px;
-      color: var(--burnt-sienna); opacity: 0.95; margin-top: 2px;
+      font-family: var(--font-ui); font-size: 8px;
+      color: var(--burnt-sienna); opacity: 0.95; margin-top: 1px;
       line-height: 1.2;
     }
 
     /* =============================================
-       WAYFINDER - Mobile-first (25% LARGER)
+       WAYFINDER - Mobile-first, stays visible during package summary
     ============================================= */
     .wayfinder {
-      position: absolute; bottom: -8%; left: 0; z-index: 15;
-      width: 56%; max-width: 250px; text-align: center;
+      position: absolute; bottom: 0; left: 0; z-index: 250;
+      width: 40%; max-width: 180px; text-align: center;
     }
 
     .wayfinder-sprite {
@@ -714,18 +714,19 @@
     }
 
     /* =============================================
-       PACKAGE SUMMARY - Matching static site
+       PACKAGE SUMMARY - Matching static site, leaves room for wayfinder
     ============================================= */
     .package-summary {
-      position: absolute; inset: 0; z-index: 200;
-      background: var(--cadet-blue);
+      position: absolute; top: 0; right: 0; bottom: 0; left: 35%;
+      z-index: 200;
+      background: linear-gradient(90deg, transparent 0%, var(--cadet-blue) 5%, var(--cadet-blue) 100%);
       overflow-y: auto; display: none;
     }
     .package-summary.visible { display: block; }
 
     .package-content {
-      max-width: 420px; margin: 0 auto;
-      padding: 24px 20px 100px;
+      max-width: 380px; margin: 0 auto;
+      padding: 20px 16px 100px;
     }
 
     .package-intro {
@@ -831,6 +832,19 @@
       font-size: 12px; color: rgba(255,255,255,0.6);
     }
 
+    /* Goals section */
+    .goals-section {
+      margin-bottom: 24px;
+    }
+    .goal-tag {
+      display: inline-block;
+      padding: 6px 12px; margin: 0 6px 8px 0;
+      background: rgba(88, 114, 203, 0.2);
+      border: 1px solid var(--periwinkle);
+      border-radius: 4px;
+      font-size: 12px; color: var(--champagne);
+    }
+
     /* How we work section */
     .work-section {
       margin-bottom: 24px;
@@ -886,7 +900,7 @@
 
       .game-wrapper { height: calc(100vh - 110px); min-height: 550px; border-radius: 10px; }
 
-      .wayfinder { bottom: -6%; left: 1%; width: 250px; max-width: 275px; }
+      /* wayfinder adjusted in tablet section below */
 
       .continue-btn { bottom: 15px; right: 20px; left: auto; font-size: 8px; padding: 12px 24px; }
 
@@ -897,11 +911,15 @@
       .cube-item { width: 92px; height: 115px; bottom: 24px; }
       .cube-item .emoji-fallback { font-size: 58px; }
       .cube-glow { width: 95px; height: 14px; bottom: 14px; }
-      .cube-label { padding: 6px 8px; width: 110px; }
+      .cube-label { top: calc(100% + 8px); padding: 6px 8px; width: 110px; }
       .cube-label-name { font-size: 10px; }
       .cube-label-desc { font-size: 9px; }
 
-      .counter-area { width: 88%; bottom: 14%; }
+      .counter-area { width: 88%; bottom: 12%; }
+
+      .wayfinder { bottom: 0; width: 220px; max-width: 240px; }
+      .package-summary { left: 30%; }
+      .package-content { max-width: 400px; padding: 24px 20px 100px; }
 
       /* Inventory - tablet */
       .inventory-pouch { top: 10px; padding: 10px 16px 12px; gap: 12px; }
@@ -931,7 +949,7 @@
 
       .game-wrapper { height: calc(100vh - 130px); min-height: 600px; border-radius: 12px; }
 
-      .wayfinder { bottom: -5%; left: 2%; width: 300px; max-width: 325px; }
+      /* wayfinder adjusted in desktop section below */
 
       .continue-btn { bottom: 20px; right: 30px; left: auto; font-size: 9px; padding: 14px 28px; letter-spacing: 1px; }
 
@@ -943,11 +961,15 @@
       .cube-item { width: 100px; height: 125px; bottom: 26px; }
       .cube-item .emoji-fallback { font-size: 62px; }
       .cube-glow { width: 105px; height: 16px; bottom: 16px; }
-      .cube-label { padding: 8px 10px; width: 120px; }
+      .cube-label { top: calc(100% + 10px); padding: 8px 10px; width: 120px; }
       .cube-label-name { font-size: 11px; }
       .cube-label-desc { font-size: 10px; }
 
-      .counter-area { width: 80%; bottom: 16%; }
+      .counter-area { width: 80%; bottom: 14%; }
+
+      .wayfinder { bottom: 0; width: 260px; max-width: 280px; }
+      .package-summary { left: 28%; }
+      .package-content { max-width: 420px; }
 
       /* Inventory - desktop */
       .inventory-pouch { top: 12px; padding: 12px 20px 14px; gap: 16px; }
@@ -969,7 +991,7 @@
        LARGE DESKTOP STYLES (min-width: 1000px)
     =========================================== */
     @media (min-width: 1000px) {
-      .wayfinder { bottom: -4%; left: 2%; width: 350px; max-width: 375px; }
+      /* wayfinder size increased in large desktop section below */
 
       .continue-btn { bottom: 25px; right: 40px; }
 
@@ -981,9 +1003,13 @@
       .cube-item { width: 115px; height: 145px; bottom: 30px; }
       .cube-item .emoji-fallback { font-size: 70px; }
       .cube-glow { width: 120px; height: 18px; bottom: 18px; }
-      .cube-label { padding: 10px 12px; width: 140px; }
+      .cube-label { top: calc(100% + 12px); padding: 10px 12px; width: 140px; }
       .cube-label-name { font-size: 12px; }
       .cube-label-desc { font-size: 11px; }
+
+      .wayfinder { bottom: 0; width: 300px; max-width: 320px; }
+      .package-summary { left: 25%; }
+      .package-content { max-width: 450px; }
 
       /* Inventory - large desktop */
       .inventory-pouch { top: 14px; padding: 14px 28px 16px; gap: 20px; }
@@ -1278,6 +1304,11 @@
           <div id="servicesList"></div>
         </div>
 
+        <div class="goals-section">
+          <h3 class="section-title">your outcomes</h3>
+          <div id="goalsList"></div>
+        </div>
+
         <div class="work-section">
           <h3 class="section-title">how we'll work together</h3>
           <div class="work-description" id="workDescription">
@@ -1560,6 +1591,12 @@
       servicesList.innerHTML = gameState.services.map(v => {
         const item = STEPS[3].items.find(i => i.value === v);
         return item ? `<div class="service-card"><div class="service-name">${item.label}</div><div class="service-desc">${item.desc}</div></div>` : '';
+      }).join('');
+
+      const goalsList = document.getElementById('goalsList');
+      goalsList.innerHTML = gameState.goals.map(v => {
+        const item = STEPS[4].items.find(i => i.value === v);
+        return item ? `<span class="goal-tag">${item.icon} ${item.label}</span>` : '';
       }).join('');
 
       inventoryPouch.style.display = 'none';
