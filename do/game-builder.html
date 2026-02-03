@@ -38,10 +38,40 @@
        MOBILE-FIRST BASE STYLES (< 600px default)
     =========================================== */
 
-    /* Game wrapper - positions within main site layout */
+    /* Override site header for compact mobile display */
+    .header {
+      padding: 8px 0;
+    }
+    .header .container {
+      padding: 0 12px;
+    }
+    .header .logo-img {
+      height: 28px;
+    }
+
+    /* Override site footer for compact display */
+    .footer {
+      padding: 10px 0;
+    }
+    .footer .container {
+      padding: 8px 12px;
+    }
+    .footer p {
+      font-size: 9px;
+      margin-bottom: 4px;
+    }
+    .footer .social-links {
+      gap: 12px;
+    }
+    .footer .social-links svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Game wrapper - maximize vertical space */
     .game-wrapper {
       max-width: 900px; margin: 0 auto;
-      height: calc(100vh - 90px); min-height: 480px;
+      height: calc(100vh - 100px); min-height: 420px;
       position: relative; overflow: hidden;
     }
 
@@ -858,6 +888,11 @@
        TABLET STYLES (min-width: 600px)
     =========================================== */
     @media (min-width: 600px) {
+      .header { padding: 10px 0; }
+      .header .logo-img { height: 32px; }
+      .footer { padding: 12px 0; }
+      .footer p { font-size: 10px; }
+
       .game-wrapper { height: calc(100vh - 110px); min-height: 550px; border-radius: 10px; }
 
       .wayfinder { bottom: -6%; left: 1%; width: 250px; max-width: 275px; }
@@ -909,7 +944,13 @@
        DESKTOP STYLES (min-width: 800px)
     =========================================== */
     @media (min-width: 800px) {
-      .game-wrapper { height: calc(100vh - 140px); min-height: 600px; border-radius: 12px; }
+      .header { padding: 12px 0; }
+      .header .logo-img { height: 36px; }
+      .footer { padding: 16px 0; }
+      .footer p { font-size: 11px; }
+      .footer .social-links svg { width: 20px; height: 20px; }
+
+      .game-wrapper { height: calc(100vh - 130px); min-height: 600px; border-radius: 12px; }
 
       /* Cabinets and shelves remain hidden for cleaner look */
 
