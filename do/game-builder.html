@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles/main.css?v=23">
+  <link rel="stylesheet" href="../styles/main.css?v=24">
 
   <style>
     :root {
@@ -38,10 +38,10 @@
        MOBILE-FIRST BASE STYLES (< 600px default)
     =========================================== */
 
-    /* Override site header for compact mobile display */
+    /* Override site header - 8px top/bottom margins */
     .header {
       padding: 8px 0;
-      margin-bottom: 0;
+      margin: 8px 0;
     }
     .header .container {
       padding: 0 12px;
@@ -51,9 +51,9 @@
       width: auto;
     }
 
-    /* Main content - add top padding to clear header */
+    /* Main content - no extra padding needed, header has margins */
     main#main-content {
-      padding: 8px 0 0 0;
+      padding: 0;
       margin: 0;
     }
 
@@ -76,10 +76,10 @@
       height: 16px;
     }
 
-    /* Game wrapper - sits below header band */
+    /* Game wrapper - sits below header band (header ~68px with margins) */
     .game-wrapper {
       max-width: 900px; margin: 0 auto;
-      height: calc(100vh - 130px); min-height: 380px;
+      height: calc(100vh - 140px); min-height: 360px;
       position: relative; overflow: visible;
     }
 
@@ -1404,7 +1404,7 @@
       },
       {
         id: 'goals', prompt: 'What outcomes do you want?',
-        hint: 'Select up to <em>3 goals</em>', single: false, maxSelect: 3,
+        hint: 'Select your <em>goals</em>', single: false, maxSelect: 5,
         items: [
           { value: 'awareness', icon: '💡', label: 'Awareness', desc: 'Spread understanding', glowColor: '#ffebd2' },
           { value: 'behavior', icon: '🎯', label: 'Behavior', desc: 'Shift actions', glowColor: '#b15043' },
