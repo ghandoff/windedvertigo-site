@@ -11,7 +11,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -24,8 +24,6 @@
       --seafoam: #58cbb2;
       --light-lavender: #d5d2ff;
       --light-cyan: #d2fdff;
-      --neon-cyan: #00f5ff;
-      --neon-magenta: #ff00ff;
       --font-display: 'Space Mono', monospace;
       --font-pixel: 'Press Start 2P', cursive;
       --font-ui: 'Inter', sans-serif;
@@ -41,298 +39,351 @@
     }
 
     /* =============================================
-       TECH LAB BACKGROUND - Near-future apothecary
+       DETAILED LAB BACKGROUND
     ============================================= */
     .lab-bg {
       position: absolute; inset: 0; z-index: 1;
-      background: linear-gradient(180deg,
-        #0d1117 0%,
-        #151b26 30%,
-        #1a2332 60%,
-        #1e2940 100%
-      );
+      background: linear-gradient(180deg, #0d1117 0%, #141a24 40%, #1a2332 70%, #1e2940 100%);
     }
 
-    /* Ceiling with tech panels */
+    /* Ceiling structure */
     .ceiling {
-      position: absolute; top: 0; left: 0; right: 0; height: 15%;
-      background: linear-gradient(180deg, #0a0d12 0%, #12171f 100%);
+      position: absolute; top: 0; left: 0; right: 0; height: 12%;
+      background: linear-gradient(180deg, #080a0f 0%, #0d1117 100%);
+    }
+    .ceiling-beam {
+      position: absolute; bottom: 0; height: 20px;
+      background: linear-gradient(180deg, #1a2332 0%, #141a24 100%);
       border-bottom: 2px solid #2a3548;
     }
-    .ceiling-lights {
-      position: absolute; bottom: 10px; left: 10%; right: 10%;
-      height: 4px; display: flex; justify-content: space-around;
+    .ceiling-beam:nth-child(1) { left: 15%; width: 12%; }
+    .ceiling-beam:nth-child(2) { left: 44%; width: 12%; }
+    .ceiling-beam:nth-child(3) { right: 15%; width: 12%; }
+    .ceiling-light-fixture {
+      position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%);
+      width: 40px; height: 8px;
+      background: linear-gradient(180deg, #2a3548, #1a2332);
+      border-radius: 0 0 4px 4px;
     }
-    .ceiling-light {
-      width: 80px; height: 4px;
-      background: linear-gradient(90deg, transparent, var(--seafoam), transparent);
-      box-shadow: 0 0 20px var(--seafoam), 0 10px 40px rgba(88, 203, 178, 0.3);
+    .ceiling-light-fixture::after {
+      content: ''; position: absolute; bottom: 0; left: 5px; right: 5px; height: 4px;
+      background: var(--seafoam);
+      box-shadow: 0 0 20px var(--seafoam), 0 5px 30px rgba(88, 203, 178, 0.4);
       border-radius: 2px;
     }
 
-    /* Back wall with tech aesthetic */
+    /* Back wall with detailed panels */
     .back-wall {
-      position: absolute; top: 15%; left: 0; right: 0; height: 50%;
-      background: linear-gradient(180deg, #1a2332 0%, #1e2940 100%);
+      position: absolute; top: 12%; left: 0; right: 0; height: 48%;
+      background: linear-gradient(180deg, #141a24 0%, #1a2332 50%, #1e2940 100%);
     }
 
-    /* Wall shelves with glowing vials */
+    /* Wall panel sections */
+    .wall-section {
+      position: absolute; background: linear-gradient(180deg, #1e2940 0%, #1a2332 100%);
+      border: 2px solid #2a3a50; border-radius: 4px;
+    }
+    .wall-section::before {
+      content: ''; position: absolute; top: 3px; left: 3px; right: 3px; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(88, 203, 178, 0.3), transparent);
+    }
+
+    /* Large equipment cabinets */
+    .cabinet {
+      position: absolute; bottom: 0;
+      background: linear-gradient(180deg, #252f42 0%, #1e2940 50%, #1a2332 100%);
+      border: 2px solid #3a4a60; border-bottom: none; border-radius: 6px 6px 0 0;
+    }
+    .cabinet.left { left: 3%; width: 140px; height: 200px; }
+    .cabinet.right { right: 3%; width: 140px; height: 200px; }
+    .cabinet-screen {
+      position: absolute; top: 15px; left: 10px; right: 10px; height: 50px;
+      background: #0d1117; border: 1px solid #3a4a60; border-radius: 3px;
+      overflow: hidden;
+    }
+    .cabinet-screen::after {
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(88, 203, 178, 0.05) 2px, rgba(88, 203, 178, 0.05) 4px);
+      animation: screen-scroll 2s linear infinite;
+    }
+    @keyframes screen-scroll { from { transform: translateY(0); } to { transform: translateY(10px); } }
+    .cabinet-lights {
+      position: absolute; top: 75px; left: 10px; right: 10px;
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .indicator-light {
+      width: 8px; height: 8px; border-radius: 50%;
+      box-shadow: 0 0 6px currentColor;
+    }
+    .indicator-light.green { background: var(--seafoam); color: var(--seafoam); }
+    .indicator-light.orange { background: var(--burnt-sienna); color: var(--burnt-sienna); }
+    .indicator-light.blue { background: var(--periwinkle); color: var(--periwinkle); }
+    .indicator-light.blink { animation: blink 1s ease-in-out infinite; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    .cabinet-vents {
+      position: absolute; bottom: 20px; left: 10px; right: 10px; height: 40px;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .vent-slot {
+      height: 6px; background: #0d1117; border-radius: 2px;
+    }
+
+    /* Shelf units with detailed vials */
     .shelf-unit {
-      position: absolute; width: 120px; height: 140px;
-      background: linear-gradient(180deg, #252f42 0%, #1d2535 100%);
-      border: 2px solid #3a4860;
-      border-radius: 4px;
+      position: absolute; width: 100px; height: 120px;
+      background: linear-gradient(180deg, #2a3548 0%, #1e2940 100%);
+      border: 2px solid #3a4a60; border-radius: 4px;
     }
-    .shelf-unit.left { left: 8%; top: 20%; }
-    .shelf-unit.right { right: 8%; top: 20%; }
-
-    .shelf {
-      position: absolute; left: 5px; right: 5px; height: 3px;
-      background: #4a5a78;
+    .shelf-unit.left-upper { left: 18%; top: 15%; }
+    .shelf-unit.right-upper { right: 18%; top: 15%; }
+    .shelf-bar {
+      position: absolute; left: 4px; right: 4px; height: 4px;
+      background: linear-gradient(180deg, #4a5a70, #3a4a60);
+      border-radius: 2px;
     }
-    .shelf:nth-child(1) { top: 33%; }
-    .shelf:nth-child(2) { top: 66%; }
-
+    .shelf-bar:nth-child(1) { top: 38%; }
+    .shelf-bar:nth-child(2) { top: 70%; }
+    .vial-row {
+      position: absolute; left: 8px; right: 8px; display: flex; justify-content: space-around;
+    }
+    .vial-row:nth-child(3) { top: 10%; }
+    .vial-row:nth-child(4) { top: 42%; }
+    .vial-row:nth-child(5) { bottom: 8%; }
     .vial {
-      position: absolute; width: 12px; bottom: 0;
-      border-radius: 2px 2px 6px 6px;
+      width: 10px; border-radius: 2px 2px 5px 5px;
+      background: linear-gradient(180deg, #2a3a4a 0%, #1a2a3a 100%);
+      position: relative; overflow: hidden;
     }
     .vial::after {
       content: ''; position: absolute; bottom: 2px; left: 2px; right: 2px;
-      height: 60%; border-radius: 0 0 4px 4px;
-      animation: vial-glow 2s ease-in-out infinite alternate;
+      border-radius: 0 0 3px 3px;
+      animation: vial-pulse 2s ease-in-out infinite alternate;
     }
-    @keyframes vial-glow {
-      from { opacity: 0.6; }
-      to { opacity: 1; }
-    }
+    @keyframes vial-pulse { from { opacity: 0.6; } to { opacity: 1; } }
 
-    /* Holographic display panels */
-    .holo-panel {
-      position: absolute; width: 100px; height: 70px;
-      background: rgba(88, 203, 178, 0.05);
-      border: 1px solid rgba(88, 203, 178, 0.3);
-      border-radius: 4px;
-      overflow: hidden;
+    /* Pipe system */
+    .pipe-system {
+      position: absolute; top: 50%; left: 0; right: 0; height: 30px;
     }
-    .holo-panel::before {
-      content: ''; position: absolute; inset: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(88, 203, 178, 0.03) 2px,
-        rgba(88, 203, 178, 0.03) 4px
-      );
-      animation: scan-lines 3s linear infinite;
+    .main-pipe {
+      position: absolute; top: 50%; left: 5%; right: 5%; height: 12px;
+      transform: translateY(-50%);
+      background: linear-gradient(180deg, #3a4a60 0%, #2a3a50 30%, #1a2a3a 70%, #2a3a50 100%);
+      border-radius: 6px;
+      border: 1px solid #4a5a70;
     }
-    @keyframes scan-lines {
-      from { transform: translateY(0); }
-      to { transform: translateY(20px); }
+    .pipe-joint {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 24px; height: 24px;
+      background: radial-gradient(circle, #3a4a60 40%, #2a3a50 100%);
+      border: 2px solid #4a5a70; border-radius: 50%;
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.4);
     }
-    .holo-panel.left { left: 20%; top: 8%; }
-    .holo-panel.right { right: 20%; top: 8%; }
-    .holo-panel .data-line {
-      position: absolute; left: 8px; right: 8px; height: 2px;
-      background: linear-gradient(90deg, var(--seafoam), transparent);
-      opacity: 0.5;
+    .pipe-joint::after {
+      content: ''; position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--seafoam);
+      box-shadow: 0 0 8px var(--seafoam);
+      animation: joint-glow 1.5s ease-in-out infinite alternate;
     }
-    .holo-panel .data-line:nth-child(1) { top: 15px; width: 70%; }
-    .holo-panel .data-line:nth-child(2) { top: 25px; width: 50%; }
-    .holo-panel .data-line:nth-child(3) { top: 35px; width: 80%; }
-
-    /* Chemical tubes running along walls */
-    .tube-system {
-      position: absolute; left: 5%; right: 5%; top: 60%;
-      height: 40px; display: flex; align-items: center;
-    }
-    .tube {
-      height: 8px; flex: 1;
-      background: linear-gradient(180deg, #2a3548 0%, #1a2332 50%, #2a3548 100%);
-      border: 1px solid #3a4860;
-      border-radius: 4px;
-      position: relative;
-      overflow: hidden;
-    }
-    .tube::after {
-      content: ''; position: absolute;
-      width: 30px; height: 100%;
+    @keyframes joint-glow { from { opacity: 0.5; } to { opacity: 1; } }
+    .pipe-joint:nth-child(2) { left: 20%; }
+    .pipe-joint:nth-child(3) { left: 40%; }
+    .pipe-joint:nth-child(4) { left: 60%; }
+    .pipe-joint:nth-child(5) { left: 80%; }
+    .pipe-flow {
+      position: absolute; top: 3px; left: 0; width: 50px; height: 6px;
       background: linear-gradient(90deg, transparent, var(--seafoam), transparent);
-      animation: fluid-flow 4s linear infinite;
-      opacity: 0.4;
+      opacity: 0.4; border-radius: 3px;
+      animation: flow 3s linear infinite;
     }
-    @keyframes fluid-flow {
-      from { left: -30px; }
-      to { left: calc(100% + 30px); }
-    }
-    .tube-node {
-      width: 20px; height: 20px;
-      background: radial-gradient(circle, #2a3548 40%, #1a2332 100%);
-      border: 2px solid var(--seafoam);
-      border-radius: 50%;
-      box-shadow: 0 0 10px rgba(88, 203, 178, 0.3);
-      z-index: 2;
-    }
+    @keyframes flow { from { left: -50px; } to { left: calc(100% + 50px); } }
 
-    /* Central tech panel */
-    .central-display {
-      position: absolute; top: 5%; left: 50%; transform: translateX(-50%);
-      width: 200px; height: 80px;
+    /* Central monitor */
+    .central-monitor {
+      position: absolute; top: 8%; left: 50%; transform: translateX(-50%);
+      width: 180px; height: 100px;
       background: linear-gradient(180deg, #1a2332 0%, #0d1117 100%);
-      border: 2px solid var(--periwinkle);
-      border-radius: 8px;
-      box-shadow: 0 0 30px rgba(88, 114, 203, 0.2);
+      border: 3px solid #3a4a60; border-radius: 8px;
+      box-shadow: 0 0 30px rgba(88, 114, 203, 0.15), inset 0 0 20px rgba(0,0,0,0.5);
     }
-    .central-display::before {
-      content: 'PACKAGE CONFIGURATOR';
-      position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
-      font-family: var(--font-pixel); font-size: 6px;
+    .monitor-screen {
+      position: absolute; top: 8px; left: 8px; right: 8px; bottom: 25px;
+      background: #0a0d12; border-radius: 4px; overflow: hidden;
+    }
+    .monitor-text {
+      position: absolute; top: 8px; left: 0; right: 0;
+      text-align: center; font-family: var(--font-pixel); font-size: 5px;
       color: var(--periwinkle); letter-spacing: 1px;
     }
-    .central-display .bar {
-      position: absolute; bottom: 15px; left: 15px; right: 15px;
-      height: 8px; background: #0d1117; border-radius: 4px;
-      overflow: hidden;
+    .monitor-bar {
+      position: absolute; bottom: 8px; left: 12px; right: 12px;
+      height: 10px; background: #1a2332; border-radius: 5px; overflow: hidden;
     }
-    .central-display .bar-fill {
+    .monitor-bar-fill {
       height: 100%; width: 20%;
       background: linear-gradient(90deg, var(--periwinkle), var(--seafoam));
-      border-radius: 4px;
-      transition: width 0.5s ease;
+      border-radius: 5px; transition: width 0.5s ease;
+    }
+    .monitor-buttons {
+      position: absolute; bottom: 5px; left: 10px; right: 10px;
+      display: flex; gap: 6px;
+    }
+    .monitor-btn {
+      width: 10px; height: 6px; background: #2a3a50; border-radius: 2px;
     }
 
-    /* Floor with grid pattern */
+    /* Floor with perspective */
     .floor {
-      position: absolute; bottom: 0; left: 0; right: 0; height: 35%;
-      background: linear-gradient(180deg, #1e2940 0%, #151b26 100%);
-      transform: perspective(500px) rotateX(30deg);
+      position: absolute; bottom: 0; left: 0; right: 0; height: 40%;
+      background: linear-gradient(180deg, #1e2940 0%, #151b26 60%, #0d1117 100%);
       transform-origin: top center;
+      transform: perspective(400px) rotateX(25deg);
     }
     .floor-grid {
       position: absolute; inset: 0;
       background-image:
-        linear-gradient(rgba(88, 203, 178, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(88, 203, 178, 0.1) 1px, transparent 1px);
-      background-size: 40px 40px;
+        linear-gradient(rgba(88, 203, 178, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(88, 203, 178, 0.08) 1px, transparent 1px);
+      background-size: 50px 50px;
     }
-    .floor-glow {
-      position: absolute; top: 0; left: 20%; right: 20%; height: 4px;
+    .floor-highlight {
+      position: absolute; top: 0; left: 25%; right: 25%; height: 3px;
       background: linear-gradient(90deg, transparent, var(--burnt-sienna), transparent);
-      box-shadow: 0 0 20px var(--burnt-sienna);
+      box-shadow: 0 0 30px var(--burnt-sienna);
     }
 
     /* =============================================
-       COUNTER WITH GLASS CUBES
+       3D COUNTER
     ============================================= */
     .counter-area {
-      position: absolute; bottom: 20%; left: 50%; transform: translateX(-50%);
-      width: 75%; max-width: 850px; z-index: 10;
+      position: absolute; bottom: 22%; left: 50%; transform: translateX(-50%);
+      width: 80%; max-width: 750px; z-index: 10;
     }
 
-    .counter {
-      background: linear-gradient(180deg, #2a3548 0%, #1e2940 50%, #151b26 100%);
-      height: 70px; border-radius: 6px 6px 0 0;
-      border: 2px solid #3a4860;
+    /* Counter top surface */
+    .counter-top {
+      position: relative; height: 25px;
+      background: linear-gradient(180deg, #4a5a70 0%, #3a4a60 50%, #2a3a50 100%);
+      border: 2px solid #5a6a80;
       border-bottom: none;
-      box-shadow: 0 -5px 30px rgba(0,0,0,0.4);
-      position: relative;
+      border-radius: 8px 8px 0 0;
+      transform: perspective(300px) rotateX(-8deg);
+      transform-origin: bottom center;
     }
-    .counter::before {
-      content: ''; position: absolute; top: 8px; left: 15px; right: 15px; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--seafoam), transparent);
-      opacity: 0.3;
+    .counter-top::before {
+      content: ''; position: absolute; top: 4px; left: 10px; right: 10px; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    }
+    .counter-top::after {
+      content: ''; position: absolute; bottom: -2px; left: -2px; right: -2px; height: 4px;
+      background: linear-gradient(90deg, #2a3a50, #3a4a60, #2a3a50);
     }
 
+    /* Counter front face */
     .counter-front {
-      position: absolute; top: 100%; left: -2px; right: -2px;
-      height: 50px;
-      background: linear-gradient(180deg, #1e2940 0%, #151b26 100%);
-      border: 2px solid #3a4860;
+      position: relative; height: 80px;
+      background: linear-gradient(180deg, #2a3a50 0%, #1e2940 40%, #151b26 100%);
+      border: 2px solid #3a4a60;
       border-top: none;
       border-radius: 0 0 6px 6px;
     }
+    .counter-front::before {
+      content: ''; position: absolute; top: 15px; left: 20px; right: 20px;
+      height: 1px; background: linear-gradient(90deg, transparent, #4a5a70, transparent);
+    }
     .counter-front::after {
-      content: ''; position: absolute; bottom: 8px; left: 20px; right: 20px; height: 2px;
-      background: linear-gradient(90deg, var(--burnt-sienna), transparent 30%, transparent 70%, var(--burnt-sienna));
-      opacity: 0.4;
+      content: ''; position: absolute; bottom: 15px; left: 20px; right: 20px;
+      height: 1px; background: linear-gradient(90deg, #3a4a60, transparent, #3a4a60);
     }
 
-    /* Glass display cubes container */
+    /* Counter trim */
+    .counter-trim {
+      position: absolute; bottom: -8px; left: -4px; right: -4px; height: 8px;
+      background: linear-gradient(180deg, #1a2332 0%, #0d1117 100%);
+      border: 2px solid #2a3a50; border-top: none;
+      border-radius: 0 0 8px 8px;
+    }
+
+    /* Counter edge lights */
+    .counter-edge-light {
+      position: absolute; top: -3px; height: 3px;
+      background: var(--seafoam); border-radius: 2px;
+      box-shadow: 0 0 10px var(--seafoam);
+      opacity: 0.6;
+    }
+    .counter-edge-light:nth-child(1) { left: 15%; width: 60px; }
+    .counter-edge-light:nth-child(2) { right: 15%; width: 60px; }
+
+    /* Glass display cubes */
     .display-cubes {
-      position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
-      display: flex; gap: 28px; padding: 20px;
-      margin-bottom: 15px;
+      position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%);
+      display: flex; gap: 40px; padding: 15px;
     }
 
-    /* Individual glass cube */
     .glass-cube {
-      width: 100px; height: 130px;
+      width: 110px; height: 140px;
       position: relative; cursor: pointer;
       transition: transform 0.3s ease, filter 0.3s ease;
     }
     .glass-cube:hover {
-      transform: translateY(-10px) scale(1.08);
-      filter: brightness(1.1);
+      transform: translateY(-12px) scale(1.05);
+      filter: brightness(1.15);
     }
     .glass-cube.selected {
-      opacity: 0.25;
-      filter: grayscale(0.5);
+      opacity: 0.2; filter: grayscale(0.6);
+      pointer-events: none;
     }
 
-    /* Glass cube structure */
     .cube-base {
       position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-      width: 90px; height: 14px;
-      background: linear-gradient(180deg, #3a4860 0%, #252f42 100%);
-      border: 1px solid #4a5a78;
-      border-radius: 4px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      width: 100px; height: 16px;
+      background: linear-gradient(180deg, #4a5a70 0%, #3a4a60 50%, #2a3a50 100%);
+      border: 1px solid #5a6a80; border-radius: 4px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+    }
+    .cube-base::after {
+      content: ''; position: absolute; top: 2px; left: 8px; right: 8px; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
     }
 
     .cube-glass {
-      position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
-      width: 80px; height: 100px;
+      position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+      width: 90px; height: 110px;
       background: linear-gradient(135deg,
-        rgba(150, 200, 255, 0.08) 0%,
-        rgba(100, 150, 200, 0.04) 50%,
-        rgba(150, 200, 255, 0.06) 100%
+        rgba(180, 210, 255, 0.1) 0%,
+        rgba(120, 160, 220, 0.05) 50%,
+        rgba(180, 210, 255, 0.08) 100%
       );
-      border: 2px solid rgba(150, 200, 230, 0.2);
+      border: 2px solid rgba(180, 210, 240, 0.25);
       border-radius: 6px;
       box-shadow:
-        inset 0 0 30px rgba(255,255,255,0.05),
-        0 0 20px rgba(100, 150, 200, 0.15);
-      backdrop-filter: blur(3px);
+        inset 0 0 40px rgba(255,255,255,0.05),
+        0 0 25px rgba(100, 150, 200, 0.2);
+      backdrop-filter: blur(2px);
     }
-
-    /* Glass reflection streak */
     .cube-glass::before {
       content: ''; position: absolute;
-      top: 8px; left: 8px; width: 15px; height: 70%;
-      background: linear-gradient(180deg,
-        rgba(255,255,255,0.25) 0%,
-        rgba(255,255,255,0.02) 100%
-      );
+      top: 10px; left: 10px; width: 12px; height: 65%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.02) 100%);
       border-radius: 3px;
     }
 
-    /* Glowing platform under item */
     .cube-glow {
-      position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
-      width: 70px; height: 10px;
-      border-radius: 50%;
-      opacity: 0.7;
-      animation: platform-pulse 2s ease-in-out infinite alternate;
+      position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+      width: 75px; height: 12px; border-radius: 50%; opacity: 0.7;
+      animation: glow-pulse 2s ease-in-out infinite alternate;
     }
-    @keyframes platform-pulse {
+    @keyframes glow-pulse {
       from { opacity: 0.5; transform: translateX(-50%) scale(0.95); }
-      to { opacity: 0.8; transform: translateX(-50%) scale(1.05); }
+      to { opacity: 0.85; transform: translateX(-50%) scale(1.05); }
     }
 
-    /* Item inside cube - now uses images */
+    /* LARGER ITEMS - 50% increase */
     .cube-item {
-      position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
-      width: 60px; height: 70px;
+      position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%);
+      width: 75px; height: 90px;
       display: flex; align-items: center; justify-content: center;
       image-rendering: pixelated;
       transition: transform 0.2s ease;
@@ -340,80 +391,76 @@
     .cube-item img {
       max-width: 100%; max-height: 100%;
       image-rendering: pixelated;
-      filter: drop-shadow(0 0 8px rgba(0,0,0,0.5));
+      filter: drop-shadow(0 0 12px rgba(0,0,0,0.6));
     }
     .cube-item .emoji-fallback {
-      font-size: 36px;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+      font-size: 48px;
+      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.5));
     }
     .glass-cube:hover .cube-item {
-      transform: translateX(-50%) scale(1.1);
+      transform: translateX(-50%) scale(1.08);
     }
 
-    /* Item label below cube */
     .cube-label {
-      position: absolute; top: calc(100% + 5px); left: 50%; transform: translateX(-50%);
+      position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%);
       text-align: center; white-space: nowrap;
     }
     .cube-label-name {
-      font-family: var(--font-pixel); font-size: 7px;
-      color: var(--champagne); text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+      font-family: var(--font-pixel); font-size: 8px;
+      color: var(--champagne); text-shadow: 0 2px 6px rgba(0,0,0,0.8);
       letter-spacing: 0.5px;
     }
     .cube-label-desc {
-      font-size: 9px; color: var(--champagne); opacity: 0.5;
-      margin-top: 3px;
+      font-size: 10px; color: var(--champagne); opacity: 0.5; margin-top: 4px;
     }
 
     /* =============================================
-       WAYFINDER CHARACTER
+       LARGER WAYFINDER
     ============================================= */
     .wayfinder {
-      position: absolute; bottom: 24%; left: 6%; z-index: 15;
-      width: 130px; text-align: center;
+      position: absolute; bottom: 15%; left: 3%; z-index: 15;
+      width: 200px; text-align: center;
     }
 
     .wayfinder-sprite {
-      width: 90px; height: 130px; margin: 0 auto;
-      position: relative;
-      image-rendering: pixelated;
+      width: 160px; height: 240px; margin: 0 auto;
+      position: relative; image-rendering: pixelated;
     }
     .wayfinder-sprite img {
       width: 100%; height: 100%;
       object-fit: contain;
       image-rendering: pixelated;
-      filter: drop-shadow(0 0 15px rgba(88, 114, 203, 0.4));
+      filter: drop-shadow(0 0 25px rgba(88, 114, 203, 0.5));
       animation: wayfinder-float 3s ease-in-out infinite;
     }
     @keyframes wayfinder-float {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
+      50% { transform: translateY(-8px); }
     }
 
-    /* Placeholder if no image */
     .wayfinder-placeholder {
-      width: 90px; height: 130px;
-      background: linear-gradient(180deg, #3a4a6a 0%, #2a3a5a 50%, var(--cadet-blue) 100%);
-      border-radius: 12px 12px 4px 4px;
+      width: 160px; height: 240px;
+      background: linear-gradient(180deg, #3a4a6a 0%, #2a3a5a 40%, var(--cadet-blue) 100%);
+      border-radius: 20px 20px 8px 8px;
       position: relative;
-      box-shadow: 0 0 20px rgba(88, 114, 203, 0.3);
+      box-shadow: 0 0 30px rgba(88, 114, 203, 0.4);
     }
     .wayfinder-placeholder::before {
       content: ''; position: absolute;
-      top: 20px; left: 50%; transform: translateX(-50%);
-      width: 50px; height: 15px;
+      top: 35px; left: 50%; transform: translateX(-50%);
+      width: 80px; height: 25px;
       background: linear-gradient(90deg, var(--seafoam), var(--periwinkle));
-      border-radius: 8px;
-      box-shadow: 0 0 20px var(--seafoam);
+      border-radius: 12px;
+      box-shadow: 0 0 30px var(--seafoam);
       animation: visor-glow 2s ease-in-out infinite alternate;
     }
     @keyframes visor-glow {
-      from { opacity: 0.6; box-shadow: 0 0 10px var(--seafoam); }
-      to { opacity: 1; box-shadow: 0 0 25px var(--seafoam); }
+      from { opacity: 0.6; box-shadow: 0 0 15px var(--seafoam); }
+      to { opacity: 1; box-shadow: 0 0 35px var(--seafoam); }
     }
 
     .wayfinder-shadow {
-      width: 80px; height: 20px; margin: 5px auto 0;
+      width: 120px; height: 25px; margin: 8px auto 0;
       background: radial-gradient(ellipse, rgba(0,0,0,0.5) 0%, transparent 70%);
       border-radius: 50%;
     }
@@ -425,27 +472,24 @@
       position: absolute; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
       padding: 16px 24px;
-      background: linear-gradient(180deg, rgba(13, 17, 23, 0.95) 0%, transparent 100%);
+      background: linear-gradient(180deg, rgba(13, 17, 23, 0.98) 0%, transparent 100%);
     }
     .shop-title {
       font-family: var(--font-display); font-size: 12px;
       color: var(--seafoam); letter-spacing: 3px; text-transform: lowercase;
       text-shadow: 0 0 10px rgba(88, 203, 178, 0.5);
     }
-    .step-indicator { display: flex; gap: 12px; align-items: center; }
+    .step-indicator { display: flex; gap: 8px; align-items: center; }
     .step-pip {
-      width: 10px; height: 10px; border-radius: 50%;
-      border: 2px solid var(--periwinkle); background: transparent;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 5px rgba(88, 114, 203, 0.3);
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #2a3a50; transition: all 0.3s ease;
     }
     .step-pip.active {
-      background: var(--periwinkle);
-      box-shadow: 0 0 12px var(--periwinkle);
+      width: 24px; border-radius: 4px;
+      background: var(--redwood);
     }
     .step-pip.complete {
-      background: var(--seafoam); border-color: var(--seafoam);
-      box-shadow: 0 0 10px var(--seafoam);
+      background: var(--burnt-sienna);
     }
     .exit-btn {
       font-family: var(--font-display); font-size: 10px;
@@ -456,15 +500,14 @@
     }
     .exit-btn:hover {
       background: var(--periwinkle); color: #0d1117;
-      box-shadow: 0 0 15px rgba(88, 114, 203, 0.5);
     }
 
     /* =============================================
        STAGE PROMPT
     ============================================= */
     .stage-prompt {
-      position: absolute; top: 80px; left: 24px; z-index: 50;
-      max-width: 300px;
+      position: absolute; top: 70px; left: 24px; z-index: 50;
+      max-width: 280px;
       background: rgba(13, 17, 23, 0.95);
       border-left: 3px solid var(--burnt-sienna);
       padding: 14px 18px; border-radius: 0 8px 8px 0;
@@ -476,8 +519,8 @@
       text-transform: uppercase; margin-bottom: 6px;
     }
     .prompt-question {
-      font-size: 16px; font-weight: 500; color: var(--champagne);
-      margin-bottom: 6px; line-height: 1.4;
+      font-size: 15px; font-weight: 600; color: var(--champagne);
+      margin-bottom: 4px; line-height: 1.4;
     }
     .prompt-hint { font-size: 11px; color: var(--champagne); opacity: 0.5; }
     .prompt-hint em { color: var(--seafoam); font-style: normal; }
@@ -486,20 +529,20 @@
        GUIDE SPEECH BUBBLE
     ============================================= */
     .guide-speech {
-      position: absolute; bottom: 52%; left: 4%; z-index: 20;
-      max-width: 200px;
+      position: absolute; bottom: 62%; left: 2%; z-index: 20;
+      max-width: 220px;
       background: rgba(13, 17, 23, 0.95);
       border: 2px solid var(--periwinkle);
-      padding: 12px 14px; border-radius: 12px 12px 12px 0;
+      padding: 14px 16px; border-radius: 12px 12px 12px 0;
       opacity: 0; transform: translateY(10px);
       transition: all 0.3s ease;
-      box-shadow: 0 0 20px rgba(88, 114, 203, 0.2);
+      box-shadow: 0 0 25px rgba(88, 114, 203, 0.25);
     }
     .guide-speech.visible { opacity: 1; transform: translateY(0); }
     .guide-speech::after {
       content: ''; position: absolute;
-      bottom: -10px; left: 25px;
-      border: 10px solid transparent;
+      bottom: -12px; left: 30px;
+      border: 12px solid transparent;
       border-top-color: var(--periwinkle);
       border-bottom: none;
     }
@@ -512,7 +555,7 @@
        INVENTORY POUCH
     ============================================= */
     .inventory-pouch {
-      position: absolute; bottom: 20px; right: 20px; z-index: 50; width: 270px;
+      position: absolute; bottom: 20px; right: 20px; z-index: 50; width: 260px;
       background: rgba(13, 17, 23, 0.95);
       border: 2px solid var(--burnt-sienna);
       border-radius: 8px; padding: 14px;
@@ -536,7 +579,7 @@
     }
     .slot-row { display: flex; gap: 5px; }
     .inventory-slot {
-      width: 38px; height: 38px;
+      width: 36px; height: 36px;
       background: rgba(21, 27, 38, 0.8);
       border: 2px solid rgba(203, 120, 88, 0.25);
       border-radius: 4px;
@@ -544,15 +587,14 @@
       transition: all 0.2s ease; position: relative;
       image-rendering: pixelated;
     }
-    .inventory-slot.single { width: 55px; height: 55px; }
+    .inventory-slot.single { width: 50px; height: 50px; }
     .inventory-slot.filled {
       border-color: var(--burnt-sienna);
       background: rgba(203, 120, 88, 0.1);
-      box-shadow: inset 0 0 10px rgba(203, 120, 88, 0.1);
     }
-    .slot-item { font-size: 18px; }
-    .slot-item img { width: 28px; height: 28px; image-rendering: pixelated; }
-    .inventory-slot.single .slot-item img { width: 40px; height: 40px; }
+    .slot-item { font-size: 16px; }
+    .slot-item img { width: 26px; height: 26px; image-rendering: pixelated; }
+    .inventory-slot.single .slot-item img { width: 36px; height: 36px; }
     .slot-tooltip {
       position: absolute; bottom: calc(100% + 5px); left: 50%; transform: translateX(-50%);
       background: rgba(13, 17, 23, 0.95); color: var(--champagne);
@@ -581,204 +623,336 @@
       transform: translateX(-50%) translateY(-3px);
       box-shadow: 0 7px 0 #3a8a7a, 0 0 30px rgba(88, 203, 178, 0.5);
     }
-    .continue-btn:active {
-      transform: translateX(-50%) translateY(2px);
-      box-shadow: 0 2px 0 #3a8a7a;
-    }
     .continue-btn.visible { display: block; }
 
-    /* =============================================
-       SELECTION FEEDBACK
-    ============================================= */
+    /* Selection feedback */
     .glass-cube.just-selected .cube-item {
       animation: pop-select 0.3s ease;
     }
     @keyframes pop-select {
       0% { transform: translateX(-50%) scale(1); }
-      50% { transform: translateX(-50%) scale(1.3); }
+      50% { transform: translateX(-50%) scale(1.2); }
       100% { transform: translateX(-50%) scale(1); }
     }
     .inventory-slot.just-filled {
       animation: slot-glow 0.4s ease;
     }
     @keyframes slot-glow {
-      0% { box-shadow: 0 0 0 rgba(88, 203, 178, 0); }
-      50% { box-shadow: 0 0 25px rgba(88, 203, 178, 0.7), inset 0 0 15px rgba(88, 203, 178, 0.3); }
-      100% { box-shadow: 0 0 0 rgba(88, 203, 178, 0); }
+      50% { box-shadow: 0 0 20px rgba(88, 203, 178, 0.7); }
     }
 
     /* =============================================
-       PACKAGE SUMMARY (Step 5)
+       PACKAGE SUMMARY - Matching static site
     ============================================= */
     .package-summary {
-      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      z-index: 100; width: 90%; max-width: 620px;
-      background: rgba(13, 17, 23, 0.98);
-      border: 2px solid var(--periwinkle);
-      border-radius: 8px; padding: 28px; display: none;
-      box-shadow: 0 8px 50px rgba(0,0,0,0.6), 0 0 40px rgba(88, 114, 203, 0.2);
+      position: absolute; inset: 0; z-index: 200;
+      background: var(--cadet-blue);
+      overflow-y: auto; display: none;
     }
     .package-summary.visible { display: block; }
-    .package-header {
-      text-align: center; margin-bottom: 20px;
-      padding-bottom: 14px; border-bottom: 1px solid rgba(88, 114, 203, 0.3);
+
+    .package-content {
+      max-width: 420px; margin: 0 auto;
+      padding: 24px 20px 100px;
     }
+
+    .package-intro {
+      text-align: center; font-size: 13px;
+      color: rgba(255,255,255,0.8); margin-bottom: 16px;
+    }
+
+    .package-progress {
+      display: flex; justify-content: center; gap: 6px; margin-bottom: 24px;
+    }
+    .package-progress-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #3a4459;
+    }
+    .package-progress-dot.active {
+      width: 24px; border-radius: 4px;
+      background: var(--redwood);
+    }
+
     .package-title {
-      font-family: var(--font-pixel); font-size: 10px;
-      color: var(--seafoam); letter-spacing: 2px;
-      text-transform: uppercase; margin-bottom: 6px;
-      text-shadow: 0 0 10px rgba(88, 203, 178, 0.5);
+      font-size: 32px; font-weight: 700;
+      text-transform: lowercase; text-align: center;
+      margin-bottom: 8px;
     }
-    .package-subtitle { font-size: 13px; color: var(--champagne); opacity: 0.7; }
-    .package-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
-    .package-section {
-      background: rgba(21, 27, 38, 0.6); border-radius: 6px;
-      padding: 12px; border-left: 3px solid var(--periwinkle);
+
+    .package-tagline {
+      text-align: center; font-size: 14px;
+      color: rgba(255,255,255,0.7); margin-bottom: 20px;
     }
-    .package-section.full-width { grid-column: 1 / -1; }
-    .package-section-label {
-      font-family: var(--font-pixel); font-size: 6px;
-      color: var(--periwinkle); letter-spacing: 1px;
-      text-transform: uppercase; margin-bottom: 8px;
+
+    .package-tags {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 8px; margin-bottom: 28px;
     }
-    .package-section-value { font-size: 13px; color: var(--champagne); line-height: 1.5; }
-    .package-tags { display: flex; flex-wrap: wrap; gap: 6px; }
     .package-tag {
-      display: inline-flex; align-items: center; gap: 5px;
-      background: rgba(203, 120, 88, 0.15);
-      border: 1px solid rgba(203, 120, 88, 0.4);
-      padding: 5px 10px; border-radius: 4px;
-      font-size: 10px; color: var(--champagne);
+      padding: 6px 14px; border-radius: 4px;
+      font-size: 12px; font-weight: 500;
+      text-transform: lowercase;
     }
-    .package-actions { display: flex; gap: 12px; justify-content: center; }
+    .package-tag.focus { background: var(--periwinkle); color: white; }
+    .package-tag.approach { background: var(--periwinkle); color: white; }
+    .package-tag.count { background: var(--seafoam); color: var(--cadet-blue); }
+
+    /* Quadrant matrix */
+    .quadrant-section {
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px; padding: 20px; margin-bottom: 24px;
+    }
+    .quadrant-grid {
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+    }
+    .quadrant-labels-row {
+      display: grid; grid-template-columns: 50px 80px 80px;
+      gap: 3px; margin-bottom: 3px;
+    }
+    .quadrant-label {
+      font-size: 10px; color: rgba(255,255,255,0.6);
+      text-align: center; text-transform: lowercase;
+    }
+    .quadrant-label.empty { }
+    .quadrant-row {
+      display: grid; grid-template-columns: 50px 80px 80px; gap: 3px;
+    }
+    .quadrant-row-label {
+      font-size: 10px; color: rgba(255,255,255,0.6);
+      text-transform: lowercase;
+      display: flex; align-items: center; justify-content: flex-end;
+      padding-right: 8px;
+    }
+    .quadrant-cell {
+      padding: 10px 8px; background: #3a4459;
+      border-radius: 4px; text-align: center;
+      font-size: 10px; color: rgba(255,255,255,0.7);
+      text-transform: lowercase; line-height: 1.3;
+    }
+    .quadrant-cell.active {
+      background: var(--redwood); color: white;
+    }
+    .quadrant-description {
+      text-align: center; margin-top: 16px;
+      font-size: 13px; color: rgba(255,255,255,0.7);
+    }
+
+    /* Services section */
+    .services-section {
+      margin-bottom: 24px;
+    }
+    .section-title {
+      font-size: 14px; font-weight: 600;
+      text-transform: lowercase; margin-bottom: 12px;
+      color: rgba(255,255,255,0.6);
+    }
+    .service-card {
+      background: rgba(255,255,255,0.05);
+      border-left: 3px solid var(--burnt-sienna);
+      padding: 12px 16px; margin-bottom: 8px;
+      border-radius: 0 6px 6px 0;
+    }
+    .service-name {
+      font-size: 14px; font-weight: 600; margin-bottom: 4px;
+    }
+    .service-desc {
+      font-size: 12px; color: rgba(255,255,255,0.6);
+    }
+
+    /* How we work section */
+    .work-section {
+      margin-bottom: 24px;
+    }
+    .work-description {
+      background: rgba(255,255,255,0.05);
+      padding: 16px; border-radius: 6px;
+      font-size: 13px; line-height: 1.6;
+      color: rgba(255,255,255,0.8); margin-bottom: 12px;
+    }
+    .crossing-callout {
+      background: rgba(203, 120, 88, 0.15);
+      border-left: 3px solid var(--burnt-sienna);
+      padding: 12px 16px; border-radius: 0 6px 6px 0;
+      font-size: 13px; font-style: italic;
+    }
+
+    /* Package actions */
+    .package-actions {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--cadet-blue);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 16px 20px;
+      display: flex; justify-content: center; gap: 10px;
+    }
     .package-btn {
-      font-family: var(--font-pixel); font-size: 8px;
-      padding: 12px 20px; border: none; border-radius: 4px;
-      cursor: pointer; transition: all 0.2s ease;
-      letter-spacing: 0.5px;
+      flex: 1; max-width: 130px;
+      padding: 14px 16px; border: none; border-radius: 4px;
+      font-family: inherit; font-size: 12px; font-weight: 600;
+      text-transform: lowercase; cursor: pointer;
+      transition: all 0.2s ease;
     }
     .package-btn.primary {
-      background: var(--seafoam); color: #0d1117;
-      box-shadow: 0 4px 0 #3a8a7a;
+      background: var(--redwood); color: white;
     }
     .package-btn.secondary {
-      background: transparent; color: var(--champagne);
-      border: 2px solid rgba(203, 120, 88, 0.5);
+      background: var(--seafoam); color: var(--cadet-blue);
+    }
+    .package-btn.tertiary {
+      background: transparent; color: white;
+      border: 1.5px solid rgba(255,255,255,0.5);
     }
     .package-btn:hover { transform: translateY(-2px); }
 
     @media (max-width: 700px) {
-      .package-grid { grid-template-columns: 1fr; }
-      .inventory-pouch { width: 230px; padding: 10px; }
-      .display-cubes { gap: 16px; }
-      .glass-cube { width: 80px; height: 100px; }
-      .cube-glass { width: 65px; height: 80px; }
-      .cube-item { width: 45px; height: 55px; }
-      .shelf-unit { display: none; }
+      .cabinet { display: none; }
+      .wayfinder { left: 1%; }
+      .wayfinder-sprite, .wayfinder-placeholder { width: 120px; height: 180px; }
+      .display-cubes { gap: 20px; }
+      .glass-cube { width: 90px; height: 115px; }
+      .cube-glass { width: 75px; height: 90px; }
+      .cube-item { width: 60px; height: 72px; }
     }
   </style>
 </head>
 <body>
   <div class="game-container">
 
-    <!-- Tech Lab Background -->
+    <!-- Detailed Lab Background -->
     <div class="lab-bg">
-      <!-- Ceiling with lights -->
+      <!-- Ceiling with beams and lights -->
       <div class="ceiling">
-        <div class="ceiling-lights">
-          <div class="ceiling-light"></div>
-          <div class="ceiling-light"></div>
-          <div class="ceiling-light"></div>
-          <div class="ceiling-light"></div>
-        </div>
+        <div class="ceiling-beam"><div class="ceiling-light-fixture"></div></div>
+        <div class="ceiling-beam"><div class="ceiling-light-fixture"></div></div>
+        <div class="ceiling-beam"><div class="ceiling-light-fixture"></div></div>
       </div>
 
-      <!-- Back wall -->
+      <!-- Back wall with equipment -->
       <div class="back-wall">
-        <!-- Left shelf with vials -->
-        <div class="shelf-unit left">
-          <div class="shelf"></div>
-          <div class="shelf"></div>
-          <div class="vial" style="height:25px; left:15px; background:#1a3a4a;">
-            <div style="position:absolute;bottom:3px;left:3px;right:3px;height:15px;background:var(--seafoam);border-radius:0 0 3px 3px;opacity:0.7;"></div>
+        <!-- Equipment cabinets -->
+        <div class="cabinet left">
+          <div class="cabinet-screen"></div>
+          <div class="cabinet-lights">
+            <div class="indicator-light green"></div>
+            <div class="indicator-light green"></div>
+            <div class="indicator-light orange blink"></div>
+            <div class="indicator-light blue"></div>
+            <div class="indicator-light green"></div>
           </div>
-          <div class="vial" style="height:20px; left:35px; background:#2a1a3a;">
-            <div style="position:absolute;bottom:3px;left:3px;right:3px;height:12px;background:var(--periwinkle);border-radius:0 0 3px 3px;opacity:0.7;"></div>
+          <div class="cabinet-vents">
+            <div class="vent-slot"></div>
+            <div class="vent-slot"></div>
+            <div class="vent-slot"></div>
           </div>
-          <div class="vial" style="height:28px; left:55px; background:#3a2a1a;">
-            <div style="position:absolute;bottom:3px;left:3px;right:3px;height:18px;background:var(--burnt-sienna);border-radius:0 0 3px 3px;opacity:0.7;"></div>
+        </div>
+        <div class="cabinet right">
+          <div class="cabinet-screen"></div>
+          <div class="cabinet-lights">
+            <div class="indicator-light blue"></div>
+            <div class="indicator-light green"></div>
+            <div class="indicator-light green"></div>
+            <div class="indicator-light orange"></div>
+            <div class="indicator-light blue blink"></div>
+          </div>
+          <div class="cabinet-vents">
+            <div class="vent-slot"></div>
+            <div class="vent-slot"></div>
+            <div class="vent-slot"></div>
           </div>
         </div>
 
-        <!-- Right shelf with vials -->
-        <div class="shelf-unit right">
-          <div class="shelf"></div>
-          <div class="shelf"></div>
-          <div class="vial" style="height:22px; left:15px; background:#1a2a3a;">
-            <div style="position:absolute;bottom:3px;left:3px;right:3px;height:14px;background:var(--light-cyan);border-radius:0 0 3px 3px;opacity:0.7;"></div>
+        <!-- Shelf units with vials -->
+        <div class="shelf-unit left-upper">
+          <div class="shelf-bar"></div>
+          <div class="shelf-bar"></div>
+          <div class="vial-row">
+            <div class="vial" style="height:20px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:12px;background:var(--seafoam);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
+            <div class="vial" style="height:16px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:10px;background:var(--periwinkle);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
+            <div class="vial" style="height:22px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:14px;background:var(--burnt-sienna);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
           </div>
-          <div class="vial" style="height:30px; left:35px; background:#2a3a2a;">
-            <div style="position:absolute;bottom:3px;left:3px;right:3px;height:20px;background:var(--seafoam);border-radius:0 0 3px 3px;opacity:0.7;"></div>
+          <div class="vial-row">
+            <div class="vial" style="height:18px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:11px;background:var(--light-cyan);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
+            <div class="vial" style="height:24px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:16px;background:var(--seafoam);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
           </div>
-          <div class="vial" style="height:18px; left:55px; background:#3a1a2a;">
-            <div style="position:absolute;bottom:3px;left:3px;right:3px;height:10px;background:var(--redwood);border-radius:0 0 3px 3px;opacity:0.7;"></div>
+          <div class="vial-row">
+            <div class="vial" style="height:15px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:9px;background:var(--redwood);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
+            <div class="vial" style="height:20px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:13px;background:var(--periwinkle);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
+            <div class="vial" style="height:17px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:10px;background:var(--burnt-sienna);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
+          </div>
+        </div>
+        <div class="shelf-unit right-upper">
+          <div class="shelf-bar"></div>
+          <div class="shelf-bar"></div>
+          <div class="vial-row">
+            <div class="vial" style="height:22px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:14px;background:var(--periwinkle);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
+            <div class="vial" style="height:18px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:11px;background:var(--seafoam);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
+            <div class="vial" style="height:25px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:17px;background:var(--redwood);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
+          </div>
+          <div class="vial-row">
+            <div class="vial" style="height:20px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:13px;background:var(--burnt-sienna);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
+            <div class="vial" style="height:16px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:10px;background:var(--light-cyan);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
+          </div>
+          <div class="vial-row">
+            <div class="vial" style="height:19px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:12px;background:var(--seafoam);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
+            <div class="vial" style="height:23px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:15px;background:var(--periwinkle);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
+            <div class="vial" style="height:17px;"><div style="position:absolute;bottom:2px;left:2px;right:2px;height:10px;background:var(--burnt-sienna);border-radius:0 0 3px 3px;opacity:0.7;"></div></div>
           </div>
         </div>
 
-        <!-- Holographic panels -->
-        <div class="holo-panel left">
-          <div class="data-line"></div>
-          <div class="data-line"></div>
-          <div class="data-line"></div>
-        </div>
-        <div class="holo-panel right">
-          <div class="data-line"></div>
-          <div class="data-line"></div>
-          <div class="data-line"></div>
-        </div>
-
-        <!-- Central display -->
-        <div class="central-display">
-          <div class="bar"><div class="bar-fill" id="progressBar"></div></div>
+        <!-- Central monitor -->
+        <div class="central-monitor">
+          <div class="monitor-screen">
+            <div class="monitor-text">PACKAGE CONFIGURATOR</div>
+            <div class="monitor-bar"><div class="monitor-bar-fill" id="progressBar"></div></div>
+          </div>
+          <div class="monitor-buttons">
+            <div class="monitor-btn"></div>
+            <div class="monitor-btn"></div>
+            <div class="monitor-btn"></div>
+          </div>
         </div>
 
-        <!-- Tube system -->
-        <div class="tube-system">
-          <div class="tube-node"></div>
-          <div class="tube"></div>
-          <div class="tube-node"></div>
-          <div class="tube"></div>
-          <div class="tube-node"></div>
+        <!-- Pipe system -->
+        <div class="pipe-system">
+          <div class="main-pipe">
+            <div class="pipe-flow"></div>
+          </div>
+          <div class="pipe-joint"></div>
+          <div class="pipe-joint"></div>
+          <div class="pipe-joint"></div>
+          <div class="pipe-joint"></div>
+          <div class="pipe-joint"></div>
         </div>
       </div>
 
-      <!-- Floor with grid -->
+      <!-- Floor -->
       <div class="floor">
         <div class="floor-grid"></div>
-        <div class="floor-glow"></div>
+        <div class="floor-highlight"></div>
       </div>
     </div>
 
-    <!-- Wayfinder Character -->
+    <!-- Wayfinder Character - LARGER -->
     <div class="wayfinder">
       <div class="wayfinder-sprite" id="wayfinderSprite">
-        <img src="../images/game/wayfinder.png" alt="Guide" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'wayfinder-placeholder\'></div>';">
+        <img src="../images/game/focus-people.png" alt="Guide" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'wayfinder-placeholder\'></div>';">
       </div>
       <div class="wayfinder-shadow"></div>
     </div>
 
     <!-- Guide Speech Bubble -->
     <div class="guide-speech" id="guideSpeech">
-      <div class="guide-text" id="guideText">Welcome, traveler. Let us configure your experience package.</div>
+      <div class="guide-text" id="guideText">Welcome, traveler. Configure your experience package.</div>
     </div>
 
-    <!-- Counter with Glass Cube Displays -->
+    <!-- 3D Counter with Glass Cubes -->
     <div class="counter-area">
-      <div class="display-cubes" id="displayCubes">
-        <!-- Glass cubes generated by JS -->
+      <div class="display-cubes" id="displayCubes"></div>
+      <div class="counter-top">
+        <div class="counter-edge-light"></div>
+        <div class="counter-edge-light"></div>
       </div>
-      <div class="counter"></div>
       <div class="counter-front"></div>
+      <div class="counter-trim"></div>
     </div>
 
     <!-- Header -->
@@ -841,41 +1015,75 @@
     <!-- Continue Button -->
     <button class="continue-btn" id="continueBtn">CONTINUE →</button>
 
-    <!-- Package Summary (Step 5) -->
+    <!-- Package Summary - Matching static site format -->
     <div class="package-summary" id="packageSummary">
-      <div class="package-header">
-        <div class="package-title">PACKAGE CONFIGURED</div>
-        <div class="package-subtitle" id="packageQuadrant">Design & Deploy</div>
+      <div class="package-content">
+        <div class="package-intro">get to know us by building your custom learning experience package</div>
+
+        <div class="package-progress">
+          <div class="package-progress-dot"></div>
+          <div class="package-progress-dot"></div>
+          <div class="package-progress-dot"></div>
+          <div class="package-progress-dot"></div>
+          <div class="package-progress-dot active"></div>
+        </div>
+
+        <h1 class="package-title" id="packageTitle">people × design</h1>
+        <p class="package-tagline" id="packageTagline">know if your learning product is working.</p>
+
+        <div class="package-tags" id="packageTagsContainer">
+          <span class="package-tag focus" id="tagFocus">people</span>
+          <span class="package-tag approach" id="tagApproach">design</span>
+          <span class="package-tag count" id="tagServices">2 services</span>
+          <span class="package-tag count" id="tagGoals">1 goal</span>
+        </div>
+
+        <div class="quadrant-section">
+          <div class="quadrant-grid">
+            <div class="quadrant-labels-row">
+              <div class="quadrant-label empty"></div>
+              <div class="quadrant-label">design</div>
+              <div class="quadrant-label">research</div>
+            </div>
+            <div class="quadrant-row">
+              <div class="quadrant-row-label">people</div>
+              <div class="quadrant-cell" data-quadrant="people-design">design &<br>deploy</div>
+              <div class="quadrant-cell" data-quadrant="people-research">pinpoint &<br>prove</div>
+            </div>
+            <div class="quadrant-row">
+              <div class="quadrant-row-label">product</div>
+              <div class="quadrant-cell" data-quadrant="product-design">build &<br>iterate</div>
+              <div class="quadrant-cell" data-quadrant="product-research">test &<br>validate</div>
+            </div>
+          </div>
+          <p class="quadrant-description" id="quadrantDescription">we evaluate, test, and measure learning products to ensure they deliver results.</p>
+        </div>
+
+        <div class="services-section">
+          <h3 class="section-title">what you'll get</h3>
+          <div id="servicesList"></div>
+        </div>
+
+        <div class="work-section">
+          <h3 class="section-title">how we'll work together</h3>
+          <div class="work-description" id="workDescription">
+            Using UX research methods, learning analytics, and accessibility audits, we provide actionable insights for improvement.
+          </div>
+          <div class="crossing-callout">
+            <strong>crossing boundaries:</strong> <em id="crossingText">ready to implement improvements? let's design together.</em>
+          </div>
+        </div>
       </div>
-      <div class="package-grid">
-        <div class="package-section">
-          <div class="package-section-label">Focus</div>
-          <div class="package-section-value" id="summaryFocus">—</div>
-        </div>
-        <div class="package-section">
-          <div class="package-section-label">Approach</div>
-          <div class="package-section-value" id="summaryApproach">—</div>
-        </div>
-        <div class="package-section full-width">
-          <div class="package-section-label">Services</div>
-          <div class="package-tags" id="summaryServices"></div>
-        </div>
-        <div class="package-section full-width">
-          <div class="package-section-label">Goals</div>
-          <div class="package-tags" id="summaryGoals"></div>
-        </div>
-      </div>
+
       <div class="package-actions">
-        <button class="package-btn secondary" id="resetBtn">RECONFIGURE</button>
-        <button class="package-btn primary" id="submitBtn">BOOK SESSION →</button>
+        <button class="package-btn primary" id="submitBtn">book a playdate</button>
+        <button class="package-btn secondary" id="emailBtn">email package</button>
+        <button class="package-btn tertiary" id="resetBtn">start over</button>
       </div>
     </div>
   </div>
 
   <script>
-    // =============================================
-    // GAME DATA - Now with image paths
-    // =============================================
     const STEPS = [
       null,
       {
@@ -939,28 +1147,49 @@
       ]
     };
 
-    const QUADRANT_NAMES = {
-      'people-design': 'Design & Deploy',
-      'people-research': 'Pinpoint & Prove',
-      'product-design': 'Build & Iterate',
-      'product-research': 'Test & Validate'
+    const QUADRANT_INFO = {
+      'people-design': {
+        name: 'Design & Deploy',
+        title: 'people × design',
+        tagline: 'develop people through designed experiences.',
+        description: 'we create learning experiences, trainings, and programmes that help people grow.',
+        crossing: 'ready to measure impact? let\'s research together.'
+      },
+      'people-research': {
+        name: 'Pinpoint & Prove',
+        title: 'people × research',
+        tagline: 'understand and measure human development.',
+        description: 'we evaluate programmes, develop assessments, and prove impact to stakeholders.',
+        crossing: 'ready to design improvements? let\'s create together.'
+      },
+      'product-design': {
+        name: 'Build & Iterate',
+        title: 'product × design',
+        tagline: 'create learning products that work.',
+        description: 'we design educational tools, games, and accessible learning products.',
+        crossing: 'ready to test your product? let\'s research together.'
+      },
+      'product-research': {
+        name: 'Test & Validate',
+        title: 'product × research',
+        tagline: 'know if your learning product is working.',
+        description: 'we evaluate, test, and measure learning products to ensure they deliver results.',
+        crossing: 'ready to implement improvements? let\'s design together.'
+      }
     };
 
     const GUIDE_LINES = {
-      welcome: "Welcome, traveler. Configure your experience package.",
-      step1: "First: is your work focused on people or a product?",
-      step2: "Excellent. Will you design or research?",
-      step3: "Select the services that fit your quest.",
+      welcome: "Welcome, traveler. Configure your package.",
+      step1: "First: people or product?",
+      step2: "Will you design or research?",
+      step3: "Select your services.",
       step4: "What outcomes do you seek?",
-      step5: "Package configured. Review carefully.",
+      step5: "Package configured.",
       goodChoice: ["Noted.", "Added.", "Confirmed.", "Locked in."]
     };
 
     const gameState = { step: 1, focus: null, approach: null, services: [], goals: [] };
 
-    // =============================================
-    // DOM ELEMENTS
-    // =============================================
     const displayCubes = document.getElementById('displayCubes');
     const guideSpeech = document.getElementById('guideSpeech');
     const guideText = document.getElementById('guideText');
@@ -969,12 +1198,8 @@
     const inventoryPouch = document.getElementById('inventoryPouch');
     const progressBar = document.getElementById('progressBar');
 
-    // =============================================
-    // RENDER GLASS CUBES - Now with image support
-    // =============================================
     function renderDisplayCubes() {
       displayCubes.innerHTML = '';
-
       const step = STEPS[gameState.step];
       if (!step || gameState.step === 5) return;
 
@@ -988,16 +1213,11 @@
         const cube = document.createElement('div');
         cube.className = 'glass-cube';
         cube.dataset.value = item.value;
-        cube.dataset.index = i;
 
         const stepData = step.single ? gameState[step.id] : gameState[step.id];
-        if (step.single && stepData === item.value) {
-          cube.classList.add('selected');
-        } else if (!step.single && stepData.includes(item.value)) {
-          cube.classList.add('selected');
-        }
+        if (step.single && stepData === item.value) cube.classList.add('selected');
+        else if (!step.single && stepData.includes(item.value)) cube.classList.add('selected');
 
-        // Render image or emoji fallback
         const itemContent = item.img
           ? `<img src="${item.img}" alt="${item.label}" onerror="this.outerHTML='<span class=\\'emoji-fallback\\'>${item.icon}</span>'">`
           : `<span class="emoji-fallback">${item.icon}</span>`;
@@ -1018,60 +1238,40 @@
       });
     }
 
-    // =============================================
-    // CLICK TO SELECT
-    // =============================================
     function selectItem(item, cubeEl) {
       if (cubeEl.classList.contains('selected')) return;
-
       const step = STEPS[gameState.step];
       if (!step.single && gameState[step.id].length >= step.maxSelect) return;
 
       const slots = document.querySelectorAll(`.inventory-slot[data-section="${step.id}"]`);
       let targetSlot = null;
       for (const slot of slots) {
-        if (!slot.classList.contains('filled')) {
-          targetSlot = slot;
-          break;
-        }
+        if (!slot.classList.contains('filled')) { targetSlot = slot; break; }
       }
       if (!targetSlot) return;
 
-      if (step.single) {
-        gameState[step.id] = item.value;
-      } else {
-        gameState[step.id].push(item.value);
-      }
+      if (step.single) gameState[step.id] = item.value;
+      else gameState[step.id].push(item.value);
 
       cubeEl.classList.add('selected', 'just-selected');
       setTimeout(() => cubeEl.classList.remove('just-selected'), 300);
 
-      // Fill slot with image or emoji
       const slotContent = item.img
         ? `<img src="${item.img}" alt="${item.label}" onerror="this.outerHTML='${item.icon}'">`
         : item.icon;
 
       targetSlot.classList.add('filled', 'just-filled');
-      targetSlot.innerHTML = `
-        <div class="slot-item">${slotContent}</div>
-        <div class="slot-tooltip">${item.label}</div>
-      `;
+      targetSlot.innerHTML = `<div class="slot-item">${slotContent}</div><div class="slot-tooltip">${item.label}</div>`;
       setTimeout(() => targetSlot.classList.remove('just-filled'), 400);
 
       showGuide(GUIDE_LINES.goodChoice[Math.floor(Math.random() * GUIDE_LINES.goodChoice.length)]);
       checkStepComplete();
     }
 
-    // =============================================
-    // GAME FLOW
-    // =============================================
     function checkStepComplete() {
       const step = STEPS[gameState.step];
-      if (step.single && gameState[step.id]) {
-        setTimeout(advanceStep, 600);
-      } else {
-        continueBtn.classList.toggle('visible', gameState[step.id]?.length > 0);
-      }
+      if (step.single && gameState[step.id]) setTimeout(advanceStep, 600);
+      else continueBtn.classList.toggle('visible', gameState[step.id]?.length > 0);
     }
 
     function advanceStep() {
@@ -1080,26 +1280,18 @@
       continueBtn.classList.remove('visible');
       updateUI();
       renderDisplayCubes();
-
-      if (gameState.step === 5) {
-        showPackageSummary();
-      } else {
-        showGuide(GUIDE_LINES[`step${gameState.step}`] || GUIDE_LINES.welcome);
-      }
+      if (gameState.step === 5) showPackageSummary();
+      else showGuide(GUIDE_LINES[`step${gameState.step}`] || GUIDE_LINES.welcome);
     }
 
     function updateUI() {
-      // Progress bar
       progressBar.style.width = `${(gameState.step / 5) * 100}%`;
-
-      // Step pips
       document.querySelectorAll('.step-pip').forEach(p => {
         const s = parseInt(p.dataset.step);
         p.classList.toggle('active', s === gameState.step);
         p.classList.toggle('complete', s < gameState.step);
       });
 
-      // Stage prompt
       const step = STEPS[gameState.step];
       const prompt = document.getElementById('stagePrompt');
       if (step && gameState.step < 5) {
@@ -1111,7 +1303,6 @@
         prompt.style.display = 'none';
       }
 
-      // Inventory section opacity
       document.querySelectorAll('.inventory-section').forEach(sec => {
         const id = sec.id.replace('section-', '');
         const num = ['focus', 'approach', 'services', 'goals'].indexOf(id) + 1;
@@ -1123,32 +1314,36 @@
       guideText.textContent = text;
       guideSpeech.classList.add('visible');
       clearTimeout(window.guideTimeout);
-      window.guideTimeout = setTimeout(() => guideSpeech.classList.remove('visible'), 3500);
+      window.guideTimeout = setTimeout(() => guideSpeech.classList.remove('visible'), 3000);
     }
 
     function showPackageSummary() {
-      showGuide(GUIDE_LINES.step5);
-
       const quadrant = `${gameState.focus}-${gameState.approach}`;
-      document.getElementById('packageQuadrant').textContent = QUADRANT_NAMES[quadrant] || '';
+      const info = QUADRANT_INFO[quadrant];
 
-      const focusItem = STEPS[1].items.find(i => i.value === gameState.focus);
-      const approachItem = STEPS[2].items.find(i => i.value === gameState.approach);
+      document.getElementById('packageTitle').textContent = info.title;
+      document.getElementById('packageTagline').textContent = info.tagline;
+      document.getElementById('tagFocus').textContent = gameState.focus;
+      document.getElementById('tagApproach').textContent = gameState.approach;
+      document.getElementById('tagServices').textContent = `${gameState.services.length} service${gameState.services.length !== 1 ? 's' : ''}`;
+      document.getElementById('tagGoals').textContent = `${gameState.goals.length} goal${gameState.goals.length !== 1 ? 's' : ''}`;
 
-      document.getElementById('summaryFocus').textContent = focusItem ? `${focusItem.icon} ${focusItem.label}` : '—';
-      document.getElementById('summaryApproach').textContent = approachItem ? `${approachItem.icon} ${approachItem.label}` : '—';
+      document.querySelectorAll('.quadrant-cell').forEach(cell => {
+        cell.classList.toggle('active', cell.dataset.quadrant === quadrant);
+      });
 
-      document.getElementById('summaryServices').innerHTML = gameState.services.map(v => {
+      document.getElementById('quadrantDescription').textContent = info.description;
+      document.getElementById('workDescription').textContent = info.description;
+      document.getElementById('crossingText').textContent = info.crossing;
+
+      const servicesList = document.getElementById('servicesList');
+      servicesList.innerHTML = gameState.services.map(v => {
         const item = STEPS[3].items.find(i => i.value === v);
-        return item ? `<span class="package-tag">${item.icon} ${item.label}</span>` : '';
-      }).join('');
-
-      document.getElementById('summaryGoals').innerHTML = gameState.goals.map(v => {
-        const item = STEPS[4].items.find(i => i.value === v);
-        return item ? `<span class="package-tag">${item.icon} ${item.label}</span>` : '';
+        return item ? `<div class="service-card"><div class="service-name">${item.label}</div><div class="service-desc">${item.desc}</div></div>` : '';
       }).join('');
 
       inventoryPouch.style.display = 'none';
+      document.getElementById('stagePrompt').style.display = 'none';
       packageSummary.classList.add('visible');
     }
 
@@ -1165,6 +1360,7 @@
 
       packageSummary.classList.remove('visible');
       inventoryPouch.style.display = 'block';
+      document.getElementById('stagePrompt').style.display = 'block';
       continueBtn.classList.remove('visible');
 
       updateUI();
@@ -1172,24 +1368,23 @@
       showGuide(GUIDE_LINES.welcome);
     }
 
-    // =============================================
-    // EVENTS
-    // =============================================
     continueBtn.addEventListener('click', advanceStep);
     document.getElementById('resetBtn').addEventListener('click', resetGame);
     document.getElementById('submitBtn').addEventListener('click', () => {
       const params = new URLSearchParams({
-        focus: gameState.focus,
-        approach: gameState.approach,
-        services: gameState.services.join(','),
-        goals: gameState.goals.join(',')
+        focus: gameState.focus, approach: gameState.approach,
+        services: gameState.services.join(','), goals: gameState.goals.join(',')
       });
       window.location.href = `../connect/?${params.toString()}`;
     });
+    document.getElementById('emailBtn').addEventListener('click', () => {
+      const quadrant = `${gameState.focus}-${gameState.approach}`;
+      const info = QUADRANT_INFO[quadrant];
+      const subject = `My ${info.title} package`;
+      const body = `Package: ${info.title}%0D%0AServices: ${gameState.services.join(', ')}%0D%0AGoals: ${gameState.goals.join(', ')}`;
+      window.location.href = `mailto:hello@windedvertigo.com?subject=${subject}&body=${body}`;
+    });
 
-    // =============================================
-    // INIT
-    // =============================================
     updateUI();
     renderDisplayCubes();
     showGuide(GUIDE_LINES.welcome);
