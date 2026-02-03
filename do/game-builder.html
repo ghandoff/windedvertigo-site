@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>package builder – winded.vertigo</title>
-  <meta name="description" content="Build your custom learning experience package at the winded.vertigo apothecary.">
+  <meta name="description" content="Build your custom learning experience package at the winded.vertigo lab.">
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
@@ -16,7 +16,7 @@
 
   <style>
     /* =============================================
-       WINDED.VERTIGO BRAND PALETTE
+       WINDED.VERTIGO BRAND PALETTE - CYBER LAB
        ============================================= */
 
     :root {
@@ -29,6 +29,11 @@
       --seafoam: #58cbb2;
       --light-lavender: #d5d2ff;
       --light-cyan: #d2fdff;
+
+      /* Neon variants for cyber aesthetic */
+      --neon-sienna: #ff8a5c;
+      --neon-periwinkle: #7b9aff;
+      --neon-seafoam: #5effdb;
 
       --font-display: 'Space Mono', monospace;
       --font-ui: 'Inter', sans-serif;
@@ -47,7 +52,7 @@
 
     body {
       font-family: var(--font-ui);
-      background: #1a1510;
+      background: #0a0d12;
       color: var(--champagne);
     }
 
@@ -84,7 +89,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 16px 24px;
-      background: linear-gradient(180deg, rgba(26, 21, 16, 0.95) 0%, transparent 100%);
+      background: linear-gradient(180deg, rgba(10, 13, 18, 0.95) 0%, transparent 100%);
       pointer-events: none;
     }
 
@@ -95,55 +100,59 @@
     .shop-title {
       font-family: var(--font-display);
       font-size: 14px;
-      color: var(--champagne);
-      letter-spacing: 2px;
-      text-transform: lowercase;
+      color: var(--neon-seafoam);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px var(--seafoam);
     }
 
     .step-indicator {
       display: flex;
-      gap: 8px;
+      gap: 12px;
       align-items: center;
     }
 
     .step-pip {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      border: 2px solid var(--burnt-sienna);
+      width: 10px;
+      height: 10px;
+      border: 2px solid var(--periwinkle);
       background: transparent;
       transition: all 0.3s ease;
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
     }
 
     .step-pip.active {
-      background: var(--burnt-sienna);
-      box-shadow: 0 0 10px var(--burnt-sienna);
+      background: var(--neon-periwinkle);
+      box-shadow: 0 0 15px var(--periwinkle);
     }
 
     .step-pip.complete {
-      background: var(--seafoam);
+      background: var(--neon-seafoam);
       border-color: var(--seafoam);
+      box-shadow: 0 0 10px var(--seafoam);
     }
 
     .exit-btn {
       font-family: var(--font-display);
-      font-size: 12px;
+      font-size: 11px;
       color: var(--champagne);
-      background: none;
-      border: 1px solid var(--burnt-sienna);
+      background: rgba(39, 50, 72, 0.5);
+      border: 1px solid var(--periwinkle);
       padding: 8px 16px;
       cursor: pointer;
       text-decoration: none;
       transition: all 0.2s ease;
+      letter-spacing: 1px;
     }
 
     .exit-btn:hover {
-      background: var(--burnt-sienna);
-      color: var(--cadet-blue);
+      background: var(--periwinkle);
+      color: var(--white);
+      box-shadow: 0 0 15px var(--periwinkle);
     }
 
     /* =============================================
-       INVENTORY POUCH (Zelda-style)
+       INVENTORY POUCH (Tech Interface)
        ============================================= */
 
     .inventory-pouch {
@@ -152,13 +161,23 @@
       right: 20px;
       z-index: 20;
       width: 320px;
-      background: linear-gradient(145deg, #2a2318 0%, #1a1510 100%);
-      border: 3px solid var(--burnt-sienna);
-      border-radius: 12px;
+      background: linear-gradient(145deg, rgba(39, 50, 72, 0.9) 0%, rgba(10, 13, 18, 0.95) 100%);
+      border: 1px solid var(--periwinkle);
+      border-radius: 4px;
       padding: 16px;
       box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 235, 210, 0.1);
+        0 0 30px rgba(88, 114, 203, 0.2),
+        inset 0 1px 0 rgba(123, 154, 255, 0.1);
+    }
+
+    .inventory-pouch::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-periwinkle), transparent);
     }
 
     .pouch-header {
@@ -167,21 +186,21 @@
       align-items: center;
       margin-bottom: 12px;
       padding-bottom: 8px;
-      border-bottom: 1px solid rgba(203, 120, 88, 0.3);
+      border-bottom: 1px solid rgba(88, 114, 203, 0.3);
     }
 
     .pouch-title {
       font-family: var(--font-display);
-      font-size: 11px;
-      color: var(--burnt-sienna);
-      letter-spacing: 2px;
+      font-size: 10px;
+      color: var(--neon-seafoam);
+      letter-spacing: 3px;
       text-transform: uppercase;
     }
 
     .pouch-subtitle {
       font-size: 10px;
       color: var(--champagne);
-      opacity: 0.6;
+      opacity: 0.5;
     }
 
     .inventory-section {
@@ -195,9 +214,8 @@
     .section-label {
       font-family: var(--font-display);
       font-size: 9px;
-      color: var(--champagne);
-      opacity: 0.5;
-      letter-spacing: 1px;
+      color: var(--periwinkle);
+      letter-spacing: 2px;
       text-transform: uppercase;
       margin-bottom: 6px;
     }
@@ -210,14 +228,14 @@
     .inventory-slot {
       width: 48px;
       height: 48px;
-      background: rgba(39, 50, 72, 0.4);
-      border: 2px solid rgba(203, 120, 88, 0.3);
-      border-radius: 6px;
+      background: rgba(10, 13, 18, 0.8);
+      border: 1px solid rgba(88, 114, 203, 0.3);
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.2s ease;
       position: relative;
+      clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
     }
 
     .inventory-slot.single {
@@ -226,14 +244,14 @@
     }
 
     .inventory-slot.drop-target {
-      border-color: var(--seafoam);
+      border-color: var(--neon-seafoam);
       background: rgba(88, 203, 178, 0.15);
-      box-shadow: 0 0 15px rgba(88, 203, 178, 0.3);
+      box-shadow: 0 0 20px rgba(88, 203, 178, 0.4);
     }
 
     .inventory-slot.filled {
-      border-color: var(--burnt-sienna);
-      background: rgba(203, 120, 88, 0.15);
+      border-color: var(--neon-sienna);
+      background: rgba(203, 120, 88, 0.1);
     }
 
     .slot-item {
@@ -253,12 +271,13 @@
       background: var(--cadet-blue);
       color: var(--champagne);
       padding: 4px 8px;
-      border-radius: 4px;
+      border-radius: 2px;
       font-size: 10px;
       white-space: nowrap;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.2s;
+      border: 1px solid var(--periwinkle);
     }
 
     .inventory-slot:hover .slot-tooltip {
@@ -274,27 +293,28 @@
       top: 80px;
       left: 24px;
       z-index: 15;
-      max-width: 300px;
-      background: rgba(26, 21, 16, 0.9);
-      border-left: 3px solid var(--burnt-sienna);
-      padding: 16px;
-      border-radius: 0 8px 8px 0;
+      max-width: 320px;
+      background: rgba(10, 13, 18, 0.9);
+      border: 1px solid var(--periwinkle);
+      border-left: 3px solid var(--neon-sienna);
+      padding: 16px 20px;
     }
 
     .prompt-step {
       font-family: var(--font-display);
       font-size: 10px;
-      color: var(--burnt-sienna);
-      letter-spacing: 2px;
+      color: var(--neon-sienna);
+      letter-spacing: 3px;
       text-transform: uppercase;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
     .prompt-question {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 500;
       color: var(--champagne);
       margin-bottom: 8px;
+      line-height: 1.3;
     }
 
     .prompt-hint {
@@ -304,24 +324,23 @@
     }
 
     .prompt-hint em {
-      color: var(--seafoam);
+      color: var(--neon-seafoam);
       font-style: normal;
     }
 
     /* =============================================
-       ITEM LABELS (floating in 3D space)
+       ITEM LABELS (floating near 3D objects)
        ============================================= */
 
     .item-label {
       position: absolute;
-      background: rgba(26, 21, 16, 0.9);
-      border: 1px solid var(--burnt-sienna);
-      padding: 6px 10px;
-      border-radius: 4px;
+      background: rgba(10, 13, 18, 0.95);
+      border: 1px solid var(--periwinkle);
+      padding: 8px 12px;
       pointer-events: none;
       z-index: 25;
       transform: translate(-50%, -100%);
-      margin-top: -10px;
+      margin-top: -15px;
       opacity: 0;
       transition: opacity 0.2s;
     }
@@ -330,18 +349,30 @@
       opacity: 1;
     }
 
+    .item-label::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: var(--periwinkle);
+    }
+
     .item-label-name {
       font-family: var(--font-display);
-      font-size: 11px;
-      color: var(--champagne);
+      font-size: 12px;
+      color: var(--neon-sienna);
       white-space: nowrap;
+      letter-spacing: 1px;
     }
 
     .item-label-desc {
-      font-size: 10px;
+      font-size: 11px;
       color: var(--champagne);
-      opacity: 0.6;
+      opacity: 0.7;
       white-space: nowrap;
+      margin-top: 2px;
     }
 
     /* =============================================
@@ -355,20 +386,22 @@
       transform: translateX(-50%);
       z-index: 20;
       font-family: var(--font-display);
-      font-size: 14px;
+      font-size: 12px;
       color: var(--cadet-blue);
-      background: var(--burnt-sienna);
+      background: var(--neon-sienna);
       border: none;
       padding: 12px 32px;
       cursor: pointer;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
       transition: all 0.2s ease;
       display: none;
+      clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
     }
 
     .continue-btn:hover {
       background: var(--champagne);
-      box-shadow: 0 0 20px rgba(203, 120, 88, 0.5);
+      box-shadow: 0 0 25px rgba(255, 138, 92, 0.5);
     }
 
     .continue-btn.visible {
@@ -383,8 +416,8 @@
       position: fixed;
       z-index: 100;
       pointer-events: none;
-      font-size: 32px;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+      font-size: 36px;
+      filter: drop-shadow(0 0 15px var(--neon-periwinkle));
       transform: translate(-50%, -50%);
     }
 
@@ -397,19 +430,18 @@
     }
 
     /* =============================================
-       WIZARD SPEECH BUBBLE
+       WAYFINDER SPEECH BUBBLE
        ============================================= */
 
     .wizard-speech {
       position: absolute;
-      bottom: 160px;
+      bottom: 140px;
       left: 24px;
       z-index: 15;
-      max-width: 280px;
+      max-width: 300px;
       background: rgba(39, 50, 72, 0.95);
-      border: 2px solid var(--periwinkle);
-      padding: 12px 16px;
-      border-radius: 12px;
+      border: 1px solid var(--neon-seafoam);
+      padding: 14px 18px;
       opacity: 0;
       transform: translateY(10px);
       transition: all 0.3s ease;
@@ -420,14 +452,27 @@
       transform: translateY(0);
     }
 
+    .wizard-speech::before {
+      content: 'WAYFINDER';
+      position: absolute;
+      top: -10px;
+      left: 12px;
+      font-family: var(--font-display);
+      font-size: 9px;
+      color: var(--neon-seafoam);
+      letter-spacing: 2px;
+      background: rgba(39, 50, 72, 1);
+      padding: 2px 8px;
+      border: 1px solid var(--neon-seafoam);
+    }
+
     .wizard-speech::after {
       content: '';
       position: absolute;
-      bottom: -10px;
+      bottom: -8px;
       left: 30px;
-      border-width: 10px 10px 0;
-      border-style: solid;
-      border-color: var(--periwinkle) transparent transparent;
+      border: 8px solid transparent;
+      border-top-color: var(--neon-seafoam);
     }
 
     .wizard-text {
@@ -447,7 +492,7 @@
       right: 0;
       bottom: 0;
       z-index: 50;
-      background: rgba(26, 21, 16, 0.95);
+      background: rgba(10, 13, 18, 0.97);
       display: none;
       align-items: center;
       justify-content: center;
@@ -459,21 +504,23 @@
     }
 
     .summary-content {
-      max-width: 600px;
+      max-width: 500px;
       text-align: center;
     }
 
     .summary-title {
       font-family: var(--font-display);
-      font-size: 24px;
-      color: var(--burnt-sienna);
+      font-size: 20px;
+      color: var(--neon-seafoam);
       margin-bottom: 8px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
     }
 
     .summary-subtitle {
       font-size: 14px;
       color: var(--champagne);
-      opacity: 0.7;
+      opacity: 0.6;
       margin-bottom: 32px;
     }
 
@@ -483,18 +530,17 @@
     }
 
     .summary-section {
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       padding: 12px 16px;
       background: rgba(39, 50, 72, 0.3);
-      border-left: 3px solid var(--burnt-sienna);
-      border-radius: 0 8px 8px 0;
+      border-left: 2px solid var(--neon-sienna);
     }
 
     .summary-section-label {
       font-family: var(--font-display);
-      font-size: 10px;
-      color: var(--burnt-sienna);
-      letter-spacing: 1px;
+      font-size: 9px;
+      color: var(--periwinkle);
+      letter-spacing: 2px;
       text-transform: uppercase;
       margin-bottom: 4px;
     }
@@ -512,28 +558,29 @@
 
     .summary-btn {
       font-family: var(--font-display);
-      font-size: 12px;
+      font-size: 11px;
       padding: 12px 24px;
       border: none;
       cursor: pointer;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
       transition: all 0.2s ease;
     }
 
     .summary-btn.primary {
-      background: var(--burnt-sienna);
+      background: var(--neon-sienna);
       color: var(--cadet-blue);
+      clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
     }
 
     .summary-btn.secondary {
       background: transparent;
       color: var(--champagne);
-      border: 1px solid var(--burnt-sienna);
+      border: 1px solid var(--periwinkle);
     }
 
     .summary-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(203, 120, 88, 0.3);
+      box-shadow: 0 0 20px rgba(255, 138, 92, 0.4);
     }
   </style>
 </head>
@@ -544,26 +591,26 @@
 
     <!-- Header Overlay -->
     <header class="header-overlay">
-      <div class="shop-title">winded.vertigo apothecary</div>
+      <div class="shop-title">// W.V LAB</div>
       <div class="step-indicator" id="stepIndicator">
         <div class="step-pip" data-step="1"></div>
         <div class="step-pip" data-step="2"></div>
         <div class="step-pip" data-step="3"></div>
         <div class="step-pip" data-step="4"></div>
       </div>
-      <a href="../do/" class="exit-btn">← back to menu</a>
+      <a href="../do/" class="exit-btn">← EXIT</a>
     </header>
 
     <!-- Stage Prompt -->
     <div class="stage-prompt" id="stagePrompt">
-      <div class="prompt-step">step 1 of 4</div>
+      <div class="prompt-step">// STEP 01</div>
       <div class="prompt-question">Who is your work focused on?</div>
-      <div class="prompt-hint">Drag a <em>focus crystal</em> to your pouch</div>
+      <div class="prompt-hint">Select a <em>focus artifact</em> from the display</div>
     </div>
 
-    <!-- Wizard Speech Bubble -->
+    <!-- Wayfinder Speech Bubble -->
     <div class="wizard-speech" id="wizardSpeech">
-      <div class="wizard-text" id="wizardText">Welcome, traveler! I am the keeper of this apothecary. Browse my wares and gather what you need for your journey...</div>
+      <div class="wizard-text" id="wizardText">The path is treacherous. Which artifact calls to you?</div>
     </div>
 
     <!-- Item Label (follows hovered item) -->
@@ -575,13 +622,13 @@
     <!-- Inventory Pouch -->
     <div class="inventory-pouch" id="inventoryPouch">
       <div class="pouch-header">
-        <div class="pouch-title">Adventure Pouch</div>
-        <div class="pouch-subtitle">your selections</div>
+        <div class="pouch-title">LOADOUT</div>
+        <div class="pouch-subtitle">selected artifacts</div>
       </div>
 
       <!-- Step 1: Focus (single slot) -->
       <div class="inventory-section" id="section-focus">
-        <div class="section-label">1. focus</div>
+        <div class="section-label">01 // FOCUS</div>
         <div class="slot-row">
           <div class="inventory-slot single" data-section="focus" data-index="0"></div>
         </div>
@@ -589,7 +636,7 @@
 
       <!-- Step 2: Approach (single slot) -->
       <div class="inventory-section" id="section-approach">
-        <div class="section-label">2. approach</div>
+        <div class="section-label">02 // APPROACH</div>
         <div class="slot-row">
           <div class="inventory-slot single" data-section="approach" data-index="0"></div>
         </div>
@@ -597,7 +644,7 @@
 
       <!-- Step 3: Services (multi slot) -->
       <div class="inventory-section" id="section-services">
-        <div class="section-label">3. services (up to 4)</div>
+        <div class="section-label">03 // SERVICES [MAX 4]</div>
         <div class="slot-row">
           <div class="inventory-slot" data-section="services" data-index="0"></div>
           <div class="inventory-slot" data-section="services" data-index="1"></div>
@@ -608,7 +655,7 @@
 
       <!-- Step 4: Goals (multi slot) -->
       <div class="inventory-section" id="section-goals">
-        <div class="section-label">4. goals (up to 3)</div>
+        <div class="section-label">04 // GOALS [MAX 3]</div>
         <div class="slot-row">
           <div class="inventory-slot" data-section="goals" data-index="0"></div>
           <div class="inventory-slot" data-section="goals" data-index="1"></div>
@@ -618,17 +665,17 @@
     </div>
 
     <!-- Continue Button -->
-    <button class="continue-btn" id="continueBtn">Continue →</button>
+    <button class="continue-btn" id="continueBtn">CONTINUE →</button>
 
     <!-- Summary Overlay -->
     <div class="summary-overlay" id="summaryOverlay">
       <div class="summary-content">
-        <h2 class="summary-title">Your Adventure Awaits</h2>
-        <p class="summary-subtitle">Here's what you've gathered from the apothecary</p>
+        <h2 class="summary-title">// LOADOUT COMPLETE</h2>
+        <p class="summary-subtitle">Your artifacts have been selected</p>
         <div class="summary-selections" id="summarySelections"></div>
         <div class="summary-actions">
-          <button class="summary-btn secondary" id="resetBtn">Start Over</button>
-          <button class="summary-btn primary" id="submitBtn">Begin Journey →</button>
+          <button class="summary-btn secondary" id="resetBtn">RESET</button>
+          <button class="summary-btn primary" id="submitBtn">INITIATE →</button>
         </div>
       </div>
     </div>
@@ -647,27 +694,27 @@
       {
         id: 'focus',
         prompt: 'Who is your work focused on?',
-        hint: 'Drag a <em>focus crystal</em> to your pouch',
+        hint: 'Select a <em>focus artifact</em> from the display',
         single: true,
         items: [
-          { value: 'people', icon: '👥', label: 'People', desc: 'Human development & learning', color: 0x5872cb },
-          { value: 'product', icon: '📦', label: 'Product', desc: 'Tools, toys & experiences', color: 0xcb7858 }
+          { value: 'people', icon: '👥', label: 'PEOPLE', desc: 'Human development & learning', color: 0x5872cb },
+          { value: 'product', icon: '📦', label: 'PRODUCT', desc: 'Tools, toys & experiences', color: 0xcb7858 }
         ]
       },
       {
         id: 'approach',
         prompt: 'What approach guides your work?',
-        hint: 'Drag an <em>approach tome</em> to your pouch',
+        hint: 'Select an <em>approach module</em> from the display',
         single: true,
         items: [
-          { value: 'design', icon: '✨', label: 'Design', desc: 'Creating new solutions', color: 0x58cbb2 },
-          { value: 'research', icon: '🔮', label: 'Research', desc: 'Understanding & measuring', color: 0xd5d2ff }
+          { value: 'design', icon: '✨', label: 'DESIGN', desc: 'Creating new solutions', color: 0x58cbb2 },
+          { value: 'research', icon: '🔮', label: 'RESEARCH', desc: 'Understanding & measuring', color: 0xd5d2ff }
         ]
       },
       {
         id: 'services',
         prompt: 'Which services do you seek?',
-        hint: 'Drag up to <em>4 service vials</em> to your pouch',
+        hint: 'Select up to <em>4 service cores</em>',
         single: false,
         maxSelect: 4,
         items: []
@@ -675,55 +722,55 @@
       {
         id: 'goals',
         prompt: 'What outcomes do you desire?',
-        hint: 'Drag up to <em>3 goal stones</em> to your pouch',
+        hint: 'Select up to <em>3 goal matrices</em>',
         single: false,
         maxSelect: 3,
         items: [
-          { value: 'awareness', icon: '💡', label: 'Build Awareness', desc: 'Spread understanding', color: 0xffebd2 },
-          { value: 'behavior', icon: '🎯', label: 'Change Behavior', desc: 'Shift actions & habits', color: 0xb15043 },
-          { value: 'skills', icon: '⚡', label: 'Develop Skills', desc: 'Build capabilities', color: 0x58cbb2 },
-          { value: 'evidence', icon: '📊', label: 'Generate Evidence', desc: 'Prove impact', color: 0x5872cb },
-          { value: 'engagement', icon: '❤️', label: 'Drive Engagement', desc: 'Create connection', color: 0xcb7858 }
+          { value: 'awareness', icon: '💡', label: 'BUILD AWARENESS', desc: 'Spread understanding', color: 0xffebd2 },
+          { value: 'behavior', icon: '🎯', label: 'CHANGE BEHAVIOR', desc: 'Shift actions & habits', color: 0xb15043 },
+          { value: 'skills', icon: '⚡', label: 'DEVELOP SKILLS', desc: 'Build capabilities', color: 0x58cbb2 },
+          { value: 'evidence', icon: '📊', label: 'GENERATE EVIDENCE', desc: 'Prove impact', color: 0x5872cb },
+          { value: 'engagement', icon: '❤️', label: 'DRIVE ENGAGEMENT', desc: 'Create connection', color: 0xcb7858 }
         ]
       }
     ];
 
     const SERVICES_BY_QUADRANT = {
       'people-design': [
-        { value: 'trainings', icon: '🎓', label: 'Trainings', desc: 'Workshops & facilitation', color: 0x5872cb },
-        { value: 'learning-experiences', icon: '🌟', label: 'Learning Experiences', desc: 'Immersive programmes', color: 0x58cbb2 },
-        { value: 'programmes', icon: '📋', label: 'Programmes', desc: 'Structured journeys', color: 0xcb7858 },
-        { value: 'comms-assets', icon: '📢', label: 'Comms Assets', desc: 'Materials that communicate', color: 0xd5d2ff }
+        { value: 'trainings', icon: '🎓', label: 'TRAININGS', desc: 'Workshops & facilitation', color: 0x5872cb },
+        { value: 'learning-experiences', icon: '🌟', label: 'LEARNING EXP', desc: 'Immersive programmes', color: 0x58cbb2 },
+        { value: 'programmes', icon: '📋', label: 'PROGRAMMES', desc: 'Structured journeys', color: 0xcb7858 },
+        { value: 'comms-assets', icon: '📢', label: 'COMMS ASSETS', desc: 'Materials that communicate', color: 0xd5d2ff }
       ],
       'people-research': [
-        { value: 'programme-evaluation', icon: '📊', label: 'Programme Evaluation', desc: 'Measure impact', color: 0x5872cb },
-        { value: 'mel-touchpoints', icon: '📍', label: 'MEL Touchpoints', desc: 'Monitoring checkpoints', color: 0x58cbb2 },
-        { value: 'psychometrics', icon: '🧠', label: 'Psychometrics', desc: 'Validated assessments', color: 0xd5d2ff },
-        { value: 'evidence-for-funders', icon: '💼', label: 'Evidence for Funders', desc: 'Proof for stakeholders', color: 0xcb7858 }
+        { value: 'programme-evaluation', icon: '📊', label: 'PROG EVALUATION', desc: 'Measure impact', color: 0x5872cb },
+        { value: 'mel-touchpoints', icon: '📍', label: 'MEL TOUCHPOINTS', desc: 'Monitoring checkpoints', color: 0x58cbb2 },
+        { value: 'psychometrics', icon: '🧠', label: 'PSYCHOMETRICS', desc: 'Validated assessments', color: 0xd5d2ff },
+        { value: 'evidence-for-funders', icon: '💼', label: 'FUNDER EVIDENCE', desc: 'Proof for stakeholders', color: 0xcb7858 }
       ],
       'product-design': [
-        { value: 'learning-tools', icon: '🛠️', label: 'Learning Tools', desc: 'Educational products', color: 0x5872cb },
-        { value: 'toys-games', icon: '🎲', label: 'Toys & Games', desc: 'Play-based products', color: 0x58cbb2 },
-        { value: 'comms-assets-product', icon: '🎨', label: 'Comms Assets', desc: 'Brand materials', color: 0xcb7858 },
-        { value: 'udl-improvements', icon: '♿', label: 'UDL Improvements', desc: 'Accessibility upgrades', color: 0xd5d2ff }
+        { value: 'learning-tools', icon: '🛠️', label: 'LEARNING TOOLS', desc: 'Educational products', color: 0x5872cb },
+        { value: 'toys-games', icon: '🎲', label: 'TOYS & GAMES', desc: 'Play-based products', color: 0x58cbb2 },
+        { value: 'comms-assets-product', icon: '🎨', label: 'COMMS ASSETS', desc: 'Brand materials', color: 0xcb7858 },
+        { value: 'udl-improvements', icon: '♿', label: 'UDL UPGRADES', desc: 'Accessibility upgrades', color: 0xd5d2ff }
       ],
       'product-research': [
-        { value: 'exhibit-efficacy', icon: '🏛️', label: 'Exhibit Efficacy', desc: 'Does the exhibit work?', color: 0x5872cb },
-        { value: 'toy-impacts', icon: '🎮', label: 'Toy Impacts', desc: 'Play value research', color: 0x58cbb2 },
-        { value: 'udl-validation', icon: '✅', label: 'UDL Validation', desc: 'Accessibility testing', color: 0xd5d2ff },
-        { value: 'usability-testing', icon: '👤', label: 'Usability Testing', desc: 'User experience research', color: 0xcb7858 }
+        { value: 'exhibit-efficacy', icon: '🏛️', label: 'EXHIBIT EFFICACY', desc: 'Does the exhibit work?', color: 0x5872cb },
+        { value: 'toy-impacts', icon: '🎮', label: 'TOY IMPACTS', desc: 'Play value research', color: 0x58cbb2 },
+        { value: 'udl-validation', icon: '✅', label: 'UDL VALIDATION', desc: 'Accessibility testing', color: 0xd5d2ff },
+        { value: 'usability-testing', icon: '👤', label: 'USABILITY TEST', desc: 'User experience research', color: 0xcb7858 }
       ]
     };
 
     const WIZARD_LINES = {
-      welcome: "Welcome, traveler! I am the keeper of this apothecary. Browse my wares and gather what you need for your journey...",
-      step1: "Ah, choosing your focus! The crystal on the left calls to those who serve people directly. The one on the right, for those who craft products and tools.",
-      step2: "Now, your approach... Do you wish to design and create anew? Or research and understand what already is?",
-      step3: "Excellent choices! Now select the services that will aid your quest. Take up to four vials from the shelf.",
-      step4: "Finally, what outcomes do you seek? These goal stones will guide your path. Choose up to three.",
-      complete: "A fine selection! Your adventure pack is ready. May these tools serve you well on your journey!",
-      dragHint: "Simply drag the items from my shelves into your pouch on the right.",
-      goodChoice: ["A wise choice!", "That one has served many travelers well.", "Ah yes, a powerful selection.", "I had a feeling you'd choose that one."]
+      welcome: "The digital realm awaits. Select your interface components to configure your journey.",
+      step1: "The path diverges here. People... or Product. Each leads to different possibilities.",
+      step2: "Design creates. Research reveals. Choose the approach that serves your mission.",
+      step3: "Service cores online. Select up to four modules for your loadout.",
+      step4: "Final configuration. What outcomes will define success? Choose up to three.",
+      complete: "Configuration complete. Your loadout is optimized for the journey ahead.",
+      dragHint: "Interact with the holographic displays to make your selection.",
+      goodChoice: ["Module acquired.", "Excellent selection.", "That interface suits you.", "A wise configuration."]
     };
 
     // =============================================
@@ -750,486 +797,395 @@
 
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-    // Colors
+    // Colors (brand colors as neon)
     const COLORS = {
       cadetBlue: 0x273248,
       redwood: 0xb15043,
       burntSienna: 0xcb7858,
       champagne: 0xffebd2,
       periwinkle: 0x5872cb,
-      seafoam: 0x58cbb2
+      seafoam: 0x58cbb2,
+      neonSienna: 0xff8a5c,
+      neonPeriwinkle: 0x7b9aff,
+      neonSeafoam: 0x5effdb
     };
 
-    // Scene background - warm apothecary interior
-    scene.background = new THREE.Color(0x1a1510);
-    scene.fog = new THREE.Fog(0x1a1510, 8, 20);
+    // Dark cyber background
+    scene.background = new THREE.Color(0x0a0d12);
 
-    // Camera position - viewing the shop from customer perspective
-    camera.position.set(0, 1.8, 5);
-    camera.lookAt(0, 1.2, 0);
+    // Camera position
+    camera.position.set(0, 2, 7);
+    camera.lookAt(0, 1, 0);
 
     // =============================================
-    // LIGHTING - Warm apothecary glow
+    // LIGHTING - Cyber Lab
     // =============================================
 
-    // Ambient light - dim warm
-    const ambientLight = new THREE.AmbientLight(0xffebd2, 0.2);
+    // Dim ambient
+    const ambientLight = new THREE.AmbientLight(0x1a1a2e, 0.4);
     scene.add(ambientLight);
 
-    // Main lantern light (overhead)
-    const mainLight = new THREE.PointLight(0xffebd2, 1.2, 12);
-    mainLight.position.set(0, 3.5, 1);
-    mainLight.castShadow = true;
-    mainLight.shadow.mapSize.width = 1024;
-    mainLight.shadow.mapSize.height = 1024;
+    // Main overhead light (cool)
+    const mainLight = new THREE.PointLight(COLORS.neonPeriwinkle, 0.8, 15);
+    mainLight.position.set(0, 5, 2);
     scene.add(mainLight);
 
-    // Accent candle lights
-    const candleLight1 = new THREE.PointLight(0xcb7858, 0.6, 5);
-    candleLight1.position.set(-2, 1.8, 0);
-    scene.add(candleLight1);
+    // Accent lights
+    const accentLight1 = new THREE.PointLight(COLORS.neonSeafoam, 0.6, 10);
+    accentLight1.position.set(-4, 2, 0);
+    scene.add(accentLight1);
 
-    const candleLight2 = new THREE.PointLight(0xcb7858, 0.6, 5);
-    candleLight2.position.set(2, 1.8, 0);
-    scene.add(candleLight2);
-
-    // Mystical accent (periwinkle glow from wizard area)
-    const wizardGlow = new THREE.PointLight(0x5872cb, 0.4, 6);
-    wizardGlow.position.set(-3, 2, -1);
-    scene.add(wizardGlow);
+    const accentLight2 = new THREE.PointLight(COLORS.neonSienna, 0.5, 10);
+    accentLight2.position.set(4, 2, 0);
+    scene.add(accentLight2);
 
     // =============================================
-    // APOTHECARY ENVIRONMENT
+    // CYBER LAB ENVIRONMENT
     // =============================================
 
-    // Floor - wooden planks
-    const floorGeom = new THREE.PlaneGeometry(14, 10);
-    const floorMat = new THREE.MeshStandardMaterial({
-      color: 0x3d2a1a,
-      roughness: 0.9,
-      metalness: 0
+    // Grid floor (TRON style)
+    const gridSize = 30;
+    const gridDivisions = 30;
+    const gridHelper = new THREE.GridHelper(gridSize, gridDivisions, COLORS.periwinkle, 0x1a1a2e);
+    gridHelper.position.y = 0;
+    gridHelper.material.opacity = 0.4;
+    gridHelper.material.transparent = true;
+    scene.add(gridHelper);
+
+    // Glowing floor plane
+    const floorGeom = new THREE.PlaneGeometry(30, 30);
+    const floorMat = new THREE.MeshBasicMaterial({
+      color: 0x0a0d12,
+      transparent: true,
+      opacity: 0.9
     });
     const floor = new THREE.Mesh(floorGeom, floorMat);
     floor.rotation.x = -Math.PI / 2;
-    floor.position.y = 0;
-    floor.receiveShadow = true;
+    floor.position.y = -0.01;
     scene.add(floor);
 
-    // Back wall
-    const backWallGeom = new THREE.PlaneGeometry(14, 5);
-    const backWallMat = new THREE.MeshStandardMaterial({
-      color: 0x4a3525,
-      roughness: 0.85
+    // Central platform (hexagonal)
+    const platformGeom = new THREE.CylinderGeometry(3, 3.2, 0.15, 6);
+    const platformMat = new THREE.MeshBasicMaterial({
+      color: COLORS.cadetBlue,
+      transparent: true,
+      opacity: 0.8
     });
-    const backWall = new THREE.Mesh(backWallGeom, backWallMat);
-    backWall.position.set(0, 2.5, -2);
-    backWall.receiveShadow = true;
-    scene.add(backWall);
+    const platform = new THREE.Mesh(platformGeom, platformMat);
+    platform.position.y = 0.075;
+    scene.add(platform);
 
-    // Side walls (partial, for depth)
-    const sideWallGeom = new THREE.PlaneGeometry(6, 5);
-    const leftWall = new THREE.Mesh(sideWallGeom, backWallMat);
-    leftWall.position.set(-5, 2.5, 0);
-    leftWall.rotation.y = Math.PI / 2;
-    scene.add(leftWall);
-
-    const rightWall = new THREE.Mesh(sideWallGeom, backWallMat);
-    rightWall.position.set(5, 2.5, 0);
-    rightWall.rotation.y = -Math.PI / 2;
-    scene.add(rightWall);
-
-    // Main counter/display table
-    const counterGroup = new THREE.Group();
-
-    const counterBaseGeom = new THREE.BoxGeometry(6, 0.9, 1.5);
-    const counterMat = new THREE.MeshStandardMaterial({
-      color: 0x5a3d2a,
-      roughness: 0.7
+    // Platform edge glow
+    const platformRingGeom = new THREE.TorusGeometry(3.1, 0.03, 8, 6);
+    const platformRingMat = new THREE.MeshBasicMaterial({
+      color: COLORS.neonPeriwinkle,
+      transparent: true,
+      opacity: 0.8
     });
-    const counterBase = new THREE.Mesh(counterBaseGeom, counterMat);
-    counterBase.position.y = 0.45;
-    counterBase.castShadow = true;
-    counterBase.receiveShadow = true;
-    counterGroup.add(counterBase);
+    const platformRing = new THREE.Mesh(platformRingGeom, platformRingMat);
+    platformRing.rotation.x = Math.PI / 2;
+    platformRing.position.y = 0.15;
+    scene.add(platformRing);
 
-    // Counter top
-    const counterTopGeom = new THREE.BoxGeometry(6.2, 0.08, 1.7);
-    const counterTopMat = new THREE.MeshStandardMaterial({
-      color: 0x6b4a35,
-      roughness: 0.5
-    });
-    const counterTop = new THREE.Mesh(counterTopGeom, counterTopMat);
-    counterTop.position.y = 0.94;
-    counterTop.receiveShadow = true;
-    counterGroup.add(counterTop);
-
-    counterGroup.position.set(0, 0, 0.5);
-    scene.add(counterGroup);
-
-    // Back shelving unit
-    const shelfUnitGroup = new THREE.Group();
-
-    // Shelf frame/back
-    const shelfBackGeom = new THREE.BoxGeometry(5, 3, 0.1);
-    const shelfFrameMat = new THREE.MeshStandardMaterial({
-      color: 0x4a3525,
-      roughness: 0.8
-    });
-    const shelfBack = new THREE.Mesh(shelfBackGeom, shelfFrameMat);
-    shelfBack.position.set(0, 2.5, -1.9);
-    shelfUnitGroup.add(shelfBack);
-
-    // Create individual shelves
-    function createShelf(y, width = 4.8) {
-      const shelfGeom = new THREE.BoxGeometry(width, 0.08, 0.5);
-      const shelfMat = new THREE.MeshStandardMaterial({
-        color: 0x5a4030,
-        roughness: 0.7
-      });
-      const shelf = new THREE.Mesh(shelfGeom, shelfMat);
-      shelf.position.set(0, y, -1.6);
-      shelf.castShadow = true;
-      shelf.receiveShadow = true;
-      return shelf;
-    }
-
-    shelfUnitGroup.add(createShelf(1.5));
-    shelfUnitGroup.add(createShelf(2.5));
-    shelfUnitGroup.add(createShelf(3.5));
-
-    scene.add(shelfUnitGroup);
-
-    // Decorative elements - jars on background shelves (non-interactive)
-    function createDecoJar(x, y, z, color) {
-      const jarGroup = new THREE.Group();
-
-      const bodyGeom = new THREE.CylinderGeometry(0.12, 0.14, 0.35, 12);
-      const glassMat = new THREE.MeshStandardMaterial({
-        color: 0xffffff,
-        transparent: true,
-        opacity: 0.25,
-        roughness: 0.1
-      });
-      const body = new THREE.Mesh(bodyGeom, glassMat);
-      jarGroup.add(body);
-
-      const liquidGeom = new THREE.CylinderGeometry(0.1, 0.12, 0.28, 12);
-      const liquidMat = new THREE.MeshStandardMaterial({
+    // Vertical light beams
+    function createLightBeam(x, z, color) {
+      const beamGeom = new THREE.CylinderGeometry(0.02, 0.02, 8, 8);
+      const beamMat = new THREE.MeshBasicMaterial({
         color: color,
         transparent: true,
-        opacity: 0.6,
-        emissive: color,
-        emissiveIntensity: 0.2
+        opacity: 0.3
       });
-      const liquid = new THREE.Mesh(liquidGeom, liquidMat);
-      liquid.position.y = -0.02;
-      jarGroup.add(liquid);
-
-      const corkGeom = new THREE.CylinderGeometry(0.08, 0.1, 0.08, 8);
-      const corkMat = new THREE.MeshStandardMaterial({ color: 0x8b6914 });
-      const cork = new THREE.Mesh(corkGeom, corkMat);
-      cork.position.y = 0.2;
-      jarGroup.add(cork);
-
-      jarGroup.position.set(x, y, z);
-      return jarGroup;
+      const beam = new THREE.Mesh(beamGeom, beamMat);
+      beam.position.set(x, 4, z);
+      scene.add(beam);
     }
 
-    // Background deco jars
-    const decoColors = [0x5872cb, 0x58cbb2, 0xcb7858, 0xd5d2ff, 0xb15043];
-    for (let i = 0; i < 8; i++) {
-      const x = -1.8 + (i % 4) * 1.2;
-      const y = 2.7 + Math.floor(i / 4) * 1;
-      const color = decoColors[i % decoColors.length];
-      scene.add(createDecoJar(x, y, -1.5, color));
-    }
+    createLightBeam(-4, -2, COLORS.neonSeafoam);
+    createLightBeam(4, -2, COLORS.neonSienna);
+    createLightBeam(-4, 2, COLORS.neonPeriwinkle);
+    createLightBeam(4, 2, COLORS.neonPeriwinkle);
 
-    // Hanging lantern
-    const lanternGroup = new THREE.Group();
-    const lanternFrameGeom = new THREE.BoxGeometry(0.4, 0.5, 0.4);
-    const lanternFrameMat = new THREE.MeshStandardMaterial({
-      color: 0x4a3020,
-      roughness: 0.6
-    });
-    // Frame edges (simplified)
-    const lanternFrame = new THREE.Mesh(
-      new THREE.BoxGeometry(0.35, 0.45, 0.35),
-      new THREE.MeshStandardMaterial({
-        color: 0xffebd2,
+    // Circuit line decorations (background)
+    function createCircuitLine(points, color) {
+      const lineGeom = new THREE.BufferGeometry().setFromPoints(points);
+      const lineMat = new THREE.LineBasicMaterial({
+        color: color,
         transparent: true,
-        opacity: 0.3,
-        emissive: 0xffebd2,
-        emissiveIntensity: 0.3
-      })
-    );
-    lanternGroup.add(lanternFrame);
+        opacity: 0.4
+      });
+      return new THREE.Line(lineGeom, lineMat);
+    }
 
-    // Chain
-    const chainGeom = new THREE.CylinderGeometry(0.02, 0.02, 0.8, 6);
-    const chainMat = new THREE.MeshStandardMaterial({ color: 0x4a3020 });
-    const chain = new THREE.Mesh(chainGeom, chainMat);
-    chain.position.y = 0.65;
-    lanternGroup.add(chain);
+    // Horizontal circuit lines
+    for (let i = 0; i < 5; i++) {
+      const y = 1 + i * 0.8;
+      const points = [
+        new THREE.Vector3(-6, y, -3),
+        new THREE.Vector3(-4, y, -3),
+        new THREE.Vector3(-4, y + 0.3, -3),
+        new THREE.Vector3(-2, y + 0.3, -3)
+      ];
+      scene.add(createCircuitLine(points, COLORS.periwinkle));
 
-    lanternGroup.position.set(0, 3.2, 1);
-    scene.add(lanternGroup);
+      const points2 = [
+        new THREE.Vector3(6, y, -3),
+        new THREE.Vector3(4, y, -3),
+        new THREE.Vector3(4, y + 0.3, -3),
+        new THREE.Vector3(2, y + 0.3, -3)
+      ];
+      scene.add(createCircuitLine(points2, COLORS.periwinkle));
+    }
 
     // =============================================
-    // WIZARD CHARACTER
+    // CYBER MONK / WAYFINDER
     // =============================================
 
-    const wizardGroup = new THREE.Group();
+    const wayfinder = new THREE.Group();
 
-    // Body - robed figure
-    const robeGeom = new THREE.ConeGeometry(0.45, 1.6, 8);
+    // Body - tech robe (elongated cone)
+    const robeGeom = new THREE.ConeGeometry(0.5, 2, 8);
     const robeMat = new THREE.MeshStandardMaterial({
-      color: COLORS.cadetBlue,
-      roughness: 0.8
+      color: 0x1a1a2e,
+      roughness: 0.8,
+      metalness: 0.2
     });
     const robe = new THREE.Mesh(robeGeom, robeMat);
-    robe.position.y = 0.8;
-    robe.castShadow = true;
-    wizardGroup.add(robe);
+    robe.position.y = 1;
+    wayfinder.add(robe);
 
-    // Upper body
-    const torsoGeom = new THREE.CylinderGeometry(0.25, 0.35, 0.5, 8);
-    const torso = new THREE.Mesh(torsoGeom, robeMat);
-    torso.position.y = 1.65;
-    torso.castShadow = true;
-    wizardGroup.add(torso);
-
-    // Head
-    const headGeom = new THREE.SphereGeometry(0.2, 16, 16);
-    const headMat = new THREE.MeshStandardMaterial({
-      color: 0xe8d0b8,
-      roughness: 0.7
+    // Robe circuit lines (glowing strips)
+    const stripeMat = new THREE.MeshBasicMaterial({
+      color: COLORS.neonSeafoam,
+      transparent: true,
+      opacity: 0.8
     });
-    const head = new THREE.Mesh(headGeom, headMat);
-    head.position.y = 2.05;
-    head.castShadow = true;
-    wizardGroup.add(head);
 
-    // Hat
-    const hatGeom = new THREE.ConeGeometry(0.28, 0.6, 8);
-    const hatMat = new THREE.MeshStandardMaterial({
-      color: COLORS.redwood,
-      roughness: 0.6
+    for (let i = 0; i < 4; i++) {
+      const stripeGeom = new THREE.BoxGeometry(0.02, 1.8, 0.02);
+      const stripe = new THREE.Mesh(stripeGeom, stripeMat);
+      const angle = (i / 4) * Math.PI * 2;
+      stripe.position.set(Math.cos(angle) * 0.35, 1, Math.sin(angle) * 0.35);
+      wayfinder.add(stripe);
+    }
+
+    // Hood/head covering
+    const hoodGeom = new THREE.SphereGeometry(0.3, 16, 16, 0, Math.PI * 2, 0, Math.PI * 0.6);
+    const hoodMat = new THREE.MeshStandardMaterial({
+      color: 0x1a1a2e,
+      roughness: 0.8,
+      side: THREE.DoubleSide
     });
-    const hat = new THREE.Mesh(hatGeom, hatMat);
-    hat.position.y = 2.5;
-    hat.rotation.x = -0.1;
-    hat.castShadow = true;
-    wizardGroup.add(hat);
+    const hood = new THREE.Mesh(hoodGeom, hoodMat);
+    hood.position.y = 2.1;
+    hood.rotation.x = 0.2;
+    wayfinder.add(hood);
 
-    // Hat brim
-    const brimGeom = new THREE.CylinderGeometry(0.35, 0.35, 0.04, 16);
-    const brim = new THREE.Mesh(brimGeom, hatMat);
-    brim.position.y = 2.22;
-    wizardGroup.add(brim);
-
-    // Beard
-    const beardGeom = new THREE.ConeGeometry(0.15, 0.4, 8);
-    const beardMat = new THREE.MeshStandardMaterial({
-      color: 0xaaaaaa,
-      roughness: 0.9
+    // Face glow (visor/eyes)
+    const visorGeom = new THREE.BoxGeometry(0.35, 0.06, 0.05);
+    const visorMat = new THREE.MeshBasicMaterial({
+      color: COLORS.neonSeafoam,
+      transparent: true,
+      opacity: 0.9
     });
-    const beard = new THREE.Mesh(beardGeom, beardMat);
-    beard.position.set(0, 1.75, 0.12);
-    beard.rotation.x = Math.PI;
-    wizardGroup.add(beard);
+    const visor = new THREE.Mesh(visorGeom, visorMat);
+    visor.position.set(0, 2.05, 0.25);
+    wayfinder.add(visor);
 
-    // Staff
-    const staffGeom = new THREE.CylinderGeometry(0.025, 0.035, 2, 8);
-    const staffMat = new THREE.MeshStandardMaterial({
-      color: 0x5a3d28,
-      roughness: 0.7
+    // Shoulder pads with tech detail
+    const shoulderGeom = new THREE.BoxGeometry(0.25, 0.08, 0.15);
+    const shoulderMat = new THREE.MeshStandardMaterial({
+      color: COLORS.cadetBlue,
+      roughness: 0.4,
+      metalness: 0.6
     });
-    const staff = new THREE.Mesh(staffGeom, staffMat);
-    staff.position.set(0.4, 1, 0.1);
-    staff.rotation.z = 0.1;
-    wizardGroup.add(staff);
+    const shoulder1 = new THREE.Mesh(shoulderGeom, shoulderMat);
+    shoulder1.position.set(-0.45, 1.8, 0);
+    wayfinder.add(shoulder1);
+    const shoulder2 = new THREE.Mesh(shoulderGeom, shoulderMat);
+    shoulder2.position.set(0.45, 1.8, 0);
+    wayfinder.add(shoulder2);
 
-    // Staff crystal
-    const staffCrystalGeom = new THREE.OctahedronGeometry(0.1, 0);
-    const staffCrystalMat = new THREE.MeshStandardMaterial({
-      color: COLORS.periwinkle,
-      emissive: COLORS.periwinkle,
-      emissiveIntensity: 0.6,
-      roughness: 0.2
+    // Shoulder lights
+    const shoulderLightGeom = new THREE.BoxGeometry(0.08, 0.03, 0.08);
+    const shoulderLightMat = new THREE.MeshBasicMaterial({ color: COLORS.neonSienna });
+    const shoulderLight1 = new THREE.Mesh(shoulderLightGeom, shoulderLightMat);
+    shoulderLight1.position.set(-0.45, 1.85, 0);
+    wayfinder.add(shoulderLight1);
+    const shoulderLight2 = new THREE.Mesh(shoulderLightGeom, shoulderLightMat);
+    shoulderLight2.position.set(0.45, 1.85, 0);
+    wayfinder.add(shoulderLight2);
+
+    // Floating hands/gauntlets
+    const gauntletGeom = new THREE.BoxGeometry(0.12, 0.15, 0.08);
+    const gauntletMat = new THREE.MeshStandardMaterial({
+      color: COLORS.cadetBlue,
+      roughness: 0.3,
+      metalness: 0.7
     });
-    const staffCrystal = new THREE.Mesh(staffCrystalGeom, staffCrystalMat);
-    staffCrystal.position.set(0.48, 2.05, 0.12);
-    wizardGroup.add(staffCrystal);
+    const gauntlet1 = new THREE.Mesh(gauntletGeom, gauntletMat);
+    gauntlet1.position.set(-0.6, 1.2, 0.3);
+    gauntlet1.name = 'leftHand';
+    wayfinder.add(gauntlet1);
+    const gauntlet2 = new THREE.Mesh(gauntletGeom, gauntletMat);
+    gauntlet2.position.set(0.6, 1.2, 0.3);
+    gauntlet2.name = 'rightHand';
+    wayfinder.add(gauntlet2);
 
-    // Position wizard to the left side, behind counter
-    wizardGroup.position.set(-2.2, 0, -0.5);
-    scene.add(wizardGroup);
+    // Gauntlet lights
+    const gauntletLightGeom = new THREE.BoxGeometry(0.04, 0.1, 0.02);
+    const gLight1 = new THREE.Mesh(gauntletLightGeom, new THREE.MeshBasicMaterial({ color: COLORS.neonPeriwinkle }));
+    gLight1.position.set(-0.6, 1.2, 0.35);
+    wayfinder.add(gLight1);
+    const gLight2 = new THREE.Mesh(gauntletLightGeom, new THREE.MeshBasicMaterial({ color: COLORS.neonPeriwinkle }));
+    gLight2.position.set(0.6, 1.2, 0.35);
+    wayfinder.add(gLight2);
+
+    // Position wayfinder
+    wayfinder.position.set(-2.5, 0, 0.5);
+    scene.add(wayfinder);
 
     // =============================================
-    // 3D ITEM OBJECTS (Draggable wares)
+    // HOLOGRAPHIC CUBE CONTAINERS
     // =============================================
 
     const itemObjects = [];
     const itemDataMap = new Map();
+    const cubeContainers = [];
 
-    // Create different mystical 3D objects
-    function createCrystal(color, size = 0.18) {
+    // Create holographic cube container
+    function createHoloCube(size = 0.6) {
       const group = new THREE.Group();
 
-      const geom = new THREE.OctahedronGeometry(size, 0);
-      const mat = new THREE.MeshStandardMaterial({
-        color: color,
-        emissive: color,
-        emissiveIntensity: 0.4,
-        roughness: 0.15,
-        metalness: 0.2
-      });
-      const crystal = new THREE.Mesh(geom, mat);
-      crystal.castShadow = true;
-      group.add(crystal);
-
-      // Base/stand
-      const baseGeom = new THREE.CylinderGeometry(0.08, 0.1, 0.06, 8);
-      const baseMat = new THREE.MeshStandardMaterial({ color: 0x4a3525 });
-      const base = new THREE.Mesh(baseGeom, baseMat);
-      base.position.y = -size - 0.03;
-      group.add(base);
-
-      return group;
-    }
-
-    function createPotion(color, size = 0.14) {
-      const group = new THREE.Group();
-
-      // Bottle body - rounded flask shape
-      const bodyGeom = new THREE.SphereGeometry(size, 12, 12);
-      bodyGeom.scale(1, 1.3, 1);
-      const glassMat = new THREE.MeshStandardMaterial({
-        color: 0xffffff,
+      // Wireframe cube
+      const cubeGeom = new THREE.BoxGeometry(size, size, size);
+      const edges = new THREE.EdgesGeometry(cubeGeom);
+      const cubeMat = new THREE.LineBasicMaterial({
+        color: COLORS.neonPeriwinkle,
         transparent: true,
-        opacity: 0.3,
-        roughness: 0.05,
-        metalness: 0.1
+        opacity: 0.6
       });
-      const body = new THREE.Mesh(bodyGeom, glassMat);
-      body.position.y = size * 0.3;
-      group.add(body);
+      const cube = new THREE.LineSegments(edges, cubeMat);
+      group.add(cube);
 
-      // Neck
-      const neckGeom = new THREE.CylinderGeometry(size * 0.3, size * 0.4, size * 0.5, 8);
-      const neck = new THREE.Mesh(neckGeom, glassMat);
-      neck.position.y = size * 1.4;
-      group.add(neck);
-
-      // Liquid inside
-      const liquidGeom = new THREE.SphereGeometry(size * 0.85, 12, 12);
-      liquidGeom.scale(1, 1.2, 1);
-      const liquidMat = new THREE.MeshStandardMaterial({
-        color: color,
-        emissive: color,
-        emissiveIntensity: 0.5,
+      // Corner accents
+      const cornerSize = size * 0.15;
+      const cornerGeom = new THREE.BoxGeometry(cornerSize, cornerSize, cornerSize);
+      const cornerMat = new THREE.MeshBasicMaterial({
+        color: COLORS.neonPeriwinkle,
         transparent: true,
-        opacity: 0.85,
-        roughness: 0.3
+        opacity: 0.4
       });
-      const liquid = new THREE.Mesh(liquidGeom, liquidMat);
-      liquid.position.y = size * 0.2;
-      group.add(liquid);
 
-      // Cork
-      const corkGeom = new THREE.CylinderGeometry(size * 0.25, size * 0.3, size * 0.3, 8);
-      const corkMat = new THREE.MeshStandardMaterial({ color: 0x8b6914, roughness: 0.8 });
-      const cork = new THREE.Mesh(corkGeom, corkMat);
-      cork.position.y = size * 1.75;
-      group.add(cork);
+      const positions = [
+        [-1, -1, -1], [-1, -1, 1], [-1, 1, -1], [-1, 1, 1],
+        [1, -1, -1], [1, -1, 1], [1, 1, -1], [1, 1, 1]
+      ];
 
-      group.castShadow = true;
+      positions.forEach(pos => {
+        const corner = new THREE.Mesh(cornerGeom, cornerMat);
+        corner.position.set(
+          pos[0] * size * 0.45,
+          pos[1] * size * 0.45,
+          pos[2] * size * 0.45
+        );
+        group.add(corner);
+      });
+
       return group;
     }
 
-    function createTome(color) {
+    // Create floating item inside cube
+    function createFloatingItem(type, color) {
       const group = new THREE.Group();
 
-      // Book cover
-      const coverGeom = new THREE.BoxGeometry(0.22, 0.28, 0.06);
-      const coverMat = new THREE.MeshStandardMaterial({
-        color: color,
-        roughness: 0.7
-      });
-      const cover = new THREE.Mesh(coverGeom, coverMat);
-      group.add(cover);
+      if (type === 'crystal') {
+        // Octahedron crystal
+        const geom = new THREE.OctahedronGeometry(0.15, 0);
+        const mat = new THREE.MeshBasicMaterial({
+          color: color,
+          transparent: true,
+          opacity: 0.9
+        });
+        const crystal = new THREE.Mesh(geom, mat);
+        group.add(crystal);
 
-      // Pages
-      const pagesGeom = new THREE.BoxGeometry(0.19, 0.25, 0.04);
-      const pagesMat = new THREE.MeshStandardMaterial({ color: 0xf5f0e0, roughness: 0.9 });
-      const pages = new THREE.Mesh(pagesGeom, pagesMat);
-      pages.position.x = 0.008;
-      group.add(pages);
+        // Inner glow
+        const glowMat = new THREE.MeshBasicMaterial({
+          color: 0xffffff,
+          transparent: true,
+          opacity: 0.3
+        });
+        const glow = new THREE.Mesh(new THREE.OctahedronGeometry(0.1, 0), glowMat);
+        group.add(glow);
+      }
+      else if (type === 'disc') {
+        // Data disc
+        const discGeom = new THREE.CylinderGeometry(0.15, 0.15, 0.03, 16);
+        const discMat = new THREE.MeshBasicMaterial({
+          color: color,
+          transparent: true,
+          opacity: 0.9
+        });
+        const disc = new THREE.Mesh(discGeom, discMat);
+        disc.rotation.x = Math.PI * 0.1;
+        group.add(disc);
 
-      // Spine
-      const spineGeom = new THREE.BoxGeometry(0.015, 0.28, 0.06);
-      const spineMat = new THREE.MeshStandardMaterial({
-        color: new THREE.Color(color).multiplyScalar(0.6)
-      });
-      const spine = new THREE.Mesh(spineGeom, spineMat);
-      spine.position.x = -0.11;
-      group.add(spine);
+        // Ring detail
+        const ringGeom = new THREE.TorusGeometry(0.12, 0.015, 8, 16);
+        const ringMat = new THREE.MeshBasicMaterial({
+          color: 0xffffff,
+          transparent: true,
+          opacity: 0.5
+        });
+        const ring = new THREE.Mesh(ringGeom, ringMat);
+        ring.rotation.x = Math.PI * 0.6;
+        group.add(ring);
+      }
+      else if (type === 'core') {
+        // Service core (sphere with rings)
+        const sphereGeom = new THREE.SphereGeometry(0.12, 16, 16);
+        const sphereMat = new THREE.MeshBasicMaterial({
+          color: color,
+          transparent: true,
+          opacity: 0.9
+        });
+        const sphere = new THREE.Mesh(sphereGeom, sphereMat);
+        group.add(sphere);
 
-      // Mystical symbol on cover
-      const symbolGeom = new THREE.RingGeometry(0.04, 0.055, 6);
-      const symbolMat = new THREE.MeshStandardMaterial({
-        color: 0xffebd2,
-        emissive: color,
-        emissiveIntensity: 0.4,
-        side: THREE.DoubleSide
-      });
-      const symbol = new THREE.Mesh(symbolGeom, symbolMat);
-      symbol.position.z = 0.031;
-      symbol.rotation.z = Math.PI / 6;
-      group.add(symbol);
+        // Orbiting ring
+        const orbitGeom = new THREE.TorusGeometry(0.18, 0.01, 8, 32);
+        const orbitMat = new THREE.MeshBasicMaterial({
+          color: 0xffffff,
+          transparent: true,
+          opacity: 0.6
+        });
+        const orbit = new THREE.Mesh(orbitGeom, orbitMat);
+        orbit.rotation.x = Math.PI * 0.3;
+        group.add(orbit);
+      }
+      else if (type === 'matrix') {
+        // Goal matrix (icosahedron)
+        const geom = new THREE.IcosahedronGeometry(0.14, 0);
+        const mat = new THREE.MeshBasicMaterial({
+          color: color,
+          transparent: true,
+          opacity: 0.9
+        });
+        const matrix = new THREE.Mesh(geom, mat);
+        group.add(matrix);
+      }
 
-      group.castShadow = true;
       return group;
     }
 
-    function createStone(color) {
-      const group = new THREE.Group();
-
-      // Irregular stone shape using dodecahedron
-      const stoneGeom = new THREE.DodecahedronGeometry(0.12, 0);
-      const stoneMat = new THREE.MeshStandardMaterial({
-        color: color,
-        emissive: color,
-        emissiveIntensity: 0.25,
-        roughness: 0.35,
-        metalness: 0.1
-      });
-      const stone = new THREE.Mesh(stoneGeom, stoneMat);
-      stone.rotation.set(Math.random(), Math.random(), Math.random());
-      stone.castShadow = true;
-      group.add(stone);
-
-      // Cloth/cushion underneath
-      const cushionGeom = new THREE.CylinderGeometry(0.1, 0.12, 0.03, 8);
-      const cushionMat = new THREE.MeshStandardMaterial({
-        color: 0x4a3525,
-        roughness: 0.9
-      });
-      const cushion = new THREE.Mesh(cushionGeom, cushionMat);
-      cushion.position.y = -0.1;
-      group.add(cushion);
-
-      return group;
-    }
-
-    // Position items on counter for current step
+    // Position items for current step
     function positionItems() {
-      // Remove existing items
+      // Remove existing items and cubes
       itemObjects.forEach(obj => scene.remove(obj));
+      cubeContainers.forEach(cube => scene.remove(cube));
       itemObjects.length = 0;
+      cubeContainers.length = 0;
       itemDataMap.clear();
 
       const step = STEPS[gameState.step];
@@ -1245,44 +1201,40 @@
       }
 
       const itemCount = items.length;
-      const spacing = Math.min(1.2, 4 / itemCount);
+      const spacing = Math.min(1.5, 5 / itemCount);
       const startX = -(itemCount - 1) * spacing / 2;
 
       items.forEach((item, index) => {
-        let mesh;
+        // Create container cube
+        const cube = createHoloCube(0.65);
+        cube.position.x = startX + index * spacing;
+        cube.position.y = 1.8;
+        cube.position.z = 1;
+        scene.add(cube);
+        cubeContainers.push(cube);
 
-        // Create appropriate 3D object based on step
-        if (gameState.step === 1) {
-          mesh = createCrystal(item.color, 0.2);
-          mesh.position.y = 1.15;
-        } else if (gameState.step === 2) {
-          mesh = createTome(item.color);
-          mesh.position.y = 1.08;
-          mesh.rotation.x = -0.3; // Tilted for visibility
-        } else if (gameState.step === 3) {
-          mesh = createPotion(item.color, 0.15);
-          mesh.position.y = 1.0;
-        } else if (gameState.step === 4) {
-          mesh = createStone(item.color);
-          mesh.position.y = 1.1;
-        }
+        // Create item inside
+        let itemType = 'crystal';
+        if (gameState.step === 2) itemType = 'disc';
+        if (gameState.step === 3) itemType = 'core';
+        if (gameState.step === 4) itemType = 'matrix';
 
-        mesh.position.x = startX + index * spacing;
-        mesh.position.z = 0.5; // On counter
+        const floatingItem = createFloatingItem(itemType, item.color);
+        floatingItem.position.copy(cube.position);
 
         // Store item data
-        mesh.userData = { ...item, index, originalY: mesh.position.y };
-        itemDataMap.set(mesh.uuid, item);
+        floatingItem.userData = { ...item, index, cubeRef: cube };
+        itemDataMap.set(floatingItem.uuid, item);
 
         // Mark as draggable
-        mesh.traverse(child => {
+        floatingItem.traverse(child => {
           child.userData.draggable = true;
           child.userData.itemData = item;
-          child.userData.parentGroup = mesh;
+          child.userData.parentGroup = floatingItem;
         });
 
-        scene.add(mesh);
-        itemObjects.push(mesh);
+        scene.add(floatingItem);
+        itemObjects.push(floatingItem);
       });
     }
 
@@ -1301,14 +1253,12 @@
       mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
       mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-      // Update item label position if hovering
       if (hoveredItem && !draggedItemData) {
         const label = document.getElementById('itemLabel');
         label.style.left = event.clientX + 'px';
         label.style.top = event.clientY + 'px';
       }
 
-      // Update dragging element position
       if (draggingElement) {
         draggingElement.style.left = event.clientX + 'px';
         draggingElement.style.top = event.clientY + 'px';
@@ -1332,12 +1282,11 @@
       if (event.button !== 0) return;
 
       raycaster.setFromCamera(mouse, camera);
-      const intersects = raycaster.intersectObjects(scene.children, true);
+      const intersects = raycaster.intersectObjects(itemObjects, true);
 
       for (const intersect of intersects) {
         let obj = intersect.object;
 
-        // Find the parent group with item data
         while (obj && !obj.userData.itemData) {
           obj = obj.parent;
         }
@@ -1346,7 +1295,6 @@
           const itemData = obj.userData.itemData;
           const parentGroup = obj.userData.parentGroup || obj;
 
-          // Check if already selected
           const step = STEPS[gameState.step];
           if (step.single) {
             if (gameState[step.id] === itemData.value) return;
@@ -1358,7 +1306,6 @@
           draggedItemData = itemData;
           draggedMesh = parentGroup;
 
-          // Create visual dragging element
           draggingElement = document.createElement('div');
           draggingElement.className = 'dragging-item';
           draggingElement.textContent = itemData.icon;
@@ -1367,16 +1314,24 @@
           document.body.appendChild(draggingElement);
           document.body.classList.add('dragging');
 
-          // Hide label
           document.getElementById('itemLabel').classList.remove('visible');
 
-          // Fade out 3D mesh
+          // Fade out mesh
           draggedMesh.traverse(child => {
             if (child.material) {
               child.material.transparent = true;
-              child.material.opacity = 0.3;
+              child.material.opacity = 0.2;
             }
           });
+
+          // Also fade the cube
+          if (draggedMesh.userData.cubeRef) {
+            draggedMesh.userData.cubeRef.traverse(child => {
+              if (child.material) {
+                child.material.opacity = 0.2;
+              }
+            });
+          }
 
           break;
         }
@@ -1398,46 +1353,52 @@
         if (isOver && !slot.classList.contains('filled')) {
           dropped = true;
 
-          // Update game state
           if (step.single) {
             gameState[step.id] = draggedItemData.value;
           } else {
             gameState[step.id].push(draggedItemData.value);
           }
 
-          // Update slot UI
           slot.classList.add('filled');
           slot.innerHTML = `
             <div class="slot-item">${draggedItemData.icon}</div>
             <div class="slot-tooltip">${draggedItemData.label}</div>
           `;
 
-          // Wizard reaction
           const randomLine = WIZARD_LINES.goodChoice[Math.floor(Math.random() * WIZARD_LINES.goodChoice.length)];
           showWizardSpeech(randomLine);
 
-          // Remove from scene
+          // Remove item and cube
           scene.remove(draggedMesh);
+          if (draggedMesh.userData.cubeRef) {
+            scene.remove(draggedMesh.userData.cubeRef);
+            const cubeIdx = cubeContainers.indexOf(draggedMesh.userData.cubeRef);
+            if (cubeIdx > -1) cubeContainers.splice(cubeIdx, 1);
+          }
           const idx = itemObjects.indexOf(draggedMesh);
           if (idx > -1) itemObjects.splice(idx, 1);
 
-          // Check progression
           checkStepComplete();
         }
 
         slot.classList.remove('drop-target');
       });
 
-      // If not dropped, restore mesh
       if (!dropped && draggedMesh) {
         draggedMesh.traverse(child => {
           if (child.material) {
-            child.material.opacity = 1;
+            child.material.opacity = 0.9;
           }
         });
+        if (draggedMesh.userData.cubeRef) {
+          draggedMesh.userData.cubeRef.traverse(child => {
+            if (child.material) {
+              child.material.opacity = child.material.opacity < 0.5 ? 0.4 : 0.6;
+            }
+          });
+        }
       }
 
-      // Clean up
       if (draggingElement) {
         draggingElement.remove();
         draggingElement = null;
@@ -1451,7 +1412,7 @@
       if (draggedItemData) return;
 
       raycaster.setFromCamera(mouse, camera);
-      const intersects = raycaster.intersectObjects(scene.children, true);
+      const intersects = raycaster.intersectObjects(itemObjects, true);
 
       const label = document.getElementById('itemLabel');
       let foundItem = null;
@@ -1493,12 +1454,10 @@
       const continueBtn = document.getElementById('continueBtn');
 
       if (step.single) {
-        // Single select - auto advance after brief delay
         if (gameState[step.id]) {
           setTimeout(() => advanceStep(), 600);
         }
       } else {
-        // Multi select - show continue when at least 1
         if (gameState[step.id].length > 0) {
           continueBtn.classList.add('visible');
         } else {
@@ -1521,25 +1480,22 @@
     }
 
     function updateUI() {
-      // Step pips
       document.querySelectorAll('.step-pip').forEach(pip => {
         const s = parseInt(pip.dataset.step);
         pip.classList.toggle('active', s === gameState.step);
         pip.classList.toggle('complete', s < gameState.step);
       });
 
-      // Prompt
       const step = STEPS[gameState.step];
       const prompt = document.getElementById('stagePrompt');
-      prompt.querySelector('.prompt-step').textContent = `step ${gameState.step} of 4`;
+      prompt.querySelector('.prompt-step').textContent = `// STEP 0${gameState.step}`;
       prompt.querySelector('.prompt-question').textContent = step.prompt;
       prompt.querySelector('.prompt-hint').innerHTML = step.hint;
 
-      // Inventory section opacity
       document.querySelectorAll('.inventory-section').forEach(section => {
         const id = section.id.replace('section-', '');
         const stepNum = ['focus', 'approach', 'services', 'goals'].indexOf(id) + 1;
-        section.style.opacity = stepNum <= gameState.step ? '1' : '0.4';
+        section.style.opacity = stepNum <= gameState.step ? '1' : '0.3';
       });
     }
 
@@ -1573,20 +1529,20 @@
 
         selections.innerHTML = `
           <div class="summary-section">
-            <div class="summary-section-label">Focus</div>
+            <div class="summary-section-label">FOCUS</div>
             <div class="summary-section-value">${focusItem?.icon || ''} ${focusItem?.label || ''}</div>
           </div>
           <div class="summary-section">
-            <div class="summary-section-label">Approach</div>
+            <div class="summary-section-label">APPROACH</div>
             <div class="summary-section-value">${approachItem?.icon || ''} ${approachItem?.label || ''}</div>
           </div>
           <div class="summary-section">
-            <div class="summary-section-label">Services</div>
-            <div class="summary-section-value">${serviceItems.map(i => `${i.icon} ${i.label}`).join(', ')}</div>
+            <div class="summary-section-label">SERVICES</div>
+            <div class="summary-section-value">${serviceItems.map(i => `${i.icon} ${i.label}`).join(', ') || '—'}</div>
           </div>
           <div class="summary-section">
-            <div class="summary-section-label">Goals</div>
-            <div class="summary-section-value">${goalItems.map(i => `${i.icon} ${i.label}`).join(', ')}</div>
+            <div class="summary-section-label">GOALS</div>
+            <div class="summary-section-value">${goalItems.map(i => `${i.icon} ${i.label}`).join(', ') || '—'}</div>
           </div>
         `;
 
@@ -1624,22 +1580,37 @@
       requestAnimationFrame(animate);
       time += 0.016;
 
-      // Item bobbing
+      // Float and rotate items
       itemObjects.forEach((obj, i) => {
-        if (obj.userData.originalY !== undefined) {
-          obj.position.y = obj.userData.originalY + Math.sin(time * 1.5 + i * 0.5) * 0.015;
-        }
-        obj.rotation.y += 0.003;
+        obj.position.y = 1.8 + Math.sin(time * 1.2 + i * 0.7) * 0.08;
+        obj.rotation.y += 0.008;
+        obj.rotation.x = Math.sin(time * 0.5 + i) * 0.1;
       });
 
-      // Wizard idle animation
-      wizardGroup.rotation.y = Math.sin(time * 0.3) * 0.08;
-      staffCrystal.material.emissiveIntensity = 0.4 + Math.sin(time * 2) * 0.2;
+      // Rotate cube containers
+      cubeContainers.forEach((cube, i) => {
+        cube.rotation.y += 0.003;
+        cube.rotation.x = Math.sin(time * 0.3 + i) * 0.05;
+      });
 
-      // Lantern flicker
-      mainLight.intensity = 1.1 + Math.sin(time * 8) * 0.1 + Math.sin(time * 13) * 0.05;
-      candleLight1.intensity = 0.5 + Math.sin(time * 6 + 1) * 0.1;
-      candleLight2.intensity = 0.5 + Math.sin(time * 7 + 2) * 0.1;
+      // Wayfinder animations
+      wayfinder.rotation.y = Math.sin(time * 0.2) * 0.1;
+
+      // Hand gestures
+      const leftHand = wayfinder.getObjectByName('leftHand');
+      const rightHand = wayfinder.getObjectByName('rightHand');
+      if (leftHand) {
+        leftHand.position.y = 1.2 + Math.sin(time * 0.8) * 0.05;
+      }
+      if (rightHand) {
+        rightHand.position.y = 1.2 + Math.sin(time * 0.8 + Math.PI) * 0.05;
+      }
+
+      // Platform ring pulse
+      platformRing.material.opacity = 0.5 + Math.sin(time * 2) * 0.3;
+
+      // Grid pulse
+      gridHelper.material.opacity = 0.3 + Math.sin(time * 0.5) * 0.1;
 
       checkHover();
       renderer.render(scene, camera);
