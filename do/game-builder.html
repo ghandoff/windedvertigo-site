@@ -78,11 +78,9 @@
       background: linear-gradient(180deg, #1a2233 0%, #273248 30%, #2f3d52 60%, #3a4a5e 100%);
     }
 
-    /* Ceiling with exposed wooden beams and skylights */
+    /* Ceiling - hidden for cleaner look */
     .ceiling {
-      position: absolute; top: 0; left: 0; right: 0; height: 18%;
-      background: linear-gradient(180deg, #141c2a 0%, #1a2233 100%);
-      overflow: hidden;
+      display: none;
     }
     /* Skylight panels */
     .ceiling::before {
@@ -140,48 +138,17 @@
       background: linear-gradient(180deg, #273248 0%, #2f3d52 50%, #3a4a5e 100%);
     }
 
-    /* Triangular wooden rafters (Taliesin style) - more visible */
-    .wall-section {
-      position: absolute;
-      width: 0; height: 0;
-      border-left: 45px solid transparent;
-      border-right: 45px solid transparent;
-      border-bottom: 80px solid #6b5040;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
-    }
-    .wall-section::before {
-      content: ''; position: absolute;
-      top: 14px; left: -35px;
-      width: 0; height: 0;
-      border-left: 35px solid transparent;
-      border-right: 35px solid transparent;
-      border-bottom: 58px solid var(--redwood);
-    }
-    .wall-section::after {
-      content: ''; position: absolute;
-      top: 24px; left: -25px;
-      width: 0; height: 0;
-      border-left: 25px solid transparent;
-      border-right: 25px solid transparent;
-      border-bottom: 40px solid #4a3628;
-    }
+    /* Rafters - hidden for cleaner look */
+    .wall-section { display: none; }
+    .wall-section::before { display: none; }
+    .wall-section::after { display: none; }
 
-    /* Studio doors/alcoves - Hidden on mobile */
+    /* Cabinets/doors - hidden for cleaner look */
     .cabinet {
-      display: none; /* Hidden by default on mobile */
-      position: absolute; bottom: 0;
-      background: linear-gradient(180deg, #1a2233 0%, #273248 100%);
-      border: 4px solid #8b6b4d;
-      border-bottom: none;
-      border-radius: 8px 8px 0 0;
-      box-shadow: inset 0 0 30px rgba(0,0,0,0.4), 0 0 20px rgba(0,0,0,0.3);
+      display: none;
     }
-    .cabinet.left {
-      left: 3%; width: 130px; height: 200px;
-    }
-    .cabinet.right {
-      right: 3%; width: 130px; height: 200px;
-    }
+    .cabinet.left { display: none; }
+    .cabinet.right { display: none; }
     /* Door panel with wood frame */
     .cabinet-screen {
       position: absolute; top: 12px; left: 12px; right: 12px; bottom: 20px;
@@ -217,13 +184,9 @@
     .cabinet-vents { display: none; }
     .vent-slot { display: none; }
 
-    /* Decorative shelf with books/supplies - Hidden on mobile */
+    /* Shelf units - hidden for cleaner look */
     .shelf-unit {
-      display: none; /* Hidden by default on mobile */
-      position: absolute; width: 90px; height: 80px;
-      background: linear-gradient(180deg, #6b5540 0%, #5c4a3a 100%);
-      border: 3px solid #4a3628; border-radius: 2px;
-      box-shadow: inset 0 -3px 8px rgba(0,0,0,0.2);
+      display: none;
     }
     .shelf-unit.left-upper { left: 12%; top: 8%; }
     .shelf-unit.right-upper { right: 12%; top: 8%; }
@@ -248,9 +211,9 @@
     .vial::after { display: none; }
     @keyframes vial-pulse { from { opacity: 1; } to { opacity: 1; } }
 
-    /* Horizontal wood beam across middle (replaces pipe system) */
+    /* Horizontal beam - hidden for cleaner look */
     .pipe-system {
-      position: absolute; top: 52%; left: 0; right: 0; height: 20px;
+      display: none;
     }
     .main-pipe {
       position: absolute; top: 50%; left: 3%; right: 3%; height: 16px;
@@ -284,13 +247,9 @@
     .pipe-flow { display: none; }
     @keyframes flow { from { left: 0; } to { left: 0; } }
 
-    /* Sign/nameplate instead of monitor */
+    /* Sign/nameplate - hidden for cleaner look */
     .central-monitor {
-      position: absolute; top: 4%; left: 50%; transform: translateX(-50%);
-      width: 140px; height: 50px;
-      background: linear-gradient(180deg, #5c4a3a 0%, #4a3628 100%);
-      border: 3px solid #3d2a1f; border-radius: 3px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3), inset 0 0 10px rgba(0,0,0,0.2);
+      display: none;
     }
     .monitor-screen {
       position: absolute; top: 6px; left: 6px; right: 6px; bottom: 6px;
@@ -341,7 +300,7 @@
        3D COUNTER - Mobile-first
     ============================================= */
     .counter-area {
-      position: absolute; bottom: 18%; left: 50%; transform: translateX(-50%);
+      position: absolute; bottom: 12%; left: 50%; transform: translateX(-50%);
       width: 92%; max-width: 750px; z-index: 10;
     }
 
@@ -510,7 +469,7 @@
        WAYFINDER - Mobile-first (25% LARGER)
     ============================================= */
     .wayfinder {
-      position: absolute; bottom: 0; left: 0; z-index: 15;
+      position: absolute; bottom: -8%; left: 0; z-index: 15;
       width: 56%; max-width: 250px; text-align: center;
     }
 
@@ -583,16 +542,6 @@
     .step-pip.complete {
       background: var(--burnt-sienna);
     }
-    .exit-btn {
-      font-family: var(--font-display); font-size: 8px;
-      color: var(--champagne); background: rgba(92, 74, 58, 0.9);
-      border: 1px solid #8b7355; padding: 5px 10px;
-      cursor: pointer; text-decoration: none; transition: all 0.2s ease;
-      border-radius: 3px;
-    }
-    .exit-btn:hover {
-      background: var(--burnt-sienna); color: var(--champagne);
-    }
 
     /* =============================================
        STAGE PROMPT - Cadet blue speech bubble with wood accent
@@ -631,10 +580,10 @@
     }
 
     /* =============================================
-       GUIDE SPEECH BUBBLE - Cadet blue at wayfinder level
+       GUIDE SPEECH BUBBLE - Next to wayfinder's head
     ============================================= */
     .guide-speech {
-      position: absolute; bottom: 20%; left: 42%; z-index: 55;
+      position: absolute; bottom: 38%; left: 38%; z-index: 55;
       max-width: 160px;
       background: linear-gradient(180deg, #3a4a5e 0%, #273248 100%);
       border: 2px solid var(--burnt-sienna);
@@ -668,7 +617,7 @@
        INVENTORY POUCH - Cadet blue panel with wood trim
     ============================================= */
     .inventory-pouch {
-      position: absolute; top: 45px; right: 8px; z-index: 50; width: 160px;
+      position: absolute; top: 8px; right: 8px; z-index: 50; width: 160px;
       background: linear-gradient(180deg, #3a4a5e 0%, #273248 100%);
       border: 2px solid #6b5040;
       border-radius: 4px; padding: 8px;
@@ -930,7 +879,7 @@
 
       .game-wrapper { height: calc(100vh - 110px); min-height: 550px; border-radius: 10px; }
 
-      .wayfinder { bottom: 0; left: 1%; width: 250px; max-width: 275px; }
+      .wayfinder { bottom: -6%; left: 1%; width: 250px; max-width: 275px; }
 
       .stage-prompt { bottom: 12px; left: 220px; max-width: 280px; padding: 14px 18px; }
       .prompt-step { display: block; font-size: 5px; margin-bottom: 4px; }
@@ -950,12 +899,12 @@
       .cube-label-name { font-size: 9px; }
       .cube-label-desc { font-size: 9px; }
 
-      .guide-speech { bottom: 22%; left: 220px; max-width: 180px; }
+      .guide-speech { bottom: 42%; left: 200px; max-width: 180px; }
       .guide-text { font-size: 7px; }
 
-      .counter-area { width: 88%; bottom: 20%; }
+      .counter-area { width: 88%; bottom: 14%; }
 
-      .inventory-pouch { width: 190px; padding: 10px; right: 12px; top: 50px; }
+      .inventory-pouch { width: 190px; padding: 10px; right: 12px; top: 10px; }
       .inventory-slot { width: 32px; height: 32px; }
       .inventory-slot.single { width: 32px; height: 32px; }
       .slot-item { font-size: 16px; }
@@ -970,7 +919,6 @@
       .shop-title { font-size: 10px; letter-spacing: 2px; }
       .step-pip { width: 7px; height: 7px; }
       .step-pip.active { width: 20px; }
-      .exit-btn { font-size: 9px; padding: 6px 12px; }
 
       .central-monitor { width: 140px; height: 75px; }
 
@@ -989,19 +937,17 @@
 
       .game-wrapper { height: calc(100vh - 140px); min-height: 600px; border-radius: 12px; }
 
-      /* Show cabinets and shelves on desktop */
-      .cabinet { display: block; }
-      .shelf-unit { display: block; }
+      /* Cabinets and shelves remain hidden for cleaner look */
 
-      .wayfinder { bottom: 0; left: 2%; width: 300px; max-width: 325px; }
+      .wayfinder { bottom: -5%; left: 2%; width: 300px; max-width: 325px; }
 
       .stage-prompt { bottom: 20px; left: 260px; max-width: 320px; padding: 16px 20px; }
       .prompt-step { font-size: 6px; margin-bottom: 5px; }
       .prompt-question { font-size: 16px; }
       .prompt-hint { font-size: 11px; margin-top: 5px; }
 
-      /* Show guide speech on desktop - at wayfinder level, above prompts */
-      .guide-speech { display: block; bottom: 24%; left: 260px; max-width: 200px; padding: 10px 14px; }
+      /* Guide speech - next to wayfinder's head */
+      .guide-speech { display: block; bottom: 44%; left: 240px; max-width: 200px; padding: 10px 14px; }
       .guide-text { font-size: 8px; }
 
       .continue-btn { bottom: 100px; left: 260px; font-size: 9px; padding: 14px 28px; }
@@ -1018,9 +964,9 @@
       .cube-label-name { font-size: 10px; }
       .cube-label-desc { font-size: 11px; }
 
-      .counter-area { width: 80%; bottom: 22%; }
+      .counter-area { width: 80%; bottom: 16%; }
 
-      .inventory-pouch { width: 240px; padding: 12px; right: 16px; top: 60px; }
+      .inventory-pouch { width: 240px; padding: 12px; right: 16px; top: 10px; }
       .inventory-slot { width: 36px; height: 36px; }
       .inventory-slot.single { width: 36px; height: 36px; }
       .slot-item { font-size: 18px; }
@@ -1036,7 +982,6 @@
       .step-indicator { gap: 7px; }
       .step-pip { width: 8px; height: 8px; }
       .step-pip.active { width: 24px; }
-      .exit-btn { font-size: 10px; padding: 8px 16px; }
 
       .central-monitor { width: 170px; height: 95px; top: 8%; }
 
@@ -1047,15 +992,15 @@
        LARGE DESKTOP STYLES (min-width: 1000px)
     =========================================== */
     @media (min-width: 1000px) {
-      .wayfinder { bottom: 0; left: 2%; width: 350px; max-width: 375px; }
+      .wayfinder { bottom: -4%; left: 2%; width: 350px; max-width: 375px; }
 
       .stage-prompt { bottom: 25px; left: 300px; max-width: 360px; padding: 18px 22px; }
       .prompt-step { font-size: 7px; }
       .prompt-question { font-size: 17px; }
       .prompt-hint { font-size: 12px; }
 
-      /* Guide speech - at wayfinder level, above prompts */
-      .guide-speech { bottom: 26%; left: 300px; max-width: 220px; padding: 12px 16px; }
+      /* Guide speech - next to wayfinder's head */
+      .guide-speech { bottom: 46%; left: 280px; max-width: 220px; padding: 12px 16px; }
       .guide-text { font-size: 8px; line-height: 1.8; }
 
       .continue-btn { bottom: 115px; left: 300px; }
@@ -1072,7 +1017,7 @@
       .cube-label-name { font-size: 11px; }
       .cube-label-desc { font-size: 12px; }
 
-      .inventory-pouch { width: 280px; padding: 14px; right: 20px; top: 65px; }
+      .inventory-pouch { width: 280px; padding: 14px; right: 20px; top: 10px; }
       .inventory-slot { width: 40px; height: 40px; }
       .inventory-slot.single { width: 40px; height: 40px; }
       .slot-item img { width: 32px; height: 32px; }
@@ -1240,7 +1185,6 @@
         <div class="step-pip" data-step="4"></div>
         <div class="step-pip" data-step="5"></div>
       </div>
-      <a href="../do/" class="exit-btn">← exit</a>
     </header>
 
     <!-- Stage Prompt -->
