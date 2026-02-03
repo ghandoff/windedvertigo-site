@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles/main.css?v=33">
+  <link rel="stylesheet" href="../styles/main.css?v=34">
 
   <style>
     :root {
@@ -540,10 +540,9 @@
        Large size, positioned very low (cape near footer)
     ============================================= */
     .wayfinder {
-      position: absolute; bottom: -45%; left: 0; z-index: 15;
-      width: 60%; max-width: 220px; text-align: center;
+      position: fixed; bottom: 40px; left: 5%; z-index: 15;
+      width: 180px; text-align: center;
       pointer-events: none;
-      transform: translateY(-50px);
     }
 
     .wayfinder-sprite {
@@ -587,7 +586,6 @@
       width: 80%; height: 14px; margin: 2px auto 0;
       background: radial-gradient(ellipse, rgba(0,0,0,0.5) 0%, transparent 70%);
       border-radius: 50%;
-      transform: translateY(-100px);
     }
 
     /* =============================================
@@ -1000,7 +998,7 @@
       .game-container { max-width: 500px; }
       .counter-area { width: 85%; bottom: 6%; max-width: 420px; }
 
-      .wayfinder { bottom: -50%; width: 200px; max-width: 240px; }
+      .wayfinder { bottom: 50px; left: 8%; width: 200px; }
       .package-summary { left: 32%; }
       .package-content { max-width: 400px; padding: 24px 20px 100px; }
 
@@ -1053,7 +1051,7 @@
 
       .counter-area { width: 85%; bottom: 4%; max-width: 460px; }
 
-      .wayfinder { bottom: -55%; width: 220px; max-width: 260px; }
+      .wayfinder { bottom: 60px; left: 12%; width: 240px; }
       .package-summary { left: 30%; }
       .package-content { max-width: 420px; }
 
@@ -1096,7 +1094,7 @@
 
       .counter-area { max-width: 500px; bottom: 2%; }
 
-      .wayfinder { bottom: -60%; width: 240px; max-width: 280px; }
+      .wayfinder { bottom: 70px; left: 15%; width: 280px; }
       .package-summary { left: 28%; }
       .package-content { max-width: 450px; }
 
