@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles/main.css?v=61">
+  <link rel="stylesheet" href="../styles/main.css?v=62">
 
   <style>
     /* Game-specific variables only - header uses main.css variables */
@@ -36,9 +36,9 @@
     /* Header needs fixed position and solid background for game page */
     .header { position: fixed; background-color: #273248; }
 
-    /* Main content - starts below fixed header */
+    /* Main content - starts directly below fixed header */
     main#main-content {
-      padding-top: 120px;
+      padding-top: 0;
       margin: 0;
     }
 
@@ -84,11 +84,12 @@
       height: 20px;
     }
 
-    /* Game wrapper - sits below fixed 30px header */
+    /* Game wrapper - sits below fixed header */
     .game-wrapper {
       max-width: 100%; margin: 0 auto;
       height: 520px;
       position: relative; overflow: visible;
+      margin-top: 100px; /* push below fixed header */
     }
 
     .game-container {
@@ -163,7 +164,7 @@
 
     /* Back wall - cadet blue with wood accent */
     .back-wall {
-      position: absolute; top: 0; left: 0; right: 0; height: 55%;
+      position: absolute; top: 0; left: 0; right: 0; height: 60%;
       background: linear-gradient(180deg, #273248 0%, #2f3d52 50%, #3a4a5e 100%);
     }
 
@@ -300,7 +301,7 @@
 
     /* Floor - cadet blue with wood planks */
     .floor {
-      position: absolute; bottom: 0; left: 0; right: 0; height: 50%;
+      position: absolute; bottom: 0; left: 0; right: 0; height: 45%;
       background: linear-gradient(180deg, #3a4a5e 0%, #2f3d52 40%, #273248 100%);
       transform-origin: top center;
       transform: perspective(400px) rotateX(25deg);
