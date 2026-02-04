@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-04T22:17:48.022Z",
+  "lastUpdated": "2026-02-04T22:39:05.351Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "assets": [
     {
@@ -10,7 +10,7 @@
         "product-design"
       ],
       "url": "https://windedvertigo.com/projects/learning-game",
-      "thumbnailUrl": "https://windedvertigo.com/images/thumbnails/learning-game-prototype.png",
+      "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/learning-game-prototype.png",
       "description": "Interactive prototype demonstrating gamified learning mechanics",
       "tags": [
         "prototype",
@@ -32,7 +32,7 @@
         "people-design"
       ],
       "url": "https://docs.google.com/presentation/d/example",
-      "thumbnailUrl": "https://windedvertigo.com/images/thumbnails/prme-workshop-slides.png",
+      "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/prme-workshop-slides.png",
       "description": "Slide deck from our play-based learning workshop for PRME",
       "tags": [
         "workshop",
@@ -55,7 +55,7 @@
         "product-research"
       ],
       "url": "https://windedvertigo.com/projects/impact-dashboard",
-      "thumbnailUrl": "https://windedvertigo.com/images/thumbnails/impact-measurement-dashboard.png",
+      "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/impact-measurement-dashboard.png",
       "description": "Live dashboard tracking learning outcomes and engagement metrics",
       "tags": [
         "tool",
@@ -77,7 +77,7 @@
         "product-research"
       ],
       "url": "https://drive.google.com/file/d/example",
-      "thumbnailUrl": "https://windedvertigo.com/images/thumbnails/udl-compliance-audit.png",
+      "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/udl-compliance-audit.png",
       "description": "PDF template for conducting Universal Design for Learning audits",
       "tags": [
         "template",
@@ -99,7 +99,7 @@
         "people-design"
       ],
       "url": "https://www.youtube.com/watch?v=f2PZ-95I59Q",
-      "thumbnailUrl": "https://windedvertigo.com/images/thumbnails/cross-cultural-education.png",
+      "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/cross-cultural-education.png",
       "description": "Recorded faculty development webinar",
       "tags": [
         "workshop"
@@ -120,7 +120,7 @@
         "product-design"
       ],
       "url": "https://figma.com/file/example",
-      "thumbnailUrl": "https://windedvertigo.com/images/thumbnails/design-system-components.png",
+      "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/design-system-components.png",
       "description": "Our reusable learning experience design components",
       "tags": [
         "template",
