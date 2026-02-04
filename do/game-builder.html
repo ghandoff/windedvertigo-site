@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles/main.css?v=44">
+  <link rel="stylesheet" href="../styles/main.css?v=45">
 
   <style>
     :root {
@@ -1052,7 +1052,7 @@
       .counter-area { width: 85%; bottom: calc(4% + 50px); max-width: 460px; }
 
       .wayfinder { bottom: calc(-15% - 50px); left: calc(12% - 100px); width: 192px; }
-      .package-summary { left: 30%; }
+      .package-summary { left: calc(30% + 100px); }
       .package-content { max-width: 420px; }
 
       /* Inventory - desktop */
@@ -1095,7 +1095,7 @@
       .counter-area { max-width: 500px; bottom: calc(2% + 50px); }
 
       .wayfinder { bottom: calc(-12% - 50px); left: calc(15% - 100px); width: 224px; }
-      .package-summary { left: 28%; }
+      .package-summary { left: calc(28% + 100px); }
       .package-content { max-width: 450px; }
 
       /* Inventory - large desktop */
@@ -1761,7 +1761,8 @@
     }
 
     function updateNavButtons() {
-      backBtn.classList.toggle('visible', gameState.step > 1);
+      // Hide back button on step 1 and on package summary (step 5)
+      backBtn.classList.toggle('visible', gameState.step > 1 && gameState.step < 5);
     }
 
     continueBtn.addEventListener('click', advanceStep);
