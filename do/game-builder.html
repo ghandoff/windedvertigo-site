@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles/main.css?v=50">
+  <link rel="stylesheet" href="../styles/main.css?v=51">
 
   <style>
     :root {
@@ -655,7 +655,7 @@
        Positioned below header (header ~52px on mobile)
     ============================================= */
     .inventory-pouch {
-      position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
       z-index: 40;
       background: linear-gradient(180deg, rgba(58, 74, 94, 0.98) 0%, rgba(39, 50, 72, 0.98) 100%);
       border: 2px solid #6b5040;
@@ -1034,7 +1034,7 @@
       .package-content { max-width: 400px; padding: 24px 20px 100px; }
 
       /* Inventory - tablet */
-      .inventory-pouch { top: 10px; padding: 10px 16px 12px; gap: 12px; }
+      .inventory-pouch { top: 0; padding: 10px 16px 12px; gap: 12px; }
       .inventory-section { padding: 8px 10px; }
       .inventory-slot { width: 32px; height: 32px; }
       .inventory-slot.single { width: 32px; height: 32px; }
@@ -1079,7 +1079,7 @@
       .package-content { max-width: none; width: 100%; padding: 20px 30px 100px; }
 
       /* Inventory - desktop */
-      .inventory-pouch { top: 12px; padding: 12px 20px 14px; gap: 16px; }
+      .inventory-pouch { top: 0; padding: 12px 20px 14px; gap: 16px; }
       .inventory-section { padding: 10px 12px; }
       .inventory-slot { width: 36px; height: 36px; }
       .inventory-slot.single { width: 36px; height: 36px; }
@@ -1122,7 +1122,7 @@
       .package-content { max-width: none; width: 100%; padding: 20px 40px 100px; }
 
       /* Inventory - large desktop */
-      .inventory-pouch { top: 14px; padding: 14px 28px 16px; gap: 20px; }
+      .inventory-pouch { top: 0; padding: 14px 28px 16px; gap: 20px; }
       .inventory-section { padding: 12px 14px; }
       .inventory-slot { width: 40px; height: 40px; }
       .inventory-slot.single { width: 40px; height: 40px; }
