@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles/main.css?v=58">
+  <link rel="stylesheet" href="../styles/main.css?v=59">
 
   <style>
     :root {
@@ -38,25 +38,15 @@
     body { font-family: var(--font-ui); background: var(--cadet-blue); color: var(--champagne); }
 
     /* ===========================================
-       MOBILE-FIRST BASE STYLES (< 600px default)
+       DESKTOP-FIRST BASE STYLES (matches main.css)
     =========================================== */
 
-    /* Header - mobile-first, overrides main.css desktop-first styles */
-    .header { padding: 1.5rem 0; position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--cadet-blue); }
-    .header .container { max-width: 100%; padding: 0 20px; }
-    .header-inner { display: flex; justify-content: space-between; align-items: flex-start; }
-    .logo { display: block; }
-    .logo-img { width: 150px; height: auto; }
-    .nav { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--cadet-blue); flex-direction: column; padding: 1.5rem; }
-    .nav.active { display: flex; }
-    .nav a { font-family: var(--font-primary); font-size: 24px; font-weight: 800; padding: 0.5rem 0; text-transform: lowercase; color: var(--white); transition: color 0.2s ease; }
-    .nav a:hover { color: var(--accent-hover); }
-    .nav a.active { color: var(--accent); }
-    .nav-toggle { display: block; background: none; border: none; color: var(--white); cursor: pointer; padding: 0.5rem; }
+    /* Header - desktop-first like main.css, only override position and background */
+    .header { position: fixed; background: var(--cadet-blue); }
 
     /* Main content - starts below fixed header */
     main#main-content {
-      padding-top: 100px; /* header height with logo and padding */
+      padding-top: 120px;
       margin: 0;
     }
 
@@ -936,12 +926,6 @@
        TABLET STYLES (min-width: 768px)
     =========================================== */
     @media (min-width: 768px) {
-      .header .container { padding: 0 30px; }
-      .logo-img { width: 200px; }
-      .nav { display: flex; flex-direction: row; position: static; background: none; padding: 0; gap: 30px; }
-      .nav a { font-size: 32px; }
-      .nav-toggle { display: none; }
-      main#main-content { padding-top: 120px; }
       .game-wrapper { height: 560px; border-radius: 10px; }
 
       /* wayfinder adjusted in tablet section below */
