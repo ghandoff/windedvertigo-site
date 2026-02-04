@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles/main.css?v=43">
+  <link rel="stylesheet" href="../styles/main.css?v=44">
 
   <style>
     :root {
@@ -1723,26 +1723,37 @@
       if (gameState.step <= 1) return;
 
       // Clear the current step's selection
-      const step = STEPS[gameState.step];
-      if (step.single) {
-        gameState[step.id] = null;
+      const currentStep = STEPS[gameState.step];
+      if (currentStep.single) {
+        gameState[currentStep.id] = null;
       } else {
-        gameState[step.id] = [];
+        gameState[currentStep.id] = [];
       }
 
       // Clear the inventory slots for current step
-      const section = document.getElementById(`section-${step.id}`);
-      section.querySelectorAll('.inventory-slot').forEach(slot => {
+      const currentSection = document.getElementById(`section-${currentStep.id}`);
+      currentSection.querySelectorAll('.inventory-slot').forEach(slot => {
         slot.classList.remove('filled');
         slot.innerHTML = '';
       });
 
-      // Unselect cubes
-      document.querySelectorAll('.glass-cube.selected').forEach(cube => {
-        cube.classList.remove('selected');
+      gameState.step--;
+
+      // Clear the previous step's selection (the step we're going back to)
+      const prevStep = STEPS[gameState.step];
+      if (prevStep.single) {
+        gameState[prevStep.id] = null;
+      } else {
+        gameState[prevStep.id] = [];
+      }
+
+      // Clear the inventory slots for previous step
+      const prevSection = document.getElementById(`section-${prevStep.id}`);
+      prevSection.querySelectorAll('.inventory-slot').forEach(slot => {
+        slot.classList.remove('filled');
+        slot.innerHTML = '';
       });
 
-      gameState.step--;
       continueBtn.classList.remove('visible');
       updateUI();
       renderDisplayCubes();
