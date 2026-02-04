@@ -12,15 +12,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles/main.css?v=59">
+  <link rel="stylesheet" href="../styles/main.css?v=60">
 
   <style>
+    /* Game-specific variables only - header uses main.css variables */
     :root {
-      --cadet-blue: #273248;
       --redwood: #b15043;
       --burnt-sienna: #cb7858;
       --champagne: #ffebd2;
-      --white: #ffffff;
       --periwinkle: #5872cb;
       --seafoam: #58cbb2;
       --light-lavender: #d5d2ff;
@@ -28,21 +27,14 @@
       --font-display: 'Space Mono', monospace;
       --font-pixel: 'Press Start 2P', cursive;
       --font-ui: 'Inter', sans-serif;
-      --font-primary: -apple-system, "system-ui", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-      --accent: #AF4F41;
-      --accent-hover: #ffebd2;
     }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; }
-    body { font-family: var(--font-ui); background: var(--cadet-blue); color: var(--champagne); }
 
     /* ===========================================
        DESKTOP-FIRST BASE STYLES (matches main.css)
     =========================================== */
 
-    /* Header - desktop-first like main.css, only override position and background */
-    .header { position: fixed; background: var(--cadet-blue); }
+    /* Header - only override position, inherit everything else from main.css */
+    .header { position: fixed; background: var(--bg-primary); }
 
     /* Main content - starts below fixed header */
     main#main-content {
@@ -57,7 +49,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: var(--cadet-blue);
+      background: var(--bg-primary);
       border-top: 1px solid rgba(255,255,255,0.1);
       z-index: 100;
     }
@@ -752,7 +744,7 @@
     .package-summary {
       position: absolute; top: 0; right: 0; bottom: 0; left: 35%;
       z-index: 200;
-      background: linear-gradient(90deg, transparent 0%, var(--cadet-blue) 5%, var(--cadet-blue) 100%);
+      background: linear-gradient(90deg, transparent 0%, var(--bg-primary) 5%, var(--bg-primary) 100%);
       overflow-y: auto; display: none;
     }
     .package-summary.visible { display: block; }
@@ -801,7 +793,7 @@
     }
     .package-tag.focus { background: var(--periwinkle); color: white; }
     .package-tag.approach { background: var(--periwinkle); color: white; }
-    .package-tag.count { background: var(--seafoam); color: var(--cadet-blue); }
+    .package-tag.count { background: var(--seafoam); color: var(--bg-primary); }
 
     /* Quadrant matrix */
     .quadrant-section {
@@ -898,7 +890,7 @@
     /* Package actions */
     .package-actions {
       position: fixed; bottom: 0; left: 0; right: 0;
-      background: var(--cadet-blue);
+      background: var(--bg-primary);
       border-top: 1px solid rgba(255,255,255,0.1);
       padding: 16px 20px;
       display: flex; justify-content: center; gap: 10px;
@@ -914,7 +906,7 @@
       background: var(--redwood); color: white;
     }
     .package-btn.secondary {
-      background: var(--seafoam); color: var(--cadet-blue);
+      background: var(--seafoam); color: var(--bg-primary);
     }
     .package-btn.tertiary {
       background: transparent; color: white;
@@ -995,7 +987,7 @@
       .counter-area { width: 85%; bottom: calc(4% + 50px); max-width: 460px; }
 
       .wayfinder { bottom: calc(-15% - 50px); left: calc(12% - 100px); width: 192px; }
-      .package-summary { left: 50%; right: 0; background: var(--cadet-blue); }
+      .package-summary { left: 50%; right: 0; background: var(--bg-primary); }
       .package-content { max-width: none; width: 100%; padding: 20px 30px 100px; }
 
       /* Inventory - desktop */
@@ -1038,7 +1030,7 @@
       .counter-area { max-width: 500px; bottom: calc(2% + 50px); }
 
       .wayfinder { bottom: calc(-12% - 50px); left: calc(15% - 100px); width: 224px; }
-      .package-summary { left: 50%; right: 0; background: var(--cadet-blue); }
+      .package-summary { left: 50%; right: 0; background: var(--bg-primary); }
       .package-content { max-width: none; width: 100%; padding: 20px 40px 100px; }
 
       /* Inventory - large desktop */
