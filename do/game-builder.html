@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles/main.css?v=48">
+  <link rel="stylesheet" href="../styles/main.css?v=49">
 
   <style>
     :root {
@@ -38,50 +38,66 @@
        MOBILE-FIRST BASE STYLES (< 600px default)
     =========================================== */
 
-    /* Header - fixed 30px band at absolute top */
+    /* Header - matches main site styles */
     .header {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      height: 30px;
-      padding: 0;
-      margin: 0;
+      padding: 1rem 0;
       z-index: 500;
-      background: var(--cadet-blue);
-      display: flex;
-      align-items: center;
+      background: #0a0a0a;
+      border-bottom: 1px solid #222222;
     }
     .header .container {
-      padding: 0 12px;
-      height: 100%;
+      padding: 0 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
       width: 100%;
     }
     .header .logo-img {
-      height: 20px;
+      height: 40px;
       width: auto;
     }
     .header .nav {
       display: none;
-      gap: 12px;
+      gap: 1.5rem;
     }
     .header .nav.active {
       display: flex;
       flex-direction: column;
       position: absolute;
-      top: 30px;
+      top: 100%;
+      left: 0;
       right: 0;
-      background: var(--cadet-blue);
-      padding: 10px 16px;
-      border-radius: 0 0 4px 4px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      background: #0a0a0a;
+      padding: 1rem;
+      border-bottom: 1px solid #222222;
     }
     .header .nav a {
-      font-size: 12px;
-      padding: 6px 0;
+      font-family: 'Space Grotesk', var(--font-ui);
+      font-size: 1rem;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 0.5rem 0;
+      position: relative;
+    }
+    .header .nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: #ffffff;
+      transition: width 0.3s ease;
+    }
+    .header .nav a:hover::after,
+    .header .nav a.active::after {
+      width: 100%;
     }
     .header .nav-toggle {
       display: flex;
@@ -89,40 +105,55 @@
       justify-content: center;
       background: none;
       border: none;
-      color: var(--champagne);
+      color: #ffffff;
       cursor: pointer;
       padding: 4px;
     }
 
     /* Main content - starts below fixed header */
     main#main-content {
-      padding-top: 30px;
+      padding-top: 60px;
       margin: 0;
     }
 
-    /* Override site footer for compact display */
+    /* Footer - matches main site styles */
     .footer {
-      padding: 6px 0;
+      padding: 1rem 0;
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      background: var(--cadet-blue);
+      background: #0a0a0a;
+      border-top: 1px solid #222222;
       z-index: 100;
     }
     .footer .container {
-      padding: 4px 12px;
+      padding: 0 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     .footer p {
-      font-size: 8px;
-      margin-bottom: 2px;
+      font-size: 0.85rem;
+      color: #a0a0a0;
+      margin: 0;
     }
     .footer .social-links {
-      gap: 10px;
+      display: flex;
+      gap: 1rem;
+    }
+    .footer .social-links a {
+      color: #a0a0a0;
+      transition: color 0.3s ease;
+    }
+    .footer .social-links a:hover {
+      color: #ffffff;
     }
     .footer .social-links svg {
-      width: 16px;
-      height: 16px;
+      width: 20px;
+      height: 20px;
     }
 
     /* Game wrapper - sits below fixed 30px header */
@@ -956,25 +987,23 @@
     .package-btn:hover { transform: translateY(-2px); }
 
     /* ===========================================
-       TABLET STYLES (min-width: 600px)
+       TABLET STYLES (min-width: 768px)
     =========================================== */
-    @media (min-width: 600px) {
-      .header { height: 36px; }
-      .header .logo-img { height: 24px; }
+    @media (min-width: 768px) {
+      .header .logo-img { height: 50px; }
       .header .nav {
         display: flex;
         flex-direction: row;
         position: static;
         background: none;
         padding: 0;
-        box-shadow: none;
+        border: none;
+        gap: 2rem;
       }
-      .header .nav a { font-size: 11px; padding: 0; }
+      .header .nav a { font-size: 1rem; padding: 0.5rem 0; }
       .header .nav-toggle { display: none; }
-      .footer { padding: 12px 0; }
-      .footer p { font-size: 10px; }
 
-      main#main-content { padding-top: 36px; }
+      main#main-content { padding-top: 70px; }
       .game-wrapper { height: 560px; border-radius: 10px; }
 
       /* wayfinder adjusted in tablet section below */
@@ -1022,14 +1051,6 @@
        DESKTOP STYLES (min-width: 800px)
     =========================================== */
     @media (min-width: 800px) {
-      .header { height: 44px; }
-      .header .logo-img { height: 28px; }
-      .header .nav a { font-size: 12px; }
-      main#main-content { padding-top: 44px; }
-      .footer { padding: 16px 0; }
-      .footer p { font-size: 11px; }
-      .footer .social-links svg { width: 20px; height: 20px; }
-
       .game-wrapper { height: 700px; border-radius: 12px; }
 
       .game-container { max-width: 550px; }
