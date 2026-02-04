@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles/main.css?v=55">
+  <link rel="stylesheet" href="../styles/main.css?v=56">
 
   <style>
     :root {
@@ -28,6 +28,9 @@
       --font-display: 'Space Mono', monospace;
       --font-pixel: 'Press Start 2P', cursive;
       --font-ui: 'Inter', sans-serif;
+      --font-primary: -apple-system, "system-ui", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      --accent: #AF4F41;
+      --accent-hover: #ffebd2;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -46,10 +49,10 @@
     .logo-img { width: 150px; height: auto; }
     .nav { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--cadet-blue); flex-direction: column; padding: 1.5rem; }
     .nav.active { display: flex; }
-    .nav a { font-family: var(--font-ui); font-size: 24px; font-weight: 800; padding: 0.5rem 0; text-transform: lowercase; color: var(--champagne); transition: color 0.2s ease; }
-    .nav a:hover { color: var(--burnt-sienna); }
-    .nav a.active { color: var(--burnt-sienna); }
-    .nav-toggle { display: block; background: none; border: none; color: var(--champagne); cursor: pointer; padding: 0.5rem; }
+    .nav a { font-family: var(--font-primary); font-size: 24px; font-weight: 800; padding: 0.5rem 0; text-transform: lowercase; color: var(--white); transition: color 0.2s ease; }
+    .nav a:hover { color: var(--accent-hover); }
+    .nav a.active { color: var(--accent); }
+    .nav-toggle { display: block; background: none; border: none; color: var(--white); cursor: pointer; padding: 0.5rem; }
 
     /* Main content - starts below fixed header */
     main#main-content {
