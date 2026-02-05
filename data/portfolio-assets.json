@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-05T22:52:56.961Z",
+  "lastUpdated": "2026-02-05T23:01:38.183Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "assets": [
     {
@@ -39,7 +39,7 @@
         "workshop",
         "case-study"
       ],
-      "featured": true,
+      "featured": false,
       "showInPackageBuilder": true,
       "showInPortfolio": true,
       "passwordProtected": false,
@@ -64,7 +64,7 @@
         "report"
       ],
       "featured": true,
-      "showInPackageBuilder": false,
+      "showInPackageBuilder": true,
       "showInPortfolio": true,
       "passwordProtected": false,
       "password": "",
@@ -131,7 +131,7 @@
         "template",
         "tool"
       ],
-      "featured": false,
+      "featured": true,
       "showInPackageBuilder": true,
       "showInPortfolio": true,
       "passwordProtected": false,
@@ -148,14 +148,14 @@
         "people-design"
       ],
       "url": "https://d30mzt1bxg5llt.cloudfront.net/public/uploads/PDFs/PRME_October2025_EI_Slides.pdf",
-      "thumbnailUrl": "",
+      "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/strengthening-emotional-intelligence.png",
       "description": "session deck covering emotional awareness, regulation strategies, and practical reflection prompts for teams",
       "tags": [
         "workshop"
       ],
       "featured": false,
       "showInPackageBuilder": true,
-      "showInPortfolio": false,
+      "showInPortfolio": true,
       "passwordProtected": false,
       "password": "",
       "client": "",
@@ -169,7 +169,7 @@
       "quadrants": [
         "people-design"
       ],
-      "url": "",
+      "url": "https://superb-shrimp-129.notion.site/vertigovault?v=223e4ee74ba480179e29000cadc87273&source=copy_link",
       "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/vertigo-vault.png",
       "description": "this gallery of playful activities provides learning opportunities in a variety of different contexts",
       "tags": [
@@ -178,11 +178,11 @@
       ],
       "featured": true,
       "showInPackageBuilder": true,
-      "showInPortfolio": false,
+      "showInPortfolio": true,
       "passwordProtected": false,
       "password": "",
       "client": "",
-      "order": null,
+      "order": 8,
       "icon": ""
     }
   ]
