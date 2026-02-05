@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-05T21:46:02.079Z",
+  "lastUpdated": "2026-02-05T22:52:56.961Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "packs": {
     "product-design": {
@@ -86,7 +86,7 @@
           "title": "UDL compliance audit template",
           "type": "pdf",
           "icon": "📋",
-          "url": "https://drive.google.com/file/d/example",
+          "url": "",
           "detail": "PDF template for conducting Universal Design for Learning audits"
         }
       ]
@@ -132,6 +132,13 @@
           "icon": "💛",
           "url": "https://d30mzt1bxg5llt.cloudfront.net/public/uploads/PDFs/PRME_October2025_EI_Slides.pdf",
           "detail": "session deck covering emotional awareness, regulation strategies, and practical reflection prompts for teams"
+        },
+        {
+          "title": "vertigo.vault",
+          "type": "notion-db",
+          "icon": "",
+          "url": "",
+          "detail": "this gallery of playful activities provides learning opportunities in a variety of different contexts"
         }
       ]
     }
