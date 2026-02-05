@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-04T22:39:05.351Z",
+  "lastUpdated": "2026-02-05T14:00:39.953Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "assets": [
     {
@@ -26,13 +26,13 @@
     },
     {
       "id": "2fbe4ee7-4ba4-81c9-a3c0-d4b51b1aa5d9",
-      "name": "PRME Workshop Slides",
+      "name": "webinar slides",
       "assetType": "slides",
       "quadrants": [
         "people-design"
       ],
-      "url": "https://docs.google.com/presentation/d/example",
-      "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/prme-workshop-slides.png",
+      "url": "https://drive.google.com/open?id=1GNDYst-AXStIsGM_6byTNMfKGMeqUrSj&usp=drive_fs",
+      "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/active-learning-in-large-classrooms.png",
       "description": "Slide deck from our play-based learning workshop for PRME",
       "tags": [
         "workshop",
@@ -114,14 +114,14 @@
     },
     {
       "id": "2fbe4ee7-4ba4-8135-8dab-c06d761329e7",
-      "name": "Design System Components",
+      "name": "holistic skills framework",
       "assetType": "figma",
       "quadrants": [
         "product-design"
       ],
       "url": "https://figma.com/file/example",
       "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/design-system-components.png",
-      "description": "Our reusable learning experience design components",
+      "description": "An interactive learning experience of a skills framework",
       "tags": [
         "template",
         "tool"
