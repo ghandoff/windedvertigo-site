@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-05T16:55:17.389Z",
+  "lastUpdated": "2026-02-05T16:59:29.932Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "packs": {
     "product-design": {
@@ -78,10 +78,10 @@
     },
     "product-research": {
       "title": "product × research",
-      "promise": "know if your learning product is working.",
-      "quadrantStory": "we evaluate, test, and measure learning products to ensure they deliver results.",
-      "story": "Using UX research methods, learning analytics, and accessibility audits, we provide actionable insights for improvement.",
-      "crossover": "ready to implement improvements? let's design together.",
+      "promise": "prove your product meets accessibility and learning standards—before you ship.",
+      "quadrantStory": "you're in the product × research quadrant—where user experience meets rigorous validation. this is where we make sure your products and experiences actually works for the people it's meant to serve.",
+      "story": "we start with a heuristic review—our team looks at your product or experience through established usability and access lenses.  then we recruit real users for moderated testing sessions, working alongside them as they move through realistic task and share what's helping or getting in the way. . we agree with the participants how to capture their experiences, missing numbers and stories, notes, visuals and recordings, so what we gather is authentic and meaningful.  the analysis identifies patterns across experiences  and prioritises issues by impact and feasibility. you receive a findings report with specific, actionable recommendations and examples of what particpants found easy, hard or valuable. ",
+      "crossover": "validation isn't the end of the story—it's the beginning of better design. our research always points toward solutions, not just problems. we work closely with your design and dev teams to translate findings into improvements that ship.",
       "outcomes": [
         {
           "title": "access and inclusion snapshot",
