@@ -308,6 +308,7 @@ async function fetchPortfolioAssets() {
       tags: getMultiSelectValue(props[propMap.tags]),
       featured: getCheckboxValue(props[propMap.featured]),
       showInPackageBuilder: getCheckboxValue(props[propMap.showInPackageBuilder]),
+      showInPortfolio: getCheckboxValue(props[propMap.showInPortfolio]),
       passwordProtected: getCheckboxValue(props[propMap.passwordProtected]),
       password: getTextValue(props[propMap.password]),
       client: getTextValue(props[propMap.client]),
@@ -327,10 +328,9 @@ async function main() {
   console.log('Fetching content from Notion...');
 
   try {
-    const [quadrants, outcomes, examples, portfolioAssets] = await Promise.all([
+    const [quadrants, outcomes, portfolioAssets] = await Promise.all([
       fetchQuadrants(),
       fetchOutcomes(),
-      fetchExamples(),
       fetchPortfolioAssets(),
     ]);
 
@@ -341,20 +341,49 @@ async function main() {
       console.warn('WARNING: Missing quadrants: ' + missingQuadrants.join(', '));
     }
 
+    // Generate examples from portfolio assets (filtered by showInPackageBuilder)
+    // Map quadrant names from portfolio format to internal format
+    const quadrantKeyMap = {
+      'product-design': 'product_design',
+      'product-research': 'product_research',
+      'people-design': 'people_design',
+      'people-research': 'people_research',
+    };
+
+    const examplesFromAssets = {};
+    for (const asset of portfolioAssets) {
+      if (!asset.showInPackageBuilder) continue;
+
+      for (const quadrant of asset.quadrants) {
+        const key = quadrantKeyMap[quadrant] || quadrant.replace('-', '_');
+        if (!examplesFromAssets[key]) examplesFromAssets[key] = [];
+        examplesFromAssets[key].push({
+          title: asset.name,
+          type: asset.assetType,
+          icon: asset.icon,
+          url: asset.url,
+          detail: asset.description,
+        });
+      }
+    }
+
+    const packageBuilderExamples = Object.keys(examplesFromAssets).reduce((acc, key) => acc + examplesFromAssets[key].length, 0);
+    console.log('  OK Examples (from Portfolio Assets): ' + packageBuilderExamples + ' items with showInPackageBuilder=true');
+
     // Assemble packs
     const packs = {};
     for (const key of Object.keys(quadrants)) {
       packs[key] = {
         ...quadrants[key],
         outcomes: outcomes[key] || [],
-        examples: examples[key] || [],
+        examples: examplesFromAssets[key] || [],
       };
 
       if (!outcomes[key] || outcomes[key].length === 0) {
         console.warn('  Warning: ' + key + ' has no outcomes');
       }
-      if (!examples[key] || examples[key].length === 0) {
-        console.warn('  Warning: ' + key + ' has no examples');
+      if (!examplesFromAssets[key] || examplesFromAssets[key].length === 0) {
+        console.warn('  Warning: ' + key + ' has no examples (check showInPackageBuilder in Portfolio Assets)');
       }
     }
 

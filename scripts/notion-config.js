@@ -50,6 +50,7 @@ module.exports = {
       tags: 'Tags',
       featured: 'Featured',
       showInPackageBuilder: 'Show in Package Builder',
+      showInPortfolio: 'Show in Portfolio',
       passwordProtected: 'Password Protected',
       password: 'Password',
       client: 'Client',

@@ -688,8 +688,10 @@
         const response = await fetch('../data/portfolio-assets.json');
         if (!response.ok) throw new Error('Failed to load');
         const data = await response.json();
-        ASSETS = data.assets || [];
-        console.log('Loaded', ASSETS.length, 'portfolio assets');
+        // Filter to only show assets marked for portfolio display
+        const allAssets = data.assets || [];
+        ASSETS = allAssets.filter(a => a.showInPortfolio !== false);
+        console.log('Loaded', ASSETS.length, 'portfolio assets (of', allAssets.length, 'total)');
         renderFilters();
         renderPortfolio();
         handleDeepLink();
