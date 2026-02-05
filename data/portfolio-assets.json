@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-05T22:57:17.470Z",
+  "lastUpdated": "2026-02-05T23:00:44.255Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "assets": [
     {
@@ -155,7 +155,7 @@
       ],
       "featured": false,
       "showInPackageBuilder": true,
-      "showInPortfolio": false,
+      "showInPortfolio": true,
       "passwordProtected": false,
       "password": "",
       "client": "",
@@ -178,11 +178,11 @@
       ],
       "featured": true,
       "showInPackageBuilder": true,
-      "showInPortfolio": false,
+      "showInPortfolio": true,
       "passwordProtected": false,
       "password": "",
       "client": "",
-      "order": null,
+      "order": 8,
       "icon": ""
     }
   ]
