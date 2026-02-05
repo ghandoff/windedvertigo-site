@@ -1,25 +1,25 @@
 {
-  "lastUpdated": "2026-02-05T23:04:36.427Z",
+  "lastUpdated": "2026-02-05T23:14:38.862Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "packs": {
     "product-design": {
-      "title": "product × design",
+      "title": "*product × design",
       "promise": "build learning products people actually use.",
-      "quadrantStory": "we design digital learning experiences that are intuitive, engaging, and effective.",
-      "story": "From concept to prototype to handoff, we create learning products grounded in UX best practices and learning science.",
-      "crossover": "want to validate your product with real users? add research.want to [TEST]  your product with real users? add research.",
+      "quadrantStory": "you're in the product × design quadrant—where learning science meets rapid prototyping. this is where we build the tools, games, and experiences that teach through doing - and are designed to flex around the inherent variability of how humans learn.",
+      "story": "we kick off with a concept sprint—exploring the problem space, sketching multiple approaches, and converging on the strongest direction. then we prototype rapidly, building just enough to test our core assumptions. playtests happen early and often, with real users in realistic contexts. we synthesise findings after each round and iterate. by the end of sprint two, you have a validated concept and a clear path to production.",
+      "crossover": "crossing boundaries: great products don't just emerge from intuition—they're shaped by evidence. we bake research into every sprint, testing assumptions with users and measuring learning outcomes. design and research aren't separate phases; they're intertwined throughout.",
       "outcomes": [
         {
-          "title": "UX design",
-          "detail": "intuitive learning interfaces"
+          "title": "working prototype in 2 sprints",
+          "detail": "not wireframes or mockups—a functional prototype you can put in front of real users and learn from immediately."
         },
         {
-          "title": "prototype development",
-          "detail": "test ideas before building"
+          "title": "playtest insights",
+          "detail": "we run structured playtests with your target users, capturing what delights, what confuses, and what needs to change."
         },
         {
-          "title": "design system",
-          "detail": "consistent, scalable components"
+          "title": "implementation specification",
+          "detail": "a detailed handoff document that lets your dev team build with confidence—including edge cases, accessibility requirements, and content guidelines that bake in flexibility needed to reflect the different ways we all think, feel and learn."
         }
       ],
       "examples": [
