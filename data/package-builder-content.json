@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-05T14:36:52.904Z",
+  "lastUpdated": "2026-02-05T16:55:17.389Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "packs": {
     "product-design": {
@@ -84,16 +84,16 @@
       "crossover": "ready to implement improvements? let's design together.",
       "outcomes": [
         {
-          "title": "usability testing",
-          "detail": "watch real users navigate"
+          "title": "access and inclusion snapshot",
+          "detail": "a structured view of who your product or experience currently works well for, and who it quietly leaves out, with clear ratings across key steps of the journey and a focussed set of viable changes that take into account your real constraints."
         },
         {
-          "title": "accessibility audit",
-          "detail": "ensure everyone can learn"
+          "title": "usability issues mapped",
+          "detail": "a prioritised list of friction points, dead ends, and confusion—categorised by severity and linked to specific user sessions."
         },
         {
-          "title": "analytics review",
-          "detail": "understand learning patterns"
+          "title": "stakeholder-ready brief",
+          "detail": "a clear, visual summary that communicates findings to leadership, with recommended fixes and estimated impact."
         }
       ],
       "examples": [
