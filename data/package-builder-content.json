@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-05T23:00:44.255Z",
+  "lastUpdated": "2026-02-05T23:01:38.182Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "packs": {
     "product-design": {
@@ -59,7 +59,15 @@
           "detail": "get aligned on goals"
         }
       ],
-      "examples": []
+      "examples": [
+        {
+          "title": "impact measurement dashboard",
+          "type": "dashboard",
+          "icon": "📈",
+          "url": "https://qualtricsxmbpg4ms963.pdx1.qualtrics.com/reports/public/cXVhbHRyaWNzeG1icGc0bXM5NjMtNjgzMDM0NTUwODk2ZTIwMDA4ZWIyZTRhLVVSXzI0ZHR5ZnlZYjZvQjBGYQ==",
+          "detail": "live dashboard tracking learning outcomes and engagement metrics"
+        }
+      ]
     },
     "product-research": {
       "title": "product × research",
@@ -82,6 +90,13 @@
         }
       ],
       "examples": [
+        {
+          "title": "impact measurement dashboard",
+          "type": "dashboard",
+          "icon": "📈",
+          "url": "https://qualtricsxmbpg4ms963.pdx1.qualtrics.com/reports/public/cXVhbHRyaWNzeG1icGc0bXM5NjMtNjgzMDM0NTUwODk2ZTIwMDA4ZWIyZTRhLVVSXzI0ZHR5ZnlZYjZvQjBGYQ==",
+          "detail": "live dashboard tracking learning outcomes and engagement metrics"
+        },
         {
           "title": "UDL compliance audit template",
           "type": "pdf",

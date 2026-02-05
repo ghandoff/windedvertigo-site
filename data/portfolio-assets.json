@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-05T23:00:44.255Z",
+  "lastUpdated": "2026-02-05T23:01:38.183Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "assets": [
     {
@@ -39,7 +39,7 @@
         "workshop",
         "case-study"
       ],
-      "featured": true,
+      "featured": false,
       "showInPackageBuilder": true,
       "showInPortfolio": true,
       "passwordProtected": false,
@@ -64,7 +64,7 @@
         "report"
       ],
       "featured": true,
-      "showInPackageBuilder": false,
+      "showInPackageBuilder": true,
       "showInPortfolio": true,
       "passwordProtected": false,
       "password": "",
@@ -131,7 +131,7 @@
         "template",
         "tool"
       ],
-      "featured": false,
+      "featured": true,
       "showInPackageBuilder": true,
       "showInPortfolio": true,
       "passwordProtected": false,
