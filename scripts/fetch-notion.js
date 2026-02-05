@@ -335,29 +335,22 @@ async function main() {
     ]);
 
     // Validate we got all 4 quadrants
-    const expectedQuadrants = ['people_design', 'people_research', 'product_design', 'product_research'];
+    const expectedQuadrants = ['people-design', 'people-research', 'product-design', 'product-research'];
     const missingQuadrants = expectedQuadrants.filter(q => !quadrants[q]);
     if (missingQuadrants.length > 0) {
       console.warn('WARNING: Missing quadrants: ' + missingQuadrants.join(', '));
     }
 
     // Generate examples from portfolio assets (filtered by showInPackageBuilder)
-    // Map quadrant names from portfolio format to internal format
-    const quadrantKeyMap = {
-      'product-design': 'product_design',
-      'product-research': 'product_research',
-      'people-design': 'people_design',
-      'people-research': 'people_research',
-    };
-
+    // Use quadrant names directly - they should match the keys in the Quadrants database
     const examplesFromAssets = {};
     for (const asset of portfolioAssets) {
       if (!asset.showInPackageBuilder) continue;
 
       for (const quadrant of asset.quadrants) {
-        const key = quadrantKeyMap[quadrant] || quadrant.replace('-', '_');
-        if (!examplesFromAssets[key]) examplesFromAssets[key] = [];
-        examplesFromAssets[key].push({
+        // Use quadrant name as-is (e.g., 'product-design') to match Quadrant database keys
+        if (!examplesFromAssets[quadrant]) examplesFromAssets[quadrant] = [];
+        examplesFromAssets[quadrant].push({
           title: asset.name,
           type: asset.assetType,
           icon: asset.icon,
