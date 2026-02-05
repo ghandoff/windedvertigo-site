@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-05T14:18:11.576Z",
+  "lastUpdated": "2026-02-05T14:35:13.167Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "assets": [
     {
@@ -119,8 +119,8 @@
       "quadrants": [
         "product-design"
       ],
-      "url": "https://figma.com/file/example",
-      "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/design-system-components.png",
+      "url": "https://www.figma.com/proto/6FFBbtwu3bglPZA2HKyfDv/holistic-skills-framework?page-id=0%3A1&node-id=104-9023&viewport=1595%2C-428%2C0.07&t=3kHjNyFDTPp9c5LQ-1&scaling=contain&content-scaling=fixed&starting-point-node-id=2%3A1375",
+      "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/holistic-skills-framework.png",
       "description": "an interactive learning experience of a skills framework",
       "tags": [
         "template",
