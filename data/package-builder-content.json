@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-05T16:59:29.932Z",
+  "lastUpdated": "2026-02-05T18:46:46.510Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "packs": {
     "product-design": {
@@ -22,22 +22,7 @@
           "detail": "consistent, scalable components"
         }
       ],
-      "examples": [
-        {
-          "title": "learning game prototype",
-          "type": "interactive demo",
-          "icon": "🎮",
-          "url": "/portfolio/#learning-game",
-          "detail": "gamified learning experience"
-        },
-        {
-          "title": "design handoff spec",
-          "type": "design documentation",
-          "icon": "🎨",
-          "url": "/portfolio/#design-handoff",
-          "detail": "from design to development"
-        }
-      ]
+      "examples": []
     },
     "people-research": {
       "title": "people × research",
@@ -59,22 +44,7 @@
           "detail": "get aligned on goals"
         }
       ],
-      "examples": [
-        {
-          "title": "programme impact report",
-          "type": "research report",
-          "icon": "📊",
-          "url": "/portfolio/#impact-report",
-          "detail": "measuring real learning outcomes"
-        },
-        {
-          "title": "MEL dashboard",
-          "type": "live dashboard",
-          "icon": "📈",
-          "url": "/portfolio/#mel-dashboard",
-          "detail": "monitoring evaluation and learning"
-        }
-      ]
+      "examples": []
     },
     "product-research": {
       "title": "product × research",
@@ -96,22 +66,7 @@
           "detail": "a clear, visual summary that communicates findings to leadership, with recommended fixes and estimated impact."
         }
       ],
-      "examples": [
-        {
-          "title": "UDL audit report",
-          "type": "audit findings",
-          "icon": "✅",
-          "url": "/portfolio/#udl-audit",
-          "detail": "universal design for learning review"
-        },
-        {
-          "title": "usability findings video",
-          "type": "video summary",
-          "icon": "🎬",
-          "url": "/portfolio/#usability-video",
-          "detail": "user testing highlights"
-        }
-      ]
+      "examples": []
     },
     "people-design": {
       "title": "people × design",
@@ -133,22 +88,7 @@
           "detail": "end-to-end program design"
         }
       ],
-      "examples": [
-        {
-          "title": "PRME workshop kit",
-          "type": "facilitation kit",
-          "icon": "📄",
-          "url": "/portfolio/#prme-workshop",
-          "detail": "complete facilitator guide for active learning"
-        },
-        {
-          "title": "play-based learning session",
-          "type": "video walkthrough",
-          "icon": "🎬",
-          "url": "/portfolio/#play-based-session",
-          "detail": "see how we design engaging activities"
-        }
-      ]
+      "examples": []
     }
   }
 }

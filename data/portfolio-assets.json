@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-05T16:59:29.933Z",
+  "lastUpdated": "2026-02-05T18:46:46.511Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "assets": [
     {
@@ -18,6 +18,7 @@
       ],
       "featured": true,
       "showInPackageBuilder": true,
+      "showInPortfolio": true,
       "passwordProtected": false,
       "password": "",
       "client": "",
@@ -40,6 +41,7 @@
       ],
       "featured": true,
       "showInPackageBuilder": true,
+      "showInPortfolio": true,
       "passwordProtected": false,
       "password": "",
       "client": "",
@@ -63,6 +65,7 @@
       ],
       "featured": true,
       "showInPackageBuilder": false,
+      "showInPortfolio": true,
       "passwordProtected": false,
       "password": "",
       "client": "",
@@ -85,6 +88,7 @@
       ],
       "featured": false,
       "showInPackageBuilder": true,
+      "showInPortfolio": false,
       "passwordProtected": true,
       "password": "udl2024",
       "client": "",
@@ -106,6 +110,7 @@
       ],
       "featured": true,
       "showInPackageBuilder": true,
+      "showInPortfolio": true,
       "passwordProtected": false,
       "password": "",
       "client": "",
@@ -128,11 +133,34 @@
       ],
       "featured": false,
       "showInPackageBuilder": true,
+      "showInPortfolio": true,
       "passwordProtected": false,
       "password": "",
       "client": "",
       "order": 6,
       "icon": "🎨"
+    },
+    {
+      "id": "2fee4ee7-4ba4-8007-ab8c-d854d15318dd",
+      "name": "strengthening emotional intelligence session",
+      "assetType": "slides",
+      "quadrants": [
+        "people-design"
+      ],
+      "url": "https://d30mzt1bxg5llt.cloudfront.net/public/uploads/PDFs/PRME_October2025_EI_Slides.pdf",
+      "thumbnailUrl": "",
+      "description": "session deck covering emotional awareness, regulation strategies, and practical reflection prompts for teams",
+      "tags": [
+        "workshop"
+      ],
+      "featured": false,
+      "showInPackageBuilder": true,
+      "showInPortfolio": false,
+      "passwordProtected": false,
+      "password": "",
+      "client": "",
+      "order": 7,
+      "icon": "💛"
     }
   ]
 }
