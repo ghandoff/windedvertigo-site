@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-05T21:40:16.240Z",
+  "lastUpdated": "2026-02-05T22:52:56.961Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "packs": {
     "product-design": {
@@ -22,7 +22,22 @@
           "detail": "consistent, scalable components"
         }
       ],
-      "examples": []
+      "examples": [
+        {
+          "title": "learning game prototype",
+          "type": "web-app",
+          "icon": "🎮",
+          "url": "https://windedvertigo.com/projects/learning-game",
+          "detail": "interactive prototype demonstrating gamified learning mechanics"
+        },
+        {
+          "title": "holistic skills framework",
+          "type": "figma",
+          "icon": "🎨",
+          "url": "https://www.figma.com/proto/6FFBbtwu3bglPZA2HKyfDv/holistic-skills-framework?page-id=0%3A1&node-id=104-9023&viewport=1595%2C-428%2C0.07&t=3kHjNyFDTPp9c5LQ-1&scaling=contain&content-scaling=fixed&starting-point-node-id=2%3A1375",
+          "detail": "an interactive learning experience of a skills framework"
+        }
+      ]
     },
     "people-research": {
       "title": "people × research",
@@ -66,7 +81,15 @@
           "detail": "a clear, visual summary that communicates findings to leadership, with recommended fixes and estimated impact."
         }
       ],
-      "examples": []
+      "examples": [
+        {
+          "title": "UDL compliance audit template",
+          "type": "pdf",
+          "icon": "📋",
+          "url": "",
+          "detail": "PDF template for conducting Universal Design for Learning audits"
+        }
+      ]
     },
     "people-design": {
       "title": "people × design",
@@ -88,7 +111,36 @@
           "detail": "end-to-end program design"
         }
       ],
-      "examples": []
+      "examples": [
+        {
+          "title": "webinar slides",
+          "type": "slides",
+          "icon": "📊",
+          "url": "https://drive.google.com/open?id=1GNDYst-AXStIsGM_6byTNMfKGMeqUrSj&usp=drive_fs",
+          "detail": "slide deck from our play-based learning webinar"
+        },
+        {
+          "title": "designing cross-cultural business education",
+          "type": "video",
+          "icon": "🎬",
+          "url": "https://www.youtube.com/watch?v=f2PZ-95I59Q",
+          "detail": "recorded faculty development webinar"
+        },
+        {
+          "title": "strengthening emotional intelligence session",
+          "type": "slides",
+          "icon": "💛",
+          "url": "https://d30mzt1bxg5llt.cloudfront.net/public/uploads/PDFs/PRME_October2025_EI_Slides.pdf",
+          "detail": "session deck covering emotional awareness, regulation strategies, and practical reflection prompts for teams"
+        },
+        {
+          "title": "vertigo.vault",
+          "type": "notion-db",
+          "icon": "",
+          "url": "",
+          "detail": "this gallery of playful activities provides learning opportunities in a variety of different contexts"
+        }
+      ]
     }
   }
 }

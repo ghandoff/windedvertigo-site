@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-05T21:40:16.241Z",
+  "lastUpdated": "2026-02-05T22:52:56.961Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "assets": [
     {
@@ -16,7 +16,7 @@
         "prototype",
         "case-study"
       ],
-      "featured": true,
+      "featured": false,
       "showInPackageBuilder": true,
       "showInPortfolio": true,
       "passwordProtected": false,
@@ -79,7 +79,7 @@
       "quadrants": [
         "product-research"
       ],
-      "url": "https://drive.google.com/file/d/example",
+      "url": "",
       "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/udl-compliance-audit.png",
       "description": "PDF template for conducting Universal Design for Learning audits",
       "tags": [
@@ -108,7 +108,7 @@
       "tags": [
         "workshop"
       ],
-      "featured": true,
+      "featured": false,
       "showInPackageBuilder": true,
       "showInPortfolio": true,
       "passwordProtected": false,
@@ -161,6 +161,29 @@
       "client": "",
       "order": 7,
       "icon": "💛"
+    },
+    {
+      "id": "2fee4ee7-4ba4-8096-b77e-d784c4e07e9b",
+      "name": "vertigo.vault",
+      "assetType": "notion-db",
+      "quadrants": [
+        "people-design"
+      ],
+      "url": "",
+      "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/vertigo-vault.png",
+      "description": "this gallery of playful activities provides learning opportunities in a variety of different contexts",
+      "tags": [
+        "tool",
+        "workshop"
+      ],
+      "featured": true,
+      "showInPackageBuilder": true,
+      "showInPortfolio": false,
+      "passwordProtected": false,
+      "password": "",
+      "client": "",
+      "order": null,
+      "icon": ""
     }
   ]
 }
