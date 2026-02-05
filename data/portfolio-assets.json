@@ -1,17 +1,17 @@
 {
-  "lastUpdated": "2026-02-05T14:00:39.953Z",
+  "lastUpdated": "2026-02-05T14:13:01.198Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "assets": [
     {
       "id": "2fbe4ee7-4ba4-814e-9045-d32b96983810",
-      "name": "Learning Game Prototype",
+      "name": "learning game prototype",
       "assetType": "web-app",
       "quadrants": [
         "product-design"
       ],
       "url": "https://windedvertigo.com/projects/learning-game",
       "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/learning-game-prototype.png",
-      "description": "Interactive prototype demonstrating gamified learning mechanics",
+      "description": "interactive prototype demonstrating gamified learning mechanics",
       "tags": [
         "prototype",
         "case-study"
@@ -33,7 +33,7 @@
       ],
       "url": "https://drive.google.com/open?id=1GNDYst-AXStIsGM_6byTNMfKGMeqUrSj&usp=drive_fs",
       "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/active-learning-in-large-classrooms.png",
-      "description": "Slide deck from our play-based learning workshop for PRME",
+      "description": "slide deck from our play-based learning webinar",
       "tags": [
         "workshop",
         "case-study"
@@ -48,15 +48,15 @@
     },
     {
       "id": "2fbe4ee7-4ba4-81e6-930b-ceaf30b3cae2",
-      "name": "Impact Measurement Dashboard",
+      "name": "impact measurement dashboard",
       "assetType": "dashboard",
       "quadrants": [
         "people-research",
         "product-research"
       ],
-      "url": "https://windedvertigo.com/projects/impact-dashboard",
-      "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/impact-measurement-dashboard.png",
-      "description": "Live dashboard tracking learning outcomes and engagement metrics",
+      "url": "https://qualtricsxmbpg4ms963.pdx1.qualtrics.com/reports/public/cXVhbHRyaWNzeG1icGc0bXM5NjMtNjgzMDM0NTUwODk2ZTIwMDA4ZWIyZTRhLVVSXzI0ZHR5ZnlZYjZvQjBGYQ==",
+      "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/live-dashboard.png",
+      "description": "live dashboard tracking learning outcomes and engagement metrics",
       "tags": [
         "tool",
         "report"
@@ -71,7 +71,7 @@
     },
     {
       "id": "2fbe4ee7-4ba4-81ea-9b5a-d7a6e2d3a886",
-      "name": "UDL Compliance Audit Template",
+      "name": "UDL compliance audit template",
       "assetType": "pdf",
       "quadrants": [
         "product-research"
@@ -99,8 +99,8 @@
         "people-design"
       ],
       "url": "https://www.youtube.com/watch?v=f2PZ-95I59Q",
-      "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/cross-cultural-education.png",
-      "description": "Recorded faculty development webinar",
+      "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/desiging-cross-cultural-business-education.png",
+      "description": "recorded faculty development webinar",
       "tags": [
         "workshop"
       ],
@@ -121,7 +121,7 @@
       ],
       "url": "https://figma.com/file/example",
       "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/design-system-components.png",
-      "description": "An interactive learning experience of a skills framework",
+      "description": "an interactive learning experience of a skills framework",
       "tags": [
         "template",
         "tool"
