@@ -24,6 +24,7 @@
       ],
       "examples": [
         {
+          "id": "2fbe4ee7-4ba4-814e-9045-d32b96983810",
           "title": "learning game prototype",
           "type": "web-app",
           "icon": "🎮",
@@ -31,6 +32,7 @@
           "detail": "interactive prototype demonstrating gamified learning mechanics"
         },
         {
+          "id": "2fbe4ee7-4ba4-8135-8dab-c06d761329e7",
           "title": "holistic skills framework",
           "type": "figma",
           "icon": "🎨",
@@ -61,6 +63,7 @@
       ],
       "examples": [
         {
+          "id": "2fbe4ee7-4ba4-81e6-930b-ceaf30b3cae2",
           "title": "impact measurement dashboard",
           "type": "dashboard",
           "icon": "📈",
@@ -91,6 +94,7 @@
       ],
       "examples": [
         {
+          "id": "2fbe4ee7-4ba4-81e6-930b-ceaf30b3cae2",
           "title": "impact measurement dashboard",
           "type": "dashboard",
           "icon": "📈",
@@ -98,6 +102,7 @@
           "detail": "live dashboard tracking learning outcomes and engagement metrics"
         },
         {
+          "id": "2fbe4ee7-4ba4-81ea-9b5a-d7a6e2d3a886",
           "title": "UDL compliance audit template",
           "type": "pdf",
           "icon": "📋",
@@ -128,6 +133,7 @@
       ],
       "examples": [
         {
+          "id": "2fbe4ee7-4ba4-81c9-a3c0-d4b51b1aa5d9",
           "title": "webinar slides",
           "type": "slides",
           "icon": "📊",
@@ -135,6 +141,7 @@
           "detail": "slide deck from our play-based learning webinar"
         },
         {
+          "id": "2fbe4ee7-4ba4-8109-b29b-f97a2bb13182",
           "title": "designing cross-cultural business education",
           "type": "video",
           "icon": "🎬",
@@ -142,6 +149,7 @@
           "detail": "recorded faculty development webinar"
         },
         {
+          "id": "2fee4ee7-4ba4-8007-ab8c-d854d15318dd",
           "title": "strengthening emotional intelligence session",
           "type": "slides",
           "icon": "💛",
@@ -149,6 +157,7 @@
           "detail": "session deck covering emotional awareness, regulation strategies, and practical reflection prompts for teams"
         },
         {
+          "id": "2fee4ee7-4ba4-8096-b77e-d784c4e07e9b",
           "title": "vertigo.vault",
           "type": "notion-db",
           "icon": "",

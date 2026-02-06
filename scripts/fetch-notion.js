@@ -351,6 +351,7 @@ async function main() {
         // Use quadrant name as-is (e.g., 'product-design') to match Quadrant database keys
         if (!examplesFromAssets[quadrant]) examplesFromAssets[quadrant] = [];
         examplesFromAssets[quadrant].push({
+          id: asset.id,
           title: asset.name,
           type: asset.assetType,
           icon: asset.icon,
