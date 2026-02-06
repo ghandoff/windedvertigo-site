@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-06T00:31:15.011Z",
+  "lastUpdated": "2026-02-06T01:12:32.504Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "assets": [
     {
@@ -53,8 +53,7 @@
       "name": "impact measurement dashboard",
       "assetType": "dashboard",
       "quadrants": [
-        "people-research",
-        "product-research"
+        "people-research"
       ],
       "url": "https://qualtricsxmbpg4ms963.pdx1.qualtrics.com/reports/public/cXVhbHRyaWNzeG1icGc0bXM5NjMtNjgzMDM0NTUwODk2ZTIwMDA4ZWIyZTRhLVVSXzI0ZHR5ZnlZYjZvQjBGYQ==",
       "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/live-dashboard.png",

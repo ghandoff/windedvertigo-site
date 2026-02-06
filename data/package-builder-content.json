@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-06T00:31:15.010Z",
+  "lastUpdated": "2026-02-06T01:12:32.504Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "packs": {
     "product-design": {
@@ -93,14 +93,6 @@
         }
       ],
       "examples": [
-        {
-          "id": "2fbe4ee7-4ba4-81e6-930b-ceaf30b3cae2",
-          "title": "impact measurement dashboard",
-          "type": "dashboard",
-          "icon": "",
-          "url": "https://qualtricsxmbpg4ms963.pdx1.qualtrics.com/reports/public/cXVhbHRyaWNzeG1icGc0bXM5NjMtNjgzMDM0NTUwODk2ZTIwMDA4ZWIyZTRhLVVSXzI0ZHR5ZnlZYjZvQjBGYQ==",
-          "detail": "live dashboard tracking learning outcomes and engagement metrics"
-        },
         {
           "id": "2fbe4ee7-4ba4-81ea-9b5a-d7a6e2d3a886",
           "title": "UDL compliance audit template",
