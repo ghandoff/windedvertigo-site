@@ -22,8 +22,8 @@ module.exports = {
       title: 'Title',
       promise: 'Promise',
       quadrantStory: 'Quadrant Story',
-      story: 'How We Work',
-      crossover: 'Crossover Note',
+      story: 'how we work',
+      crossover: 'crossover note',
     },
     outcomes: {
       quadrant: 'Quadrant',
