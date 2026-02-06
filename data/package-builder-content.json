@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-06T00:23:09.144Z",
+  "lastUpdated": "2026-02-06T00:31:15.010Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "packs": {
     "product-design": {
@@ -26,14 +26,14 @@
         {
           "title": "learning game prototype",
           "type": "web-app",
-          "icon": "🎮",
+          "icon": "",
           "url": "https://windedvertigo.com/projects/learning-game",
           "detail": "interactive prototype demonstrating gamified learning mechanics"
         },
         {
           "title": "holistic skills framework",
           "type": "figma",
-          "icon": "🎨",
+          "icon": "",
           "url": "https://www.figma.com/proto/6FFBbtwu3bglPZA2HKyfDv/holistic-skills-framework?page-id=0%3A1&node-id=104-9023&viewport=1595%2C-428%2C0.07&t=3kHjNyFDTPp9c5LQ-1&scaling=contain&content-scaling=fixed&starting-point-node-id=2%3A1375",
           "detail": "an interactive learning experience of a skills framework"
         }
@@ -63,7 +63,7 @@
         {
           "title": "impact measurement dashboard",
           "type": "dashboard",
-          "icon": "📈",
+          "icon": "",
           "url": "https://qualtricsxmbpg4ms963.pdx1.qualtrics.com/reports/public/cXVhbHRyaWNzeG1icGc0bXM5NjMtNjgzMDM0NTUwODk2ZTIwMDA4ZWIyZTRhLVVSXzI0ZHR5ZnlZYjZvQjBGYQ==",
           "detail": "live dashboard tracking learning outcomes and engagement metrics"
         }
@@ -93,14 +93,14 @@
         {
           "title": "impact measurement dashboard",
           "type": "dashboard",
-          "icon": "📈",
+          "icon": "",
           "url": "https://qualtricsxmbpg4ms963.pdx1.qualtrics.com/reports/public/cXVhbHRyaWNzeG1icGc0bXM5NjMtNjgzMDM0NTUwODk2ZTIwMDA4ZWIyZTRhLVVSXzI0ZHR5ZnlZYjZvQjBGYQ==",
           "detail": "live dashboard tracking learning outcomes and engagement metrics"
         },
         {
           "title": "UDL compliance audit template",
           "type": "pdf",
-          "icon": "📋",
+          "icon": "",
           "url": "",
           "detail": "PDF template for conducting Universal Design for Learning audits"
         }
@@ -130,21 +130,21 @@
         {
           "title": "webinar slides",
           "type": "slides",
-          "icon": "📊",
+          "icon": "",
           "url": "https://drive.google.com/open?id=1GNDYst-AXStIsGM_6byTNMfKGMeqUrSj&usp=drive_fs",
           "detail": "slide deck from our play-based learning webinar"
         },
         {
           "title": "designing cross-cultural business education",
           "type": "video",
-          "icon": "🎬",
+          "icon": "",
           "url": "https://www.youtube.com/watch?v=f2PZ-95I59Q",
           "detail": "recorded faculty development webinar"
         },
         {
           "title": "strengthening emotional intelligence session",
           "type": "slides",
-          "icon": "💛",
+          "icon": "",
           "url": "https://d30mzt1bxg5llt.cloudfront.net/public/uploads/PDFs/PRME_October2025_EI_Slides.pdf",
           "detail": "session deck covering emotional awareness, regulation strategies, and practical reflection prompts for teams"
         },
