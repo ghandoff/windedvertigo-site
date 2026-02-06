@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-06T00:21:39.983Z",
+  "lastUpdated": "2026-02-06T00:23:09.144Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "packs": {
     "product-design": {
@@ -7,7 +7,7 @@
       "promise": "build learning products people actually use.",
       "quadrantStory": "you're in the product × design quadrant—where learning science meets rapid prototyping. this is where we build the tools, games, and experiences that teach through doing - and are designed to flex around the inherent variability of how humans learn.",
       "story": "we kick off with a concept sprint—exploring the problem space, sketching multiple approaches, and converging on the strongest direction. then we prototype rapidly, building just enough to test our core assumptions. playtests happen early and often, with real users in realistic contexts. we synthesise findings after each round and iterate. by the end of sprint two, you have a validated concept and a clear path to production.",
-      "crossover": "crossing boundaries: great products don't just emerge from intuition—they're shaped by evidence. we bake research into every sprint, testing assumptions with users and measuring learning outcomes. design and research aren't separate phases; they're intertwined throughout.",
+      "crossover": "great products don't just emerge from intuition—they're shaped by evidence. we bake research into every sprint, testing assumptions with users and measuring learning outcomes. design and research aren't separate phases; they're intertwined throughout.",
       "outcomes": [
         {
           "title": "working prototype in 2 sprints",
@@ -44,7 +44,7 @@
       "promise": "understand what's really happening with your people.",
       "quadrantStory": "you're in the people × research quadrant—where rigorous measurement meets human complexity. this is where we prove that your interventions actually change how people think, feel, and act.",
       "story": "we begin by mapping your theory of change to measurable outcomes. then we design a lightweight evaluation approach—selecting validated instruments or creating custom measures that fit your context. we collect baseline data, observe your intervention in action, and gather post-programme responses. the analysis goes beyond simple comparisons to explore moderators and mechanisms. you receive a findings deck that tells the story of your impact in language your stakeholders understand.",
-      "crossover": "crossing boundaries: research without design is just measurement. we bring a designer's eye to how we collect data—making surveys engaging, interviews conversational, and dashboards actionable. the best evidence comes from participants who actually want to engage with your evaluation.",
+      "crossover": "research without design is just measurement. we bring a designer's eye to how we collect data—making surveys engaging, interviews conversational, and dashboards actionable. the best evidence comes from participants who actually want to engage with your evaluation.",
       "outcomes": [
         {
           "title": "pinpoint what's working",
