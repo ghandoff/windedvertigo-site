@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-05T23:33:56.189Z",
+  "lastUpdated": "2026-02-06T00:31:15.011Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "assets": [
     {
@@ -23,7 +23,7 @@
       "password": "",
       "client": "",
       "order": 1,
-      "icon": "🎮"
+      "icon": ""
     },
     {
       "id": "2fbe4ee7-4ba4-81c9-a3c0-d4b51b1aa5d9",
@@ -46,7 +46,7 @@
       "password": "",
       "client": "",
       "order": 2,
-      "icon": "📊"
+      "icon": ""
     },
     {
       "id": "2fbe4ee7-4ba4-81e6-930b-ceaf30b3cae2",
@@ -70,7 +70,7 @@
       "password": "",
       "client": "",
       "order": 3,
-      "icon": "📈"
+      "icon": ""
     },
     {
       "id": "2fbe4ee7-4ba4-81ea-9b5a-d7a6e2d3a886",
@@ -93,7 +93,7 @@
       "password": "udl2024",
       "client": "",
       "order": 4,
-      "icon": "📋"
+      "icon": ""
     },
     {
       "id": "2fbe4ee7-4ba4-8109-b29b-f97a2bb13182",
@@ -115,7 +115,7 @@
       "password": "",
       "client": "",
       "order": 5,
-      "icon": "🎬"
+      "icon": ""
     },
     {
       "id": "2fbe4ee7-4ba4-8135-8dab-c06d761329e7",
@@ -138,7 +138,7 @@
       "password": "",
       "client": "",
       "order": 6,
-      "icon": "🎨"
+      "icon": ""
     },
     {
       "id": "2fee4ee7-4ba4-8007-ab8c-d854d15318dd",
@@ -160,7 +160,7 @@
       "password": "",
       "client": "",
       "order": 7,
-      "icon": "💛"
+      "icon": ""
     },
     {
       "id": "2fee4ee7-4ba4-8096-b77e-d784c4e07e9b",
