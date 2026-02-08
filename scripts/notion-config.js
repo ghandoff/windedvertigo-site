@@ -12,6 +12,7 @@ module.exports = {
     outcomes: 'b8ff41d2d4ef41559e01c2d952a3a1da',
     examples: 'de0bc6fe83d54d71a91b31d8f1eb73bd',
     portfolioAssets: '8c0ad5be572c480fb403906c7af1b580',
+    vertigoVault: '223e4ee74ba4805f8c92cda6e2b8ba00',
   },
 
   // Property name mappings (Notion column name → internal key)
@@ -57,6 +58,15 @@ module.exports = {
       order: 'Order',
       icon: 'Icon',
     },
+    vertigoVault: {
+      name: 'name',
+      headline: 'headline',
+      duration: 'duration',
+      format: 'format',
+      type: 'type',
+      skillsDeveloped: 'skills developed',
+      filesMedia: 'files & media',
+    },
   },
 
   // Required properties for validation (sync fails if missing)
@@ -65,6 +75,7 @@ module.exports = {
     outcomes: ['Quadrant', 'Name'],
     examples: ['Quadrant', 'Name'],
     portfolioAssets: ['Name', 'Asset Type'],
+    vertigoVault: ['name'],
   },
 
   // Retry configuration for API calls

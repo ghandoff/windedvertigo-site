@@ -322,16 +322,108 @@ async function fetchPortfolioAssets() {
 }
 
 // ============================================
+// VERTIGO VAULT
+// ============================================
+async function fetchVertigoVault() {
+  const propMap = config.properties.vertigoVault;
+  const required = config.required.vertigoVault;
+
+  const response = await withRetry(
+    () => notion.databases.query({
+      database_id: config.databases.vertigoVault,
+    }),
+    'fetchVertigoVault'
+  );
+
+  const activities = [];
+  let skipped = 0;
+
+  for (const page of response.results) {
+    if (!validatePage(page, required, 'Vertigo Vault')) {
+      skipped++;
+      continue;
+    }
+
+    const props = page.properties;
+
+    // Fetch page content (block children)
+    let contentText = '';
+    try {
+      const blocks = await withRetry(
+        () => notion.blocks.children.list({ block_id: page.id }),
+        'fetchBlocks:' + page.id
+      );
+      contentText = blocksToMarkdown(blocks.results);
+    } catch (err) {
+      console.warn('  Warning: Could not fetch content for ' + getTitleValue(props[propMap.name]) + ': ' + err.message);
+    }
+
+    activities.push({
+      id: page.id,
+      name: getTitleValue(props[propMap.name]),
+      headline: getTextValue(props[propMap.headline]),
+      duration: getSelectValue(props[propMap.duration]),
+      format: getMultiSelectValue(props[propMap.format]),
+      type: getMultiSelectValue(props[propMap.type]),
+      skillsDeveloped: getMultiSelectValue(props[propMap.skillsDeveloped]),
+      content: contentText,
+    });
+  }
+
+  console.log('  OK Vertigo Vault: ' + activities.length + ' activities loaded, ' + skipped + ' skipped');
+  return activities;
+}
+
+// Convert Notion blocks to simple markdown
+function blocksToMarkdown(blocks) {
+  let md = '';
+  for (const block of blocks) {
+    const text = richTextToPlain(block[block.type]?.rich_text);
+    switch (block.type) {
+      case 'heading_2':
+        md += '## ' + text + '\n';
+        break;
+      case 'heading_3':
+        md += '### ' + text + '\n';
+        break;
+      case 'paragraph':
+        if (text) md += text + '\n';
+        break;
+      case 'numbered_list_item':
+        md += '1. ' + text + '\n';
+        break;
+      case 'bulleted_list_item':
+        md += '- ' + text + '\n';
+        break;
+      default:
+        if (text) md += text + '\n';
+    }
+  }
+  return md.trim();
+}
+
+function richTextToPlain(richText) {
+  if (!richText) return '';
+  return richText.map(t => {
+    let text = t.plain_text;
+    if (t.annotations?.bold) text = '**' + text + '**';
+    if (t.annotations?.italic) text = '*' + text + '*';
+    return text;
+  }).join('');
+}
+
+// ============================================
 // MAIN
 // ============================================
 async function main() {
   console.log('Fetching content from Notion...');
 
   try {
-    const [quadrants, outcomes, portfolioAssets] = await Promise.all([
+    const [quadrants, outcomes, portfolioAssets, vaultActivities] = await Promise.all([
       fetchQuadrants(),
       fetchOutcomes(),
       fetchPortfolioAssets(),
+      fetchVertigoVault(),
     ]);
 
     // Validate we got all 4 quadrants
@@ -401,9 +493,20 @@ async function main() {
     const portfolioPath = path.join(__dirname, '..', 'data', 'portfolio-assets.json');
     fs.writeFileSync(portfolioPath, JSON.stringify(portfolioContent, null, 2));
 
+    // Write Vertigo Vault
+    const vaultContent = {
+      lastUpdated: new Date().toISOString(),
+      note: 'Auto-generated from Notion vertigo.vault database. Do not edit directly.',
+      notionDatabaseId: config.databases.vertigoVault,
+      activities: vaultActivities,
+    };
+    const vaultPath = path.join(__dirname, '..', 'data', 'vertigo-vault.json');
+    fs.writeFileSync(vaultPath, JSON.stringify(vaultContent, null, 2));
+
     console.log('Success!');
     console.log('  Package Builder: ' + Object.keys(packs).length + ' packs → ' + outputPath);
     console.log('  Portfolio: ' + portfolioAssets.length + ' assets → ' + portfolioPath);
+    console.log('  Vertigo Vault: ' + vaultActivities.length + ' activities → ' + vaultPath);
 
   } catch (err) {
     console.error('Sync failed:', err.message);
