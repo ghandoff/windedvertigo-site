@@ -335,8 +335,15 @@ async function fetchVertigoVault() {
     'fetchVertigoVault'
   );
 
+  // Ensure cover image directory exists
+  const coverDir = path.join(__dirname, '..', 'images', 'vertigo-vault');
+  if (!fs.existsSync(coverDir)) {
+    fs.mkdirSync(coverDir, { recursive: true });
+  }
+
   const activities = [];
   let skipped = 0;
+  let coversDownloaded = 0;
 
   for (const page of response.results) {
     if (!validatePage(page, required, 'Vertigo Vault')) {
@@ -358,6 +365,29 @@ async function fetchVertigoVault() {
       console.warn('  Warning: Could not fetch content for ' + getTitleValue(props[propMap.name]) + ': ' + err.message);
     }
 
+    // Extract and download page cover image
+    let coverImage = '';
+    if (page.cover) {
+      const coverUrl = page.cover.type === 'file'
+        ? page.cover.file.url
+        : page.cover.type === 'external'
+          ? page.cover.external.url
+          : '';
+
+      if (coverUrl) {
+        try {
+          const ext = getCoverExtension(coverUrl);
+          const filename = page.id.replace(/-/g, '') + ext;
+          const filepath = path.join(coverDir, filename);
+          await downloadFile(coverUrl, filepath);
+          coverImage = 'images/vertigo-vault/' + filename;
+          coversDownloaded++;
+        } catch (err) {
+          console.warn('  Warning: Could not download cover for ' + getTitleValue(props[propMap.name]) + ': ' + err.message);
+        }
+      }
+    }
+
     activities.push({
       id: page.id,
       name: getTitleValue(props[propMap.name]),
@@ -366,12 +396,32 @@ async function fetchVertigoVault() {
       format: getMultiSelectValue(props[propMap.format]),
       type: getMultiSelectValue(props[propMap.type]),
       skillsDeveloped: getMultiSelectValue(props[propMap.skillsDeveloped]),
+      coverImage: coverImage,
       content: contentText,
     });
   }
 
-  console.log('  OK Vertigo Vault: ' + activities.length + ' activities loaded, ' + skipped + ' skipped');
+  console.log('  OK Vertigo Vault: ' + activities.length + ' activities loaded, ' + coversDownloaded + ' covers downloaded, ' + skipped + ' skipped');
   return activities;
+}
+
+// Download a file from a URL to a local path
+async function downloadFile(url, filepath) {
+  const fetch = (await import('node-fetch')).default;
+  const response = await fetch(url);
+  if (!response.ok) throw new Error('HTTP ' + response.status);
+  const buffer = await response.buffer();
+  fs.writeFileSync(filepath, buffer);
+}
+
+// Determine file extension from a cover URL
+function getCoverExtension(url) {
+  try {
+    const pathname = new URL(url).pathname;
+    const match = pathname.match(/\.(jpg|jpeg|png|gif|webp|svg)/i);
+    if (match) return '.' + match[1].toLowerCase();
+  } catch (e) {}
+  return '.jpg'; // default fallback
 }
 
 // Convert Notion blocks to simple markdown

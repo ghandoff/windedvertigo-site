@@ -38,7 +38,7 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install @notionhq/client
+        run: npm install @notionhq/client node-fetch
 
       - name: Fetch Notion content
         env:
@@ -49,6 +49,6 @@ jobs:
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
-          git add data/
-          git diff --staged --quiet || git commit -m "chore: sync Package Builder content from Notion"
+          git add data/ images/vertigo-vault/
+          git diff --staged --quiet || git commit -m "chore: sync Notion content and vault covers"
           git push
