@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-09T06:57:57.494Z",
+  "lastUpdated": "2026-02-09T23:44:08.901Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "packs": {
     "product-design": {
@@ -38,6 +38,14 @@
           "icon": "",
           "url": "https://www.figma.com/proto/6FFBbtwu3bglPZA2HKyfDv/holistic-skills-framework?page-id=0%3A1&node-id=104-9023&viewport=1595%2C-428%2C0.07&t=3kHjNyFDTPp9c5LQ-1&scaling=contain&content-scaling=fixed&starting-point-node-id=2%3A1375",
           "detail": "an interactive learning experience of a skills framework"
+        },
+        {
+          "id": "302e4ee7-4ba4-8140-8bd6-c859d0d78cc3",
+          "title": "MindShift Missions",
+          "type": "web-app",
+          "icon": "🧭",
+          "url": "https://windedvertigo.com/portfolio/assets/mindshift-missions/index.html",
+          "detail": "an inquiry-driven learning game where players navigate complex scenarios, make critical decisions, and explore how questioning transforms challenges into opportunities"
         }
       ]
     },

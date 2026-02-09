@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-09T06:57:57.495Z",
+  "lastUpdated": "2026-02-09T23:44:08.901Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "assets": [
     {
@@ -183,6 +183,30 @@
       "client": "",
       "order": 8,
       "icon": ""
+    },
+    {
+      "id": "302e4ee7-4ba4-8140-8bd6-c859d0d78cc3",
+      "name": "MindShift Missions",
+      "assetType": "web-app",
+      "quadrants": [
+        "product-design"
+      ],
+      "url": "https://windedvertigo.com/portfolio/assets/mindshift-missions/index.html",
+      "thumbnailUrl": "",
+      "description": "an inquiry-driven learning game where players navigate complex scenarios, make critical decisions, and explore how questioning transforms challenges into opportunities",
+      "tags": [
+        "prototype",
+        "case-study",
+        "tool"
+      ],
+      "featured": true,
+      "showInPackageBuilder": true,
+      "showInPortfolio": true,
+      "passwordProtected": false,
+      "password": "",
+      "client": "",
+      "order": 9,
+      "icon": "🧭"
     }
   ]
 }
