@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindShift Missions – Lite</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="app-header">
+            <h1 class="app-title">🧭 MindShift Missions – Lite</h1>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">Welcome</div>
+        </header>
+
+        <main class="app-main">
+            <!-- Welcome Screen -->
+            <section id="welcome" class="screen active">
+                <div class="card">
+                    <div class="card__body">
+                        <h2>🌟 Welcome to MindShift Missions</h2>
+                        <p>Navigate complex scenarios, make critical decisions, and explore how inquiry-driven thinking can transform challenges into opportunities.</p>
+                        <button class="btn btn--primary btn--lg" onclick="showRoleSelection()">Start Your Mission</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Role Selection Screen -->
+            <section id="roleSelection" class="screen">
+                <div class="card">
+                    <div class="card__body">
+                        <h2>🎯 Choose Your Role</h2>
+                        <p>Select the role that will guide your perspective through this mission:</p>
+                        <div class="role-grid">
+                            <div class="role-card" data-role="CEO">
+                                <h3>🏢 CEO</h3>
+                                <p>Strategic decision-maker focused on overall company direction</p>
+                            </div>
+                            <div class="role-card" data-role="Innovation Officer">
+                                <h3>💡 Innovation Officer</h3>
+                                <p>Change catalyst focused on implementing new solutions</p>
+                            </div>
+                            <div class="role-card" data-role="Sustainability Lead">
+                                <h3>🌱 Sustainability Lead</h3>
+                                <p>Environmental advocate focused on sustainable practices</p>
+                            </div>
+                        </div>
+                        <button class="btn btn--primary btn--lg" id="continueToScenario" onclick="showScenarioSelection()" disabled>Continue to Scenarios</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Scenario Selection Screen -->
+            <section id="scenarioSelection" class="screen">
+                <div class="card">
+                    <div class="card__body">
+                        <h2>📋 Choose Your Scenario</h2>
+                        <p>Select the challenge you'll tackle:</p>
+                        <div class="scenario-grid">
+                            <div class="scenario-card" data-scenario="plastic_packaging">
+                                <h3>🌍 Plastic Packaging U-Turn</h3>
+                                <p>Navigate sustainability challenges in a global food company facing public pressure to reduce plastic packaging.</p>
+                                <div class="scenario-details">
+                                    <strong>Constraint:</strong> Cost ceiling + public trust at risk
+                                </div>
+                            </div>
+                            <div class="scenario-card" data-scenario="edtech_rollout">
+                                <h3>📚 Equity in EdTech Rollout</h3>
+                                <p>Address equity concerns in educational technology implementation across diverse school districts.</p>
+                                <div class="scenario-details">
+                                    <strong>Constraint:</strong> Limited training time + political pressure to scale fast
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn--primary btn--lg" id="continueToMission" onclick="showMissionBrief()" disabled>Start Mission</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mission Brief Screen -->
+            <section id="missionBrief" class="screen">
+                <div class="card">
+                    <div class="card__body">
+                        <h2>🎯 Mission Brief</h2>
+                        <div class="mission-info">
+                            <div class="info-item">
+                                <strong>Your Role:</strong> <span id="selectedRole"></span>
+                            </div>
+                            <div class="info-item">
+                                <strong>Scenario:</strong> <span id="selectedScenario"></span>
+                            </div>
+                            <div class="info-item">
+                                <strong>Challenge:</strong> <span id="scenarioBrief"></span>
+                            </div>
+                            <div class="info-item">
+                                <strong>Constraint:</strong> <span id="scenarioConstraint"></span>
+                            </div>
+                        </div>
+                        <button class="btn btn--primary btn--lg" onclick="showCheckpoint(1)">Begin Checkpoint 1</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Checkpoint Screen -->
+            <section id="checkpoint" class="screen">
+                <div class="card">
+                    <div class="card__body">
+                        <h2 id="checkpointTitle">🔍 Checkpoint 1</h2>
+                        <div class="checkpoint-info">
+                            <h3 id="checkpointSituation"></h3>
+                            <p id="checkpointDetails"></p>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">🤔 Choose a guiding question:</label>
+                            <div id="questionsContainer" class="choice-container"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">⚡ Choose your action:</label>
+                            <div id="actionsContainer" class="choice-container"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">💭 Discuss in your group and brainstorm potential answers:</label>
+                            <textarea class="form-control" id="groupDiscussion" rows="4" placeholder="Share your group's brainstorming thoughts..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">✍️ Explain why you chose that action:</label>
+                            <textarea class="form-control" id="actionExplanation" rows="4" placeholder="Describe your reasoning..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">🤖 Use an external AI (ChatGPT, Perplexity, Gemini, etc.) to ask for advice. Explain how its answer helped you think differently:</label>
+                            <textarea class="form-control" id="aiAdvice" rows="4" placeholder="What did the AI suggest and how did it change your thinking?"></textarea>
+                        </div>
+
+                        <button class="btn btn--primary btn--lg" id="continueCheckpoint" onclick="continueFromCheckpoint()" disabled>Continue</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Outcome Snapshot Screen -->
+            <section id="outcome" class="screen">
+                <div class="card">
+                    <div class="card__body">
+                        <h2>📊 Outcome Snapshot</h2>
+                        <p>Here's how your decisions played out:</p>
+                        <div class="outcome-grid">
+                            <div class="outcome-item">
+                                <div class="outcome-icon">🌍</div>
+                                <h3 id="outcomeCategory1"></h3>
+                                <p id="outcomeResult1"></p>
+                            </div>
+                            <div class="outcome-item">
+                                <div class="outcome-icon">👥</div>
+                                <h3>Public Perception</h3>
+                                <p id="outcomeResult2"></p>
+                            </div>
+                            <div class="outcome-item">
+                                <div class="outcome-icon">⚙️</div>
+                                <h3>Operational</h3>
+                                <p id="outcomeResult3"></p>
+                            </div>
+                        </div>
+                        <button class="btn btn--primary btn--lg" onclick="showReflection()">Continue to Reflection</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Reflection Screen -->
+            <section id="reflection" class="screen">
+                <div class="card">
+                    <div class="card__body">
+                        <h2>🤔 Final Reflection</h2>
+                        <p>Take a moment to reflect on your journey:</p>
+                        
+                        <div class="form-group">
+                            <label class="form-label" id="reflectionPrompt1"></label>
+                            <textarea class="form-control" id="reflectionAnswer1" rows="4" placeholder="Share your thoughts..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" id="reflectionPrompt2"></label>
+                            <div class="scaffold-helper" id="scaffoldHelper"></div>
+                            <textarea class="form-control" id="reflectionAnswer2" rows="4" placeholder="Use the scaffold above to guide your response..."></textarea>
+                        </div>
+
+                        <button class="btn btn--primary btn--lg" onclick="showSummary()">View Summary</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary Screen -->
+            <section id="summary" class="screen">
+                <div class="card">
+                    <div class="card__body">
+                        <h2>📋 Mission Summary</h2>
+                        <div class="summary-grid">
+                            <div class="summary-section">
+                                <h3>🎯 Mission Overview</h3>
+                                <div id="summaryOverview"></div>
+                            </div>
+                            <div class="summary-section">
+                                <h3>🔍 Checkpoint 1 Decisions</h3>
+                                <div id="summaryCheckpoint1"></div>
+                            </div>
+                            <div class="summary-section">
+                                <h3>🔍 Checkpoint 2 Decisions</h3>
+                                <div id="summaryCheckpoint2"></div>
+                            </div>
+                            <div class="summary-section">
+                                <h3>💭 Reflections</h3>
+                                <div id="summaryReflections"></div>
+                            </div>
+                        </div>
+                        <div class="export-buttons">
+                            <button class="btn btn--secondary" onclick="exportJSON()">📄 Export JSON</button>
+                            <button class="btn btn--secondary" onclick="exportCSV()">📊 Export CSV</button>
+                            <button class="btn btn--outline" onclick="copyToClipboard()">📋 Copy to Clipboard</button>
+                        </div>
+                        <div class="badges" id="badgesContainer"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
