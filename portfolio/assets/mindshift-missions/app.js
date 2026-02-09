@@ -244,7 +244,7 @@ function showCheckpoint(checkpointNumber) {
     const checkpoint = scenario.checkpoints[checkpointNumber];
     
     // Update checkpoint content
-    document.getElementById('checkpointTitle').textContent = `🔍 Checkpoint ${checkpointNumber}`;
+    document.getElementById('checkpointTitle').textContent = `checkpoint ${checkpointNumber}`;
     document.getElementById('checkpointSituation').textContent = checkpoint.title;
     document.getElementById('checkpointDetails').textContent = checkpoint.info;
     
@@ -321,19 +321,19 @@ function continueFromCheckpoint() {
 function showOutcome() {
     const scenario = scenarioData.scenarios[gameState.selectedScenario];
     const outcomes = scenario.outcomes;
-    
+
     // Set outcome category based on scenario
     if (gameState.selectedScenario === 'plastic_packaging') {
-        document.getElementById('outcomeCategory1').textContent = 'Environmental';
+        document.getElementById('outcomeCategory1').textContent = 'environmental';
         document.getElementById('outcomeResult1').textContent = outcomes.environmental;
     } else {
-        document.getElementById('outcomeCategory1').textContent = 'Learning Equity';
+        document.getElementById('outcomeCategory1').textContent = 'learning equity';
         document.getElementById('outcomeResult1').textContent = outcomes.learning_equity;
     }
-    
+
     document.getElementById('outcomeResult2').textContent = outcomes.public_perception;
     document.getElementById('outcomeResult3').textContent = outcomes.operational;
-    
+
     showScreen('outcome');
 }
 
@@ -372,15 +372,15 @@ function populateSummary() {
     // Overview
     document.getElementById('summaryOverview').innerHTML = `
         <div class="summary-item">
-            <div class="summary-label">Role:</div>
+            <div class="summary-label">role:</div>
             <div class="summary-value">${gameState.selectedRole}</div>
         </div>
         <div class="summary-item">
-            <div class="summary-label">Scenario:</div>
+            <div class="summary-label">scenario:</div>
             <div class="summary-value">${scenario.title}</div>
         </div>
         <div class="summary-item">
-            <div class="summary-label">Total Time:</div>
+            <div class="summary-label">total time:</div>
             <div class="summary-value">${formatTime(Date.now() - gameState.startTime)}</div>
         </div>
     `;
@@ -409,7 +409,7 @@ function populateSummary() {
     gameState.earnedBadges.forEach(badge => {
         const badgeElement = document.createElement('div');
         badgeElement.className = 'badge';
-        badgeElement.innerHTML = `🏆 ${badge}`;
+        badgeElement.innerHTML = `${badge}`;
         badgesContainer.appendChild(badgeElement);
     });
 }
@@ -421,28 +421,28 @@ function createCheckpointSummary(checkpointNumber) {
     
     return `
         <div class="summary-item">
-            <div class="summary-label">Situation:</div>
+            <div class="summary-label">situation:</div>
             <div class="summary-value">${checkpoint.title}</div>
         </div>
         <div class="summary-item">
-            <div class="summary-label">Question Selected:</div>
-            <div class="summary-value">${checkpoint.questions[responses.question] || 'None selected'}</div>
+            <div class="summary-label">question selected:</div>
+            <div class="summary-value">${checkpoint.questions[responses.question] || 'none selected'}</div>
         </div>
         <div class="summary-item">
-            <div class="summary-label">Action Selected:</div>
-            <div class="summary-value">${checkpoint.actions[responses.action] || 'None selected'}</div>
+            <div class="summary-label">action selected:</div>
+            <div class="summary-value">${checkpoint.actions[responses.action] || 'none selected'}</div>
         </div>
         <div class="summary-item">
-            <div class="summary-label">Group Discussion:</div>
-            <div class="summary-value">${escapeHTML(responses.groupDiscussion || 'No response provided')}</div>
+            <div class="summary-label">group discussion:</div>
+            <div class="summary-value">${escapeHTML(responses.groupDiscussion || 'no response provided')}</div>
         </div>
         <div class="summary-item">
-            <div class="summary-label">Action Explanation:</div>
-            <div class="summary-value">${escapeHTML(responses.actionExplanation || 'No response provided')}</div>
+            <div class="summary-label">action explanation:</div>
+            <div class="summary-value">${escapeHTML(responses.actionExplanation || 'no response provided')}</div>
         </div>
         <div class="summary-item">
-            <div class="summary-label">AI Advice:</div>
-            <div class="summary-value">${escapeHTML(responses.aiAdvice || 'No response provided')}</div>
+            <div class="summary-label">ai advice:</div>
+            <div class="summary-value">${escapeHTML(responses.aiAdvice || 'no response provided')}</div>
         </div>
     `;
 }
@@ -507,19 +507,19 @@ function updateProgress() {
     };
     
     const progressTexts = {
-        welcome: 'Welcome',
-        roleSelection: 'Role Selection',
-        scenarioSelection: 'Scenario Selection',
-        missionBrief: 'Mission Brief',
-        checkpoint: `Checkpoint ${gameState.currentCheckpoint}`,
-        outcome: 'Outcome',
-        reflection: 'Reflection',
-        summary: 'Summary'
+        welcome: 'welcome',
+        roleSelection: 'role selection',
+        scenarioSelection: 'scenario selection',
+        missionBrief: 'mission brief',
+        checkpoint: `checkpoint ${gameState.currentCheckpoint}`,
+        outcome: 'outcome',
+        reflection: 'reflection',
+        summary: 'summary'
     };
     
     const progress = progressSteps[currentScreen] || 0;
     document.getElementById('progressFill').style.width = `${progress}%`;
-    document.getElementById('progressText').textContent = progressTexts[currentScreen] || 'Loading...';
+    document.getElementById('progressText').textContent = progressTexts[currentScreen] || 'loading...';
 }
 
 function exportJSON() {
@@ -584,7 +584,7 @@ function copyToClipboard() {
     
     if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(summary).then(() => {
-            showStatusMessage('Summary copied to clipboard!', 'success');
+            showStatusMessage('summary copied to clipboard!', 'success');
         }).catch(() => {
             fallbackCopyToClipboard(summary);
         });
@@ -605,9 +605,9 @@ function fallbackCopyToClipboard(text) {
     
     try {
         document.execCommand('copy');
-        showStatusMessage('Summary copied to clipboard!', 'success');
+        showStatusMessage('summary copied to clipboard!', 'success');
     } catch (err) {
-        showStatusMessage('Failed to copy to clipboard', 'error');
+        showStatusMessage('failed to copy to clipboard', 'error');
     }
     
     document.body.removeChild(textArea);
@@ -615,36 +615,36 @@ function fallbackCopyToClipboard(text) {
 
 function generateTextSummary() {
     const scenario = scenarioData.scenarios[gameState.selectedScenario];
-    
+
     return `
-MindShift Mission Summary
+mindshift mission summary
 ========================
-Role: ${gameState.selectedRole}
-Scenario: ${scenario.title}
-Total Time: ${formatTime(Date.now() - gameState.startTime)}
+role: ${gameState.selectedRole}
+scenario: ${scenario.title}
+total time: ${formatTime(Date.now() - gameState.startTime)}
 
-Checkpoint 1: ${scenario.checkpoints[1].title}
-- Question: ${scenario.checkpoints[1].questions[gameState.responses.checkpoint1.question] || 'None selected'}
-- Action: ${scenario.checkpoints[1].actions[gameState.responses.checkpoint1.action] || 'None selected'}
-- Group Discussion: ${gameState.responses.checkpoint1.groupDiscussion}
-- Action Explanation: ${gameState.responses.checkpoint1.actionExplanation}
-- AI Advice: ${gameState.responses.checkpoint1.aiAdvice}
+checkpoint 1: ${scenario.checkpoints[1].title}
+- question: ${scenario.checkpoints[1].questions[gameState.responses.checkpoint1.question] || 'none selected'}
+- action: ${scenario.checkpoints[1].actions[gameState.responses.checkpoint1.action] || 'none selected'}
+- group discussion: ${gameState.responses.checkpoint1.groupDiscussion}
+- action explanation: ${gameState.responses.checkpoint1.actionExplanation}
+- ai advice: ${gameState.responses.checkpoint1.aiAdvice}
 
-Checkpoint 2: ${scenario.checkpoints[2].title}
-- Question: ${scenario.checkpoints[2].questions[gameState.responses.checkpoint2.question] || 'None selected'}
-- Action: ${scenario.checkpoints[2].actions[gameState.responses.checkpoint2.action] || 'None selected'}
-- Group Discussion: ${gameState.responses.checkpoint2.groupDiscussion}
-- Action Explanation: ${gameState.responses.checkpoint2.actionExplanation}
-- AI Advice: ${gameState.responses.checkpoint2.aiAdvice}
+checkpoint 2: ${scenario.checkpoints[2].title}
+- question: ${scenario.checkpoints[2].questions[gameState.responses.checkpoint2.question] || 'none selected'}
+- action: ${scenario.checkpoints[2].actions[gameState.responses.checkpoint2.action] || 'none selected'}
+- group discussion: ${gameState.responses.checkpoint2.groupDiscussion}
+- action explanation: ${gameState.responses.checkpoint2.actionExplanation}
+- ai advice: ${gameState.responses.checkpoint2.aiAdvice}
 
-Reflections:
+reflections:
 1. ${scenario.reflection_prompts[0]}
    ${gameState.responses.reflection.answer1}
 
 2. ${scenario.reflection_prompts[1]}
    ${gameState.responses.reflection.answer2}
 
-Badges Earned: ${gameState.earnedBadges.join(', ')}
+badges earned: ${gameState.earnedBadges.join(', ')}
     `.trim();
 }
 
