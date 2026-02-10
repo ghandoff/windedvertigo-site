@@ -691,6 +691,14 @@ function exportPDF() {
     // Wait for fonts to load inside iframe, then render
     setTimeout(() => {
         const pdfRoot = iframeDoc.getElementById('pdfRoot');
+
+        // Pad element height to fill exact page boundaries (avoids white gaps)
+        // A4 = 210×297mm. Element is 700px wide → each page shows ~990px of content height
+        const pageHeightPx = 700 * (297 / 210);
+        const contentHeight = pdfRoot.scrollHeight;
+        const fullPages = Math.ceil(contentHeight / pageHeightPx);
+        pdfRoot.style.minHeight = (fullPages * pageHeightPx) + 'px';
+
         const opt = {
             margin: 0,
             filename: `mindshift-mission-${Date.now()}.pdf`,
