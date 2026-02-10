@@ -67,7 +67,11 @@
             <div class="card__body">
               <h2>welcome to mindshift missions</h2>
               <p>navigate complex scenarios, make critical decisions, and explore how inquiry-driven thinking can transform challenges into opportunities.</p>
-              <button class="btn btn--primary btn--lg" onclick="showRoleSelection()">start your mission</button>
+              <div class="form-group">
+                <label class="form-label">👥 team members</label>
+                <textarea class="form-control" id="teamMembers" rows="3" placeholder="enter each team member's name (one per line)"></textarea>
+              </div>
+              <button class="btn btn--primary btn--lg" id="startMission" onclick="showRoleSelection()" disabled>start your mission</button>
             </div>
           </div>
         </section>
@@ -244,30 +248,36 @@
           <div class="card">
             <div class="card__body">
               <h2>mission summary</h2>
-              <div class="summary-grid">
-                <div class="summary-section">
-                  <h3>mission overview</h3>
-                  <div id="summaryOverview"></div>
-                </div>
-                <div class="summary-section">
-                  <h3>checkpoint 1 decisions</h3>
-                  <div id="summaryCheckpoint1"></div>
-                </div>
-                <div class="summary-section">
-                  <h3>checkpoint 2 decisions</h3>
-                  <div id="summaryCheckpoint2"></div>
-                </div>
-                <div class="summary-section">
-                  <h3>reflections</h3>
-                  <div id="summaryReflections"></div>
+              <div id="summaryPrintArea">
+                <div class="summary-grid">
+                  <div class="summary-section">
+                    <h3>mission overview</h3>
+                    <div id="summaryOverview"></div>
+                  </div>
+                  <div class="summary-section">
+                    <h3>outcome snapshot</h3>
+                    <div id="summaryOutcome"></div>
+                  </div>
+                  <div class="summary-section">
+                    <h3>checkpoint 1 decisions</h3>
+                    <div id="summaryCheckpoint1"></div>
+                  </div>
+                  <div class="summary-section">
+                    <h3>checkpoint 2 decisions</h3>
+                    <div id="summaryCheckpoint2"></div>
+                  </div>
+                  <div class="summary-section">
+                    <h3>reflections</h3>
+                    <div id="summaryReflections"></div>
+                  </div>
+                  <div class="badges" id="badgesContainer"></div>
                 </div>
               </div>
               <div class="export-buttons">
-                <button class="btn btn--secondary" onclick="exportJSON()">export json</button>
-                <button class="btn btn--secondary" onclick="exportCSV()">export csv</button>
+                <button class="btn btn--primary" onclick="exportPDF()">export pdf</button>
                 <button class="btn btn--outline" onclick="copyToClipboard()">copy to clipboard</button>
+                <button class="btn btn--secondary" onclick="startOver()">start over</button>
               </div>
-              <div class="badges" id="badgesContainer"></div>
             </div>
           </div>
         </section>
@@ -288,6 +298,7 @@
     </div>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

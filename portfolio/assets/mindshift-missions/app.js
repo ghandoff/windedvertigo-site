@@ -98,6 +98,7 @@ const scenarioData = {
 
 // Application State
 let gameState = {
+    teamMembers: '',
     selectedRole: null,
     selectedScenario: null,
     currentCheckpoint: 1,
@@ -151,6 +152,15 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function setupEventListeners() {
+    // Team members validation on welcome screen
+    const teamInput = document.getElementById('teamMembers');
+    if (teamInput) {
+        teamInput.addEventListener('input', function() {
+            const hasContent = this.value.trim().length > 0;
+            document.getElementById('startMission').disabled = !hasContent;
+        });
+    }
+
     // Role selection
     document.querySelectorAll('.role-card').forEach(card => {
         card.addEventListener('click', function() {
@@ -221,6 +231,11 @@ function showScreen(screenId) {
 }
 
 function showRoleSelection() {
+    // Save team members from welcome screen
+    const teamInput = document.getElementById('teamMembers');
+    if (teamInput) {
+        gameState.teamMembers = teamInput.value.trim();
+    }
     showScreen('roleSelection');
 }
 
@@ -370,7 +385,18 @@ function populateSummary() {
     const scenario = scenarioData.scenarios[gameState.selectedScenario];
     
     // Overview
+    const teamMembersList = gameState.teamMembers
+        .split('\n')
+        .map(n => n.trim())
+        .filter(n => n.length > 0)
+        .map(n => escapeHTML(n))
+        .join(', ');
+
     document.getElementById('summaryOverview').innerHTML = `
+        <div class="summary-item">
+            <div class="summary-label">team members:</div>
+            <div class="summary-value">${teamMembersList || 'none listed'}</div>
+        </div>
         <div class="summary-item">
             <div class="summary-label">role:</div>
             <div class="summary-value">${gameState.selectedRole}</div>
@@ -391,18 +417,45 @@ function populateSummary() {
     // Checkpoint 2
     document.getElementById('summaryCheckpoint2').innerHTML = createCheckpointSummary(2);
     
+    // Outcome snapshot
+    const outcomes = scenario.outcomes;
+    let outcomeHTML = '';
+    if (gameState.selectedScenario === 'plastic_packaging') {
+        outcomeHTML += `
+            <div class="summary-item">
+                <div class="summary-label">environmental:</div>
+                <div class="summary-value">${escapeHTML(outcomes.environmental)}</div>
+            </div>`;
+    } else {
+        outcomeHTML += `
+            <div class="summary-item">
+                <div class="summary-label">learning equity:</div>
+                <div class="summary-value">${escapeHTML(outcomes.learning_equity)}</div>
+            </div>`;
+    }
+    outcomeHTML += `
+        <div class="summary-item">
+            <div class="summary-label">public perception:</div>
+            <div class="summary-value">${escapeHTML(outcomes.public_perception)}</div>
+        </div>
+        <div class="summary-item">
+            <div class="summary-label">operational:</div>
+            <div class="summary-value">${escapeHTML(outcomes.operational)}</div>
+        </div>`;
+    document.getElementById('summaryOutcome').innerHTML = outcomeHTML;
+
     // Reflections
     document.getElementById('summaryReflections').innerHTML = `
         <div class="summary-item">
             <div class="summary-label">${escapeHTML(scenario.reflection_prompts[0])}</div>
-            <div class="summary-value">${escapeHTML(gameState.responses.reflection.answer1 || 'No response provided')}</div>
+            <div class="summary-value">${escapeHTML(gameState.responses.reflection.answer1 || 'no response provided')}</div>
         </div>
         <div class="summary-item">
             <div class="summary-label">${escapeHTML(scenario.reflection_prompts[1])}</div>
-            <div class="summary-value">${escapeHTML(gameState.responses.reflection.answer2 || 'No response provided')}</div>
+            <div class="summary-value">${escapeHTML(gameState.responses.reflection.answer2 || 'no response provided')}</div>
         </div>
     `;
-    
+
     // Badges
     const badgesContainer = document.getElementById('badgesContainer');
     badgesContainer.innerHTML = '';
@@ -522,61 +575,95 @@ function updateProgress() {
     document.getElementById('progressText').textContent = progressTexts[currentScreen] || 'loading...';
 }
 
-function exportJSON() {
-    const exportData = {
-        gameState,
-        timestamp: new Date().toISOString(),
-        totalTime: Date.now() - gameState.startTime,
-        formattedTime: formatTime(Date.now() - gameState.startTime)
-    };
-    
-    const dataStr = JSON.stringify(exportData, null, 2);
-    const dataBlob = new Blob([dataStr], { type: 'application/json' });
-    const url = URL.createObjectURL(dataBlob);
-    
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `mindshift-mission-${Date.now()}.json`;
-    link.click();
-    
-    URL.revokeObjectURL(url);
-}
+function exportPDF() {
+    const element = document.getElementById('summaryPrintArea');
+    if (!element) {
+        showStatusMessage('could not find summary content to export', 'error');
+        return;
+    }
 
-function exportCSV() {
-    const scenario = scenarioData.scenarios[gameState.selectedScenario];
-    const csvData = [
-        ['Field', 'Value'],
-        ['Role', gameState.selectedRole],
-        ['Scenario', scenario.title],
-        ['Total Time', formatTime(Date.now() - gameState.startTime)],
-        ['Checkpoint 1 Question', scenario.checkpoints[1].questions[gameState.responses.checkpoint1.question] || ''],
-        ['Checkpoint 1 Action', scenario.checkpoints[1].actions[gameState.responses.checkpoint1.action] || ''],
-        ['Checkpoint 1 Group Discussion', gameState.responses.checkpoint1.groupDiscussion],
-        ['Checkpoint 1 Action Explanation', gameState.responses.checkpoint1.actionExplanation],
-        ['Checkpoint 1 AI Advice', gameState.responses.checkpoint1.aiAdvice],
-        ['Checkpoint 2 Question', scenario.checkpoints[2].questions[gameState.responses.checkpoint2.question] || ''],
-        ['Checkpoint 2 Action', scenario.checkpoints[2].actions[gameState.responses.checkpoint2.action] || ''],
-        ['Checkpoint 2 Group Discussion', gameState.responses.checkpoint2.groupDiscussion],
-        ['Checkpoint 2 Action Explanation', gameState.responses.checkpoint2.actionExplanation],
-        ['Checkpoint 2 AI Advice', gameState.responses.checkpoint2.aiAdvice],
-        ['Reflection 1', gameState.responses.reflection.answer1],
-        ['Reflection 2', gameState.responses.reflection.answer2],
-        ['Badges Earned', gameState.earnedBadges.join(', ')]
-    ];
-    
-    const csvString = csvData.map(row => 
-        row.map(cell => `"${cell.toString().replace(/"/g, '""')}"`).join(',')
-    ).join('\n');
-    
-    const dataBlob = new Blob([csvString], { type: 'text/csv' });
-    const url = URL.createObjectURL(dataBlob);
-    
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `mindshift-mission-${Date.now()}.csv`;
-    link.click();
-    
-    URL.revokeObjectURL(url);
+    // Create a styled clone for PDF rendering
+    const clone = element.cloneNode(true);
+
+    // Build a self-contained wrapper with inline styles for the PDF
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = 'background:#273248;color:#ffffff;font-family:Inter,-apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding:40px;text-transform:lowercase;';
+
+    // Header
+    const header = document.createElement('div');
+    header.style.cssText = 'text-align:center;margin-bottom:32px;padding-bottom:20px;border-bottom:2px solid rgba(255,255,255,0.15);';
+    header.innerHTML = '<div style="font-size:24px;font-weight:700;margin-bottom:8px;">mindshift missions</div><div style="font-size:13px;color:rgba(255,255,255,0.6);">winded.vertigo · mission summary</div>';
+    wrapper.appendChild(header);
+
+    // Style the cloned content for print
+    clone.querySelectorAll('.summary-section').forEach(section => {
+        section.style.cssText = 'background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:20px;margin-bottom:16px;page-break-inside:avoid;';
+    });
+    clone.querySelectorAll('.summary-section h3').forEach(h3 => {
+        h3.style.cssText = 'font-size:14px;font-weight:700;color:#b15043;margin:0 0 12px 0;text-transform:lowercase;';
+    });
+    clone.querySelectorAll('.summary-label').forEach(label => {
+        label.style.cssText = 'font-size:12px;font-weight:700;color:rgba(255,255,255,0.7);margin-bottom:2px;text-transform:lowercase;';
+    });
+    clone.querySelectorAll('.summary-value').forEach(val => {
+        val.style.cssText = 'font-size:13px;color:#ffffff;line-height:1.5;margin-bottom:10px;text-transform:lowercase;';
+    });
+    clone.querySelectorAll('.summary-item').forEach(item => {
+        item.style.cssText = 'margin-bottom:10px;';
+    });
+    clone.querySelectorAll('.summary-grid').forEach(grid => {
+        grid.style.cssText = 'display:block;';
+    });
+    clone.querySelectorAll('.badge').forEach(badge => {
+        badge.style.cssText = 'display:inline-block;background:linear-gradient(135deg,#b15043,#cb7858);color:#ffffff;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;margin:4px 4px 4px 0;text-transform:lowercase;';
+    });
+    clone.querySelectorAll('.badges').forEach(badges => {
+        badges.style.cssText = 'margin-top:16px;';
+    });
+
+    wrapper.appendChild(clone);
+
+    // Footer
+    const footer = document.createElement('div');
+    footer.style.cssText = 'text-align:center;margin-top:24px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1);font-size:11px;color:rgba(255,255,255,0.4);';
+    footer.textContent = '© winded.vertigo · ' + new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    wrapper.appendChild(footer);
+
+    const opt = {
+        margin: 0,
+        filename: `mindshift-mission-${Date.now()}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: {
+            scale: 2,
+            backgroundColor: '#273248',
+            useCORS: true,
+            logging: false
+        },
+        jsPDF: {
+            unit: 'mm',
+            format: 'a4',
+            orientation: 'portrait'
+        },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    };
+
+    // Temporarily attach wrapper offscreen for rendering
+    wrapper.style.position = 'fixed';
+    wrapper.style.left = '-9999px';
+    wrapper.style.top = '0';
+    wrapper.style.width = '700px';
+    document.body.appendChild(wrapper);
+
+    showStatusMessage('generating pdf...', 'info');
+
+    html2pdf().set(opt).from(wrapper).save().then(() => {
+        document.body.removeChild(wrapper);
+        showStatusMessage('pdf exported!', 'success');
+    }).catch(err => {
+        document.body.removeChild(wrapper);
+        showStatusMessage('pdf export failed — try copy to clipboard instead', 'error');
+        console.error('PDF export error:', err);
+    });
 }
 
 function copyToClipboard() {
@@ -615,13 +702,27 @@ function fallbackCopyToClipboard(text) {
 
 function generateTextSummary() {
     const scenario = scenarioData.scenarios[gameState.selectedScenario];
+    const outcomes = scenario.outcomes;
+    const outcomeKey1 = gameState.selectedScenario === 'plastic_packaging' ? 'environmental' : 'learning equity';
+    const outcomeVal1 = gameState.selectedScenario === 'plastic_packaging' ? outcomes.environmental : outcomes.learning_equity;
+    const teamList = gameState.teamMembers
+        .split('\n')
+        .map(n => n.trim())
+        .filter(n => n.length > 0)
+        .join(', ');
 
     return `
 mindshift mission summary
 ========================
+team members: ${teamList || 'none listed'}
 role: ${gameState.selectedRole}
 scenario: ${scenario.title}
 total time: ${formatTime(Date.now() - gameState.startTime)}
+
+outcome snapshot:
+- ${outcomeKey1}: ${outcomeVal1}
+- public perception: ${outcomes.public_perception}
+- operational: ${outcomes.operational}
 
 checkpoint 1: ${scenario.checkpoints[1].title}
 - question: ${scenario.checkpoints[1].questions[gameState.responses.checkpoint1.question] || 'none selected'}
@@ -646,6 +747,47 @@ reflections:
 
 badges earned: ${gameState.earnedBadges.join(', ')}
     `.trim();
+}
+
+function startOver() {
+    // Reset game state but keep team members
+    const savedTeam = gameState.teamMembers;
+    gameState = {
+        teamMembers: savedTeam,
+        selectedRole: null,
+        selectedScenario: null,
+        currentCheckpoint: 1,
+        startTime: Date.now(),
+        screenTimes: {},
+        responses: {
+            checkpoint1: { question: null, action: null, groupDiscussion: '', actionExplanation: '', aiAdvice: '' },
+            checkpoint2: { question: null, action: null, groupDiscussion: '', actionExplanation: '', aiAdvice: '' },
+            reflection: { answer1: '', answer2: '' }
+        },
+        earnedBadges: []
+    };
+
+    // Reset UI selections
+    document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
+    document.querySelectorAll('.scenario-card').forEach(c => c.classList.remove('selected'));
+
+    // Disable continue buttons
+    const contScenario = document.getElementById('continueToScenario');
+    if (contScenario) contScenario.disabled = true;
+    const contMission = document.getElementById('continueToMission');
+    if (contMission) contMission.disabled = true;
+
+    // Restore team members in the welcome input
+    const teamInput = document.getElementById('teamMembers');
+    if (teamInput) {
+        teamInput.value = savedTeam;
+    }
+
+    // Enable start button since team members are still filled in
+    const startBtn = document.getElementById('startMission');
+    if (startBtn) startBtn.disabled = !savedTeam;
+
+    showScreen('welcome');
 }
 
 function showStatusMessage(message, type) {
