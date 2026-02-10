@@ -589,12 +589,17 @@ function exportPDF() {
 
     // Build a self-contained wrapper with inline styles for the PDF
     const wrapper = document.createElement('div');
-    wrapper.style.cssText = 'background:#273248;color:#ffffff;font-family:Inter,-apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding:40px;text-transform:lowercase;';
+    wrapper.style.cssText = 'background:#273248;color:#ffffff;font-family:Inter,-apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding:40px 40px 40px 54px;text-transform:lowercase;position:relative;';
 
-    // Header
+    // PRME Seven Principles colour stripe (left edge)
+    const stripe = document.createElement('div');
+    stripe.style.cssText = 'position:absolute;left:0;top:0;bottom:0;width:8px;background:linear-gradient(to bottom,#E2580E 0%,#ED9120 16.6%,#FFCF00 33.3%,#486C37 50%,#7A9EB8 66.6%,#405DAB 83.3%,#1E3250 100%);';
+    wrapper.appendChild(stripe);
+
+    // Header with PRME co-brand
     const header = document.createElement('div');
-    header.style.cssText = 'text-align:center;margin-bottom:32px;padding-bottom:20px;border-bottom:2px solid rgba(255,255,255,0.15);';
-    header.innerHTML = '<div style="font-size:24px;font-weight:700;margin-bottom:8px;">mindshift missions</div><div style="font-size:13px;color:rgba(255,255,255,0.6);">winded.vertigo · mission summary</div>';
+    header.style.cssText = 'margin-bottom:32px;padding-bottom:20px;border-bottom:2px solid rgba(255,255,255,0.15);';
+    header.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;"><div style="font-size:22px;font-weight:700;text-transform:lowercase;">mindshift missions</div><div style="font-size:11px;color:rgba(255,255,255,0.5);text-transform:lowercase;">mission summary</div></div><div style="font-size:13px;"><span style="font-weight:700;letter-spacing:0.08em;color:#5C92E5;text-transform:uppercase;">PRME</span><span style="color:rgba(255,255,255,0.3);margin:0 6px;font-weight:300;">×</span><span style="font-weight:600;color:#b15043;text-transform:lowercase;">winded.vertigo</span></div>';
     wrapper.appendChild(header);
 
     // Style the cloned content for print
@@ -634,7 +639,7 @@ function exportPDF() {
     // Footer
     const footer = document.createElement('div');
     footer.style.cssText = 'text-align:center;margin-top:24px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1);font-size:11px;color:rgba(255,255,255,0.4);';
-    footer.textContent = '© winded.vertigo · ' + new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    footer.innerHTML = '<span style="font-weight:700;letter-spacing:0.06em;color:#5C92E5;text-transform:uppercase;">PRME</span> <span style="color:rgba(255,255,255,0.25);">×</span> winded.vertigo · ' + new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
     wrapper.appendChild(footer);
 
     const opt = {
@@ -725,6 +730,7 @@ function generateTextSummary() {
 
     return `
 mindshift mission summary
+PRME × winded.vertigo
 ========================
 team:
 ${teamBlock}

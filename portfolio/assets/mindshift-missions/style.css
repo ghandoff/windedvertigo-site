@@ -478,6 +478,71 @@ body {
    Summary Display
    ============================================================================ */
 
+/* ============================================================================
+   PRME Co-Brand
+   Seven Principles stripe + attribution
+   ============================================================================ */
+
+.prme-stripe {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.prme-stripe::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  border-radius: 3px;
+  background: linear-gradient(
+    to bottom,
+    #E2580E 0%,      /* share — red-orange */
+    #ED9120 16.6%,   /* teach — orange */
+    #FFCF00 33.3%,   /* foundation yellow */
+    #486C37 50%,     /* purpose — green */
+    #7A9EB8 66.6%,   /* values — teal */
+    #405DAB 83.3%,   /* partner — blue */
+    #1E3250 100%     /* prme blue — navy */
+  );
+}
+
+.prme-cobrand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--app-surface-border);
+  font-size: 0.8rem;
+  color: var(--app-text-secondary);
+}
+
+.prme-cobrand-logo {
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  color: #5C92E5;
+  text-transform: uppercase;
+}
+
+.prme-cobrand-sep {
+  color: var(--app-surface-border);
+  margin: 0 0.5rem;
+  font-weight: 300;
+}
+
+.prme-cobrand-wv {
+  font-weight: 600;
+  color: var(--app-primary);
+  text-transform: lowercase;
+}
+
+/* ============================================================================
+   Summary Grid & Sections
+   ============================================================================ */
+
 .summary-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
