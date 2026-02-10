@@ -385,17 +385,19 @@ function populateSummary() {
     const scenario = scenarioData.scenarios[gameState.selectedScenario];
     
     // Overview
-    const teamMembersList = gameState.teamMembers
+    const teamNames = gameState.teamMembers
         .split('\n')
         .map(n => n.trim())
-        .filter(n => n.length > 0)
-        .map(n => escapeHTML(n))
-        .join(', ');
+        .filter(n => n.length > 0);
+
+    const teamChipsHTML = teamNames.length > 0
+        ? `<div class="team-chips">${teamNames.map(n => `<span class="team-chip">${escapeHTML(n)}</span>`).join('')}</div>`
+        : '<div class="summary-value">none listed</div>';
 
     document.getElementById('summaryOverview').innerHTML = `
         <div class="summary-item">
             <div class="summary-label">team members:</div>
-            <div class="summary-value">${teamMembersList || 'none listed'}</div>
+            ${teamChipsHTML}
         </div>
         <div class="summary-item">
             <div class="summary-label">role:</div>
@@ -620,6 +622,12 @@ function exportPDF() {
     clone.querySelectorAll('.badges').forEach(badges => {
         badges.style.cssText = 'margin-top:16px;';
     });
+    clone.querySelectorAll('.team-chips').forEach(chips => {
+        chips.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;';
+    });
+    clone.querySelectorAll('.team-chip').forEach(chip => {
+        chip.style.cssText = 'display:inline-block;background:rgba(177,80,67,0.15);border:1px solid rgba(177,80,67,0.35);color:#ffebd2;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:500;text-transform:lowercase;';
+    });
 
     wrapper.appendChild(clone);
 
@@ -647,20 +655,22 @@ function exportPDF() {
         pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
     };
 
-    // Temporarily attach wrapper offscreen for rendering
-    wrapper.style.position = 'fixed';
-    wrapper.style.left = '-9999px';
-    wrapper.style.top = '0';
+    // Attach wrapper on-page for html2canvas rendering (must be visible in DOM)
+    wrapper.style.position = 'absolute';
+    wrapper.style.left = '0';
+    wrapper.style.top = window.scrollY + 'px';
     wrapper.style.width = '700px';
+    wrapper.style.zIndex = '-1';
+    wrapper.style.pointerEvents = 'none';
     document.body.appendChild(wrapper);
 
     showStatusMessage('generating pdf...', 'info');
 
     html2pdf().set(opt).from(wrapper).save().then(() => {
-        document.body.removeChild(wrapper);
+        if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
         showStatusMessage('pdf exported!', 'success');
     }).catch(err => {
-        document.body.removeChild(wrapper);
+        if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
         showStatusMessage('pdf export failed — try copy to clipboard instead', 'error');
         console.error('PDF export error:', err);
     });
@@ -705,16 +715,19 @@ function generateTextSummary() {
     const outcomes = scenario.outcomes;
     const outcomeKey1 = gameState.selectedScenario === 'plastic_packaging' ? 'environmental' : 'learning equity';
     const outcomeVal1 = gameState.selectedScenario === 'plastic_packaging' ? outcomes.environmental : outcomes.learning_equity;
-    const teamList = gameState.teamMembers
+    const teamNames = gameState.teamMembers
         .split('\n')
         .map(n => n.trim())
-        .filter(n => n.length > 0)
-        .join(', ');
+        .filter(n => n.length > 0);
+    const teamBlock = teamNames.length > 0
+        ? teamNames.map(n => `  · ${n}`).join('\n')
+        : '  none listed';
 
     return `
 mindshift mission summary
 ========================
-team members: ${teamList || 'none listed'}
+team:
+${teamBlock}
 role: ${gameState.selectedRole}
 scenario: ${scenario.title}
 total time: ${formatTime(Date.now() - gameState.startTime)}
