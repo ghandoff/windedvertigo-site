@@ -5,17 +5,41 @@
    ============================================================================ */
 
 :root {
+  /* Brand palette */
+  --app-bg: #273248;
+  --app-text: #ffffff;
   --app-primary: #b15043;
+  --app-primary-dark: #9d4539;
   --app-secondary: #cb7858;
   --app-highlight: #ffebd2;
+  --app-text-secondary: rgba(255, 255, 255, 0.7);
+
+  /* Surfaces & borders */
   --app-surface: rgba(255, 255, 255, 0.06);
   --app-surface-border: rgba(255, 255, 255, 0.1);
   --app-form-border: rgba(255, 255, 255, 0.2);
   --app-focus-ring: rgba(177, 80, 67, 0.4);
   --app-checkpoint-bg: rgba(177, 80, 67, 0.1);
-  --app-status-bg: rgba(177, 80, 67, 0.1);
   --app-scrollbar: rgba(255, 255, 255, 0.2);
-  --app-text-secondary: rgba(255, 255, 255, 0.7);
+
+  /* Spacing scale */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 3rem;
+  --space-section: clamp(2rem, 5vw, 3.5rem);
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-pill: 50%;
+
+  /* Transitions */
+  --transition: 0.2s ease;
+
+  /* Typography */
+  --font-stack: Inter, -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 /* ============================================================================
@@ -31,9 +55,9 @@ html {
 }
 
 body {
-  background-color: #273248;
-  color: #ffffff;
-  font-family: Inter, -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--app-bg);
+  color: var(--app-text);
+  font-family: var(--font-stack);
   font-size: 1rem;
   line-height: 1.5;
   text-transform: lowercase;
@@ -67,20 +91,18 @@ body {
    ============================================================================ */
 
 .app-header {
-  background-color: #273248;
+  background-color: var(--app-bg);
   border-bottom: 1px solid var(--app-surface-border);
-  padding: 50px 30px;
+  padding: var(--space-section) var(--space-md);
   position: sticky;
   top: 0;
   z-index: 100;
 }
 
 .app-title {
-  font-family: Inter, -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-weight: 700;
   font-size: 1.75rem;
   line-height: 1.2;
-  text-transform: lowercase;
   margin: 0 0 1.5rem 0;
   color: #ffffff;
 }
@@ -106,7 +128,6 @@ body {
   font-size: 0.875rem;
   color: var(--app-text-secondary);
   margin-top: 0.5rem;
-  text-transform: lowercase;
 }
 
 /* ============================================================================
@@ -116,7 +137,7 @@ body {
 .app-main {
   max-width: 800px;
   margin: 0 auto;
-  padding: 50px 30px;
+  padding: var(--space-section) var(--space-md);
 }
 
 /* Screen Management */
@@ -147,10 +168,10 @@ body {
 .card {
   background-color: var(--app-surface);
   border: 1px solid var(--app-surface-border);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   padding: 0;
   margin-bottom: 1.5rem;
-  transition: all 0.2s ease;
+  transition: all var(--transition);
 }
 
 .card:hover {
@@ -181,16 +202,16 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.5rem;
-  margin-bottom: 50px;
+  margin-bottom: var(--space-section);
 }
 
 .role-card {
   background-color: var(--app-surface);
   border: 2px solid var(--app-surface-border);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   padding: 1.5rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition);
   text-align: center;
 }
 
@@ -208,7 +229,6 @@ body {
 .role-card__title {
   font-weight: 700;
   font-size: 1.125rem;
-  text-transform: lowercase;
   margin: 0 0 0.5rem 0;
   color: #ffffff;
 }
@@ -216,7 +236,6 @@ body {
 .role-card__description {
   font-size: 0.875rem;
   color: var(--app-text-secondary);
-  text-transform: lowercase;
   margin: 0;
 }
 
@@ -228,16 +247,16 @@ body {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
-  margin-bottom: 50px;
+  margin-bottom: var(--space-section);
 }
 
 .scenario-card {
   background-color: var(--app-surface);
   border: 2px solid var(--app-surface-border);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   padding: 1.5rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition);
 }
 
 .scenario-card:hover {
@@ -254,7 +273,6 @@ body {
 .scenario-card__title {
   font-weight: 700;
   font-size: 1.125rem;
-  text-transform: lowercase;
   margin: 0 0 0.5rem 0;
   color: #ffffff;
 }
@@ -262,7 +280,6 @@ body {
 .scenario-card__description {
   font-size: 0.875rem;
   color: var(--app-text-secondary);
-  text-transform: lowercase;
   margin: 0;
 }
 
@@ -273,9 +290,9 @@ body {
 .mission-info {
   background-color: var(--app-surface);
   border: 1px solid var(--app-surface-border);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   padding: 1.5rem;
-  margin-bottom: 50px;
+  margin-bottom: var(--space-section);
 }
 
 .info-item {
@@ -290,7 +307,6 @@ body {
   font-weight: 700;
   font-size: 0.875rem;
   color: var(--app-primary);
-  text-transform: lowercase;
   margin-bottom: 0.5rem;
   display: block;
 }
@@ -298,30 +314,27 @@ body {
 .info-item__value {
   font-size: 1rem;
   color: #ffffff;
-  text-transform: lowercase;
   line-height: 1.6;
 }
 
 .checkpoint-info {
   background-color: var(--app-checkpoint-bg);
   border: 1px solid rgba(177, 80, 67, 0.3);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   padding: 1.5rem;
-  margin-bottom: 50px;
+  margin-bottom: var(--space-section);
 }
 
 .checkpoint-info__title {
   font-weight: 700;
   font-size: 1.125rem;
   color: var(--app-primary);
-  text-transform: lowercase;
   margin: 0 0 1rem 0;
 }
 
 .checkpoint-info__content {
   font-size: 0.95rem;
   color: #ffffff;
-  text-transform: lowercase;
   line-height: 1.6;
   margin: 0;
 }
@@ -334,16 +347,16 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  margin-bottom: 50px;
+  margin-bottom: var(--space-section);
 }
 
 .choice-option {
   background-color: var(--app-surface);
   border: 2px solid var(--app-surface-border);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   padding: 1.5rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition);
   position: relative;
   padding-left: calc(1.5rem + 28px);
   min-height: 50px;
@@ -373,7 +386,7 @@ body {
   height: 20px;
   border: 2px solid var(--app-form-border);
   border-radius: 50%;
-  transition: all 0.2s ease;
+  transition: all var(--transition);
   background-color: transparent;
 }
 
@@ -406,7 +419,6 @@ body {
 .choice-option__text {
   font-size: 1rem;
   color: #ffffff;
-  text-transform: lowercase;
   line-height: 1.5;
   margin: 0;
 }
@@ -419,13 +431,13 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.5rem;
-  margin-bottom: 50px;
+  margin-bottom: var(--space-section);
 }
 
 .outcome-item {
   background-color: var(--app-surface);
   border: 1px solid var(--app-surface-border);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   padding: 1.5rem;
   text-align: center;
 }
@@ -434,7 +446,6 @@ body {
   font-weight: 700;
   font-size: 0.875rem;
   color: var(--app-primary);
-  text-transform: lowercase;
   margin-bottom: 0.5rem;
   display: block;
 }
@@ -443,7 +454,6 @@ body {
   font-size: 1.5rem;
   font-weight: 700;
   color: #ffffff;
-  text-transform: lowercase;
 }
 
 /* ============================================================================
@@ -453,23 +463,21 @@ body {
 .scaffold-helper {
   background-color: var(--app-surface);
   border: 1px solid var(--app-surface-border);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   padding: 1.5rem;
-  margin-bottom: 50px;
+  margin-bottom: var(--space-section);
 }
 
 .scaffold-helper__title {
   font-weight: 700;
   font-size: 1rem;
   color: var(--app-primary);
-  text-transform: lowercase;
   margin: 0 0 1rem 0;
 }
 
 .scaffold-helper__prompt {
   font-size: 0.95rem;
   color: var(--app-text-secondary);
-  text-transform: lowercase;
   margin: 0 0 1rem 0;
   line-height: 1.5;
 }
@@ -536,7 +544,6 @@ body {
 .prme-cobrand-wv {
   font-weight: 600;
   color: var(--app-primary);
-  text-transform: lowercase;
 }
 
 /* ============================================================================
@@ -547,13 +554,13 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
-  margin-bottom: 50px;
+  margin-bottom: var(--space-section);
 }
 
 .summary-section {
   background-color: var(--app-surface);
   border: 1px solid var(--app-surface-border);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   padding: 1.5rem;
 }
 
@@ -561,7 +568,6 @@ body {
   font-weight: 700;
   font-size: 1rem;
   color: var(--app-primary);
-  text-transform: lowercase;
   margin: 0 0 1rem 0;
 }
 
@@ -577,7 +583,6 @@ body {
   font-weight: 700;
   font-size: 0.875rem;
   color: var(--app-text-secondary);
-  text-transform: lowercase;
   display: block;
   margin-bottom: 0.25rem;
 }
@@ -585,7 +590,6 @@ body {
 .summary-value {
   font-size: 0.95rem;
   color: #ffffff;
-  text-transform: lowercase;
   line-height: 1.5;
 }
 
@@ -611,7 +615,6 @@ body {
   border-radius: 999px;
   font-size: 0.8rem;
   font-weight: 500;
-  text-transform: lowercase;
   letter-spacing: 0.01em;
 }
 
@@ -645,7 +648,6 @@ body {
   border-radius: 999px;
   font-size: 0.75rem;
   font-weight: 500;
-  text-transform: lowercase;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
@@ -676,7 +678,6 @@ body {
   font-weight: 700;
   font-size: 0.875rem;
   color: #ffffff;
-  text-transform: lowercase;
   margin-bottom: 0.5rem;
 }
 
@@ -685,12 +686,11 @@ body {
   padding: 1rem;
   background-color: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--app-form-border);
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   color: #ffffff;
   font-size: 1rem;
-  font-family: Inter, -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  text-transform: lowercase;
-  transition: all 0.2s ease;
+  font-family: var(--font-stack);
+  transition: all var(--transition);
 }
 
 .form-control:hover {
@@ -712,7 +712,7 @@ body {
 textarea.form-control {
   resize: vertical;
   min-height: 120px;
-  font-family: Inter, -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--font-stack);
 }
 
 /* ============================================================================
@@ -726,13 +726,12 @@ textarea.form-control {
   gap: 0.5rem;
   padding: 1rem 1.5rem;
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   font-size: 1rem;
   font-weight: 600;
-  font-family: Inter, -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  text-transform: lowercase;
+  font-family: var(--font-stack);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition);
   text-decoration: none;
 }
 
@@ -823,10 +822,9 @@ textarea.form-control {
 
 .status-message {
   padding: 0.6rem 1rem;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   margin-bottom: 0.75rem;
   font-size: 0.85rem;
-  text-transform: lowercase;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -900,11 +898,10 @@ textarea.form-control {
   right: 1.5rem;
   background-color: rgba(39, 50, 72, 0.95);
   border: 1px solid var(--app-surface-border);
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   padding: 1rem;
   font-size: 0.875rem;
   color: var(--app-text-secondary);
-  text-transform: lowercase;
   backdrop-filter: blur(8px);
   z-index: 50;
 }
@@ -917,9 +914,9 @@ textarea.form-control {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-bottom: 50px;
-  margin-top: 50px;
-  padding-top: 50px;
+  margin-bottom: var(--space-section);
+  margin-top: var(--space-section);
+  padding-top: var(--space-section);
   border-top: 1px solid var(--app-surface-border);
 }
 
@@ -927,40 +924,26 @@ textarea.form-control {
    Text Utilities
    ============================================================================ */
 
-.text-center {
-  text-align: center;
-}
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-muted { color: var(--app-text-secondary); }
+.text-primary { color: var(--app-primary); }
+.text-secondary { color: var(--app-secondary); }
 
-.text-right {
-  text-align: right;
-}
+.mt-xs { margin-top: var(--space-xs); }
+.mt-sm { margin-top: var(--space-sm); }
+.mt-md { margin-top: var(--space-md); }
+.mt-lg { margin-top: var(--space-section); }
 
-.text-muted {
-  color: var(--app-text-secondary);
-}
+.mb-xs { margin-bottom: var(--space-xs); }
+.mb-sm { margin-bottom: var(--space-sm); }
+.mb-md { margin-bottom: var(--space-md); }
+.mb-lg { margin-bottom: var(--space-section); }
 
-.text-primary {
-  color: var(--app-primary);
-}
-
-.text-secondary {
-  color: var(--app-secondary);
-}
-
-.mt-xs { margin-top: 0.5rem; }
-.mt-sm { margin-top: 1rem; }
-.mt-md { margin-top: 1.5rem; }
-.mt-lg { margin-top: 50px; }
-
-.mb-xs { margin-bottom: 0.5rem; }
-.mb-sm { margin-bottom: 1rem; }
-.mb-md { margin-bottom: 1.5rem; }
-.mb-lg { margin-bottom: 50px; }
-
-.px-xs { padding-left: 0.5rem; padding-right: 0.5rem; }
-.px-sm { padding-left: 1rem; padding-right: 1rem; }
-.px-md { padding-left: 1.5rem; padding-right: 1.5rem; }
-.px-lg { padding-left: 50px; padding-right: 50px; }
+.px-xs { padding-left: var(--space-xs); padding-right: var(--space-xs); }
+.px-sm { padding-left: var(--space-sm); padding-right: var(--space-sm); }
+.px-md { padding-left: var(--space-md); padding-right: var(--space-md); }
+.px-lg { padding-left: var(--space-section); padding-right: var(--space-section); }
 
 /* ============================================================================
    Responsive Design
