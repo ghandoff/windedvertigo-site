@@ -694,21 +694,14 @@ function exportPDF() {
     // Wait for fonts to load inside iframe, then render
     setTimeout(() => {
         const pdfRoot = iframeDoc.getElementById('pdfRoot');
-
-        // Pad element height to fill exact page boundaries (avoids white gaps)
-        // A4 = 210×297mm. Element is 700px wide → each page shows ~990px of content height
-        const pageHeightPx = 700 * (297 / 210);
-        const contentHeight = pdfRoot.scrollHeight;
-        const fullPages = Math.ceil(contentHeight / pageHeightPx);
-        pdfRoot.style.minHeight = (fullPages * pageHeightPx) + 'px';
+        const pdfFilename = `mindshift-mission-${Date.now()}.pdf`;
 
         const opt = {
             margin: 0,
-            filename: `mindshift-mission-${Date.now()}.pdf`,
+            filename: pdfFilename,
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: { scale: 2, backgroundColor: '#273248', useCORS: true, logging: false },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-            pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
 
         html2pdf().set(opt).from(pdfRoot).toPdf().get('pdf').then(function(pdf) {
@@ -732,7 +725,9 @@ function exportPDF() {
             // WV logo (160×84 orig) → 24×12.6mm
             var wvW = 24, wvH = 12.6;
             pdf.addImage(WV_LOGO_B64, 'PNG', prmeX + prmeW + 6, prmeY - 1, wvW, wvH);
-        }).save().then(function() {
+
+            // Save directly via jsPDF (Worker .save() chaining is unreliable)
+            pdf.save(pdfFilename);
             document.body.removeChild(iframe);
             showStatusMessage('pdf exported!', 'success');
         }).catch(function(err) {
