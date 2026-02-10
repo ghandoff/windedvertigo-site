@@ -660,7 +660,7 @@ function exportPDF() {
 
         // Text
         pdf.setTextColor(255, 235, 210);
-        pdf.text(text.toLowerCase(), x + chipPadding, y + chipH - 1.2, { maxWidth: chipW - chipPadding });
+        pdf.text(text.toLowerCase(), x + chipPadding, y + chipH - 1.2);
 
         return x + chipW + 2; // next x position
     };
@@ -683,7 +683,7 @@ function exportPDF() {
 
         // Text
         pdf.setTextColor(255, 235, 210);
-        pdf.text(badge.toLowerCase(), x + chipPadding, y + chipH - 1.2, { maxWidth: chipW - chipPadding });
+        pdf.text(badge.toLowerCase(), x + chipPadding, y + chipH - 1.2);
 
         return x + chipW + 2;
     };
@@ -724,24 +724,21 @@ function exportPDF() {
     const pdfFilename = `mindshift-mission-${Date.now()}.pdf`;
     const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
 
-    let pageNum = 1;
     let currentY = MARGIN_TOP;
 
     // ======== DRAW PAGE ========
+    // Draw background on first page immediately
+    drawPageBackground(pdf);
+
     const newPage = () => {
-        if (pageNum > 1) {
-            pdf.addPage();
-        }
+        pdf.addPage();
         drawPageBackground(pdf);
-        pageNum++;
         currentY = MARGIN_TOP;
     };
 
     const canFitOnPage = (requiredHeight) => {
         return currentY + requiredHeight < A4_H - MARGIN_BOTTOM;
     };
-
-    newPage();
 
     // ======== HEADER ========
     pdf.setFontSize(16);
@@ -789,7 +786,26 @@ function exportPDF() {
     pdf.text('mission overview', MARGIN_LEFT, currentY);
     currentY += 4;
 
-    drawCardBackground(pdf, MARGIN_LEFT, currentY - 3.5, CONTENT_W, 28);
+    // Pre-calculate mission overview height
+    let overviewH = 4; // team label + spacing
+    let chipRows = 1;
+    pdf.setFontSize(7);
+    let testChipX = MARGIN_LEFT + 2;
+    for (const name of teamNames) {
+        const tw = pdf.getTextWidth(name) + 4;
+        if (testChipX + tw > A4_W - MARGIN_RIGHT - 2) {
+            chipRows++;
+            testChipX = MARGIN_LEFT + 2;
+        }
+        testChipX += tw + 2;
+    }
+    overviewH += chipRows * 5 + 2;
+    pdf.setFontSize(8);
+    const roleLines = pdf.splitTextToSize((gameState.selectedRole || 'not selected').toLowerCase(), CONTENT_W - 6);
+    const scenLines = pdf.splitTextToSize(scenario.title.toLowerCase(), CONTENT_W - 6);
+    overviewH += (roleLines.length * 4.4 + 3) + (scenLines.length * 4.4 + 3) + 4.4 + 3 + 2;
+
+    drawCardBackground(pdf, MARGIN_LEFT, currentY - 3.5, CONTENT_W, overviewH);
 
     let cardY = currentY;
     pdf.setFontSize(8);
@@ -807,8 +823,8 @@ function exportPDF() {
         if (!nextChipX) {
             cardY += 5;
             chipX = MARGIN_LEFT + 2;
-            drawTeamChip(pdf, name, chipX, cardY, maxChipX);
-            chipX = MARGIN_LEFT + 2 + 20;
+            const afterChipX = drawTeamChip(pdf, name, chipX, cardY, maxChipX);
+            chipX = afterChipX || (MARGIN_LEFT + 2);
         } else {
             chipX = nextChipX;
         }
@@ -835,7 +851,16 @@ function exportPDF() {
     pdf.text('outcome snapshot', MARGIN_LEFT, currentY);
     currentY += 4;
 
-    drawCardBackground(pdf, MARGIN_LEFT, currentY - 3.5, CONTENT_W, 28);
+    // Pre-calculate outcome snapshot height
+    pdf.setFontSize(8);
+    let outcomeH = 4;
+    [outcomeVal1, outcomes.public_perception, outcomes.operational].forEach(val => {
+        const lines = pdf.splitTextToSize(val.toLowerCase(), CONTENT_W - 6);
+        outcomeH += lines.length * 4.4 + 3;
+    });
+    outcomeH += 2;
+
+    drawCardBackground(pdf, MARGIN_LEFT, currentY - 3.5, CONTENT_W, outcomeH);
 
     cardY = currentY;
     pdf.setFontSize(8);
@@ -968,8 +993,8 @@ function exportPDF() {
             if (!nextBadgeX) {
                 currentY += 5;
                 badgeX = MARGIN_LEFT + 1;
-                drawBadgePill(pdf, badge, badgeX, currentY, maxBadgeX);
-                badgeX = MARGIN_LEFT + 1 + 20;
+                const afterBadgeX = drawBadgePill(pdf, badge, badgeX, currentY, maxBadgeX);
+                badgeX = afterBadgeX || (MARGIN_LEFT + 1);
             } else {
                 badgeX = nextBadgeX;
             }
