@@ -630,22 +630,33 @@ body {
    ============================================================================ */
 
 .badges {
+  grid-column: 1 / -1;
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 50px;
+  gap: 0.4rem;
+  margin: 0;
 }
 
 .badge {
-  background: linear-gradient(135deg, #b15043 0%, #cb7858 100%);
-  color: #ffffff;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.875rem;
-  font-weight: 600;
+  background: rgba(177, 80, 67, 0.15);
+  border: 1px solid rgba(177, 80, 67, 0.35);
+  color: #ffebd2;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
   text-transform: lowercase;
-  display: inline-block;
-  box-shadow: 0 2px 8px rgba(177, 80, 67, 0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+.badge::before {
+  content: '\2605';
+  font-size: 0.6rem;
+  color: #cb7858;
 }
 
 /* ============================================================================
@@ -811,14 +822,16 @@ textarea.form-control {
    ============================================================================ */
 
 .status-message {
-  padding: 1.5rem;
+  padding: 0.6rem 1rem;
   border-radius: 6px;
-  margin-bottom: 1.5rem;
-  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.85rem;
   text-transform: lowercase;
   display: flex;
-  align-items: flex-start;
-  gap: 1rem;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+  justify-content: center;
 }
 
 .status-message.success {

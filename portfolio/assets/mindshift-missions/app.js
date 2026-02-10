@@ -584,101 +584,130 @@ function exportPDF() {
         return;
     }
 
-    // Create a styled clone for PDF rendering
-    const clone = element.cloneNode(true);
-
-    // Build a self-contained wrapper with inline styles for the PDF
-    const wrapper = document.createElement('div');
-    wrapper.style.cssText = 'background:#273248;color:#ffffff;font-family:Inter,-apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding:40px 40px 40px 54px;text-transform:lowercase;position:relative;';
-
-    // PRME Seven Principles colour stripe (left edge)
-    const stripe = document.createElement('div');
-    stripe.style.cssText = 'position:absolute;left:0;top:0;bottom:0;width:8px;background:linear-gradient(to bottom,#E2580E 0%,#ED9120 16.6%,#FFCF00 33.3%,#486C37 50%,#7A9EB8 66.6%,#405DAB 83.3%,#1E3250 100%);';
-    wrapper.appendChild(stripe);
-
-    // Header with PRME co-brand
-    const header = document.createElement('div');
-    header.style.cssText = 'margin-bottom:32px;padding-bottom:20px;border-bottom:2px solid rgba(255,255,255,0.15);';
-    header.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;"><div style="font-size:22px;font-weight:700;text-transform:lowercase;">mindshift missions</div><div style="font-size:11px;color:rgba(255,255,255,0.5);text-transform:lowercase;">mission summary</div></div><div style="font-size:13px;"><span style="font-weight:700;letter-spacing:0.08em;color:#5C92E5;text-transform:uppercase;">PRME</span><span style="color:rgba(255,255,255,0.3);margin:0 6px;font-weight:300;">×</span><span style="font-weight:600;color:#b15043;text-transform:lowercase;">winded.vertigo</span></div>';
-    wrapper.appendChild(header);
-
-    // Style the cloned content for print
-    clone.querySelectorAll('.summary-section').forEach(section => {
-        section.style.cssText = 'background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:20px;margin-bottom:16px;page-break-inside:avoid;';
-    });
-    clone.querySelectorAll('.summary-section h3').forEach(h3 => {
-        h3.style.cssText = 'font-size:14px;font-weight:700;color:#b15043;margin:0 0 12px 0;text-transform:lowercase;';
-    });
-    clone.querySelectorAll('.summary-label').forEach(label => {
-        label.style.cssText = 'font-size:12px;font-weight:700;color:rgba(255,255,255,0.7);margin-bottom:2px;text-transform:lowercase;';
-    });
-    clone.querySelectorAll('.summary-value').forEach(val => {
-        val.style.cssText = 'font-size:13px;color:#ffffff;line-height:1.5;margin-bottom:10px;text-transform:lowercase;';
-    });
-    clone.querySelectorAll('.summary-item').forEach(item => {
-        item.style.cssText = 'margin-bottom:10px;';
-    });
-    clone.querySelectorAll('.summary-grid').forEach(grid => {
-        grid.style.cssText = 'display:block;';
-    });
-    clone.querySelectorAll('.badge').forEach(badge => {
-        badge.style.cssText = 'display:inline-block;background:linear-gradient(135deg,#b15043,#cb7858);color:#ffffff;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;margin:4px 4px 4px 0;text-transform:lowercase;';
-    });
-    clone.querySelectorAll('.badges').forEach(badges => {
-        badges.style.cssText = 'margin-top:16px;';
-    });
-    clone.querySelectorAll('.team-chips').forEach(chips => {
-        chips.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;';
-    });
-    clone.querySelectorAll('.team-chip').forEach(chip => {
-        chip.style.cssText = 'display:inline-block;background:rgba(177,80,67,0.15);border:1px solid rgba(177,80,67,0.35);color:#ffebd2;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:500;text-transform:lowercase;';
-    });
-
-    wrapper.appendChild(clone);
-
-    // Footer
-    const footer = document.createElement('div');
-    footer.style.cssText = 'text-align:center;margin-top:24px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1);font-size:11px;color:rgba(255,255,255,0.4);';
-    footer.innerHTML = '<span style="font-weight:700;letter-spacing:0.06em;color:#5C92E5;text-transform:uppercase;">PRME</span> <span style="color:rgba(255,255,255,0.25);">×</span> winded.vertigo · ' + new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-    wrapper.appendChild(footer);
-
-    const opt = {
-        margin: 0,
-        filename: `mindshift-mission-${Date.now()}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: {
-            scale: 2,
-            backgroundColor: '#273248',
-            useCORS: true,
-            logging: false
-        },
-        jsPDF: {
-            unit: 'mm',
-            format: 'a4',
-            orientation: 'portrait'
-        },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-    };
-
-    // Attach wrapper on-page for html2canvas rendering (must be visible in DOM)
-    wrapper.style.position = 'absolute';
-    wrapper.style.left = '0';
-    wrapper.style.top = window.scrollY + 'px';
-    wrapper.style.width = '700px';
-    wrapper.style.zIndex = '-1';
-    wrapper.style.pointerEvents = 'none';
-    document.body.appendChild(wrapper);
-
     showStatusMessage('generating pdf...', 'info');
 
-    html2pdf().set(opt).from(wrapper).save().then(() => {
-        if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
-        showStatusMessage('pdf exported!', 'success');
-    }).catch(err => {
-        if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
-        showStatusMessage('pdf export failed — try copy to clipboard instead', 'error');
-        console.error('PDF export error:', err);
-    });
+    // Build a standalone PDF document with all styles inline
+    // html2pdf needs the element visible in the viewport, so we
+    // inject it into an iframe to isolate it from page z-index issues.
+    const iframe = document.createElement('iframe');
+    iframe.style.cssText = 'position:fixed;left:0;top:0;width:700px;height:900px;opacity:0;pointer-events:none;border:none;';
+    document.body.appendChild(iframe);
+
+    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+    const scenario = scenarioData.scenarios[gameState.selectedScenario];
+
+    // Team members
+    const teamNames = gameState.teamMembers.split('\n').map(n => n.trim()).filter(n => n.length > 0);
+    const teamChips = teamNames.length > 0
+        ? teamNames.map(n => `<span style="display:inline-block;background:rgba(177,80,67,0.15);border:1px solid rgba(177,80,67,0.35);color:#ffebd2;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:500;">${escapeHTML(n)}</span>`).join(' ')
+        : '<span style="color:rgba(255,255,255,0.5);">none listed</span>';
+
+    // Outcomes
+    const outcomes = scenario.outcomes;
+    const outcomeKey1 = gameState.selectedScenario === 'plastic_packaging' ? 'environmental' : 'learning equity';
+    const outcomeVal1 = gameState.selectedScenario === 'plastic_packaging' ? outcomes.environmental : outcomes.learning_equity;
+
+    // Build checkpoint HTML
+    function cpHTML(num) {
+        const cp = scenario.checkpoints[num];
+        const r = gameState.responses[`checkpoint${num}`];
+        return `
+            <div style="margin-bottom:8px;"><span style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.6);">situation:</span><br>${escapeHTML(cp.title)}</div>
+            <div style="margin-bottom:8px;"><span style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.6);">question selected:</span><br>${escapeHTML(cp.questions[r.question] || 'none')}</div>
+            <div style="margin-bottom:8px;"><span style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.6);">action selected:</span><br>${escapeHTML(cp.actions[r.action] || 'none')}</div>
+            <div style="margin-bottom:8px;"><span style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.6);">group discussion:</span><br>${escapeHTML(r.groupDiscussion || 'no response')}</div>
+            <div style="margin-bottom:8px;"><span style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.6);">action explanation:</span><br>${escapeHTML(r.actionExplanation || 'no response')}</div>
+            <div><span style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.6);">ai advice:</span><br>${escapeHTML(r.aiAdvice || 'no response')}</div>`;
+    }
+
+    // Badges
+    const badgeChips = gameState.earnedBadges.map(b =>
+        `<span style="display:inline-flex;align-items:center;gap:4px;background:rgba(177,80,67,0.15);border:1px solid rgba(177,80,67,0.35);color:#ffebd2;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:500;margin:0 4px 4px 0;"><span style="font-size:8px;color:#cb7858;">\u2605</span>${b}</span>`
+    ).join('');
+
+    const dateStr = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+    // Section card helper
+    const sec = (title, body) => `
+        <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:16px;margin-bottom:12px;page-break-inside:avoid;">
+            <div style="font-size:13px;font-weight:700;color:#b15043;margin-bottom:10px;">${title}</div>
+            <div style="font-size:12px;line-height:1.6;color:#ffffff;">${body}</div>
+        </div>`;
+
+    const lbl = (l, v) => `<div style="margin-bottom:8px;"><span style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.6);">${l}</span><br>${v}</div>`;
+
+    iframeDoc.open();
+    iframeDoc.write(`<!DOCTYPE html><html><head>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <style>*{margin:0;padding:0;box-sizing:border-box;text-transform:lowercase;}body{background:#273248;color:#fff;font-family:Inter,Arial,sans-serif;font-size:13px;line-height:1.5;}</style>
+    </head><body>
+        <div id="pdfRoot" style="position:relative;padding:36px 36px 36px 48px;min-height:100vh;">
+            <div style="position:absolute;left:0;top:0;bottom:0;width:8px;background:linear-gradient(to bottom,#E2580E,#ED9120,#FFCF00,#486C37,#7A9EB8,#405DAB,#1E3250);"></div>
+
+            <div style="margin-bottom:28px;padding-bottom:16px;border-bottom:2px solid rgba(255,255,255,0.15);">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                    <div style="font-size:20px;font-weight:700;">mindshift missions</div>
+                    <div style="font-size:10px;color:rgba(255,255,255,0.5);">mission summary</div>
+                </div>
+                <div style="font-size:12px;">
+                    <span style="font-weight:700;letter-spacing:0.08em;color:#5C92E5;text-transform:uppercase;">PRME</span>
+                    <span style="color:rgba(255,255,255,0.3);margin:0 5px;">×</span>
+                    <span style="font-weight:600;color:#b15043;">winded.vertigo</span>
+                </div>
+            </div>
+
+            ${sec('mission overview',
+                lbl('team members:', teamChips) +
+                lbl('role:', escapeHTML(gameState.selectedRole)) +
+                lbl('scenario:', escapeHTML(scenario.title)) +
+                lbl('total time:', formatTime(Date.now() - gameState.startTime))
+            )}
+
+            ${sec('outcome snapshot',
+                lbl(outcomeKey1 + ':', escapeHTML(outcomeVal1)) +
+                lbl('public perception:', escapeHTML(outcomes.public_perception)) +
+                lbl('operational:', escapeHTML(outcomes.operational))
+            )}
+
+            ${sec('checkpoint 1 decisions', cpHTML(1))}
+            ${sec('checkpoint 2 decisions', cpHTML(2))}
+
+            ${sec('reflections',
+                lbl(escapeHTML(scenario.reflection_prompts[0]), escapeHTML(gameState.responses.reflection.answer1 || 'no response')) +
+                lbl(escapeHTML(scenario.reflection_prompts[1]), escapeHTML(gameState.responses.reflection.answer2 || 'no response'))
+            )}
+
+            ${badgeChips ? `<div style="margin-top:8px;">${badgeChips}</div>` : ''}
+
+            <div style="text-align:center;margin-top:20px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.1);font-size:10px;color:rgba(255,255,255,0.4);">
+                <span style="font-weight:700;letter-spacing:0.06em;color:#5C92E5;text-transform:uppercase;">PRME</span>
+                <span style="color:rgba(255,255,255,0.25);">×</span> winded.vertigo · ${dateStr}
+            </div>
+        </div>
+    </body></html>`);
+    iframeDoc.close();
+
+    // Wait for fonts to load inside iframe, then render
+    setTimeout(() => {
+        const pdfRoot = iframeDoc.getElementById('pdfRoot');
+        const opt = {
+            margin: 0,
+            filename: `mindshift-mission-${Date.now()}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, backgroundColor: '#273248', useCORS: true, logging: false },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+            pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+        };
+
+        html2pdf().set(opt).from(pdfRoot).save().then(() => {
+            document.body.removeChild(iframe);
+            showStatusMessage('pdf exported!', 'success');
+        }).catch(err => {
+            document.body.removeChild(iframe);
+            showStatusMessage('pdf export failed — try copy to clipboard instead', 'error');
+            console.error('PDF export error:', err);
+        });
+    }, 500);
 }
 
 function copyToClipboard() {
@@ -813,11 +842,17 @@ function showStatusMessage(message, type) {
     const statusDiv = document.createElement('div');
     statusDiv.className = `status-message ${type}`;
     statusDiv.textContent = message;
-    
-    const activeCard = document.querySelector('.screen.active .card__body');
-    if (!activeCard) return;
-    activeCard.insertBefore(statusDiv, activeCard.firstChild);
-    
+
+    // Insert right above the export buttons so user sees it
+    const exportBtns = document.querySelector('.export-buttons');
+    if (exportBtns) {
+        exportBtns.parentNode.insertBefore(statusDiv, exportBtns);
+    } else {
+        const activeCard = document.querySelector('.screen.active .card__body');
+        if (!activeCard) return;
+        activeCard.appendChild(statusDiv);
+    }
+
     setTimeout(() => {
         statusDiv.remove();
     }, 3000);
