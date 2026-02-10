@@ -639,17 +639,18 @@ function exportPDF() {
     iframeDoc.open();
     iframeDoc.write(`<!DOCTYPE html><html><head>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-        <style>*{margin:0;padding:0;box-sizing:border-box;text-transform:lowercase;}body{background:#273248;color:#fff;font-family:Inter,Arial,sans-serif;font-size:13px;line-height:1.5;}</style>
+        <style>*{margin:0;padding:0;box-sizing:border-box;text-transform:lowercase;}html,body{background:#273248;color:#ffffff;font-family:Inter,Arial,sans-serif;font-size:13px;line-height:1.5;}</style>
     </head><body>
-        <div id="pdfRoot" style="position:relative;padding:36px 36px 36px 48px;min-height:100vh;">
-            <div style="position:absolute;left:0;top:0;bottom:0;width:8px;background:linear-gradient(to bottom,#E2580E,#ED9120,#FFCF00,#486C37,#7A9EB8,#405DAB,#1E3250);"></div>
+        <div id="pdfRoot" style="display:flex;background:#273248;color:#ffffff;font-family:Inter,Arial,sans-serif;font-size:13px;line-height:1.5;">
+            <div style="width:8px;flex-shrink:0;background:linear-gradient(to bottom,#E2580E,#ED9120,#FFCF00,#486C37,#7A9EB8,#405DAB,#1E3250);"></div>
+            <div style="flex:1;padding:36px 36px 36px 24px;color:#ffffff;">
 
             <div style="margin-bottom:28px;padding-bottom:16px;border-bottom:2px solid rgba(255,255,255,0.15);">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-                    <div style="font-size:20px;font-weight:700;">mindshift missions</div>
+                    <div style="font-size:20px;font-weight:700;color:#ffffff;">mindshift missions</div>
                     <div style="font-size:10px;color:rgba(255,255,255,0.5);">mission summary</div>
                 </div>
-                <div style="font-size:12px;">
+                <div style="font-size:12px;color:#ffffff;">
                     <span style="font-weight:700;letter-spacing:0.08em;color:#5C92E5;text-transform:uppercase;">PRME</span>
                     <span style="color:rgba(255,255,255,0.3);margin:0 5px;">×</span>
                     <span style="font-weight:600;color:#b15043;">winded.vertigo</span>
@@ -681,9 +682,9 @@ function exportPDF() {
 
             <div style="text-align:center;margin-top:20px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.1);font-size:10px;color:rgba(255,255,255,0.4);">
                 <span style="font-weight:700;letter-spacing:0.06em;color:#5C92E5;text-transform:uppercase;">PRME</span>
-                <span style="color:rgba(255,255,255,0.25);">×</span> winded.vertigo · ${dateStr}
+                <span style="color:rgba(255,255,255,0.25);">×</span> <span style="color:rgba(255,255,255,0.4);">winded.vertigo · ${dateStr}</span>
             </div>
-        </div>
+        </div></div>
     </body></html>`);
     iframeDoc.close();
 
