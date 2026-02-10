@@ -646,7 +646,7 @@ function exportPDF() {
         <style>*{margin:0;padding:0;box-sizing:border-box;text-transform:lowercase;}html,body{background:#273248;color:#ffffff;font-family:Inter,Arial,sans-serif;font-size:13px;line-height:1.5;}</style>
     </head><body>
         <div id="pdfRoot" style="display:flex;background:#273248;color:#ffffff;font-family:Inter,Arial,sans-serif;font-size:13px;line-height:1.5;">
-            <div style="width:8px;flex-shrink:0;background:linear-gradient(to bottom,#E2580E,#ED9120,#FFCF00,#486C37,#7A9EB8,#405DAB,#1E3250);"></div>
+            <div style="width:8px;flex-shrink:0;background:linear-gradient(to bottom,#E2580E 0%,#E2580E 14.28%,#ED9120 14.28%,#ED9120 28.57%,#FFCF00 28.57%,#FFCF00 42.86%,#486C37 42.86%,#486C37 57.14%,#7A9EB8 57.14%,#7A9EB8 71.43%,#405DAB 71.43%,#405DAB 85.71%,#1E3250 85.71%,#1E3250 100%);"></div>
             <div style="flex:1;padding:36px 36px 36px 24px;color:#ffffff;">
 
             <div style="margin-bottom:28px;padding-bottom:16px;border-bottom:2px solid rgba(255,255,255,0.15);">
@@ -684,11 +684,8 @@ function exportPDF() {
 
             ${badgeChips ? `<div style="margin-top:8px;">${badgeChips}</div>` : ''}
 
-            <div style="display:flex;justify-content:flex-end;align-items:center;margin-top:24px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.1);gap:10px;">
-                <img src="${PRME_LOGO_B64}" style="height:28px;opacity:0.75;">
-                <span style="font-size:13px;font-weight:300;color:rgba(255,255,255,0.3);">×</span>
-                <img src="${WV_LOGO_B64}" style="height:34px;opacity:0.8;">
-                <span style="font-size:9px;color:rgba(255,255,255,0.3);margin-left:6px;">${dateStr}</span>
+            <div style="margin-top:24px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.1);text-align:right;font-size:9px;color:rgba(255,255,255,0.3);">
+                ${dateStr}
             </div>
         </div></div>
     </body></html>`);
@@ -714,10 +711,31 @@ function exportPDF() {
             pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
         };
 
-        html2pdf().set(opt).from(pdfRoot).save().then(() => {
+        html2pdf().set(opt).from(pdfRoot).toPdf().get('pdf').then(function(pdf) {
+            // Overlay PRME × winded.vertigo logos on the last page via jsPDF
+            // (html2canvas can't render base64 img tags in iframes reliably)
+            var totalPages = pdf.internal.getNumberOfPages();
+            pdf.setPage(totalPages);
+
+            // A4 = 210×297mm; position logos bottom-right
+            var pW = 210, pH = 297;
+            // PRME logo (130×68 orig) → 20×10.5mm
+            var prmeW = 20, prmeH = 10.5;
+            var prmeX = pW - 54, prmeY = pH - 18;
+            pdf.addImage(PRME_LOGO_B64, 'PNG', prmeX, prmeY, prmeW, prmeH);
+
+            // × separator
+            pdf.setFontSize(9);
+            pdf.setTextColor(180, 180, 180);
+            pdf.text('\u00d7', prmeX + prmeW + 2, prmeY + prmeH / 2 + 1.5);
+
+            // WV logo (160×84 orig) → 24×12.6mm
+            var wvW = 24, wvH = 12.6;
+            pdf.addImage(WV_LOGO_B64, 'PNG', prmeX + prmeW + 6, prmeY - 1, wvW, wvH);
+        }).save().then(function() {
             document.body.removeChild(iframe);
             showStatusMessage('pdf exported!', 'success');
-        }).catch(err => {
+        }).catch(function(err) {
             document.body.removeChild(iframe);
             showStatusMessage('pdf export failed — try copy to clipboard instead', 'error');
             console.error('PDF export error:', err);
