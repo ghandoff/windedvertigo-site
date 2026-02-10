@@ -53,7 +53,7 @@
   <main id="main-content" class="mindshift-app">
     <div class="container">
       <header class="app-header">
-        <h1 class="app-title">🧭 mindshift missions</h1>
+        <h1 class="app-title">mindshift missions</h1>
         <div class="progress-bar">
           <div class="progress-fill" id="progressFill"></div>
         </div>
@@ -68,7 +68,7 @@
               <h2>welcome to mindshift missions</h2>
               <p>navigate complex scenarios, make critical decisions, and explore how inquiry-driven thinking can transform challenges into opportunities.</p>
               <div class="form-group">
-                <label class="form-label">👥 team members</label>
+                <label class="form-label">team members</label>
                 <textarea class="form-control" id="teamMembers" rows="3" placeholder="enter one name per line, e.g.&#10;alex&#10;jordan&#10;sam"></textarea>
               </div>
               <button class="btn btn--primary btn--lg" id="startMission" onclick="showRoleSelection()" disabled>start your mission</button>
@@ -84,15 +84,15 @@
               <p>select the role that will guide your perspective through this mission:</p>
               <div class="role-grid">
                 <div class="role-card" data-role="CEO">
-                  <h3>🏢 CEO</h3>
+                  <h3>CEO</h3>
                   <p>strategic decision-maker focused on overall company direction</p>
                 </div>
                 <div class="role-card" data-role="Innovation Officer">
-                  <h3>💡 Innovation Officer</h3>
+                  <h3>Innovation Officer</h3>
                   <p>change catalyst focused on implementing new solutions</p>
                 </div>
                 <div class="role-card" data-role="Sustainability Lead">
-                  <h3>🌱 Sustainability Lead</h3>
+                  <h3>Sustainability Lead</h3>
                   <p>environmental advocate focused on sustainable practices</p>
                 </div>
               </div>
@@ -109,14 +109,14 @@
               <p>select the challenge you'll tackle:</p>
               <div class="scenario-grid">
                 <div class="scenario-card" data-scenario="plastic_packaging">
-                  <h3>🌍 plastic packaging u-turn</h3>
+                  <h3>plastic packaging u-turn</h3>
                   <p>navigate sustainability challenges in a global food company facing public pressure to reduce plastic packaging.</p>
                   <div class="scenario-details">
                     <strong>constraint:</strong> cost ceiling + public trust at risk
                   </div>
                 </div>
                 <div class="scenario-card" data-scenario="edtech_rollout">
-                  <h3>📚 equity in edtech rollout</h3>
+                  <h3>equity in edtech rollout</h3>
                   <p>address equity concerns in educational technology implementation across diverse school districts.</p>
                   <div class="scenario-details">
                     <strong>constraint:</strong> limited training time + political pressure to scale fast
@@ -163,27 +163,27 @@
               </div>
 
               <div class="form-group">
-                <label class="form-label">🤔 choose a guiding question:</label>
+                <label class="form-label">choose a guiding question:</label>
                 <div id="questionsContainer" class="choice-container"></div>
               </div>
 
               <div class="form-group">
-                <label class="form-label">⚡ choose your action:</label>
+                <label class="form-label">choose your action:</label>
                 <div id="actionsContainer" class="choice-container"></div>
               </div>
 
               <div class="form-group">
-                <label class="form-label">💭 discuss in your group and brainstorm potential answers:</label>
+                <label class="form-label">discuss in your group and brainstorm potential answers:</label>
                 <textarea class="form-control" id="groupDiscussion" rows="4" placeholder="share your group's brainstorming thoughts..."></textarea>
               </div>
 
               <div class="form-group">
-                <label class="form-label">✍️ explain why you chose that action:</label>
+                <label class="form-label">explain why you chose that action:</label>
                 <textarea class="form-control" id="actionExplanation" rows="4" placeholder="describe your reasoning..."></textarea>
               </div>
 
               <div class="form-group">
-                <label class="form-label">🤖 use an external AI (ChatGPT, Perplexity, Gemini, etc.) to ask for advice. explain how its answer helped you think differently:</label>
+                <label class="form-label">use an external AI (ChatGPT, Perplexity, Gemini, etc.) to ask for advice. explain how its answer helped you think differently:</label>
                 <textarea class="form-control" id="aiAdvice" rows="4" placeholder="what did the AI suggest and how did it change your thinking?"></textarea>
               </div>
 
@@ -200,17 +200,17 @@
               <p>here's how your decisions played out:</p>
               <div class="outcome-grid">
                 <div class="outcome-item">
-                  <div class="outcome-icon">🌍</div>
+                  <div class="outcome-icon"></div>
                   <h3 id="outcomeCategory1"></h3>
                   <p id="outcomeResult1"></p>
                 </div>
                 <div class="outcome-item">
-                  <div class="outcome-icon">👥</div>
+                  <div class="outcome-icon"></div>
                   <h3>public perception</h3>
                   <p id="outcomeResult2"></p>
                 </div>
                 <div class="outcome-item">
-                  <div class="outcome-icon">⚙️</div>
+                  <div class="outcome-icon"></div>
                   <h3>operational</h3>
                   <p id="outcomeResult3"></p>
                 </div>

@@ -760,7 +760,7 @@ function startTimeTracking() {
     // Update time every second
     setInterval(() => {
         const elapsed = Date.now() - gameState.startTime;
-        timeTracker.textContent = `⏱️ ${formatTime(elapsed)}`;
+        timeTracker.textContent = `${formatTime(elapsed)}`;
     }, 1000);
 }
 
