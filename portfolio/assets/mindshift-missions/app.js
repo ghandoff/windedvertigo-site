@@ -590,13 +590,13 @@ function exportPDF() {
 
     showStatusMessage('generating pdf...', 'info');
 
-    // Access jsPDF from CDN bundle (html2pdf.js v0.10.1 includes it)
-    if (!window.jspdf || !window.jspdf.jsPDF) {
-        showStatusMessage('jsPDF library not loaded', 'error');
+    // Access jsPDF — try multiple globals (depends on CDN/bundle used)
+    const jsPDF = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
+    if (!jsPDF) {
+        showStatusMessage('jspdf library not loaded — check console', 'error');
+        console.error('jsPDF not found. Checked: window.jspdf.jsPDF, window.jsPDF');
         return;
     }
-
-    const { jsPDF } = window.jspdf;
 
     // ======== DIMENSIONS & COLORS ========
     const A4_W = 210, A4_H = 297;  // mm
