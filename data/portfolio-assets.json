@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-10T07:03:20.193Z",
+  "lastUpdated": "2026-02-11T05:52:05.005Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "assets": [
     {
@@ -9,6 +9,11 @@
       "quadrants": [
         "product-design"
       ],
+      "quadrantRelIds": [
+        "2f9e4ee7-4ba4-8113-8dcc-e1d2334268f0"
+      ],
+      "quadrantKeyFromRel": "product-design",
+      "quadrantKey": "product-design",
       "url": "https://windedvertigo.com/projects/learning-game",
       "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/learning-game-prototype.png",
       "description": "interactive prototype demonstrating gamified learning mechanics",
@@ -32,6 +37,11 @@
       "quadrants": [
         "people-design"
       ],
+      "quadrantRelIds": [
+        "2f9e4ee7-4ba4-81f6-acc9-ceb1dfd3f4b9"
+      ],
+      "quadrantKeyFromRel": "people-design",
+      "quadrantKey": "people-design",
       "url": "https://drive.google.com/open?id=1GNDYst-AXStIsGM_6byTNMfKGMeqUrSj&usp=drive_fs",
       "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/active-learning-in-large-classrooms.png",
       "description": "slide deck from our play-based learning webinar",
@@ -55,6 +65,11 @@
       "quadrants": [
         "people-research"
       ],
+      "quadrantRelIds": [
+        "2f9e4ee7-4ba4-812e-a657-c0a7fa1d9255"
+      ],
+      "quadrantKeyFromRel": "people-research",
+      "quadrantKey": "people-research",
       "url": "https://qualtricsxmbpg4ms963.pdx1.qualtrics.com/reports/public/cXVhbHRyaWNzeG1icGc0bXM5NjMtNjgzMDM0NTUwODk2ZTIwMDA4ZWIyZTRhLVVSXzI0ZHR5ZnlZYjZvQjBGYQ==",
       "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/live-dashboard.png",
       "description": "live dashboard tracking learning outcomes and engagement metrics",
@@ -78,6 +93,11 @@
       "quadrants": [
         "product-research"
       ],
+      "quadrantRelIds": [
+        "2f9e4ee7-4ba4-8189-b753-ef2b08d946d2"
+      ],
+      "quadrantKeyFromRel": "product-research",
+      "quadrantKey": "product-research",
       "url": "",
       "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/udl-compliance-audit.png",
       "description": "PDF template for conducting Universal Design for Learning audits",
@@ -101,6 +121,11 @@
       "quadrants": [
         "people-design"
       ],
+      "quadrantRelIds": [
+        "2f9e4ee7-4ba4-81f6-acc9-ceb1dfd3f4b9"
+      ],
+      "quadrantKeyFromRel": "people-design",
+      "quadrantKey": "people-design",
       "url": "https://www.youtube.com/watch?v=f2PZ-95I59Q",
       "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/desiging-cross-cultural-business-education.png",
       "description": "recorded faculty development webinar",
@@ -123,6 +148,11 @@
       "quadrants": [
         "product-design"
       ],
+      "quadrantRelIds": [
+        "2f9e4ee7-4ba4-8113-8dcc-e1d2334268f0"
+      ],
+      "quadrantKeyFromRel": "product-design",
+      "quadrantKey": "product-design",
       "url": "https://www.figma.com/proto/6FFBbtwu3bglPZA2HKyfDv/holistic-skills-framework?page-id=0%3A1&node-id=104-9023&viewport=1595%2C-428%2C0.07&t=3kHjNyFDTPp9c5LQ-1&scaling=contain&content-scaling=fixed&starting-point-node-id=2%3A1375",
       "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/holistic-skills-framework.png",
       "description": "an interactive learning experience of a skills framework",
@@ -146,6 +176,11 @@
       "quadrants": [
         "people-design"
       ],
+      "quadrantRelIds": [
+        "2f9e4ee7-4ba4-81f6-acc9-ceb1dfd3f4b9"
+      ],
+      "quadrantKeyFromRel": "people-design",
+      "quadrantKey": "people-design",
       "url": "https://d30mzt1bxg5llt.cloudfront.net/public/uploads/PDFs/PRME_October2025_EI_Slides.pdf",
       "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/strengthening-emotional-intelligence.png",
       "description": "session deck covering emotional awareness, regulation strategies, and practical reflection prompts for teams",
@@ -168,6 +203,11 @@
       "quadrants": [
         "people-design"
       ],
+      "quadrantRelIds": [
+        "2f9e4ee7-4ba4-81f6-acc9-ceb1dfd3f4b9"
+      ],
+      "quadrantKeyFromRel": "people-design",
+      "quadrantKey": "people-design",
       "url": "https://windedvertigo.com/vertigo-vault/",
       "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/vertigo-vault.png",
       "description": "this gallery of playful activities provides learning opportunities in a variety of different contexts",
@@ -191,6 +231,11 @@
       "quadrants": [
         "product-design"
       ],
+      "quadrantRelIds": [
+        "2f9e4ee7-4ba4-8113-8dcc-e1d2334268f0"
+      ],
+      "quadrantKeyFromRel": "product-design",
+      "quadrantKey": "product-design",
       "url": "https://windedvertigo.com/portfolio/assets/mindshift-missions/index.html",
       "thumbnailUrl": "",
       "description": "an inquiry-driven learning game where players navigate complex scenarios, make critical decisions, and explore how questioning transforms challenges into opportunities",
