@@ -44,7 +44,6 @@ module.exports = {
     portfolioAssets: {
       name: 'Name',
       assetType: 'Asset Type',
-      quadrants: 'Quadrants',
       quadrantRel: 'Package Builder - Quadrants',
       url: ['URL', 'userDefined:URL'],
       thumbnailUrl: 'Thumbnail URL',

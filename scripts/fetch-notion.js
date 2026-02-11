@@ -329,7 +329,6 @@ async function fetchPortfolioAssets() {
 
   const assets = [];
   let skipped = 0;
-  let relHydrated = 0;
 
   for (const page of response.results) {
     if (!validatePage(page, required, 'Portfolio Assets')) {
@@ -339,35 +338,22 @@ async function fetchPortfolioAssets() {
 
     const props = page.properties;
 
-    // Legacy multi_select — always preserved for backward compatibility
-    const quadrantsMultiSelect = getMultiSelectValue(props[propMap.quadrants]);
-
-    // New relation field
+    // Quadrant from relation (sole source of truth)
     const quadrantRelIds = getRelationIds(props[propMap.quadrantRel]);
     const quadrantKeysFromRel = await hydrateQuadrantRel(quadrantRelIds);
-    const quadrantKeyFromRel = quadrantKeysFromRel.length > 0 ? quadrantKeysFromRel[0] : '';
+    const quadrantKey = quadrantKeysFromRel.length > 0 ? quadrantKeysFromRel[0] : '';
 
-    if (quadrantKeyFromRel) relHydrated++;
-
-    // Validation: warn if neither source has data
     const assetName = getTitleValue(props[propMap.name]);
-    if (quadrantsMultiSelect.length === 0 && !quadrantKeyFromRel) {
-      console.warn('  Warning: "' + assetName + '" has no quadrant from multi_select or relation');
-    }
-    // Validation: warn if relation key doesn't match multi_select
-    if (quadrantKeyFromRel && quadrantsMultiSelect.length > 0 && !quadrantsMultiSelect.includes(quadrantKeyFromRel)) {
-      console.warn('  Warning: "' + assetName + '" relation key "' + quadrantKeyFromRel + '" not in multi_select ' + JSON.stringify(quadrantsMultiSelect));
+    if (!quadrantKey) {
+      console.warn('  Warning: "' + assetName + '" has no quadrant relation set');
     }
 
     assets.push({
       id: page.id,
       name: assetName,
       assetType: getSelectValue(props[propMap.assetType]),
-      // Relation wins when populated; falls back to legacy multi_select
-      quadrants: quadrantKeyFromRel ? [quadrantKeyFromRel] : quadrantsMultiSelect,
-      quadrantRelIds: quadrantRelIds,
-      quadrantKeyFromRel: quadrantKeyFromRel,
-      quadrantKey: quadrantKeyFromRel || (quadrantsMultiSelect.length > 0 ? quadrantsMultiSelect[0] : ''),
+      quadrants: quadrantKey ? [quadrantKey] : [],
+      quadrantKey: quadrantKey,
       url: getUrlWithFallback(props, propMap.url),
       thumbnailUrl: getUrlValue(props[propMap.thumbnailUrl]),
       description: getTextValue(props[propMap.description]),
@@ -383,7 +369,7 @@ async function fetchPortfolioAssets() {
     });
   }
 
-  console.log('  OK Portfolio Assets: ' + assets.length + ' loaded, ' + skipped + ' skipped, ' + relHydrated + ' with relation quadrant');
+  console.log('  OK Portfolio Assets: ' + assets.length + ' loaded, ' + skipped + ' skipped');
   return assets;
 }
 
