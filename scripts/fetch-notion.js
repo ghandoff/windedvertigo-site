@@ -363,12 +363,10 @@ async function fetchPortfolioAssets() {
       id: page.id,
       name: assetName,
       assetType: getSelectValue(props[propMap.assetType]),
-      // Legacy field — kept intact, always sourced from multi_select
-      quadrants: quadrantsMultiSelect,
-      // New relation-derived fields
+      // Relation wins when populated; falls back to legacy multi_select
+      quadrants: quadrantKeyFromRel ? [quadrantKeyFromRel] : quadrantsMultiSelect,
       quadrantRelIds: quadrantRelIds,
       quadrantKeyFromRel: quadrantKeyFromRel,
-      // Convenience: single canonical key (relation wins if populated)
       quadrantKey: quadrantKeyFromRel || (quadrantsMultiSelect.length > 0 ? quadrantsMultiSelect[0] : ''),
       url: getUrlWithFallback(props, propMap.url),
       thumbnailUrl: getUrlValue(props[propMap.thumbnailUrl]),
