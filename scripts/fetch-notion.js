@@ -104,6 +104,12 @@ function getNumberValue(prop) {
   return null;
 }
 
+function getRelationIds(prop) {
+  if (!prop) return [];
+  if (prop.type === 'relation') return prop.relation.map(r => r.id);
+  return [];
+}
+
 // Extract first file URL from a Files & media property
 function getFilesValue(prop) {
   if (!prop) return '';
@@ -131,6 +137,40 @@ function getIconValue(prop) {
     return getTextValue(prop);
   }
   return '';
+}
+
+// ============================================
+// QUADRANT RELATION HYDRATION (cached)
+// ============================================
+const VALID_QUADRANT_KEYS = ['people-design', 'people-research', 'product-design', 'product-research'];
+const quadrantRelCache = {};  // page_id → quadrantKey string
+
+async function hydrateQuadrantRel(pageIds) {
+  const results = [];
+  for (const id of pageIds) {
+    if (quadrantRelCache[id] !== undefined) {
+      results.push(quadrantRelCache[id]);
+      continue;
+    }
+    try {
+      const page = await withRetry(
+        () => notion.pages.retrieve({ page_id: id }),
+        'hydrateQuadrantRel:' + id
+      );
+      const key = getSelectValue(page.properties['Quadrant Key']);
+      if (key && VALID_QUADRANT_KEYS.includes(key)) {
+        quadrantRelCache[id] = key;
+        results.push(key);
+      } else {
+        console.warn('  Warning: Quadrant relation page ' + id + ' has unexpected key "' + key + '", ignoring');
+        quadrantRelCache[id] = '';
+      }
+    } catch (err) {
+      console.warn('  Warning: Could not hydrate quadrant relation ' + id + ': ' + err.message);
+      quadrantRelCache[id] = '';
+    }
+  }
+  return results.filter(k => k !== '');
 }
 
 // ============================================
@@ -289,6 +329,7 @@ async function fetchPortfolioAssets() {
 
   const assets = [];
   let skipped = 0;
+  let relHydrated = 0;
 
   for (const page of response.results) {
     if (!validatePage(page, required, 'Portfolio Assets')) {
@@ -297,11 +338,38 @@ async function fetchPortfolioAssets() {
     }
 
     const props = page.properties;
+
+    // Legacy multi_select — always preserved for backward compatibility
+    const quadrantsMultiSelect = getMultiSelectValue(props[propMap.quadrants]);
+
+    // New relation field
+    const quadrantRelIds = getRelationIds(props[propMap.quadrantRel]);
+    const quadrantKeysFromRel = await hydrateQuadrantRel(quadrantRelIds);
+    const quadrantKeyFromRel = quadrantKeysFromRel.length > 0 ? quadrantKeysFromRel[0] : '';
+
+    if (quadrantKeyFromRel) relHydrated++;
+
+    // Validation: warn if neither source has data
+    const assetName = getTitleValue(props[propMap.name]);
+    if (quadrantsMultiSelect.length === 0 && !quadrantKeyFromRel) {
+      console.warn('  Warning: "' + assetName + '" has no quadrant from multi_select or relation');
+    }
+    // Validation: warn if relation key doesn't match multi_select
+    if (quadrantKeyFromRel && quadrantsMultiSelect.length > 0 && !quadrantsMultiSelect.includes(quadrantKeyFromRel)) {
+      console.warn('  Warning: "' + assetName + '" relation key "' + quadrantKeyFromRel + '" not in multi_select ' + JSON.stringify(quadrantsMultiSelect));
+    }
+
     assets.push({
       id: page.id,
-      name: getTitleValue(props[propMap.name]),
+      name: assetName,
       assetType: getSelectValue(props[propMap.assetType]),
-      quadrants: getMultiSelectValue(props[propMap.quadrants]),
+      // Legacy field — kept intact, always sourced from multi_select
+      quadrants: quadrantsMultiSelect,
+      // New relation-derived fields
+      quadrantRelIds: quadrantRelIds,
+      quadrantKeyFromRel: quadrantKeyFromRel,
+      // Convenience: single canonical key (relation wins if populated)
+      quadrantKey: quadrantKeyFromRel || (quadrantsMultiSelect.length > 0 ? quadrantsMultiSelect[0] : ''),
       url: getUrlWithFallback(props, propMap.url),
       thumbnailUrl: getUrlValue(props[propMap.thumbnailUrl]),
       description: getTextValue(props[propMap.description]),
@@ -317,7 +385,7 @@ async function fetchPortfolioAssets() {
     });
   }
 
-  console.log('  OK Portfolio Assets: ' + assets.length + ' loaded, ' + skipped + ' skipped');
+  console.log('  OK Portfolio Assets: ' + assets.length + ' loaded, ' + skipped + ' skipped, ' + relHydrated + ' with relation quadrant');
   return assets;
 }
 
