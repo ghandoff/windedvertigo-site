@@ -45,9 +45,6 @@ jobs:
           NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
         run: node scripts/fetch-notion.js
 
-      - name: Diff legacy vs BD portfolio assets
-        run: node scripts/diff-portfolio-assets.js
-
       - name: Commit and push if changed
         run: |
           git config user.name "GitHub Actions Bot"

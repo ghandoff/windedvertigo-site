@@ -319,77 +319,18 @@ async function fetchExamples() {
   return byQuadrant;
 }
 
-async function fetchPortfolioAssets() {
-  const propMap = config.properties.portfolioAssets;
-  const required = config.required.portfolioAssets;
-
-  const response = await withRetry(
-    () => notion.databases.query({
-      database_id: config.databases.portfolioAssets,
-      sorts: [{ property: propMap.order, direction: 'ascending' }],
-    }),
-    'fetchPortfolioAssets'
-  );
-
-  const assets = [];
-  let skipped = 0;
-
-  for (const page of response.results) {
-    if (!validatePage(page, required, 'Portfolio Assets')) {
-      skipped++;
-      continue;
-    }
-
-    const props = page.properties;
-
-    // Quadrant from relation (sole source of truth)
-    const quadrantRelIds = getRelationIds(props[propMap.quadrantRel]);
-    const quadrantKeysFromRel = await hydrateQuadrantRel(quadrantRelIds);
-    const quadrantKey = quadrantKeysFromRel.length > 0 ? quadrantKeysFromRel[0] : '';
-
-    const assetName = getTitleValue(props[propMap.name]);
-    if (!quadrantKey) {
-      console.warn('  Warning: "' + assetName + '" has no quadrant relation set');
-    }
-
-    assets.push({
-      id: page.id,
-      name: assetName,
-      slug: toSlug(assetName),
-      assetType: getSelectValue(props[propMap.assetType]),
-      quadrants: quadrantKey ? [quadrantKey] : [],
-      quadrantKey: quadrantKey,
-      url: getUrlWithFallback(props, propMap.url),
-      thumbnailUrl: getUrlValue(props[propMap.thumbnailUrl]),
-      description: getTextValue(props[propMap.description]),
-      tags: getMultiSelectValue(props[propMap.tags]),
-      featured: getCheckboxValue(props[propMap.featured]),
-      showInPackageBuilder: getCheckboxValue(props[propMap.showInPackageBuilder]),
-      showInPortfolio: getCheckboxValue(props[propMap.showInPortfolio]),
-      passwordProtected: getCheckboxValue(props[propMap.passwordProtected]),
-      password: getTextValue(props[propMap.password]),
-      client: getTextValue(props[propMap.client]),
-      order: getNumberValue(props[propMap.order]),
-      icon: getIconValue(props[propMap.icon]),
-    });
-  }
-
-  console.log('  OK Portfolio Assets: ' + assets.length + ' loaded, ' + skipped + ' skipped');
-  return assets;
-}
-
 // ============================================
-// BD ASSETS (shadow export – staged cutover)
+// PORTFOLIO ASSETS (from BD multi-database)
 //
 // The BD assets live inside a Notion multi-database.
 // Individual data sources in a multi-database are NOT
 // queryable via databases.query(), so we use notion.search()
 // and filter by parent database ID + BD-specific properties.
 // ============================================
-async function fetchBDAssets() {
-  const propMap = config.properties.bdAssets;
-  const required = config.required.bdAssets;
-  const parentDbId = config.databases.bdAssets;
+async function fetchPortfolioAssets() {
+  const propMap = config.properties.portfolioAssets;
+  const required = config.required.portfolioAssets;
+  const parentDbId = config.databases.portfolioAssets;
 
   // Notion search returns dashed UUIDs; normalise for comparison
   const parentDashed = parentDbId.replace(
@@ -426,7 +367,7 @@ async function fetchBDAssets() {
     startCursor = response.has_more ? response.next_cursor : undefined;
   } while (startCursor && round < MAX_ROUNDS);
 
-  console.log('  BD search: ' + round + ' round(s), ' + allPages.length + ' pages in parent DB');
+  console.log('  Portfolio search: ' + round + ' round(s), ' + allPages.length + ' pages in parent DB');
 
   // Filter to BD-asset pages (have 'asset' title property)
   // and apply Show in Portfolio / Show in Package Builder filter
@@ -465,7 +406,7 @@ async function fetchBDAssets() {
     const explicitSlug = getTextValue(props[propMap.slug]);
 
     if (!quadrantKey) {
-      console.warn('  Warning: BD asset "' + assetName + '" has no quadrant relation set');
+      console.warn('  Warning: "' + assetName + '" has no quadrant relation set');
     }
 
     assets.push({
@@ -493,7 +434,7 @@ async function fetchBDAssets() {
   // Sort by order ascending (search API does not support sorting)
   assets.sort((a, b) => (a.order ?? Infinity) - (b.order ?? Infinity));
 
-  console.log('  OK BD Assets: ' + assets.length + ' loaded, ' + filtered + ' filtered, ' + skipped + ' skipped');
+  console.log('  OK Portfolio Assets: ' + assets.length + ' loaded, ' + filtered + ' filtered, ' + skipped + ' skipped');
   return assets;
 }
 
@@ -645,17 +586,10 @@ async function main() {
   console.log('Fetching content from Notion...');
 
   try {
-    // BD Assets fetch is non-fatal: if it fails the rest of the sync still completes
-    const safeFetchBDAssets = fetchBDAssets().catch(err => {
-      console.warn('WARNING: BD Assets fetch failed (non-fatal): ' + err.message);
-      return [];
-    });
-
-    const [quadrants, outcomes, portfolioAssets, bdAssets, vaultActivities] = await Promise.all([
+    const [quadrants, outcomes, portfolioAssets, vaultActivities] = await Promise.all([
       fetchQuadrants(),
       fetchOutcomes(),
       fetchPortfolioAssets(),
-      safeFetchBDAssets,
       fetchVertigoVault(),
     ]);
 
@@ -666,7 +600,7 @@ async function main() {
       console.warn('WARNING: Missing quadrants: ' + missingQuadrants.join(', '));
     }
 
-    // Generate examples from portfolio assets (filtered by showInPackageBuilder)
+    // Generate examples from BD assets (filtered by showInPackageBuilder)
     // Use quadrant names directly - they should match the keys in the Quadrants database
     const examplesFromAssets = {};
     for (const asset of portfolioAssets) {
@@ -687,7 +621,7 @@ async function main() {
     }
 
     const packageBuilderExamples = Object.keys(examplesFromAssets).reduce((acc, key) => acc + examplesFromAssets[key].length, 0);
-    console.log('  OK Examples (from Portfolio Assets): ' + packageBuilderExamples + ' items with showInPackageBuilder=true');
+    console.log('  OK Examples (from BD Assets): ' + packageBuilderExamples + ' items with showInPackageBuilder=true');
 
     // Assemble packs
     const packs = {};
@@ -702,7 +636,7 @@ async function main() {
         console.warn('  Warning: ' + key + ' has no outcomes');
       }
       if (!examplesFromAssets[key] || examplesFromAssets[key].length === 0) {
-        console.warn('  Warning: ' + key + ' has no examples (check showInPackageBuilder in Portfolio Assets)');
+        console.warn('  Warning: ' + key + ' has no examples (check showInPackageBuilder in BD Assets)');
       }
     }
 
@@ -717,24 +651,14 @@ async function main() {
     const outputPath = path.join(__dirname, '..', 'data', 'package-builder-content.json');
     fs.writeFileSync(outputPath, JSON.stringify(content, null, 2));
 
-    // Write Portfolio Assets
+    // Write Portfolio Assets (sourced from BD Assets database)
     const portfolioContent = {
       lastUpdated: new Date().toISOString(),
-      note: 'Auto-generated from Notion. Do not edit directly.',
+      note: 'Auto-generated from Notion BD Assets. Do not edit directly.',
       assets: portfolioAssets,
     };
     const portfolioPath = path.join(__dirname, '..', 'data', 'portfolio-assets.json');
     fs.writeFileSync(portfolioPath, JSON.stringify(portfolioContent, null, 2));
-
-    // Write BD Assets (shadow export for staged cutover)
-    const bdContent = {
-      lastUpdated: new Date().toISOString(),
-      note: 'Auto-generated from Notion BD Assets. Do not edit directly.',
-      source: 'bdAssets',
-      assets: bdAssets,
-    };
-    const bdPath = path.join(__dirname, '..', 'data', 'portfolio-assets.bd.json');
-    fs.writeFileSync(bdPath, JSON.stringify(bdContent, null, 2));
 
     // Write Vertigo Vault
     const vaultContent = {
@@ -749,7 +673,6 @@ async function main() {
     console.log('Success!');
     console.log('  Package Builder: ' + Object.keys(packs).length + ' packs → ' + outputPath);
     console.log('  Portfolio: ' + portfolioAssets.length + ' assets → ' + portfolioPath);
-    console.log('  BD Assets: ' + bdAssets.length + ' assets → ' + bdPath);
     console.log('  Vertigo Vault: ' + vaultActivities.length + ' activities → ' + vaultPath);
 
   } catch (err) {

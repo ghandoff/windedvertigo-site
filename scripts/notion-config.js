@@ -11,8 +11,7 @@ module.exports = {
     quadrants: '1c171d25825b418caf94805dc1568352',
     outcomes: 'b8ff41d2d4ef41559e01c2d952a3a1da',
     examples: 'de0bc6fe83d54d71a91b31d8f1eb73bd',
-    portfolioAssets: '8c0ad5be572c480fb403906c7af1b580',
-    bdAssets: '5e27b792adbb4a958779900fb59dd631',
+    portfolioAssets: '5e27b792adbb4a958779900fb59dd631',  // BD multi-database (parent)
     vertigoVault: '223e4ee74ba4805f8c92cda6e2b8ba00',
   },
 
@@ -43,24 +42,7 @@ module.exports = {
       order: 'Order',
     },
     portfolioAssets: {
-      name: 'Name',
-      assetType: 'Asset Type',
-      quadrantRel: 'Package Builder - Quadrants',
-      url: ['URL', 'userDefined:URL'],
-      thumbnailUrl: 'Thumbnail URL',
-      description: 'Description',
-      tags: 'Tags',
-      featured: 'Featured',
-      showInPackageBuilder: 'Show in Package Builder',
-      showInPortfolio: 'Show in Portfolio',
-      passwordProtected: 'Password Protected',
-      password: 'Password',
-      client: 'Client',
-      order: 'Order',
-      icon: 'Icon',
-    },
-    bdAssets: {
-      name: 'asset',               // title property
+      name: 'asset',               // title property in BD assets
       slug: 'Slug',
       assetType: 'Website Asset Type',
       quadrantRel: 'Package Builder - Quadrants',
@@ -93,8 +75,7 @@ module.exports = {
     quadrants: ['Quadrant Key', 'Title'],
     outcomes: ['Quadrant', 'Name'],
     examples: ['Quadrant', 'Name'],
-    portfolioAssets: ['Name', 'Asset Type'],
-    bdAssets: ['asset', 'Website Asset Type'],
+    portfolioAssets: ['asset', 'Website Asset Type'],
     vertigoVault: ['name'],
   },
 
