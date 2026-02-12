@@ -681,11 +681,21 @@
     };
 
     // ========================================
+    // DATA SOURCE TOGGLE
+    // Flip to 1 to load from BD assets shadow export.
+    // Flip back to 0 for instant rollback.
+    // ========================================
+    const USE_BD_PORTFOLIO_ASSETS = 0;
+
+    // ========================================
     // LOAD DATA
     // ========================================
     async function loadPortfolioData() {
       try {
-        const response = await fetch('../data/portfolio-assets.json');
+        const dataFile = USE_BD_PORTFOLIO_ASSETS
+          ? '../data/portfolio-assets.bd.json'
+          : '../data/portfolio-assets.json';
+        const response = await fetch(dataFile);
         if (!response.ok) throw new Error('Failed to load');
         const data = await response.json();
         // Filter to only show assets marked for portfolio display

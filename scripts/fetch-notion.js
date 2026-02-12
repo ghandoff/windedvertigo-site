@@ -355,6 +355,7 @@ async function fetchPortfolioAssets() {
     assets.push({
       id: page.id,
       name: assetName,
+      slug: toSlug(assetName),
       assetType: getSelectValue(props[propMap.assetType]),
       quadrants: quadrantKey ? [quadrantKey] : [],
       quadrantKey: quadrantKey,
@@ -374,6 +375,76 @@ async function fetchPortfolioAssets() {
   }
 
   console.log('  OK Portfolio Assets: ' + assets.length + ' loaded, ' + skipped + ' skipped');
+  return assets;
+}
+
+// ============================================
+// BD ASSETS (shadow export – staged cutover)
+// ============================================
+async function fetchBDAssets() {
+  const propMap = config.properties.bdAssets;
+  const required = config.required.bdAssets;
+
+  const response = await withRetry(
+    () => notion.databases.query({
+      database_id: config.databases.bdAssets,
+      filter: {
+        or: [
+          { property: propMap.showInPortfolio, checkbox: { equals: true } },
+          { property: propMap.showInPackageBuilder, checkbox: { equals: true } },
+        ],
+      },
+      sorts: [{ property: propMap.order, direction: 'ascending' }],
+    }),
+    'fetchBDAssets'
+  );
+
+  const assets = [];
+  let skipped = 0;
+
+  for (const page of response.results) {
+    if (!validatePage(page, required, 'BD Assets')) {
+      skipped++;
+      continue;
+    }
+
+    const props = page.properties;
+
+    // Quadrant from relation (same hydration as portfolio assets)
+    const quadrantRelIds = getRelationIds(props[propMap.quadrantRel]);
+    const quadrantKeysFromRel = await hydrateQuadrantRel(quadrantRelIds);
+    const quadrantKey = quadrantKeysFromRel.length > 0 ? quadrantKeysFromRel[0] : '';
+
+    const assetName = getTitleValue(props[propMap.name]);
+    const explicitSlug = getTextValue(props[propMap.slug]);
+
+    if (!quadrantKey) {
+      console.warn('  Warning: BD asset "' + assetName + '" has no quadrant relation set');
+    }
+
+    assets.push({
+      id: page.id,
+      name: assetName,
+      slug: explicitSlug || toSlug(assetName),
+      assetType: getSelectValue(props[propMap.assetType]),
+      quadrants: quadrantKey ? [quadrantKey] : [],
+      quadrantKey: quadrantKey,
+      url: getUrlWithFallback(props, propMap.url),
+      thumbnailUrl: getUrlValue(props[propMap.thumbnailUrl]),
+      description: getTextValue(props[propMap.description]),
+      tags: getMultiSelectValue(props[propMap.tags]),
+      featured: getCheckboxValue(props[propMap.featured]),
+      showInPackageBuilder: getCheckboxValue(props[propMap.showInPackageBuilder]),
+      showInPortfolio: getCheckboxValue(props[propMap.showInPortfolio]),
+      passwordProtected: getCheckboxValue(props[propMap.passwordProtected]),
+      password: getTextValue(props[propMap.password]),
+      client: getTextValue(props[propMap.client]),
+      order: getNumberValue(props[propMap.order]),
+      icon: getIconValue(props[propMap.icon]),
+    });
+  }
+
+  console.log('  OK BD Assets: ' + assets.length + ' loaded, ' + skipped + ' skipped');
   return assets;
 }
 
@@ -525,10 +596,11 @@ async function main() {
   console.log('Fetching content from Notion...');
 
   try {
-    const [quadrants, outcomes, portfolioAssets, vaultActivities] = await Promise.all([
+    const [quadrants, outcomes, portfolioAssets, bdAssets, vaultActivities] = await Promise.all([
       fetchQuadrants(),
       fetchOutcomes(),
       fetchPortfolioAssets(),
+      fetchBDAssets(),
       fetchVertigoVault(),
     ]);
 
@@ -599,6 +671,16 @@ async function main() {
     const portfolioPath = path.join(__dirname, '..', 'data', 'portfolio-assets.json');
     fs.writeFileSync(portfolioPath, JSON.stringify(portfolioContent, null, 2));
 
+    // Write BD Assets (shadow export for staged cutover)
+    const bdContent = {
+      lastUpdated: new Date().toISOString(),
+      note: 'Auto-generated from Notion BD Assets. Do not edit directly.',
+      source: 'bdAssets',
+      assets: bdAssets,
+    };
+    const bdPath = path.join(__dirname, '..', 'data', 'portfolio-assets.bd.json');
+    fs.writeFileSync(bdPath, JSON.stringify(bdContent, null, 2));
+
     // Write Vertigo Vault
     const vaultContent = {
       lastUpdated: new Date().toISOString(),
@@ -612,6 +694,7 @@ async function main() {
     console.log('Success!');
     console.log('  Package Builder: ' + Object.keys(packs).length + ' packs → ' + outputPath);
     console.log('  Portfolio: ' + portfolioAssets.length + ' assets → ' + portfolioPath);
+    console.log('  BD Assets: ' + bdAssets.length + ' assets → ' + bdPath);
     console.log('  Vertigo Vault: ' + vaultActivities.length + ' activities → ' + vaultPath);
 
   } catch (err) {
