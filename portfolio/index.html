@@ -654,7 +654,8 @@
     // ========================================
     // PORTFOLIO - STATE & DATA
     // ========================================
-    let ASSETS = [];
+    let ASSETS = [];       // Portfolio-visible assets (for grid display)
+    let ALL_ASSETS = [];   // ALL assets (for deep-link lookup from package builder)
     let currentFilter = 'all';
     let unlockedAssets = new Set();
 
@@ -689,9 +690,9 @@
         if (!response.ok) throw new Error('Failed to load');
         const data = await response.json();
         // Filter to only show assets marked for portfolio display
-        const allAssets = data.assets || [];
-        ASSETS = allAssets.filter(a => a.showInPortfolio !== false);
-        console.log('Loaded', ASSETS.length, 'portfolio assets (of', allAssets.length, 'total)');
+        ALL_ASSETS = data.assets || [];
+        ASSETS = ALL_ASSETS.filter(a => a.showInPortfolio !== false);
+        console.log('Loaded', ASSETS.length, 'portfolio assets (of', ALL_ASSETS.length, 'total)');
         renderFilters();
         renderPortfolio();
         handleDeepLink();
@@ -849,8 +850,9 @@
       const iconValue = asset.icon || TYPE_ICONS[asset.assetType] || '📁';
       const isIconUrl = iconValue.startsWith('http');
 
-      // Find related assets (same quadrants or tags)
-      const related = ASSETS.filter(a =>
+      // Find related assets (same quadrants or tags) — search all assets
+      // so that package-builder-only items can still show suggestions
+      const related = ALL_ASSETS.filter(a =>
         a.id !== asset.id && (
           asset.quadrants?.some(q => a.quadrants?.includes(q)) ||
           asset.tags?.some(t => a.tags?.includes(t))
@@ -891,7 +893,7 @@
               <p class="related-label">related work</p>
               <div class="related-grid">
                 ${related.map(r => `
-                  <div class="related-card" onclick="openModal(ASSETS.find(a => a.id === '${r.id}'))">
+                  <div class="related-card" onclick="openModal(ALL_ASSETS.find(a => a.id === '${r.id}'))">
                     <p class="related-card-title">${r.name}</p>
                     <p class="related-card-type">${r.assetType}</p>
                   </div>
@@ -939,7 +941,7 @@
     }
 
     function checkPassword(assetId) {
-      const asset = ASSETS.find(a => a.id === assetId);
+      const asset = ALL_ASSETS.find(a => a.id === assetId);
       const input = document.getElementById('password-input');
       const error = document.getElementById('password-error');
 
@@ -977,7 +979,9 @@
       const params = new URLSearchParams(window.location.search);
       const assetId = params.get('asset');
       if (assetId) {
-        const asset = ASSETS.find(a => a.id === assetId);
+        // Search ALL assets (not just portfolio-visible) so package builder
+        // deep links work even for assets with showInPortfolio=false
+        const asset = ALL_ASSETS.find(a => a.id === assetId);
         if (asset) openModal(asset);
       }
     }
