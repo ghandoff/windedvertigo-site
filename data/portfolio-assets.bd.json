@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-12T01:38:03.227Z",
+  "lastUpdated": "2026-02-12T01:45:24.566Z",
   "note": "Auto-generated from Notion BD Assets. Do not edit directly.",
   "source": "bdAssets",
   "assets": [
@@ -226,6 +226,28 @@
       "client": "",
       "order": 9,
       "icon": "🧭"
+    },
+    {
+      "id": "2fde4ee7-4ba4-8091-9383-d0c313fb4389",
+      "name": "brand guidelines ",
+      "slug": "brand-guidelines",
+      "assetType": "pdf",
+      "quadrants": [
+        "product-design"
+      ],
+      "quadrantKey": "product-design",
+      "url": "https://drive.google.com/file/d/1_BI3D5YRq9h0inV_uzQ2fXnThRqOOc48/view?usp=sharing",
+      "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/brand-guidelines.png",
+      "description": "winded.vertigo aligns messaging with collaborators via its brand guidelines",
+      "tags": [],
+      "featured": false,
+      "showInPackageBuilder": false,
+      "showInPortfolio": true,
+      "passwordProtected": false,
+      "password": "",
+      "client": "",
+      "order": null,
+      "icon": ""
     }
   ]
 }
