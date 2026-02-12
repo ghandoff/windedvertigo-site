@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-12T07:08:57.117Z",
+  "lastUpdated": "2026-02-12T07:13:39.015Z",
   "note": "Auto-generated from Notion BD Assets. Do not edit directly.",
   "assets": [
     {
@@ -79,7 +79,7 @@
     },
     {
       "id": "6c432eea-37f2-4140-b98b-0558b05bd66f",
-      "name": "designing cross-cultural business education",
+      "name": "cross-cultural business education",
       "slug": "designing-cross-cultural-business-education",
       "assetType": "video",
       "quadrants": [
@@ -128,7 +128,7 @@
     },
     {
       "id": "fd3677e4-d84f-42ae-b14f-5afab1c33820",
-      "name": "strengthening emotional intelligence session",
+      "name": "strengthening emotional intelligence",
       "slug": "strengthening-emotional-intelligence-session",
       "assetType": "slides",
       "quadrants": [
@@ -203,9 +203,9 @@
     },
     {
       "id": "305e4ee7-4ba4-808d-8fa2-f17a55361a72",
-      "name": "no pebble tossed: the first stir of winded.vertigo",
+      "name": "the first stir of winded.vertigo",
       "slug": "no-pebble-tossed",
-      "assetType": "other",
+      "assetType": "blog",
       "quadrants": [
         "people-design"
       ],
@@ -229,7 +229,7 @@
       "id": "305e4ee7-4ba4-804b-8979-e8f52ea4e9ba",
       "name": "when the ground tilts",
       "slug": "when-the-ground-tilts",
-      "assetType": "other",
+      "assetType": "blog",
       "quadrants": [
         "people-design"
       ],
