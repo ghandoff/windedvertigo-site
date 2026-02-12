@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-12T02:13:54.664Z",
+  "lastUpdated": "2026-02-12T02:22:03.718Z",
   "note": "Auto-generated from Notion BD Assets. Do not edit directly.",
   "source": "bdAssets",
   "assets": [
@@ -69,7 +69,7 @@
         "tool",
         "report"
       ],
-      "featured": true,
+      "featured": false,
       "showInPackageBuilder": true,
       "showInPortfolio": true,
       "passwordProtected": false,
@@ -143,7 +143,7 @@
         "template",
         "tool"
       ],
-      "featured": true,
+      "featured": false,
       "showInPackageBuilder": true,
       "showInPortfolio": true,
       "passwordProtected": false,
@@ -240,7 +240,7 @@
       "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/brand-guidelines.png",
       "description": "winded.vertigo aligns messaging with collaborators via its brand guidelines",
       "tags": [],
-      "featured": false,
+      "featured": true,
       "showInPackageBuilder": false,
       "showInPortfolio": true,
       "passwordProtected": false,
