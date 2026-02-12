@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-12T05:39:39.823Z",
+  "lastUpdated": "2026-02-12T06:20:04.198Z",
   "note": "Auto-generated from Notion BD Assets. Do not edit directly.",
   "assets": [
     {
@@ -200,6 +200,30 @@
       "client": "",
       "order": 9,
       "icon": "🧭"
+    },
+    {
+      "id": "2fde4ee7-4ba4-8094-ac3c-cde008e6c797",
+      "name": "winded.vertigo introduction slide deck ",
+      "slug": "winded-vertigo-introduction-slide-deck",
+      "assetType": "slides",
+      "quadrants": [
+        "people-design"
+      ],
+      "quadrantKey": "people-design",
+      "url": "https://docs.google.com/presentation/d/1X3ifQmRX_QdSxwvA3fuj-3ZsOnGONcTOS0RDkeZqE1o/edit?usp=drive_link",
+      "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/w.v-welcome-deck.png",
+      "description": "intro slide deck for winded.vertigo: overview, examples, and starting points",
+      "tags": [
+        "template"
+      ],
+      "featured": true,
+      "showInPackageBuilder": false,
+      "showInPortfolio": true,
+      "passwordProtected": false,
+      "password": "",
+      "client": "",
+      "order": null,
+      "icon": ""
     },
     {
       "id": "2fde4ee7-4ba4-8091-9383-d0c313fb4389",
