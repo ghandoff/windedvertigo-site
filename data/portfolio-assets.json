@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-12T06:55:18.901Z",
+  "lastUpdated": "2026-02-12T07:04:41.449Z",
   "note": "Auto-generated from Notion BD Assets. Do not edit directly.",
   "assets": [
     {
@@ -199,7 +199,55 @@
       "password": "",
       "client": "",
       "order": 9,
-      "icon": "🧭"
+      "icon": ""
+    },
+    {
+      "id": "305e4ee7-4ba4-808d-8fa2-f17a55361a72",
+      "name": "no pebble tossed: the first stir of winded.vertigo",
+      "slug": "no-pebble-tossed",
+      "assetType": "other",
+      "quadrants": [
+        "people-design"
+      ],
+      "quadrantKey": "people-design",
+      "url": "https://windedvertigo.substack.com/p/no-pebble-tossed-the-first-stir-of",
+      "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/no-pebble-tossed.png",
+      "description": "substack-style “what is winded.vertigo?” explainer post (draft or concept)",
+      "tags": [
+        "case-study"
+      ],
+      "featured": false,
+      "showInPackageBuilder": false,
+      "showInPortfolio": true,
+      "passwordProtected": false,
+      "password": "",
+      "client": "",
+      "order": null,
+      "icon": ""
+    },
+    {
+      "id": "305e4ee7-4ba4-804b-8979-e8f52ea4e9ba",
+      "name": "when the ground tilts",
+      "slug": "when-the-ground-tilts",
+      "assetType": "other",
+      "quadrants": [
+        "people-design"
+      ],
+      "quadrantKey": "people-design",
+      "url": "https://windedvertigo.substack.com/p/when-the-ground-tilts-designing-for",
+      "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/when-the-ground-tilts.png",
+      "description": "substack-style reflection on orientation, perspective shifts, and learning design",
+      "tags": [
+        "case-study"
+      ],
+      "featured": false,
+      "showInPackageBuilder": false,
+      "showInPortfolio": true,
+      "passwordProtected": false,
+      "password": "",
+      "client": "",
+      "order": null,
+      "icon": ""
     },
     {
       "id": "2fde4ee7-4ba4-8094-ac3c-cde008e6c797",
