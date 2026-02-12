@@ -596,11 +596,17 @@ async function main() {
   console.log('Fetching content from Notion...');
 
   try {
+    // BD Assets fetch is non-fatal: if it fails the rest of the sync still completes
+    const safeFetchBDAssets = fetchBDAssets().catch(err => {
+      console.warn('WARNING: BD Assets fetch failed (non-fatal): ' + err.message);
+      return [];
+    });
+
     const [quadrants, outcomes, portfolioAssets, bdAssets, vaultActivities] = await Promise.all([
       fetchQuadrants(),
       fetchOutcomes(),
       fetchPortfolioAssets(),
-      fetchBDAssets(),
+      safeFetchBDAssets,
       fetchVertigoVault(),
     ]);
 

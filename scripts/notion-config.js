@@ -12,7 +12,7 @@ module.exports = {
     outcomes: 'b8ff41d2d4ef41559e01c2d952a3a1da',
     examples: 'de0bc6fe83d54d71a91b31d8f1eb73bd',
     portfolioAssets: '8c0ad5be572c480fb403906c7af1b580',
-    bdAssets: '6e8dbbd90a144342915488fa379b0533',
+    bdAssets: '5e27b792adbb4a958779900fb59dd631',
     vertigoVault: '223e4ee74ba4805f8c92cda6e2b8ba00',
   },
 
