@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-12T04:31:02.932Z",
+  "lastUpdated": "2026-02-12T04:50:45.145Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "packs": {
     "product-design": {
@@ -24,15 +24,7 @@
       ],
       "examples": [
         {
-          "id": "2fbe4ee7-4ba4-814e-9045-d32b96983810",
-          "title": "learning game prototype",
-          "type": "web-app",
-          "icon": "",
-          "url": "https://windedvertigo.com/projects/learning-game",
-          "detail": "interactive prototype demonstrating gamified learning mechanics"
-        },
-        {
-          "id": "2fbe4ee7-4ba4-8135-8dab-c06d761329e7",
+          "id": "97c2fe8c-e141-4383-83a6-a88c6cb62da3",
           "title": "holistic skills framework",
           "type": "figma",
           "icon": "",
@@ -40,7 +32,7 @@
           "detail": "an interactive learning experience of a skills framework"
         },
         {
-          "id": "302e4ee7-4ba4-8140-8bd6-c859d0d78cc3",
+          "id": "76d43051-a6d8-4acd-8e86-bc1ef8921620",
           "title": "MindShift Missions",
           "type": "web-app",
           "icon": "🧭",
@@ -71,7 +63,7 @@
       ],
       "examples": [
         {
-          "id": "2fbe4ee7-4ba4-81e6-930b-ceaf30b3cae2",
+          "id": "de533ce8-b89d-4c22-be04-e6943e3c4850",
           "title": "impact measurement dashboard",
           "type": "dashboard",
           "icon": "",
@@ -102,11 +94,11 @@
       ],
       "examples": [
         {
-          "id": "2fbe4ee7-4ba4-81ea-9b5a-d7a6e2d3a886",
+          "id": "2fe6855e-e2a7-4307-bd90-a6d7691100c4",
           "title": "UDL compliance audit template",
           "type": "pdf",
           "icon": "",
-          "url": "",
+          "url": "https://udlguidelines.cast.org/",
           "detail": "PDF template for conducting Universal Design for Learning audits"
         }
       ]
@@ -133,7 +125,7 @@
       ],
       "examples": [
         {
-          "id": "2fbe4ee7-4ba4-81c9-a3c0-d4b51b1aa5d9",
+          "id": "bec5b20b-3f06-47f4-b671-9ea9e95b979d",
           "title": "webinar slides",
           "type": "slides",
           "icon": "",
@@ -141,7 +133,7 @@
           "detail": "slide deck from our play-based learning webinar"
         },
         {
-          "id": "2fbe4ee7-4ba4-8109-b29b-f97a2bb13182",
+          "id": "6c432eea-37f2-4140-b98b-0558b05bd66f",
           "title": "designing cross-cultural business education",
           "type": "video",
           "icon": "",
@@ -149,7 +141,7 @@
           "detail": "recorded faculty development webinar"
         },
         {
-          "id": "2fee4ee7-4ba4-8007-ab8c-d854d15318dd",
+          "id": "fd3677e4-d84f-42ae-b14f-5afab1c33820",
           "title": "strengthening emotional intelligence session",
           "type": "slides",
           "icon": "",
@@ -157,7 +149,7 @@
           "detail": "session deck covering emotional awareness, regulation strategies, and practical reflection prompts for teams"
         },
         {
-          "id": "2fee4ee7-4ba4-8096-b77e-d784c4e07e9b",
+          "id": "ce698fb8-ef13-4e39-bb8e-67e15fbb73d4",
           "title": "vertigo.vault",
           "type": "notion-db",
           "icon": "",
