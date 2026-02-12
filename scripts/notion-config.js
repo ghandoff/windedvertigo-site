@@ -64,7 +64,7 @@ module.exports = {
       slug: 'Slug',
       assetType: 'Website Asset Type',
       quadrantRel: 'Package Builder - Quadrants',
-      url: 'userDefined:url',
+      url: 'url',                   // Notion MCP shows 'userDefined:url' but REST API uses 'url'
       thumbnailUrl: 'Thumbnail URL',
       description: 'Description',
       tags: 'Tags',
