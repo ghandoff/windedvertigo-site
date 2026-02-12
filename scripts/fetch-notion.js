@@ -380,35 +380,81 @@ async function fetchPortfolioAssets() {
 
 // ============================================
 // BD ASSETS (shadow export – staged cutover)
+//
+// The BD assets live inside a Notion multi-database.
+// Individual data sources in a multi-database are NOT
+// queryable via databases.query(), so we use notion.search()
+// and filter by parent database ID + BD-specific properties.
 // ============================================
 async function fetchBDAssets() {
   const propMap = config.properties.bdAssets;
   const required = config.required.bdAssets;
+  const parentDbId = config.databases.bdAssets;
 
-  const response = await withRetry(
-    () => notion.databases.query({
-      database_id: config.databases.bdAssets,
-      filter: {
-        or: [
-          { property: propMap.showInPortfolio, checkbox: { equals: true } },
-          { property: propMap.showInPackageBuilder, checkbox: { equals: true } },
-        ],
-      },
-      sorts: [{ property: propMap.order, direction: 'ascending' }],
-    }),
-    'fetchBDAssets'
+  // Notion search returns dashed UUIDs; normalise for comparison
+  const parentDashed = parentDbId.replace(
+    /^(.{8})(.{4})(.{4})(.{4})(.{12})$/,
+    '$1-$2-$3-$4-$5'
   );
 
+  // Paginate through workspace search results
+  let allPages = [];
+  let startCursor = undefined;
+  let round = 0;
+  const MAX_ROUNDS = 20; // safety cap
+
+  do {
+    round++;
+    const searchOpts = {
+      filter: { property: 'object', value: 'page' },
+      page_size: 100,
+    };
+    if (startCursor) searchOpts.start_cursor = startCursor;
+
+    const response = await withRetry(
+      () => notion.search(searchOpts),
+      'searchBDAssets:round' + round
+    );
+
+    for (const page of response.results) {
+      const pid = page.parent?.database_id;
+      if (pid === parentDbId || pid === parentDashed) {
+        allPages.push(page);
+      }
+    }
+
+    startCursor = response.has_more ? response.next_cursor : undefined;
+  } while (startCursor && round < MAX_ROUNDS);
+
+  console.log('  BD search: ' + round + ' round(s), ' + allPages.length + ' pages in parent DB');
+
+  // Filter to BD-asset pages (have 'asset' title property)
+  // and apply Show in Portfolio / Show in Package Builder filter
   const assets = [];
   let skipped = 0;
+  let filtered = 0;
 
-  for (const page of response.results) {
+  for (const page of allPages) {
+    const props = page.properties;
+
+    // Only process pages from the BD assets data source
+    // (they have a title property named 'asset')
+    if (!props[propMap.name] || props[propMap.name].type !== 'title') {
+      continue;
+    }
+
+    // Apply checkbox filter (mirror the old databases.query filter)
+    const showInPortfolio = getCheckboxValue(props[propMap.showInPortfolio]);
+    const showInPB = getCheckboxValue(props[propMap.showInPackageBuilder]);
+    if (!showInPortfolio && !showInPB) {
+      filtered++;
+      continue;
+    }
+
     if (!validatePage(page, required, 'BD Assets')) {
       skipped++;
       continue;
     }
-
-    const props = page.properties;
 
     // Quadrant from relation (same hydration as portfolio assets)
     const quadrantRelIds = getRelationIds(props[propMap.quadrantRel]);
@@ -444,7 +490,10 @@ async function fetchBDAssets() {
     });
   }
 
-  console.log('  OK BD Assets: ' + assets.length + ' loaded, ' + skipped + ' skipped');
+  // Sort by order ascending (search API does not support sorting)
+  assets.sort((a, b) => (a.order ?? Infinity) - (b.order ?? Infinity));
+
+  console.log('  OK BD Assets: ' + assets.length + ' loaded, ' + filtered + ' filtered, ' + skipped + ' skipped');
   return assets;
 }
 
