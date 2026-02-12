@@ -12,6 +12,7 @@ module.exports = {
     outcomes: 'b8ff41d2d4ef41559e01c2d952a3a1da',
     examples: 'de0bc6fe83d54d71a91b31d8f1eb73bd',
     portfolioAssets: '8c0ad5be572c480fb403906c7af1b580',
+    bdAssets: '6e8dbbd90a144342915488fa379b0533',
     vertigoVault: '223e4ee74ba4805f8c92cda6e2b8ba00',
   },
 
@@ -58,6 +59,24 @@ module.exports = {
       order: 'Order',
       icon: 'Icon',
     },
+    bdAssets: {
+      name: 'asset',               // title property
+      slug: 'Slug',
+      assetType: 'Website Asset Type',
+      quadrantRel: 'Package Builder - Quadrants',
+      url: 'userDefined:url',
+      thumbnailUrl: 'Thumbnail URL',
+      description: 'Description',
+      tags: 'Tags',
+      featured: 'Featured',
+      showInPackageBuilder: 'Show in Package Builder',
+      showInPortfolio: 'Show in Portfolio',
+      passwordProtected: 'Password Protected',
+      password: 'Password',
+      client: 'Client',
+      order: 'Order',
+      icon: 'Icon',
+    },
     vertigoVault: {
       name: 'name',
       headline: 'headline',
@@ -75,6 +94,7 @@ module.exports = {
     outcomes: ['Quadrant', 'Name'],
     examples: ['Quadrant', 'Name'],
     portfolioAssets: ['Name', 'Asset Type'],
+    bdAssets: ['asset', 'Website Asset Type'],
     vertigoVault: ['name'],
   },
 
