@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-12T07:13:39.015Z",
+  "lastUpdated": "2026-02-12T08:14:46.407Z",
   "note": "Auto-generated from Notion BD Assets. Do not edit directly.",
   "assets": [
     {
@@ -192,7 +192,7 @@
         "case-study",
         "tool"
       ],
-      "featured": true,
+      "featured": false,
       "showInPackageBuilder": true,
       "showInPortfolio": true,
       "passwordProtected": false,
@@ -216,7 +216,7 @@
       "tags": [
         "case-study"
       ],
-      "featured": false,
+      "featured": true,
       "showInPackageBuilder": false,
       "showInPortfolio": true,
       "passwordProtected": false,
