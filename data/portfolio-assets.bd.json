@@ -1,33 +1,8 @@
 {
-  "lastUpdated": "2026-02-12T02:46:49.271Z",
+  "lastUpdated": "2026-02-12T04:31:02.932Z",
   "note": "Auto-generated from Notion BD Assets. Do not edit directly.",
   "source": "bdAssets",
   "assets": [
-    {
-      "id": "635bbd2a-4249-4d26-971e-5f6f531d6e72",
-      "name": "learning game prototype",
-      "slug": "learning-game-prototype",
-      "assetType": "web-app",
-      "quadrants": [
-        "product-design"
-      ],
-      "quadrantKey": "product-design",
-      "url": "https://windedvertigo.com/projects/learning-game",
-      "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/learning-game-prototype.png",
-      "description": "interactive prototype demonstrating gamified learning mechanics",
-      "tags": [
-        "prototype",
-        "case-study"
-      ],
-      "featured": false,
-      "showInPackageBuilder": true,
-      "showInPortfolio": true,
-      "passwordProtected": false,
-      "password": "",
-      "client": "",
-      "order": 1,
-      "icon": ""
-    },
     {
       "id": "bec5b20b-3f06-47f4-b671-9ea9e95b979d",
       "name": "webinar slides",
@@ -239,8 +214,10 @@
       "url": "https://drive.google.com/file/d/1_BI3D5YRq9h0inV_uzQ2fXnThRqOOc48/view?usp=sharing",
       "thumbnailUrl": "https://ghandoff.github.io/windedvertigo-site/images/thumbnails/brand-guidelines.png",
       "description": "winded.vertigo aligns messaging with collaborators via its brand guidelines",
-      "tags": [],
-      "featured": true,
+      "tags": [
+        "template"
+      ],
+      "featured": false,
       "showInPackageBuilder": false,
       "showInPortfolio": true,
       "passwordProtected": false,
