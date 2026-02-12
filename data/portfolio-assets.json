@@ -1,10 +1,11 @@
 {
-  "lastUpdated": "2026-02-12T00:13:44.396Z",
+  "lastUpdated": "2026-02-12T01:19:37.851Z",
   "note": "Auto-generated from Notion. Do not edit directly.",
   "assets": [
     {
       "id": "2fbe4ee7-4ba4-814e-9045-d32b96983810",
       "name": "learning game prototype",
+      "slug": "learning-game-prototype",
       "assetType": "web-app",
       "quadrants": [
         "product-design"
@@ -29,6 +30,7 @@
     {
       "id": "2fbe4ee7-4ba4-81c9-a3c0-d4b51b1aa5d9",
       "name": "webinar slides",
+      "slug": "webinar-slides",
       "assetType": "slides",
       "quadrants": [
         "people-design"
@@ -53,6 +55,7 @@
     {
       "id": "2fbe4ee7-4ba4-81e6-930b-ceaf30b3cae2",
       "name": "impact measurement dashboard",
+      "slug": "impact-measurement-dashboard",
       "assetType": "dashboard",
       "quadrants": [
         "people-research"
@@ -77,6 +80,7 @@
     {
       "id": "2fbe4ee7-4ba4-81ea-9b5a-d7a6e2d3a886",
       "name": "UDL compliance audit template",
+      "slug": "udl-compliance-audit-template",
       "assetType": "pdf",
       "quadrants": [
         "product-research"
@@ -101,6 +105,7 @@
     {
       "id": "2fbe4ee7-4ba4-8109-b29b-f97a2bb13182",
       "name": "designing cross-cultural business education",
+      "slug": "designing-cross-cultural-business-education",
       "assetType": "video",
       "quadrants": [
         "people-design"
@@ -124,6 +129,7 @@
     {
       "id": "2fbe4ee7-4ba4-8135-8dab-c06d761329e7",
       "name": "holistic skills framework",
+      "slug": "holistic-skills-framework",
       "assetType": "figma",
       "quadrants": [
         "product-design"
@@ -148,6 +154,7 @@
     {
       "id": "2fee4ee7-4ba4-8007-ab8c-d854d15318dd",
       "name": "strengthening emotional intelligence session",
+      "slug": "strengthening-emotional-intelligence-session",
       "assetType": "slides",
       "quadrants": [
         "people-design"
@@ -171,6 +178,7 @@
     {
       "id": "2fee4ee7-4ba4-8096-b77e-d784c4e07e9b",
       "name": "vertigo.vault",
+      "slug": "vertigo-vault",
       "assetType": "notion-db",
       "quadrants": [
         "people-design"
@@ -195,6 +203,7 @@
     {
       "id": "302e4ee7-4ba4-8140-8bd6-c859d0d78cc3",
       "name": "MindShift Missions",
+      "slug": "mindshift-missions",
       "assetType": "web-app",
       "quadrants": [
         "product-design"
