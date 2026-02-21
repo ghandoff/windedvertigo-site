@@ -1,5 +1,12 @@
 # winded.vertigo Site — Project Conventions
 
+## Creaseworks Project — Mount Instructions
+- **CRITICAL**: The creaseworks app lives at `/Users/garrettjaeger/Projects/creaseworks` on Garrett's machine (NOT in this windedvertigo-site repo).
+- At the START of every session that involves creaseworks work, use `request_cowork_directory` to mount that path immediately.
+- The mount goes stale frequently (after git pulls, long pauses, etc.). If any file read/write fails with "No such file or directory", re-mount before retrying.
+- The `.git` directory is NOT visible through the mount. All git operations (commit, push, pull) must be run by Garrett in his local terminal.
+- Repo: `ghandoff/creaseworks` (private), main branch. Live at `creaseworks.windedvertigo.com`.
+
 ## Git & CI Conventions
 - **Always rebase before push in CI workflows.** Any GitHub Actions workflow that commits and pushes should include `git pull --rebase origin main` before `git push` to avoid push rejections when the remote has moved forward.
 - **Thorough comments on every commit to scripts.** When committing changes to any script file, include a detailed comment block at or near the change site explaining what changed and why — not just a git commit message, but inline code comments within the script itself.
