@@ -7,6 +7,12 @@
 - The `.git` directory is NOT visible through the mount. All git operations (commit, push, pull) must be run by Garrett in his local terminal.
 - Repo: `ghandoff/creaseworks` (private), main branch. Live at `creaseworks.windedvertigo.com`.
 
+## winded.vertigo Infrastructure — Decision Log
+- **Multiple Vercel projects**: Garrett's `/Users/garrettjaeger/Projects/` folder contains multiple Vercel-hosted apps (creaseworks, sqr-rct, and potentially more). Maria is also building apps.
+- **Supabase evaluation (revisit when starting next new project)**: Creaseworks uses Neon Postgres + Auth.js + Resend. For the NEXT new w.v app, evaluate Supabase as an all-in-one alternative (Postgres + auth + file storage + real-time). Don't migrate creaseworks mid-flight — test on a fresh project first. If it works well, consider consolidating later.
+- **Vercel consolidation (revisit with creaseworks + static site merge)**: Plan is to move windedvertigo.com static site to Vercel alongside the apps, using path-based routing (`/studio/creaseworks/`, etc.) and shared CSS. This enables all w.v projects to share the header/footer/brand system.
+- **Notion as CMS**: All w.v editorial content is authored in Notion and synced to Postgres caches. API rate limit is 3 req/sec — monitor as more projects sync. Consider extracting a shared sync library when the second Notion-backed project launches.
+
 ## Git & CI Conventions
 - **Always rebase before push in CI workflows.** Any GitHub Actions workflow that commits and pushes should include `git pull --rebase origin main` before `git push` to avoid push rejections when the remote has moved forward.
 - **Thorough comments on every commit to scripts.** When committing changes to any script file, include a detailed comment block at or near the change site explaining what changed and why — not just a git commit message, but inline code comments within the script itself.
